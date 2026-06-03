@@ -34,15 +34,30 @@ che Nicolò rivede e usa per paper trading. NON è un bot automatico. Vedi PLAN.
 - Fix impersonazione su NOME+TICKER (SPCX ora escluso, verificato).
 - telethon aggiunto a requirements.txt (NON ancora pip-installato).
 
-## Prossimo step previsto
-- ATTIVARE Telegram: pip install telethon + Nicolò da' api_id/api_hash -> il segnale forte.
-- Tabella outcomes (misura esito netto slippage) = la metrica di verita'.
-- Infra: nuovo Supabase + deploy Railway (per girare 24/7).
+## FATTO dopo (sessione 2026-06-03, parte 3) — DEPLOY 24/7
+- Telegram attivato SENZA login: telegram_source.py legge i 5 canali via web preview
+  (t.me/s/<canale>), zero credenziali. Integrato nel social. .env con api_id/api_hash
+  salvato (permessi 600, gitignored) per upgrade Telethon futuro.
+- CFO check: Railway NON e' piu' gratis ($5/mese). Scelto GitHub Actions (free su repo privato).
+- DB: deciso SQLite separato (radar.db). Niente Supabase (limite free tier 2 progetti raggiunto;
+  e comunque mixarlo col DB clienti WhatsApp = rischio). Migrazione futura = solo get_conn.
+- REPO PRIVATO creato e pushato: github.com/nicolostancato-web/crypto-radar
+- GitHub Actions .github/workflows/radar.yml: cron ORARIO (min 7) + workflow_dispatch.
+  Gira run.py --once nel cloud, checkpoint WAL, ricommitta radar.db + top_scores.xlsx.
+- VERIFICATO: primo run cloud success in 43s, bot ha committato "radar run ...". GIRA 24/7, Mac spento.
 
-## BLOCCHI (servono da Nicolò) — il solo vero blocco ora e' Telegram
-1. **Telegram api_id + api_hash** da my.telegram.org (canali GIA' scelti). Sblocca il segnale migliore.
-2. Supabase: progetto "crypto-radar" (URL+service key) o Management token. Serve per 24/7.
-3. (opz) CoinGecko demo key per stabilita'.
+## Stato: IL RADAR E' ONLINE E AUTONOMO (gira ogni ora, gratis)
+- Output: scaricare top_scores.xlsx da github.com/nicolostancato-web/crypto-radar
+- ATTENZIONE SVILUPPO: il bot aggiorna radar.db nel cloud ogni ora. Prima di modificare
+  codice in locale: git pull. Non committare modifiche locali a radar.db (lo possiede il bot);
+  per test locali usare un DB separato o git checkout radar.db prima del push.
+
+## Prossimo step previsto
+- Tabella outcomes (misura esito netto slippage) = la metrica di verita'.
+- Notifica Telegram/email dei top pick (watchdog + comodita').
+- Lasciar girare giorni -> accumulare baseline -> vedere prima confluenza vera.
+
+## BLOCCHI: nessuno. Sistema autonomo. (opz: CoinGecko demo key per stabilita')
 
 ## File modificati di recente
 - crypto-radar/PLAN.md (nuovo), sources.py (nuovo), probe_sources.py (nuovo),
