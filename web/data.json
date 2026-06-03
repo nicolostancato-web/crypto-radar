@@ -1,6 +1,6 @@
 {
-  "updated_at": 1780518996.6198897,
-  "updated_iso": "2026-06-03 20:36 UTC",
+  "updated_at": 1780524293.5561862,
+  "updated_iso": "2026-06-03 22:04 UTC",
   "threshold": 4.0,
   "stats": {
     "candidates": 8,
@@ -18,17 +18,17 @@
       "ticker": "three",
       "name": "three.ws",
       "chain": "solana",
-      "score10": 5.2,
-      "score_raw": 6.2,
-      "price": 0.007783,
-      "liquidity": 368756,
-      "age_h": 4.1,
+      "score10": 5.4,
+      "score_raw": 6.5,
+      "price": 0.006709,
+      "liquidity": 388560,
+      "age_h": 5.5,
       "updated_min": 0.0,
       "source": "geckoterminal_trending",
       "signals": [
         {
           "k": "volume_accel",
-          "v": 1.57
+          "v": 1.8
         },
         {
           "k": "biz_mentions",
@@ -44,7 +44,7 @@
         },
         {
           "k": "buy_pressure",
-          "v": 0.13
+          "v": 0.2
         }
       ],
       "above_threshold": true,
@@ -55,17 +55,17 @@
       "ticker": "Magpie",
       "name": "Permission-less Lending",
       "chain": "solana",
-      "score10": 3.8,
-      "score_raw": 4.52,
-      "price": 0.0008542,
-      "liquidity": 68459,
-      "age_h": 4.1,
+      "score10": 3.6,
+      "score_raw": 4.31,
+      "price": 0.0007179,
+      "liquidity": 68948,
+      "age_h": 5.5,
       "updated_min": 0.0,
       "source": "geckoterminal_trending",
       "signals": [
         {
           "k": "volume_accel",
-          "v": 1.66
+          "v": 1.54
         },
         {
           "k": "confluence_bonus",
@@ -73,11 +73,11 @@
         },
         {
           "k": "young_with_volume",
-          "v": 1.25
+          "v": 1.15
         },
         {
           "k": "buy_pressure",
-          "v": 0.11
+          "v": 0.12
         }
       ],
       "above_threshold": true,
@@ -90,9 +90,9 @@
       "chain": "solana",
       "score10": 1.0,
       "score_raw": 1.25,
-      "price": 0.00238,
-      "liquidity": 220929,
-      "age_h": 0.0,
+      "price": 0.002328,
+      "liquidity": 220266,
+      "age_h": 1.5,
       "updated_min": 0.0,
       "source": "dexscreener_boosts",
       "signals": [
@@ -110,16 +110,16 @@
       "name": "Football Capital Markets",
       "chain": "solana",
       "score10": 0.3,
-      "score_raw": 0.36,
-      "price": 0.004857,
-      "liquidity": 182536,
-      "age_h": 4.1,
+      "score_raw": 0.37,
+      "price": 0.005203,
+      "liquidity": 184542,
+      "age_h": 5.5,
       "updated_min": 0.0,
       "source": "dexscreener_boosts",
       "signals": [
         {
           "k": "buy_pressure",
-          "v": 0.36
+          "v": 0.37
         }
       ],
       "above_threshold": false,
@@ -127,62 +127,20 @@
       "contract": "Hkpi2SkNWm5LogyY1Bz4zYTq5REVvco2aYWd1tYppump"
     },
     {
-      "ticker": "DOGEUS",
-      "name": "Dogeus Maximus",
-      "chain": "ethereum",
-      "score10": 0.2,
-      "score_raw": 0.27,
-      "price": 0.007696,
-      "liquidity": 255167,
-      "age_h": 4.1,
-      "updated_min": 0.0,
-      "source": "geckoterminal_trending",
-      "signals": [
-        {
-          "k": "buy_pressure",
-          "v": 0.27
-        }
-      ],
-      "above_threshold": false,
-      "dexscreener": "https://dexscreener.com/ethereum/0x12d44F8b4d3e28bdeb35E8E2e6585dFcc33eDa5F",
-      "contract": "0x759f8b83db57033aed95545694f6ada480b6e987"
-    },
-    {
-      "ticker": "FIFA",
-      "name": "Football Is For Aping",
-      "chain": "solana",
-      "score10": 0.2,
-      "score_raw": 0.27,
-      "price": 0.0001421,
-      "liquidity": 28922,
-      "age_h": 1.9,
-      "updated_min": 0.0,
-      "source": "dexscreener_boosts",
-      "signals": [
-        {
-          "k": "buy_pressure",
-          "v": 0.27
-        }
-      ],
-      "above_threshold": false,
-      "dexscreener": "https://dexscreener.com/solana/JAVcsdntW6KhMVLVpchSJ5sfUyEkCCvcz7vXP9CSur4h",
-      "contract": "HQhHdUm4Y26PvLA2mMnCcNp8Psnj2rZicMJ8bUzRpump"
-    },
-    {
       "ticker": "HONTER",
       "name": "honter boden",
       "chain": "solana",
-      "score10": 0.2,
-      "score_raw": 0.2,
-      "price": 0.0001847,
-      "liquidity": 36421,
-      "age_h": 0.0,
+      "score10": 0.3,
+      "score_raw": 0.3,
+      "price": 0.0001831,
+      "liquidity": 36465,
+      "age_h": 1.5,
       "updated_min": 0.0,
       "source": "dexscreener_boosts",
       "signals": [
         {
           "k": "buy_pressure",
-          "v": 0.2
+          "v": 0.3
         }
       ],
       "above_threshold": false,
@@ -190,20 +148,62 @@
       "contract": "uuxWwFL6G9UjiYRZvWxJrSB18V1oKBgYrmueamREK57"
     },
     {
-      "ticker": "CUP",
-      "name": "Cup Markets",
+      "ticker": "FIFA",
+      "name": "Football Is For Aping",
       "chain": "solana",
-      "score10": 0.0,
-      "score_raw": 0.06,
-      "price": 0.0003506,
-      "liquidity": 60123,
-      "age_h": 4.1,
+      "score10": 0.2,
+      "score_raw": 0.24,
+      "price": 0.0001411,
+      "liquidity": 28409,
+      "age_h": 3.4,
       "updated_min": 0.0,
       "source": "dexscreener_boosts",
       "signals": [
         {
           "k": "buy_pressure",
-          "v": 0.06
+          "v": 0.24
+        }
+      ],
+      "above_threshold": false,
+      "dexscreener": "https://dexscreener.com/solana/JAVcsdntW6KhMVLVpchSJ5sfUyEkCCvcz7vXP9CSur4h",
+      "contract": "HQhHdUm4Y26PvLA2mMnCcNp8Psnj2rZicMJ8bUzRpump"
+    },
+    {
+      "ticker": "DOGEUS",
+      "name": "Dogeus Maximus",
+      "chain": "ethereum",
+      "score10": 0.1,
+      "score_raw": 0.16,
+      "price": 0.007763,
+      "liquidity": 259271,
+      "age_h": 5.5,
+      "updated_min": 0.0,
+      "source": "geckoterminal_trending",
+      "signals": [
+        {
+          "k": "buy_pressure",
+          "v": 0.16
+        }
+      ],
+      "above_threshold": false,
+      "dexscreener": "https://dexscreener.com/ethereum/0x12d44F8b4d3e28bdeb35E8E2e6585dFcc33eDa5F",
+      "contract": "0x759f8b83db57033aed95545694f6ada480b6e987"
+    },
+    {
+      "ticker": "CUP",
+      "name": "Cup Markets",
+      "chain": "solana",
+      "score10": 0.0,
+      "score_raw": 0.05,
+      "price": 0.0003823,
+      "liquidity": 61536,
+      "age_h": 5.5,
+      "updated_min": 0.0,
+      "source": "dexscreener_boosts",
+      "signals": [
+        {
+          "k": "buy_pressure",
+          "v": 0.05
         }
       ],
       "above_threshold": false,
@@ -230,5 +230,6 @@
       "avg_net": null,
       "win_rate": null
     }
-  ]
+  ],
+  "learning": []
 }
