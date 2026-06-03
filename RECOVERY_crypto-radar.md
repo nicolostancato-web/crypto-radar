@@ -52,12 +52,20 @@ che Nicolò rivede e usa per paper trading. NON è un bot automatico. Vedi PLAN.
   codice in locale: git pull. Non committare modifiche locali a radar.db (lo possiede il bot);
   per test locali usare un DB separato o git checkout radar.db prima del push.
 
-## Prossimo step previsto
-- Tabella outcomes (misura esito netto slippage) = la metrica di verita'.
-- Notifica Telegram/email dei top pick (watchdog + comodita').
-- Lasciar girare giorni -> accumulare baseline -> vedere prima confluenza vera.
+## FATTO dopo (sessione 2026-06-03, parte 4) — VALIDAZIONE
+- Tabella outcomes (db.py schema + helper). config OUTCOMES (soglia 3.0, orizzonti 24/72/168h,
+  slippage simulato = taglia/liquidita + fee, andata+ritorno). jobs/outcomes.py apre entrate
+  ipotetiche quando score>=soglia e le matura nel tempo. Integrato in run.py.
+- export_excel: 2a scheda "Validazione" = valore atteso NETTO + win rate per orizzonte.
+- VERIFICATO nel cloud: bot ha creato tabella outcomes, aperto 2 entrate (Magpie, three),
+  Excel con schede [Top Scores, Validazione]. Gira tutto hourly, autonomo.
 
-## BLOCCHI: nessuno. Sistema autonomo. (opz: CoinGecko demo key per stabilita')
+## Prossimo step previsto
+- Lasciar maturare gli outcomes (24/72/168h) -> la scheda Validazione si riempie da sola.
+- Notifica Telegram dei top pick (chat ID 5182348358) — comodita' + watchdog.
+- Dopo settimane di dati: leggere il valore atteso netto = l'edge c'e' o no (onesto).
+
+## BLOCCHI: nessuno. Sistema completo e autonomo. (opz: CoinGecko demo key per stabilita')
 
 ## File modificati di recente
 - crypto-radar/PLAN.md (nuovo), sources.py (nuovo), probe_sources.py (nuovo),
