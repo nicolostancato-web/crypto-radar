@@ -12,7 +12,7 @@ Ogni stadio è isolato in try/except: se uno fallisce, gli altri continuano.
 """
 import sys, time
 from db import init_db
-from jobs import discovery, enrichment, social, scoring, export_excel
+from jobs import discovery, enrichment, social, scoring, outcomes, export_excel
 
 
 def one_cycle():
@@ -21,6 +21,7 @@ def one_cycle():
         ("enrichment", enrichment.enrich_once),
         ("social", social.social_once),
         ("scoring", scoring.score_once),
+        ("outcomes", outcomes.outcomes_once),
         ("export", export_excel.export),
     ]:
         try:

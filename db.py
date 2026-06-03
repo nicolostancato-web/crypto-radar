@@ -72,8 +72,31 @@ CREATE TABLE IF NOT EXISTS exclusions (
     PRIMARY KEY (chain, contract_address)
 );
 
+-- OUTCOMES: la METRICA DI VERITA'. Per ogni "entrata ipotetica" (quando uno score
+-- supera la soglia di tracking) registriamo prezzo+liquidita' di partenza, poi misuriamo
+-- il prezzo a 24h/72h/168h e il rendimento NETTO di slippage+fee simulati. Serve a dire,
+-- coi dati, se gli score alti corrispondono davvero a movimenti (o se l'edge non c'e').
+CREATE TABLE IF NOT EXISTS outcomes (
+    id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+    asset_id            INTEGER NOT NULL,
+    chain               TEXT,
+    contract_address    TEXT,
+    ticker              TEXT,
+    score_at_entry      REAL,
+    price_at_entry      REAL,
+    liquidity_at_entry  REAL,
+    entered_at          REAL NOT NULL,
+    price_24h  REAL, ret_24h_gross  REAL, ret_24h_net  REAL,
+    price_72h  REAL, ret_72h_gross  REAL, ret_72h_net  REAL,
+    price_168h REAL, ret_168h_gross REAL, ret_168h_net REAL,
+    status              TEXT NOT NULL DEFAULT 'open',   -- open | closed
+    closed_at           REAL,
+    FOREIGN KEY (asset_id) REFERENCES assets(id)
+);
+
 CREATE INDEX IF NOT EXISTS idx_signals_asset ON signals(asset_id, detected_at);
 CREATE INDEX IF NOT EXISTS idx_assets_status ON assets(status);
+CREATE INDEX IF NOT EXISTS idx_outcomes_status ON outcomes(status);
 """
 
 
@@ -181,3 +204,41 @@ def update_baseline(c, asset_id, liquidity, volume, holders=None):
 
 def get_baseline(c, asset_id):
     return c.execute("SELECT * FROM baselines WHERE asset_id=?", (asset_id,)).fetchone()
+
+
+# --- OUTCOMES (validazione onesta) ---------------------------------------
+
+def has_open_outcome(c, asset_id):
+    """True se c'è già un'entrata aperta per questo asset (un paper-trade alla volta)."""
+    row = c.execute(
+        "SELECT 1 FROM outcomes WHERE asset_id=? AND status='open' LIMIT 1", (asset_id,)
+    ).fetchone()
+    return row is not None
+
+
+def open_outcome(c, asset_id, chain, contract, ticker, score, price, liquidity):
+    """Apre un'entrata ipotetica (paper trade) da validare nel tempo."""
+    c.execute(
+        """INSERT INTO outcomes (asset_id, chain, contract_address, ticker,
+               score_at_entry, price_at_entry, liquidity_at_entry, entered_at, status)
+           VALUES (?,?,?,?,?,?,?,?, 'open')""",
+        (asset_id, chain, contract, ticker, score, price, liquidity, time.time()),
+    )
+
+
+def get_open_outcomes(c):
+    return c.execute("SELECT * FROM outcomes WHERE status='open'").fetchall()
+
+
+def set_outcome_point(c, outcome_id, horizon, price, ret_gross, ret_net):
+    """Scrive il punto a un orizzonte (24/72/168). Non sovrascrive se già presente."""
+    col_p, col_g, col_n = f"price_{horizon}h", f"ret_{horizon}h_gross", f"ret_{horizon}h_net"
+    c.execute(
+        f"UPDATE outcomes SET {col_p}=?, {col_g}=?, {col_n}=? WHERE id=? AND {col_p} IS NULL",
+        (price, ret_gross, ret_net, outcome_id),
+    )
+
+
+def close_outcome(c, outcome_id):
+    c.execute("UPDATE outcomes SET status='closed', closed_at=? WHERE id=?",
+              (time.time(), outcome_id))

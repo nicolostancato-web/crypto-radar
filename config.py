@@ -138,6 +138,19 @@ SCORING = {
 }
 
 # ---------------------------------------------------------------------------
+# OUTCOMES — la METRICA DI VERITÀ. Misura se gli score alti si muovono DAVVERO,
+# al netto di slippage+fee simulati. Non la % di colpi giusti (mente): il VALORE ATTESO.
+# ---------------------------------------------------------------------------
+OUTCOMES = {
+    "tracking_threshold": 3.0,    # score grezzo minimo per aprire un'entrata da validare
+    "horizons": [24, 72, 168],    # ore: misura a 1g / 3g / 7g (3g = colonna Excel "dopo 3g")
+    "paper_trade_usd": 500.0,     # taglia ipotetica del trade (per stimare lo slippage)
+    "swap_fee_pct": 0.003,        # fee DEX per lato (0.3% tipico)
+    "slippage_cap_pct": 0.15,     # tetto allo slippage stimato (15%) per non esagerare
+    "max_open_assets": 100,       # tetto entrate aperte in parallelo (controllo chiamate)
+}
+
+# ---------------------------------------------------------------------------
 # COSTI / RETE — paletti per non bruciare i rate limit gratuiti
 # ---------------------------------------------------------------------------
 LIMITS = {
