@@ -60,12 +60,24 @@ che Nicolò rivede e usa per paper trading. NON è un bot automatico. Vedi PLAN.
 - VERIFICATO nel cloud: bot ha creato tabella outcomes, aperto 2 entrate (Magpie, three),
   Excel con schede [Top Scores, Validazione]. Gira tutto hourly, autonomo.
 
-## Prossimo step previsto
-- Lasciar maturare gli outcomes (24/72/168h) -> la scheda Validazione si riempie da sola.
-- Notifica Telegram dei top pick (chat ID 5182348358) — comodita' + watchdog.
-- Dopo settimane di dati: leggere il valore atteso netto = l'edge c'e' o no (onesto).
+## FATTO dopo (sessione 2026-06-03, parte 5) — DASHBOARD WEB
+- web_export.py genera web/data.json (top 60 candidati + validazione + stats + by_chain).
+  Integrato in run.py.
+- Dashboard "console radar" (web/index.html + styles.css + app.js): tema dark verde fosforo,
+  font Clash Display + Satoshi + JetBrains Mono, gauge score 0-10, card candidati con segnali
+  e link DEXScreener, rotazione chain, scheda validazione. Verificata con screenshot.
+- DEPLOY: repo PUBBLICO github.com/nicolostancato-web/crypto-radar-dashboard + GitHub Pages.
+  LINK LIVE: https://nicolostancato-web.github.io/crypto-radar-dashboard/
+- AUTO-SYNC ORARIO: secret PAGES_PAT (PAT criptato pynacl) nel repo privato; workflow clona
+  il repo dashboard e ci copia data.json ogni ora. VERIFICATO: bot ha pushato "data ...Z".
+- Pubblico = solo dashboard + data.json (no segreti). Privato = codice + .env (chiavi Telegram).
 
-## BLOCCHI: nessuno. Sistema completo e autonomo. (opz: CoinGecko demo key per stabilita')
+## Prossimo step previsto
+- Lasciar maturare gli outcomes (24/72/168h) -> Validazione si riempie da sola.
+- Notifica Telegram dei top pick (chat ID 5182348358) — comodita' + watchdog.
+- Eventuale: spostare dashboard su Vercel se la vuole PRIVATA (ora e' pubblica/non indicizzata).
+
+## BLOCCHI: nessuno. Sistema completo, autonomo, con dashboard live.
 
 ## File modificati di recente
 - crypto-radar/PLAN.md (nuovo), sources.py (nuovo), probe_sources.py (nuovo),
