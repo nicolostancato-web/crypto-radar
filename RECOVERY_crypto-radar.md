@@ -77,7 +77,24 @@ che Nicolò rivede e usa per paper trading. NON è un bot automatico. Vedi PLAN.
 - Notifica Telegram dei top pick (chat ID 5182348358) — comodita' + watchdog.
 - Eventuale: spostare dashboard su Vercel se la vuole PRIVATA (ora e' pubblica/non indicizzata).
 
-## BLOCCHI: nessuno. Sistema completo, autonomo, con dashboard live.
+## FATTO dopo (sessione 2026-06-03, parte 6) — AUTO-MIGLIORAMENTO + dashboard learning
+- Watchdog + notifier.py (email Gmail + Telegram bot) — DORMIENTE (Nicolò: niente notifiche ora).
+- MOTORE CHE IMPARA (closed loop): outcomes.signals_at_entry registra quali segnali guidano
+  ogni entrata; jobs/learn.py ritara un MOLTIPLICATORE per segnale dagli esiti netti reali;
+  scoring applica i moltiplicatori appresi. FRENI: min_samples=15, passo graduale, [0.2, 2.0].
+  Tabella learned_weights. Dashboard mostra netto + moltiplicatore per segnale.
+- Stato: 0 esiti maturi -> motore IDLE finché i dati non arrivano (giorni). Corretto.
+- Fix: dotenv in config; bug dict TELEGRAM/EMAIL (channels) sistemato.
+- Fix propagazione: il workflow ora sincronizza TUTTA la cartella web/ al repo pubblico
+  (prima solo data.json -> le modifiche grafiche non andavano live).
+
+## IDEE IN ROADMAP (gestione senior, una alla volta)
+1. WALLET TRACKING (smart money) — NON ancora fatto. Il miglior segnale on-chain. Serve
+   API on-chain free (Helius per Solana) -> verificare free tier (CFO) prima. Capitolo a sé.
+2. Sezione "posizioni aperte" sulla dashboard (P&L live delle entrate finte) — quick.
+3. Segnali on-chain [RPC] (netflow, holder growth) — collegati al punto 1.
+
+## BLOCCHI: nessuno. Sistema autonomo, impara da solo quando i dati maturano.
 
 ## File modificati di recente
 - crypto-radar/PLAN.md (nuovo), sources.py (nuovo), probe_sources.py (nuovo),
