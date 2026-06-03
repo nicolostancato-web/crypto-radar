@@ -45,3 +45,16 @@ jobs:
           git add radar.db top_scores.xlsx web/data.json
           git commit -m "radar run $(date -u +%Y-%m-%dT%H:%MZ)" || echo "niente da committare"
           git push
+
+      - name: Aggiorna dashboard pubblica (data.json)
+        env:
+          PAGES_PAT: ${{ secrets.PAGES_PAT }}
+        run: |
+          git clone --depth 1 "https://x-access-token:${PAGES_PAT}@github.com/nicolostancato-web/crypto-radar-dashboard.git" /tmp/dash
+          cp web/data.json /tmp/dash/data.json
+          cd /tmp/dash
+          git config user.name "crypto-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data.json
+          git commit -m "data $(date -u +%Y-%m-%dT%H:%MZ)" || echo "nessun cambiamento"
+          git push
