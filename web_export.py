@@ -89,6 +89,13 @@ def build():
         for p in picks:
             by_chain[p["chain"]] = by_chain.get(p["chain"], 0) + 1
 
+    # cosa sta imparando il sistema (per-segnale, netto). Onesto: con poca N è rumore.
+    try:
+        from jobs.outcomes import learning_signals
+        learning = learning_signals(72)
+    except Exception:
+        learning = []
+
     data = {
         "updated_at": now,
         "updated_iso": time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime(now)),
@@ -97,6 +104,7 @@ def build():
         "by_chain": by_chain,
         "picks": picks,
         "validation": validation,
+        "learning": learning,
     }
 
     os.makedirs(OUT_DIR, exist_ok=True)

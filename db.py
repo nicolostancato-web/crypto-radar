@@ -83,6 +83,7 @@ CREATE TABLE IF NOT EXISTS outcomes (
     contract_address    TEXT,
     ticker              TEXT,
     score_at_entry      REAL,
+    signals_at_entry    TEXT,   -- JSON: QUALI segnali erano accesi (materiale per imparare)
     price_at_entry      REAL,
     liquidity_at_entry  REAL,
     entered_at          REAL NOT NULL,
@@ -92,6 +93,14 @@ CREATE TABLE IF NOT EXISTS outcomes (
     status              TEXT NOT NULL DEFAULT 'open',   -- open | closed
     closed_at           REAL,
     FOREIGN KEY (asset_id) REFERENCES assets(id)
+);
+
+-- NOTIFIED: per non rimandare la stessa notifica Telegram dello stesso pick.
+CREATE TABLE IF NOT EXISTS notified (
+    contract_address TEXT PRIMARY KEY,
+    ticker           TEXT,
+    score            REAL,
+    notified_at      REAL NOT NULL
 );
 
 CREATE INDEX IF NOT EXISTS idx_signals_asset ON signals(asset_id, detected_at);
@@ -115,6 +124,15 @@ def get_conn():
 def init_db():
     with get_conn() as c:
         c.executescript(SCHEMA)
+        _migrate(c)
+
+
+def _migrate(c):
+    """Aggiunte di colonne idempotenti: CREATE TABLE IF NOT EXISTS non altera tabelle già esistenti.
+    Serve per i DB creati prima di aggiungere una colonna (es. il radar.db già nel cloud)."""
+    cols = [r[1] for r in c.execute("PRAGMA table_info(outcomes)").fetchall()]
+    if "signals_at_entry" not in cols:
+        c.execute("ALTER TABLE outcomes ADD COLUMN signals_at_entry TEXT")
 
 
 # --- ESCLUSIONI -----------------------------------------------------------
@@ -216,13 +234,28 @@ def has_open_outcome(c, asset_id):
     return row is not None
 
 
-def open_outcome(c, asset_id, chain, contract, ticker, score, price, liquidity):
-    """Apre un'entrata ipotetica (paper trade) da validare nel tempo."""
+def open_outcome(c, asset_id, chain, contract, ticker, score, price, liquidity, signals=None):
+    """Apre un'entrata ipotetica (paper trade) da validare nel tempo.
+    `signals` (JSON) registra QUALI segnali erano accesi: serve a imparare dopo."""
     c.execute(
         """INSERT INTO outcomes (asset_id, chain, contract_address, ticker,
-               score_at_entry, price_at_entry, liquidity_at_entry, entered_at, status)
-           VALUES (?,?,?,?,?,?,?,?, 'open')""",
-        (asset_id, chain, contract, ticker, score, price, liquidity, time.time()),
+               score_at_entry, signals_at_entry, price_at_entry, liquidity_at_entry, entered_at, status)
+           VALUES (?,?,?,?,?,?,?,?,?, 'open')""",
+        (asset_id, chain, contract, ticker, score, signals, price, liquidity, time.time()),
+    )
+
+
+# --- NOTIFICHE (anti-spam) -----------------------------------------------
+
+def is_notified(c, contract):
+    return c.execute("SELECT 1 FROM notified WHERE contract_address=?", (contract,)).fetchone() is not None
+
+
+def mark_notified(c, contract, ticker, score):
+    c.execute(
+        """INSERT INTO notified (contract_address, ticker, score, notified_at) VALUES (?,?,?,?)
+           ON CONFLICT(contract_address) DO UPDATE SET score=excluded.score, notified_at=excluded.notified_at""",
+        (contract, ticker, score, time.time()),
     )
 
 

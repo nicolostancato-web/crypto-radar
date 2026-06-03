@@ -108,6 +108,10 @@ import os
 TELEGRAM = {
     "api_id": os.getenv("TELEGRAM_API_ID", ""),      # da my.telegram.org (vedi SETUP.md)
     "api_hash": os.getenv("TELEGRAM_API_HASH", ""),
+
+    # NOTIFICHE in uscita (bot) — il bot token viene da @BotFather (vedi SETUP.md).
+    "bot_token": os.getenv("TELEGRAM_BOT_TOKEN", ""),
+    "chat_id": os.getenv("TELEGRAM_CHAT_ID", "5182348358"),  # chat di Nicolò
     "session": "crypto_radar_tg",                     # file sessione Telethon (locale)
     "lookback_minutes": 180,                          # finestra di messaggi recenti da leggere
     "mentions_full": 8,                               # n. menzioni che vale "attenzione piena" (norm 0..1)

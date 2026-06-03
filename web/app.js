@@ -125,6 +125,24 @@ async function load() {
   }
 
   document.getElementById("validation").innerHTML = d.validation.map(valCell).join("");
+
+  const learn = d.learning || [];
+  const le = document.getElementById("learning");
+  if (learn.length) {
+    le.innerHTML = learn.map(l => {
+      const cls = l.avg_net > 0 ? "pos" : "neg";
+      const sign = l.avg_net > 0 ? "+" : "";
+      return `<div class="lrow ${l.confidence}">
+        <span class="lname">${l.signal.replace(/_/g, " ")}</span>
+        <span class="lbar"><span class="lfill ${cls}" style="width:${Math.min(100, Math.abs(l.avg_net) * 400)}%"></span></span>
+        <span class="lval ${cls}">${sign}${pct(l.avg_net)}</span>
+        <span class="ln">n=${l.n} · ${l.confidence}</span>
+      </div>`;
+    }).join("");
+  } else {
+    le.innerHTML = '<div class="empty">Ancora nessun esito maturo. Il sistema sta accumulando il materiale per imparare.</div>';
+  }
+
   document.getElementById("counts").textContent =
     `${s.candidates} candidati · ${s.excluded} esclusi · soglia ${d.threshold}`;
 }

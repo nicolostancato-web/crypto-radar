@@ -58,7 +58,8 @@ def outcomes_once():
     with get_conn() as c:
         # 1) APRI nuove entrate: score >= soglia, asset attivo, nessuna entrata gia' aperta
         rows = c.execute(
-            """SELECT a.id, a.chain, a.contract_address, a.ticker, s.current_score
+            """SELECT a.id, a.chain, a.contract_address, a.ticker,
+                      s.current_score, s.breakdown
                FROM scores s JOIN assets a ON a.id = s.asset_id
                WHERE a.status='active' AND s.current_score >= ?
                ORDER BY s.current_score DESC
@@ -73,7 +74,7 @@ def outcomes_once():
             if price is None:
                 continue
             open_outcome(c, r["id"], r["chain"], r["contract_address"], r["ticker"],
-                         r["current_score"], price, liq)
+                         r["current_score"], price, liq, signals=r["breakdown"])
             opened += 1
 
         # 2) MATURA le entrate aperte: riempi gli orizzonti scaduti, poi chiudi
@@ -115,9 +116,45 @@ def outcomes_summary():
         print(f"  {h}h: n={len(nets)}  valore_atteso_netto={avg:+.2%}  win_rate={win:.0%}")
 
 
+def learning_signals(horizon=72):
+    """
+    COSA STA IMPARANDO IL SISTEMA: per ogni segnale, qual è il rendimento netto medio
+    delle entrate in cui era acceso. È la base dell'apprendimento — ma ONESTA: con pochi
+    dati è rumore, quindi riportiamo anche N e una 'confidenza'. Si tara SOLO con N alto.
+    """
+    import json as _json
+    init_db()
+    col = f"ret_{horizon}h_net"
+    with get_conn() as c:
+        rows = c.execute(
+            f"SELECT signals_at_entry, {col} AS ret FROM outcomes WHERE {col} IS NOT NULL"
+        ).fetchall()
+
+    agg = {}  # signal -> list[net]
+    for r in rows:
+        try:
+            sigs = _json.loads(r["signals_at_entry"] or "{}")
+        except (TypeError, ValueError):
+            sigs = {}
+        for k in sigs:
+            agg.setdefault(k, []).append(r["ret"])
+
+    out = []
+    for k, nets in sorted(agg.items(), key=lambda x: -(sum(x[1]) / len(x[1]))):
+        n = len(nets)
+        avg = sum(nets) / n
+        # confidenza grezza: serve volume per crederci (curve-fitting su pochi = morte)
+        conf = "alta" if n >= 30 else "media" if n >= 10 else "bassa"
+        out.append({"signal": k, "n": n, "avg_net": round(avg, 4), "confidence": conf})
+    return out
+
+
 if __name__ == "__main__":
     if "--summary" in sys.argv:
         outcomes_summary()
+    elif "--learning" in sys.argv:
+        for s in learning_signals():
+            print(f"  {s['signal']:22} n={s['n']:3} netto_medio={s['avg_net']:+.2%} conf={s['confidence']}")
     else:
         outcomes_once()
         outcomes_summary()

@@ -17,6 +17,7 @@ import web_export
 
 
 def one_cycle():
+    errors = []
     for name, fn in [
         ("discovery", discovery.discover_once),
         ("enrichment", enrichment.enrich_once),
@@ -30,6 +31,15 @@ def one_cycle():
             fn()
         except Exception as e:
             print(f"[run] stadio {name} fallito: {e}")
+            errors.append(f"{name}: {e}")
+
+    # WATCHDOG + NOTIFICHE (no-op se Telegram bot non configurato)
+    try:
+        import notifier
+        notifier.notify_errors(errors)
+        notifier.notify_new_picks()
+    except Exception as e:
+        print(f"[run] notifier errore: {e}")
 
 
 def main():

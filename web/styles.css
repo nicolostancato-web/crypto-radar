@@ -209,6 +209,26 @@ body::after {
 .vcell .vv.wait { color: var(--faint); font-size: 1rem; font-weight: 500; }
 .vcell .vsub { color: var(--muted); font-size: 0.74rem; margin-top: 8px; }
 
+/* ---------- learning ---------- */
+.learning { margin-top: 56px; }
+.learn-list { display: flex; flex-direction: column; gap: 8px; }
+.lrow { display: grid; grid-template-columns: 180px 1fr 72px 110px; align-items: center; gap: 14px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; }
+.lrow.bassa { opacity: 0.55; }
+.lname { font-family: var(--mono); font-size: 0.8rem; }
+.lbar { height: 8px; background: var(--surface-2); border-radius: 999px; position: relative; }
+.lfill { position: absolute; top: 0; left: 0; height: 100%; border-radius: 999px; }
+.lfill.pos { background: linear-gradient(90deg, var(--phosphor-dim), var(--phosphor)); }
+.lfill.neg { background: linear-gradient(90deg, #8a4a4a, var(--danger)); }
+.lval { font-family: var(--mono); font-size: 0.82rem; text-align: right; }
+.lval.pos { color: var(--phosphor); } .lval.neg { color: var(--danger); }
+.ln { font-family: var(--mono); font-size: 0.66rem; color: var(--faint); text-align: right; }
+
+@media (max-width: 760px) {
+  .lrow { grid-template-columns: 110px 1fr 60px; }
+  .lrow .ln { display: none; }
+}
+
 /* ---------- footer ---------- */
 .foot { position: relative; z-index: 2; border-top: 1px solid var(--line);
   padding: 22px 28px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
