@@ -9,6 +9,14 @@ I pesi e le soglie iniziali sono CONSERVATIVI di proposito. Partono "stretti"
 roba. È molto più facile allargare che ripulire un Excel pieno di spazzatura.
 """
 
+import os
+# carica .env se presente (locale). Nel cloud le variabili arrivano dai secret -> no-op.
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except Exception:
+    pass
+
 # ---------------------------------------------------------------------------
 # DATABASE
 # ---------------------------------------------------------------------------
@@ -109,9 +117,10 @@ TELEGRAM = {
     "api_id": os.getenv("TELEGRAM_API_ID", ""),      # da my.telegram.org (vedi SETUP.md)
     "api_hash": os.getenv("TELEGRAM_API_HASH", ""),
 
-    # NOTIFICHE in uscita (bot) — il bot token viene da @BotFather (vedi SETUP.md).
+    # NOTIFICHE in uscita (bot) — opzionale, il bot token viene da @BotFather.
     "bot_token": os.getenv("TELEGRAM_BOT_TOKEN", ""),
     "chat_id": os.getenv("TELEGRAM_CHAT_ID", "5182348358"),  # chat di Nicolò
+
     "session": "crypto_radar_tg",                     # file sessione Telethon (locale)
     "lookback_minutes": 180,                          # finestra di messaggi recenti da leggere
     "mentions_full": 8,                               # n. menzioni che vale "attenzione piena" (norm 0..1)
@@ -125,6 +134,15 @@ TELEGRAM = {
         "lookonchain",             # money flow on-chain, smart money (38K)
         "whale_alert_io",          # transazioni grosse on-chain (313K)
     ],
+}
+
+# ---------------------------------------------------------------------------
+# EMAIL — canale di notifica opzionale (Gmail SMTP). Disattivo finché non si configura.
+# ---------------------------------------------------------------------------
+EMAIL = {
+    "gmail_user": os.getenv("GMAIL_USER", "nicolostancato@gmail.com"),
+    "gmail_app_password": os.getenv("GMAIL_APP_PASSWORD", ""),
+    "to": os.getenv("EMAIL_TO", "nicolostancato@gmail.com"),
 }
 
 # ---------------------------------------------------------------------------
@@ -152,6 +170,19 @@ OUTCOMES = {
     "swap_fee_pct": 0.003,        # fee DEX per lato (0.3% tipico)
     "slippage_cap_pct": 0.15,     # tetto allo slippage stimato (15%) per non esagerare
     "max_open_assets": 100,       # tetto entrate aperte in parallelo (controllo chiamate)
+}
+
+# ---------------------------------------------------------------------------
+# LEARN — il motore di AUTO-MIGLIORAMENTO. Ritara i pesi dei segnali sugli esiti reali.
+# Con i FRENI: si muove solo con abbastanza dati, a piccoli passi, dentro limiti.
+# ---------------------------------------------------------------------------
+LEARN = {
+    "min_samples": 15,     # sotto N esiti, un segnale NON si tocca (no overfitting sul rumore)
+    "horizon": 72,         # orizzonte di riferimento per imparare (3 giorni)
+    "step": 0.25,          # quanto ci si muove verso il target a ogni calibrazione (graduale)
+    "k": 3.0,              # sensibilità: target = 1 + k * rendimento_netto_medio
+    "floor": 0.2,          # un segnale non scende sotto (non lo azzeriamo mai del tutto)
+    "cap": 2.0,            # né sale sopra (non si fida ciecamente di un segnale)
 }
 
 # ---------------------------------------------------------------------------

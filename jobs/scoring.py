@@ -14,7 +14,7 @@ import sys, os, time, json
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from config import SCORING, LIMITS
-from db import get_conn, init_db
+from db import get_conn, init_db, get_learned_multipliers
 from net import RateLimiter, get_json
 
 DEX_BASE = "https://api.dexscreener.com"
@@ -39,6 +39,8 @@ def score_once():
     decay_window = SCORING["score_decay_hours"] * 3600
     scored = 0
     with get_conn() as c:
+        # pesi APPRESI dagli esiti (1.0 se il sistema non ha ancora imparato nulla)
+        learned = get_learned_multipliers(c)
         assets = c.execute("SELECT * FROM assets WHERE status='active'").fetchall()
         for a in assets:
             sigs = c.execute(
@@ -63,7 +65,8 @@ def score_once():
             positive_count = 0
             for st, (ts, val, w) in latest.items():
                 decay = max(0.0, 1.0 - (now - ts) / decay_window)   # lineare: 1 -> 0 su 24h
-                contrib = val * w * decay
+                mult = learned.get(st, 1.0)                          # PESO APPRESO dagli esiti
+                contrib = val * w * decay * mult
                 total += contrib
                 breakdown[st] = round(contrib, 3)
                 if contrib > 0:

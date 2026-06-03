@@ -53,6 +53,16 @@ Invece dei passi sopra, dammi un **Management API token**:
    - **api_id** (un numero)
    - **api_hash** (una stringa lunga)
 
+### BOT per le NOTIFICHE (da @BotFather) — per ricevere i pick sul telefono
+Diverso da api_id/api_hash (quelli leggono; questo SCRIVE a te). 2 minuti:
+1. Su Telegram cerca **@BotFather** → avvia.
+2. Manda **/newbot** → nome (es. `Crypto Radar`) → username che finisce per `bot`
+   (es. `crypto_radar_nic_bot`).
+3. BotFather ti dà un **token** tipo `123456789:AAH...` → mandamelo.
+4. **IMPORTANTE:** apri il tuo nuovo bot e premi **Start** (mandagli "ciao"). Senza questo,
+   il bot non può scriverti per primo (regola Telegram).
+Poi io imposto il token come secret e ti arrivano i pick + gli alert del watchdog.
+
 ### Canali seed — GIÀ SCELTI E VERIFICATI (2026-06-03)
 Lista SERIA pre-configurata in `config.py` (TELEGRAM["channels"]). Niente gruppi pump/scam:
 quelli iniettano attenzione finta e ci farebbero surfacing dei token da EVITARE.

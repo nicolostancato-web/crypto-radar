@@ -89,10 +89,15 @@ def build():
         for p in picks:
             by_chain[p["chain"]] = by_chain.get(p["chain"], 0) + 1
 
-    # cosa sta imparando il sistema (per-segnale, netto). Onesto: con poca N è rumore.
+    # cosa sta imparando il sistema (per-segnale: netto + peso APPRESO applicato).
     try:
         from jobs.outcomes import learning_signals
         learning = learning_signals(72)
+        with get_conn() as c2:
+            mults = {r["signal"]: r["multiplier"] for r in
+                     c2.execute("SELECT signal, multiplier FROM learned_weights").fetchall()}
+        for l in learning:
+            l["multiplier"] = round(mults.get(l["signal"], 1.0), 2)
     except Exception:
         learning = []
 

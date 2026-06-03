@@ -95,6 +95,17 @@ CREATE TABLE IF NOT EXISTS outcomes (
     FOREIGN KEY (asset_id) REFERENCES assets(id)
 );
 
+-- LEARNED_WEIGHTS: il sistema che IMPARA. Per ogni segnale tiene un moltiplicatore
+-- appreso dagli esiti reali (1.0 = neutro, >1 = ha funzionato, <1 = ha deluso/portato a zero).
+-- Lo scoring lo applica. Si muove a piccoli passi e SOLO con abbastanza dati (no overfitting).
+CREATE TABLE IF NOT EXISTS learned_weights (
+    signal      TEXT PRIMARY KEY,
+    multiplier  REAL NOT NULL DEFAULT 1.0,
+    n           INTEGER DEFAULT 0,
+    avg_net     REAL,
+    updated_at  REAL
+);
+
 -- NOTIFIED: per non rimandare la stessa notifica Telegram dello stesso pick.
 CREATE TABLE IF NOT EXISTS notified (
     contract_address TEXT PRIMARY KEY,
@@ -246,6 +257,23 @@ def open_outcome(c, asset_id, chain, contract, ticker, score, price, liquidity, 
 
 
 # --- NOTIFICHE (anti-spam) -----------------------------------------------
+
+def get_learned_multipliers(c):
+    """Dizionario {signal: moltiplicatore} appreso dagli esiti. Default vuoto = tutto 1.0."""
+    return {r["signal"]: r["multiplier"]
+            for r in c.execute("SELECT signal, multiplier FROM learned_weights").fetchall()}
+
+
+def set_learned_weight(c, signal, multiplier, n, avg_net):
+    c.execute(
+        """INSERT INTO learned_weights (signal, multiplier, n, avg_net, updated_at)
+           VALUES (?,?,?,?,?)
+           ON CONFLICT(signal) DO UPDATE SET
+             multiplier=excluded.multiplier, n=excluded.n,
+             avg_net=excluded.avg_net, updated_at=excluded.updated_at""",
+        (signal, multiplier, n, avg_net, time.time()),
+    )
+
 
 def is_notified(c, contract):
     return c.execute("SELECT 1 FROM notified WHERE contract_address=?", (contract,)).fetchone() is not None
