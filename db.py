@@ -1,0 +1,183 @@
+"""
+db.py — schema e accesso al database.
+
+Tabelle:
+  assets      -> i token in osservazione (UNIQUE su chain+contract -> NIENTE DUPLICATI)
+  signals     -> storico di ogni segnale misurato (una riga per misura)
+  baselines   -> media mobile per asset (lo spike è SEMPRE relativo alla storia del token)
+  scores      -> voto corrente + prezzo al momento del voto (serve per verificare l'edge)
+  exclusions  -> LISTA NERA PERMANENTE: una volta dentro, il token non rientra MAI più
+
+Per passare a Postgres: cambi solo get_conn() e i "?" in "%s". Lo schema è quasi identico.
+"""
+import sqlite3
+import time
+from contextlib import contextmanager
+from config import DB_PATH
+
+SCHEMA = """
+CREATE TABLE IF NOT EXISTS assets (
+    id                INTEGER PRIMARY KEY AUTOINCREMENT,
+    chain             TEXT NOT NULL,
+    contract_address  TEXT NOT NULL,
+    ticker            TEXT,
+    name              TEXT,
+    pair_address      TEXT,
+    discovery_source  TEXT,
+    discovered_at     REAL NOT NULL,
+    last_enriched_at  REAL,
+    status            TEXT NOT NULL DEFAULT 'active',  -- active | archived | excluded
+    UNIQUE (chain, contract_address)                   -- <<< DEDUP A LIVELLO DB
+);
+
+CREATE TABLE IF NOT EXISTS signals (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    asset_id    INTEGER NOT NULL,
+    stage       TEXT NOT NULL,        -- 'discovery' | 'enrichment'
+    signal_type TEXT NOT NULL,
+    value       REAL,
+    weight      REAL,
+    detected_at REAL NOT NULL,
+    FOREIGN KEY (asset_id) REFERENCES assets(id)
+);
+
+CREATE TABLE IF NOT EXISTS baselines (
+    asset_id        INTEGER PRIMARY KEY,
+    avg_liquidity   REAL,
+    avg_volume      REAL,
+    avg_holders     REAL,
+    samples         INTEGER DEFAULT 0,
+    updated_at      REAL,
+    FOREIGN KEY (asset_id) REFERENCES assets(id)
+);
+
+CREATE TABLE IF NOT EXISTS scores (
+    asset_id        INTEGER PRIMARY KEY,
+    current_score   REAL NOT NULL,
+    breakdown       TEXT,             -- JSON: da dove viene il punteggio (trasparenza)
+    price_at_score  REAL,            -- prezzo quando lo score è stato calcolato
+    updated_at      REAL NOT NULL,
+    FOREIGN KEY (asset_id) REFERENCES assets(id)
+);
+
+-- LISTA NERA PERMANENTE. Il discovery la consulta SEMPRE: un token qui dentro
+-- non viene mai reinserito, così non si spreca enrichment a riscoprire spazzatura.
+CREATE TABLE IF NOT EXISTS exclusions (
+    chain            TEXT NOT NULL,
+    contract_address TEXT NOT NULL,
+    reason           TEXT NOT NULL,
+    permanent        INTEGER NOT NULL DEFAULT 1,  -- 1 = per sempre, 0 = a tempo
+    excluded_at      REAL NOT NULL,
+    expires_at       REAL,                        -- usato solo se permanent=0
+    PRIMARY KEY (chain, contract_address)
+);
+
+CREATE INDEX IF NOT EXISTS idx_signals_asset ON signals(asset_id, detected_at);
+CREATE INDEX IF NOT EXISTS idx_assets_status ON assets(status);
+"""
+
+
+@contextmanager
+def get_conn():
+    conn = sqlite3.connect(DB_PATH, timeout=30)
+    conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA journal_mode=WAL;")   # letture concorrenti (Excel mentre gira)
+    try:
+        yield conn
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def init_db():
+    with get_conn() as c:
+        c.executescript(SCHEMA)
+
+
+# --- ESCLUSIONI -----------------------------------------------------------
+
+def is_excluded(c, chain, contract):
+    row = c.execute(
+        "SELECT permanent, expires_at FROM exclusions WHERE chain=? AND contract_address=?",
+        (chain, contract),
+    ).fetchone()
+    if not row:
+        return False
+    if row["permanent"] == 1:
+        return True
+    # esclusione a tempo: ancora valida?
+    return row["expires_at"] is not None and row["expires_at"] > time.time()
+
+
+def exclude(c, chain, contract, reason, permanent=True, ttl_hours=None):
+    expires = None if permanent else time.time() + (ttl_hours or 24) * 3600
+    c.execute(
+        """INSERT INTO exclusions (chain, contract_address, reason, permanent, excluded_at, expires_at)
+           VALUES (?,?,?,?,?,?)
+           ON CONFLICT(chain, contract_address) DO UPDATE SET
+             reason=excluded.reason, permanent=excluded.permanent,
+             excluded_at=excluded.excluded_at, expires_at=excluded.expires_at""",
+        (chain, contract, reason, 1 if permanent else 0, time.time(), expires),
+    )
+    # se era un asset attivo, marcalo escluso
+    c.execute(
+        "UPDATE assets SET status='excluded' WHERE chain=? AND contract_address=?",
+        (chain, contract),
+    )
+
+
+# --- ASSET ----------------------------------------------------------------
+
+def upsert_asset(c, chain, contract, ticker, name, pair, source):
+    """Inserisce l'asset SOLO se non esiste e non è in lista nera. Ritorna asset_id o None."""
+    if is_excluded(c, chain, contract):
+        return None
+    existing = c.execute(
+        "SELECT id FROM assets WHERE chain=? AND contract_address=?", (chain, contract)
+    ).fetchone()
+    if existing:
+        return existing["id"]  # gia' visto, niente duplicato
+    cur = c.execute(
+        """INSERT INTO assets (chain, contract_address, ticker, name, pair_address,
+                               discovery_source, discovered_at, status)
+           VALUES (?,?,?,?,?,?,?, 'active')""",
+        (chain, contract, ticker, name, pair, source, time.time()),
+    )
+    return cur.lastrowid
+
+
+def add_signal(c, asset_id, stage, signal_type, value, weight):
+    c.execute(
+        """INSERT INTO signals (asset_id, stage, signal_type, value, weight, detected_at)
+           VALUES (?,?,?,?,?,?)""",
+        (asset_id, stage, signal_type, value, weight, time.time()),
+    )
+
+
+def update_baseline(c, asset_id, liquidity, volume, holders=None):
+    """Media mobile incrementale: lo spike di domani sara' relativo a questa storia."""
+    row = c.execute("SELECT * FROM baselines WHERE asset_id=?", (asset_id,)).fetchone()
+    if row is None:
+        c.execute(
+            """INSERT INTO baselines (asset_id, avg_liquidity, avg_volume, avg_holders, samples, updated_at)
+               VALUES (?,?,?,?,1,?)""",
+            (asset_id, liquidity, volume, holders, time.time()),
+        )
+        return
+    n = row["samples"]
+    def ema(old, new, k=0.3):
+        if new is None:
+            return old
+        if old is None:
+            return new
+        return old * (1 - k) + new * k
+    c.execute(
+        """UPDATE baselines SET avg_liquidity=?, avg_volume=?, avg_holders=?,
+                                samples=?, updated_at=? WHERE asset_id=?""",
+        (ema(row["avg_liquidity"], liquidity), ema(row["avg_volume"], volume),
+         ema(row["avg_holders"], holders), n + 1, time.time(), asset_id),
+    )
+
+
+def get_baseline(c, asset_id):
+    return c.execute("SELECT * FROM baselines WHERE asset_id=?", (asset_id,)).fetchone()

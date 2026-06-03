@@ -1,0 +1,18 @@
+# Segreti — MAI su GitHub
+.env
+*.session
+*.session-journal
+
+# Ambiente Python
+venv/
+__pycache__/
+*.pyc
+
+# File temporanei SQLite (il radar.db SÌ va committato: è la persistenza)
+radar.db-wal
+radar.db-shm
+
+# Sistema
+.DS_Store
+/tmp/
+*.log

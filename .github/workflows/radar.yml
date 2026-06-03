@@ -1,0 +1,47 @@
+name: crypto-radar
+
+# Gira nel cloud di GitHub (Mac spento). Ogni ora + avvio manuale dal sito.
+on:
+  schedule:
+    - cron: "7 * * * *"      # ogni ora, al minuto 7
+  workflow_dispatch: {}       # bottone "Run workflow" per lanciarlo a mano
+
+# serve per ricommittare radar.db + l'Excel nel repo (persistenza dello stato)
+permissions:
+  contents: write
+
+# niente run sovrapposti (il DB è uno solo)
+concurrency:
+  group: radar
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (porta giù l'ultimo radar.db con la storia)
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip           # cache pip = run veloci = pochi minuti consumati
+
+      - name: Installa dipendenze
+        run: pip install -r requirements.txt
+
+      - name: Un giro del radar
+        run: python run.py --once
+
+      - name: Checkpoint SQLite (porta tutto dentro radar.db prima del commit)
+        run: |
+          python -c "import sqlite3; c=sqlite3.connect('radar.db'); c.execute('PRAGMA wal_checkpoint(TRUNCATE)'); c.close()"
+
+      - name: Salva DB + Excel nel repo
+        run: |
+          git config user.name "crypto-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add radar.db top_scores.xlsx
+          git commit -m "radar run $(date -u +%Y-%m-%dT%H:%MZ)" || echo "niente da committare"
+          git push
