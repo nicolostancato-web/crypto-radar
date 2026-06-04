@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://api.fontshare.com" />
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css?v=3" />
+  <link rel="stylesheet" href="./styles.css?v=4" />
 </head>
 <body>
   <div class="radar-bg" aria-hidden="true">
@@ -31,12 +31,45 @@
 
   <main class="wrap">
     <section class="hero">
-      <h1 class="headline">Chi c'è <span class="accent">sul radar</span> adesso.</h1>
-      <p class="sub">Candidati ordinati per confluenza di segnali — mercato, on‑chain, attenzione social.
-        Più alto lo score, più segnali diversi si allineano. Paper trading: nessun soldo mosso.</p>
+      <h1 class="headline">Segui <span class="accent">la smart money</span>.</h1>
+      <p class="sub">Wallet scoperti dal basso e qualificati dal loro PnL reale on‑chain.
+        I trader che guadagnano davvero, non i fortunati. I crypto candidati sono in fondo.
+        Paper trading: nessun soldo mosso.</p>
     </section>
 
     <section class="stats" id="stats"></section>
+
+    <section class="smart">
+      <div class="board-head">
+        <h2>Smart money <span id="wcount" class="wcount"></span></h2>
+        <div class="legend">
+          <span class="lg lg-hot">profittevole (provato)</span>
+          <span class="lg lg-watch">in osservazione</span>
+        </div>
+      </div>
+      <p class="sec-note">Ogni volta che il radar entra su un token fotografiamo chi compra, poi
+        ne calcoliamo il <strong>PnL reale</strong> (SOL guadagnati) e il <strong>win‑rate</strong>.
+        I verdi sono trader provati. I loro acquisti = entrata, le vendite = uscita.</p>
+      <div class="smart-list" id="wallets"></div>
+    </section>
+
+    <section class="validation">
+      <div class="val-head">
+        <h2>Validazione</h2>
+        <p>I segnali si muovono <em>davvero</em>? Rendimento <strong>netto</strong> di slippage+fee.
+          Si riempie nei prossimi giorni.</p>
+      </div>
+      <div class="val-grid" id="validation"></div>
+    </section>
+
+    <section class="learning">
+      <div class="val-head">
+        <h2>Cosa sta imparando</h2>
+        <p>Per ogni segnale, il rendimento netto medio delle entrate in cui era acceso.
+          Più gira, più impara — con pochi dati è rumore: ci fidiamo solo a confidenza <em>alta</em>.</p>
+      </div>
+      <div class="learn-list" id="learning"></div>
+    </section>
 
     <section class="chains">
       <div class="chains-head">
@@ -48,7 +81,7 @@
 
     <section class="board">
       <div class="board-head">
-        <h2>Candidati</h2>
+        <h2>Crypto candidati</h2>
         <div class="legend">
           <span class="lg lg-hot">in evidenza</span>
           <span class="lg lg-watch">in osservazione</span>
@@ -57,34 +90,6 @@
       <div class="grid" id="picks"></div>
       <div class="empty" id="empty" hidden></div>
     </section>
-
-    <section class="validation">
-      <div class="val-head">
-        <h2>Validazione</h2>
-        <p>Gli score alti si muovono <em>davvero</em>? Rendimento <strong>netto</strong> di slippage+fee.
-          Si riempie nei prossimi giorni.</p>
-      </div>
-      <div class="val-grid" id="validation"></div>
-    </section>
-
-    <section class="learning">
-      <div class="val-head">
-        <h2>Cosa sta imparando</h2>
-        <p>Per ogni segnale, il rendimento netto medio delle entrate in cui era acceso.
-          Più gira, più impara — ma con pochi dati è rumore: ci fidiamo solo a confidenza <em>alta</em>.</p>
-      </div>
-      <div class="learn-list" id="learning"></div>
-    </section>
-
-    <section class="smart">
-      <div class="val-head">
-        <h2>Smart money <span id="wcount" class="wcount"></span></h2>
-        <p>Wallet scoperti DAL BASSO: ogni volta che il radar entra su un token, fotografiamo
-          chi compra. Quelli che <em>ricorrono</em> sui token che poi performano diventano
-          “smart” (i loro acquisti = entrata, le vendite = uscita). Si costruisce mentre gira.</p>
-      </div>
-      <div class="smart-list" id="wallets"></div>
-    </section>
   </main>
 
   <footer class="foot">
@@ -92,6 +97,6 @@
     <span id="counts" class="muted"></span>
   </footer>
 
-  <script src="./app.js?v=3"></script>
+  <script src="./app.js?v=4"></script>
 </body>
 </html>

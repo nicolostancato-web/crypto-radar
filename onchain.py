@@ -68,6 +68,62 @@ def recent_buyers(mint, n=50):
     return buyers
 
 
+WSOL = "So11111111111111111111111111111111111111112"
+
+
+def wallet_pnl(address, max_tx=25):
+    """
+    QUALIFICA un wallet: PnL realizzato (in SOL) e win-rate sui suoi swap recenti.
+    Per ogni swap: il token che entra/esce + la variazione di SOL nativo del wallet.
+    PnL su un token = SOL incassato (vendite) - SOL speso (acquisti). Win = token chiusi in utile.
+    Proxy onesto (ignora token ancora in mano e coppie non-SOL). [] se manca la chiave.
+    """
+    if not available():
+        return None
+    sigs = _rpc("getSignaturesForAddress", [address, {"limit": max_tx}])
+    if not sigs:
+        return None
+    per = {}
+    for s in sigs:
+        if s.get("err"):
+            continue
+        tx = _rpc("getTransaction", [s["signature"],
+                  {"maxSupportedTransactionVersion": 0, "encoding": "jsonParsed"}])
+        if not tx:
+            continue
+        meta = tx.get("meta") or {}
+        keys = tx.get("transaction", {}).get("message", {}).get("accountKeys", [])
+        idx = next((i for i, k in enumerate(keys)
+                    if (k.get("pubkey") if isinstance(k, dict) else k) == address), None)
+        if idx is None:
+            continue
+        pre, post = meta.get("preBalances", []), meta.get("postBalances", [])
+        if idx >= len(pre) or idx >= len(post):
+            continue
+        sol_delta = (post[idx] - pre[idx]) / 1e9
+        preT = {b["mint"]: (b["uiTokenAmount"]["uiAmount"] or 0)
+                for b in meta.get("preTokenBalances", []) if b.get("owner") == address}
+        postT = {b["mint"]: (b["uiTokenAmount"]["uiAmount"] or 0)
+                 for b in meta.get("postTokenBalances", []) if b.get("owner") == address}
+        for m in set(preT) | set(postT):
+            if m == WSOL:
+                continue
+            d = postT.get(m, 0) - preT.get(m, 0)
+            if d == 0:
+                continue
+            rec = per.setdefault(m, {"in": 0.0, "out": 0.0, "buys": 0, "sells": 0})
+            if d > 0 and sol_delta < 0:
+                rec["in"] += -sol_delta; rec["buys"] += 1
+            elif d < 0 and sol_delta > 0:
+                rec["out"] += sol_delta; rec["sells"] += 1
+    closed = [v["out"] - v["in"] for v in per.values() if v["sells"] > 0 and v["in"] > 0]
+    if not closed:
+        return {"tokens": len(per), "closed": 0, "realized_sol": 0.0, "win_rate": None}
+    return {"tokens": len(per), "closed": len(closed),
+            "realized_sol": round(sum(closed), 3),
+            "win_rate": round(sum(1 for x in closed if x > 0) / len(closed), 2)}
+
+
 if __name__ == "__main__":
     if not available():
         print("[onchain] HELIUS_API_KEY assente — no-op. Vedi SETUP.md.")

@@ -192,6 +192,12 @@ WALLETS = {
     "capture_recent_n": 50,        # tx recenti da guardare per token (piccolo = pochi crediti)
     "max_capture_per_cycle": 4,    # max token fotografati per giro (tetto duro sui crediti)
     "min_buys_for_smart": 3,       # un wallet è "smart" solo se ricorre su >= 3 token (no rumore)
+
+    # QUALIFICA PnL (accumulo efficiente: ogni wallet si qualifica UNA volta, poi cache)
+    "qualify_tx": 25,              # quante tx del wallet guardare per il PnL
+    "max_qualify_per_cycle": 10,   # max wallet qualificati per giro (tetto crediti)
+    "requalify_days": 4,           # ri-qualifica un wallet solo dopo N giorni (il PnL cambia lento)
+    "min_closed_for_proven": 2,    # un wallet è "provato" con >= 2 posizioni chiuse
 }
 
 # ---------------------------------------------------------------------------

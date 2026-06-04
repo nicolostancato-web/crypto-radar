@@ -152,13 +152,18 @@ async function load() {
   const short = (a) => a ? a.slice(0, 4) + "…" + a.slice(-4) : "?";
   const wallet = (x, isSmart) => {
     const toks = (x.tokens || []).join(" · ");
-    const right = isSmart
-      ? `<span class="wscore pos">${x.avg_net >= 0 ? "+" : ""}${pct(x.avg_net || 0)} net</span>`
-      : `<span class="wrec">×${x.buys_count}</span>`;
-    return `<a class="wrow ${isSmart ? "is-smart" : ""}" href="https://solscan.io/account/${x.address}" target="_blank" rel="noopener">
+    let right;
+    if (isSmart) {
+      const wr = x.win_rate != null ? Math.round(x.win_rate * 100) + "%" : "—";
+      right = `<span class="wscore pos">+${(x.pnl_sol || 0).toFixed(2)} SOL · ${wr}</span>`;
+    } else {
+      right = `<span class="wrec">×${x.buys_count}</span>`;
+    }
+    const sub = isSmart ? `${x.closed_count} chiuse` : `su ${x.buys_count} token`;
+    return `<a class="wrow ${isSmart ? "is-smart" : ""}" href="https://gmgn.ai/sol/address/${x.address}" target="_blank" rel="noopener">
       <span class="waddr">${short(x.address)}</span>
       <span class="wtok">${toks || "—"}</span>
-      <span class="wbuys">su ${x.buys_count} token</span>
+      <span class="wbuys">${sub}</span>
       ${right}
     </a>`;
   };

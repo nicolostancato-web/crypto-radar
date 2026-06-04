@@ -234,7 +234,8 @@ body::after {
 }
 
 /* ---------- smart money ---------- */
-.smart { margin-top: 56px; }
+.smart { margin-top: 8px; }
+.sec-note { color: var(--muted); font-size: 0.9rem; max-width: 640px; margin: -6px 0 16px; }
 .wcount { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); font-weight: 400; }
 .smart-list { display: flex; flex-direction: column; gap: 8px; }
 .wnote { color: var(--muted); font-size: 0.82rem; margin-bottom: 4px; }

@@ -94,8 +94,9 @@ def build():
             return [r[0] for r in c.execute(
                 "SELECT DISTINCT ticker FROM wallet_buys WHERE address=? LIMIT 6", (addr,)).fetchall()]
         smart = [dict(r) for r in c.execute(
-            """SELECT address, buys_count, smart_score, avg_net FROM wallets
-               WHERE smart_score != 0 ORDER BY smart_score DESC LIMIT 10""").fetchall()]
+            """SELECT address, buys_count, smart_score, pnl_sol, win_rate, closed_count
+               FROM wallets WHERE pnl_sol > 0 AND closed_count >= 2
+               ORDER BY smart_score DESC LIMIT 12""").fetchall()]
         emerging = [dict(r) for r in c.execute(
             """SELECT address, buys_count FROM wallets
                WHERE buys_count >= 2 ORDER BY buys_count DESC LIMIT 12""").fetchall()]

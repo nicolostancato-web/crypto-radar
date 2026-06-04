@@ -14,21 +14,36 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from config import WALLETS
 from db import (get_conn, init_db, asset_has_wallet_capture, record_wallet_buy,
-                set_wallet_score)
+                set_wallet_score, wallets_to_qualify, set_wallet_pnl)
 import onchain
 
 
-def _score_wallets(c):
-    """smart_score = rendimento netto medio dei suoi token x ricorrenza. Solo con dati."""
+def _qualify_batch(c):
+    """Qualifica (PnL reale via Helius) un lotto di wallet NON ancora qualificati. Bounded + cache."""
+    addrs = wallets_to_qualify(c, WALLETS["requalify_days"] * 86400, WALLETS["max_qualify_per_cycle"])
+    done = 0
+    for a in addrs:
+        p = onchain.wallet_pnl(a, WALLETS["qualify_tx"])
+        if p is None:
+            continue
+        set_wallet_pnl(c, a, p["realized_sol"], p["win_rate"], p["closed"])
+        done += 1
+    return done
+
+
+def _smart_score(c):
+    """smart_score = PnL reale x win-rate x credibilità + bonus ricorrenza sui nostri token."""
     scored = 0
-    for w in c.execute("SELECT address FROM wallets").fetchall():
-        nets = [r[0] for r in c.execute(
-            """SELECT o.ret_72h_net FROM wallet_buys wb
-               JOIN outcomes o ON o.asset_id = wb.asset_id
-               WHERE wb.address=? AND o.ret_72h_net IS NOT NULL""", (w["address"],)).fetchall()]
-        if len(nets) >= WALLETS["min_buys_for_smart"]:
-            avg = sum(nets) / len(nets)
-            set_wallet_score(c, w["address"], round(avg * len(nets), 4), round(avg, 4))
+    for w in c.execute("SELECT address, pnl_sol, win_rate, closed_count, buys_count FROM wallets").fetchall():
+        buys = w["buys_count"] or 0
+        pnl, win, closed = w["pnl_sol"], w["win_rate"], w["closed_count"] or 0
+        if pnl is not None and closed >= WALLETS["min_closed_for_proven"]:
+            cred = min(closed / 3.0, 1.0)
+            score = round(pnl * (win or 0) * cred + 0.1 * buys, 3)
+        else:
+            score = round(0.05 * buys, 3)   # solo un filo di ricorrenza finché non è qualificato
+        set_wallet_score(c, w["address"], score, win)
+        if score > 0:
             scored += 1
     return scored
 
@@ -52,8 +67,9 @@ def capture_once():
                 record_wallet_buy(c, w, r["asset_id"], r["contract_address"], r["ticker"], ts)
             if buyers:
                 captured += 1
-        scored = _score_wallets(c)
-    print(f"[wallets] token fotografati={captured} wallet_smart_valutati={scored}")
+        qualified = _qualify_batch(c)   # accumulo qualificato, bounded
+        scored = _smart_score(c)
+    print(f"[wallets] fotografati={captured} qualificati={qualified} con_score={scored}")
     return captured
 
 

@@ -167,6 +167,12 @@ def _migrate(c):
     cols = [r[1] for r in c.execute("PRAGMA table_info(outcomes)").fetchall()]
     if "signals_at_entry" not in cols:
         c.execute("ALTER TABLE outcomes ADD COLUMN signals_at_entry TEXT")
+    # qualifica PnL dei wallet (accumulata e cachata, non si ricalcola ogni giro)
+    wc = [r[1] for r in c.execute("PRAGMA table_info(wallets)").fetchall()]
+    for col, ddl in [("pnl_sol", "REAL"), ("win_rate", "REAL"),
+                     ("closed_count", "INTEGER"), ("qualified_at", "REAL")]:
+        if wc and col not in wc:
+            c.execute(f"ALTER TABLE wallets ADD COLUMN {col} {ddl}")
 
 
 # --- ESCLUSIONI -----------------------------------------------------------
@@ -305,6 +311,22 @@ def record_wallet_buy(c, address, asset_id, mint, ticker, bought_at):
 def set_wallet_score(c, address, smart_score, avg_net):
     c.execute("UPDATE wallets SET smart_score=?, avg_net=?, updated_at=? WHERE address=?",
               (smart_score, avg_net, time.time(), address))
+
+
+def wallets_to_qualify(c, requalify_after_s, limit):
+    """Wallet mai qualificati o con qualifica vecchia. Evita di sprecare crediti su quelli già fatti."""
+    cutoff = time.time() - requalify_after_s
+    return [r["address"] for r in c.execute(
+        """SELECT address FROM wallets
+           WHERE qualified_at IS NULL OR qualified_at < ?
+           ORDER BY qualified_at IS NOT NULL, buys_count DESC LIMIT ?""",
+        (cutoff, limit)).fetchall()]
+
+
+def set_wallet_pnl(c, address, pnl_sol, win_rate, closed_count):
+    c.execute(
+        """UPDATE wallets SET pnl_sol=?, win_rate=?, closed_count=?, qualified_at=? WHERE address=?""",
+        (pnl_sol, win_rate, closed_count, time.time(), address))
 
 
 def get_learned_multipliers(c):
