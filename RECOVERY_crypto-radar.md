@@ -114,6 +114,18 @@ Pattern osservato spesso: token piatto -> 1a WHALE entra nella zona piatta (lei 
    Conferma tecnica: la whale NON si trova retroattivamente su token gia' pompati (HONTER e three
    = troppo tradati per paginare alla nascita) -> SOLO forward-capture al momento della scoperta.
 
+## FATTO dopo (2026-06-04 pomeriggio) — WALLET GRAPH a 3 livelli + dashboard wallet-centrica
+- onchain.wallet_deep: analisi profonda (200 tx) = PnL vero + win-rate + tx/giorno + mint vincenti.
+- 3 LIVELLI in jobs/wallets.py: (1) screen veloce 25tx, (2) DEEP-DIVE sui promettenti (verita' +
+  filtro ANTI-BOT: >60 tx/giorno = bot, score 0), (3) SNOWBALL: dalle whale verificate trova chi
+  compra i loro token vincenti = la RETE. Scoperta importante: i wallet "ottimi" allo screen erano
+  BOT (200-824 tx/giorno) -> il deep-dive li ha scartati. Idea di Nicolo (deep retroattivo) = essenziale.
+- GMGN testato: bloccato (Cloudflare 403). Scartato. Dune = opzione bulk futura (serve signup).
+- Dashboard RIFATTA: tema piu CHIARO (grafite, non nero), focus = CLASSIFICA WALLET per score
+  (score grande + PnL SOL + win-rate + badge verificata/bot), crypto compatti in fondo. Anti-cache ?v=5.
+- Schema wallets +verified,is_bot,tx_per_day,top_wins,deep_at,snowballed. config WALLETS deep/snowball.
+- CFO: deep max 2/giro x200 + snowball 1x2x30 + screen 10x25 ~= 600 call/ciclo -> ~440k/mese < 1M free.
+
 ## STRATEGIA CORRENTE: accumulare dati di qualità senza sprecare crediti, poi analizzare KPI + rete.
 ## BLOCCHI: nessuno. Sistema autonomo, accumula e si qualifica da solo ogni ora.
 
