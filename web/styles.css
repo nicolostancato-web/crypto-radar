@@ -256,6 +256,34 @@ body::after {
   .wrow .wbuys { display: none; }
 }
 
+/* ---------- BOSS (Who Knows More Than Me) ---------- */
+.bosses { margin-top: 8px; margin-bottom: 48px; }
+.boss-list { display: flex; flex-direction: column; gap: 10px; }
+.brow { display: grid; grid-template-columns: 44px 1fr auto auto; align-items: center; gap: 18px;
+  background: linear-gradient(180deg, rgba(79,224,154,0.05), var(--surface));
+  border: 1px solid rgba(79,224,154,0.3); border-radius: 14px; padding: 16px 20px;
+  text-decoration: none; color: var(--text); transition: transform .15s, box-shadow .15s; }
+.brow:hover { transform: translateY(-2px); box-shadow: 0 8px 36px rgba(79,224,154,0.14); }
+.brank { font-family: var(--mono); font-weight: 700; font-size: 1.5rem; color: var(--phosphor); text-align: center; }
+.bmeta { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.baddr { font-family: var(--mono); font-size: 1rem; }
+.bsub { font-size: 0.76rem; color: var(--muted); }
+.btot { font-family: var(--mono); font-size: 1.2rem; font-weight: 600; color: var(--phosphor); text-align: right; }
+.bbig { font-family: var(--mono); font-size: 0.74rem; color: var(--muted); text-align: right; }
+.srow { display: grid; grid-template-columns: 110px 1fr auto; align-items: center; gap: 14px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 9px; padding: 11px 16px;
+  text-decoration: none; color: var(--text); transition: border-color .12s; }
+.srow:hover { border-color: var(--line-2); }
+.saddr { font-family: var(--mono); font-size: 0.84rem; color: var(--phosphor-dim); }
+.spool { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.susd { font-family: var(--mono); font-size: 0.92rem; font-weight: 600; text-align: right; }
+
+@media (max-width: 760px) {
+  .brow { grid-template-columns: 36px 1fr auto; }
+  .brow .bbig { display: none; }
+  .srow { grid-template-columns: 90px 1fr auto; }
+}
+
 /* ---------- WALLET LEADERBOARD (focus principale) ---------- */
 .smart { margin-top: 8px; margin-bottom: 48px; }
 .wcount { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); font-weight: 400; }

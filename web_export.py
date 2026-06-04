@@ -8,8 +8,8 @@ quelli sopra soglia export): l'utente vuole VEDERE chi c'è sul radar, anche i d
 import sys, os, json, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from config import SCORING, OUTCOMES
-from db import get_conn, init_db
+from config import SCORING, OUTCOMES, SPIKES
+from db import get_conn, init_db, boss_leaderboard
 
 OUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "web")
 OUT_PATH = os.path.join(OUT_DIR, "data.json")
@@ -103,6 +103,18 @@ def build():
                ORDER BY (verified=1 AND is_bot=0) DESC, smart_score DESC LIMIT 20""").fetchall()]
         for w in leaderboard:
             w["tokens"] = _tokens_of(w["address"])
+        # BOSS — "Who Knows More Than Me": chi muove i big-buy sui token
+        bosses = [dict(r) for r in boss_leaderboard(c, SPIKES["boss_min_tokens"], 15)]
+        recent_spikes = [dict(r) for r in c.execute(
+            """SELECT wallet, pool_name, ROUND(usd) AS usd FROM spike_buys
+               ORDER BY bought_at DESC LIMIT 12""").fetchall()]
+        spikes_data = {
+            "big_buys": c.execute("SELECT COUNT(*) FROM spike_buys").fetchone()[0],
+            "wallets": c.execute("SELECT COUNT(DISTINCT wallet) FROM spike_buys").fetchone()[0],
+            "bosses": bosses,
+            "recent": recent_spikes,
+        }
+
         wallets_data = {
             "tracked": c.execute("SELECT COUNT(*) FROM wallets").fetchone()[0],
             "verified": c.execute("SELECT COUNT(*) FROM wallets WHERE verified=1 AND is_bot=0").fetchone()[0],
@@ -134,6 +146,7 @@ def build():
         "validation": validation,
         "learning": learning,
         "wallets": wallets_data,
+        "spikes": spikes_data,
     }
 
     os.makedirs(OUT_DIR, exist_ok=True)

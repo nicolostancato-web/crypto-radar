@@ -211,6 +211,16 @@ WALLETS = {
 }
 
 # ---------------------------------------------------------------------------
+# SPIKES — "Who Knows More Than Me": i big-buy che muovono il mercato (GeckoTerminal, gratis).
+# ---------------------------------------------------------------------------
+SPIKES = {
+    "min_usd": 1000,              # soglia big-buy: su microcap, $1k+ = entrata da whale
+    "max_pools_per_cycle": 30,    # pool analizzati per giro (rate limit GeckoTerminal free)
+    "coordination_window_s": 600, # 10 min: big-buy sullo stesso token entro = COORDINATI
+    "boss_min_tokens": 2,         # boss = big-buy su >= 2 token diversi (non casuale)
+}
+
+# ---------------------------------------------------------------------------
 # COSTI / RETE — paletti per non bruciare i rate limit gratuiti
 # ---------------------------------------------------------------------------
 LIMITS = {

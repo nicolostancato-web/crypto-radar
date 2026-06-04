@@ -129,6 +129,22 @@ CREATE TABLE IF NOT EXISTS wallet_buys (
     UNIQUE (address, mint)              -- un wallet conta una volta per token
 );
 
+-- SPIKE_BUYS: i grandi acquisti ("spike") sui token. CHI mette $$ grossi e muove il mercato.
+-- È il cuore di "Who Knows More Than Me": i wallet che ricorrono come big-buyer sui vincitori,
+-- e quelli che entrano INSIEME (coordinati), sono i boss che sanno qualcosa.
+CREATE TABLE IF NOT EXISTS spike_buys (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    wallet      TEXT NOT NULL,
+    mint        TEXT,
+    pool_name   TEXT,
+    usd         REAL,
+    bought_at   REAL,           -- timestamp del trade
+    captured_at REAL NOT NULL,
+    UNIQUE (wallet, mint, bought_at)
+);
+CREATE INDEX IF NOT EXISTS idx_spike_wallet ON spike_buys(wallet);
+CREATE INDEX IF NOT EXISTS idx_spike_mint ON spike_buys(mint, bought_at);
+
 -- NOTIFIED: per non rimandare la stessa notifica Telegram dello stesso pick.
 CREATE TABLE IF NOT EXISTS notified (
     contract_address TEXT PRIMARY KEY,
@@ -370,6 +386,40 @@ def seed_wallet(c, address):
         """INSERT INTO wallets (address, first_seen, buys_count, updated_at)
            VALUES (?,?,0,?) ON CONFLICT(address) DO NOTHING""",
         (address, time.time(), time.time()))
+
+
+# --- SPIKE BUYS (Who Knows More Than Me) ---------------------------------
+
+def record_spike_buy(c, wallet, mint, pool_name, usd, bought_at):
+    """Registra un big-buy. Dedup su (wallet, mint, ts). Ritorna True se nuovo."""
+    cur = c.execute(
+        """INSERT OR IGNORE INTO spike_buys (wallet, mint, pool_name, usd, bought_at, captured_at)
+           VALUES (?,?,?,?,?,?)""",
+        (wallet, mint, pool_name, usd, bought_at, time.time()))
+    return cur.rowcount > 0
+
+
+def coordination_count(c, mint, ts, window_s):
+    """Quanti wallet DISTINTI hanno fatto big-buy sullo stesso token entro la finestra (coordinazione)."""
+    return c.execute(
+        """SELECT COUNT(DISTINCT wallet) FROM spike_buys
+           WHERE mint=? AND bought_at BETWEEN ? AND ?""",
+        (mint, ts - window_s, ts + window_s)).fetchone()[0]
+
+
+def boss_leaderboard(c, min_tokens, limit):
+    """I BOSS: wallet che hanno fatto big-buy su >= min_tokens token diversi. Non casuali."""
+    return c.execute(
+        """SELECT wallet,
+                  COUNT(DISTINCT mint) AS tokens,
+                  COUNT(*) AS buys,
+                  ROUND(SUM(usd)) AS total_usd,
+                  ROUND(MAX(usd)) AS biggest
+           FROM spike_buys
+           GROUP BY wallet
+           HAVING tokens >= ?
+           ORDER BY tokens DESC, total_usd DESC
+           LIMIT ?""", (min_tokens, limit)).fetchall()
 
 
 def get_learned_multipliers(c):

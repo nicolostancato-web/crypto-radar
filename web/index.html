@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://api.fontshare.com" />
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css?v=6" />
+  <link rel="stylesheet" href="./styles.css?v=7" />
 </head>
 <body>
   <div class="radar-bg" aria-hidden="true">
@@ -31,12 +31,23 @@
 
   <main class="wrap">
     <section class="hero">
-      <h1 class="headline">La classifica della <span class="accent">smart money</span>.</h1>
-      <p class="sub">I wallet ordinati per <strong>score</strong>: PnL reale on‑chain + win‑rate.
-        Verificati in profondità, bot esclusi. Questo è il cuore — le crypto sono in fondo.</p>
+      <h1 class="headline">Who knows more <span class="accent">than me?</span></h1>
+      <p class="sub">Chi mette <strong>$$ grossi</strong> e muove gli spike sui token. I wallet che
+        ricorrono sui vincitori al momento giusto — o sanno qualcosa, o sono abbastanza forti da
+        spostare il mercato. Li troviamo, li verifichiamo, li seguiamo.</p>
     </section>
 
     <section class="stats" id="stats"></section>
+
+    <section class="bosses">
+      <div class="board-head">
+        <h2>I Boss <span id="bcount" class="wcount"></span></h2>
+        <div class="legend"><span class="lg lg-hot">ricorrente sui vincitori</span></div>
+      </div>
+      <p class="sec-note">Wallet che fanno <strong>big-buy</strong> (≥$1k) sui token che si muovono.
+        Chi ricorre su <strong>più token diversi</strong> non è casuale — è un boss che sa quando entrare.</p>
+      <div class="boss-list" id="bosses"></div>
+    </section>
 
     <section class="smart">
       <div class="board-head">
@@ -74,6 +85,6 @@
     <span id="counts" class="muted"></span>
   </footer>
 
-  <script src="./app.js?v=6"></script>
+  <script src="./app.js?v=7"></script>
 </body>
 </html>

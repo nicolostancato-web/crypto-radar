@@ -12,6 +12,29 @@ function stat(label, val, cls) {
   return `<div class="wcs"><span class="wcs-v ${cls || ""}">${val}</span><span class="wcs-l">${label}</span></div>`;
 }
 
+const usd = (n) => "$" + Math.round(n || 0).toLocaleString("en-US");
+
+function bossRow(b, rank) {
+  const toks = b.tokens || 1;
+  return `<a class="brow" href="https://solscan.io/account/${b.wallet}" target="_blank" rel="noopener">
+    <span class="brank">${rank}</span>
+    <span class="bmeta">
+      <span class="baddr">${short(b.wallet)}</span>
+      <span class="bsub">${toks} token diversi · ${b.buys || toks} big-buy</span>
+    </span>
+    <span class="btot">${usd(b.total_usd)}</span>
+    <span class="bbig">max ${usd(b.biggest)}</span>
+  </a>`;
+}
+
+function spikeRow(sp) {
+  return `<a class="srow" href="https://solscan.io/account/${sp.wallet}" target="_blank" rel="noopener">
+    <span class="saddr">${short(sp.wallet)}</span>
+    <span class="spool">${sp.pool_name || "—"}</span>
+    <span class="susd">${usd(sp.usd)}</span>
+  </a>`;
+}
+
 function walletRow(w) {
   const verified = w.verified && !w.is_bot;
   const badge = w.is_bot ? '<span class="wb bot">bot · non copiabile</span>'
@@ -89,6 +112,20 @@ async function load() {
     statCard(w.bots || 0, "bot esclusi", false) +
     statCard(s.candidates || 0, "crypto candidati", false) +
     statCard(s.outcomes_open || 0, "paper trade", false);
+
+  // BOSS — Who Knows More Than Me
+  const sp = d.spikes || { big_buys: 0, wallets: 0, bosses: [], recent: [] };
+  document.getElementById("bcount").textContent =
+    `${sp.bosses.length} boss · ${sp.big_buys} big-buy · ${sp.wallets} wallet`;
+  const be = document.getElementById("bosses");
+  if (sp.bosses.length) {
+    be.innerHTML = sp.bosses.map((b, i) => bossRow(b, i + 1)).join("");
+  } else if (sp.recent.length) {
+    be.innerHTML = `<div class="wnote">Nessun ricorrente ancora — servono più big-buy per trovare chi torna. Ultimi big-buy catturati:</div>`
+      + sp.recent.map(spikeRow).join("");
+  } else {
+    be.innerHTML = `<div class="empty">In ascolto degli spike. I big-buy ($1k+) appaiono man mano che i token si muovono.</div>`;
+  }
 
   document.getElementById("wcount").textContent =
     `${w.whales || 0} verificate · ${w.tracked} tracciati`;
