@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://api.fontshare.com" />
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css?v=4" />
+  <link rel="stylesheet" href="./styles.css?v=5" />
 </head>
 <body>
   <div class="radar-bg" aria-hidden="true">
@@ -31,63 +31,40 @@
 
   <main class="wrap">
     <section class="hero">
-      <h1 class="headline">Segui <span class="accent">la smart money</span>.</h1>
-      <p class="sub">Wallet scoperti dal basso e qualificati dal loro PnL reale on‑chain.
-        I trader che guadagnano davvero, non i fortunati. I crypto candidati sono in fondo.
-        Paper trading: nessun soldo mosso.</p>
+      <h1 class="headline">La classifica della <span class="accent">smart money</span>.</h1>
+      <p class="sub">I wallet ordinati per <strong>score</strong>: PnL reale on‑chain + win‑rate.
+        Verificati in profondità, bot esclusi. Questo è il cuore — le crypto sono in fondo.</p>
     </section>
 
     <section class="stats" id="stats"></section>
 
     <section class="smart">
       <div class="board-head">
-        <h2>Smart money <span id="wcount" class="wcount"></span></h2>
+        <h2>Wallet — classifica per score <span id="wcount" class="wcount"></span></h2>
         <div class="legend">
-          <span class="lg lg-hot">profittevole (provato)</span>
-          <span class="lg lg-watch">in osservazione</span>
+          <span class="lg lg-hot">whale verificata</span>
+          <span class="lg lg-watch">da verificare</span>
         </div>
       </div>
-      <p class="sec-note">Ogni volta che il radar entra su un token fotografiamo chi compra, poi
-        ne calcoliamo il <strong>PnL reale</strong> (SOL guadagnati) e il <strong>win‑rate</strong>.
-        I verdi sono trader provati. I loro acquisti = entrata, le vendite = uscita.</p>
-      <div class="smart-list" id="wallets"></div>
+      <div class="wlead" id="wallets"></div>
     </section>
 
-    <section class="validation">
-      <div class="val-head">
-        <h2>Validazione</h2>
-        <p>I segnali si muovono <em>davvero</em>? Rendimento <strong>netto</strong> di slippage+fee.
-          Si riempie nei prossimi giorni.</p>
+    <section class="secondary">
+      <div class="sec-col">
+        <h3>Validazione segnali</h3>
+        <div class="val-grid" id="validation"></div>
       </div>
-      <div class="val-grid" id="validation"></div>
-    </section>
-
-    <section class="learning">
-      <div class="val-head">
-        <h2>Cosa sta imparando</h2>
-        <p>Per ogni segnale, il rendimento netto medio delle entrate in cui era acceso.
-          Più gira, più impara — con pochi dati è rumore: ci fidiamo solo a confidenza <em>alta</em>.</p>
+      <div class="sec-col">
+        <h3>Cosa sta imparando</h3>
+        <div class="learn-list" id="learning"></div>
       </div>
-      <div class="learn-list" id="learning"></div>
     </section>
 
-    <section class="chains">
-      <div class="chains-head">
-        <span class="kicker">rotazione di chain</span>
-        <span class="hint">dove si sposta l'attenzione</span>
-      </div>
-      <div class="chain-bars" id="chains"></div>
-    </section>
-
-    <section class="board">
+    <section class="board-compact">
       <div class="board-head">
-        <h2>Crypto candidati</h2>
-        <div class="legend">
-          <span class="lg lg-hot">in evidenza</span>
-          <span class="lg lg-watch">in osservazione</span>
-        </div>
+        <h3>Crypto candidati <span class="wcount">(rilevanza minore)</span></h3>
       </div>
-      <div class="grid" id="picks"></div>
+      <div class="clist" id="picks"></div>
       <div class="empty" id="empty" hidden></div>
     </section>
   </main>
@@ -97,6 +74,6 @@
     <span id="counts" class="muted"></span>
   </footer>
 
-  <script src="./app.js?v=4"></script>
+  <script src="./app.js?v=5"></script>
 </body>
 </html>

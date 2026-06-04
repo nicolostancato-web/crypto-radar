@@ -1,88 +1,52 @@
-/* CRYPTO RADAR — console. Legge data.json e disegna i candidati. */
+/* CRYPTO RADAR — focus: classifica smart money. Legge data.json. */
 
-const CHAIN_COLORS = {
-  solana: "#9b7cff", ethereum: "#7aa2ff", base: "#4b8bff",
-  bsc: "#f3c34a", polygon: "#a06bff", arbitrum: "#6bd0ff", ton: "#4bb6ff",
-};
-
-const fmtPrice = (p) => {
-  if (p == null) return "—";
-  if (p >= 1) return "$" + p.toLocaleString("en-US", { maximumFractionDigits: 2 });
-  if (p >= 0.0001) return "$" + p.toFixed(6);
-  return "$" + p.toExponential(2);
-};
-const fmtUsd = (n) => {
-  if (n == null) return "—";
-  if (n >= 1e6) return "$" + (n / 1e6).toFixed(1) + "M";
-  if (n >= 1e3) return "$" + (n / 1e3).toFixed(0) + "k";
-  return "$" + n;
-};
-const fmtAge = (h) => (h == null ? "—" : h < 24 ? h.toFixed(0) + "h" : (h / 24).toFixed(1) + "g");
-const pct = (x) => (x * 100).toFixed(1) + "%";
-
-function gauge(score10) {
-  const r = 24, c = 2 * Math.PI * r;
-  const off = c * (1 - score10 / 10);
-  return `<div class="gauge">
-    <svg width="58" height="58" viewBox="0 0 58 58">
-      <circle class="track" cx="29" cy="29" r="${r}" fill="none" stroke-width="5"/>
-      <circle class="val" cx="29" cy="29" r="${r}" fill="none" stroke-width="5"
-        stroke-dasharray="${c.toFixed(1)}" stroke-dashoffset="${off.toFixed(1)}"/>
-    </svg>
-    <div class="num">${score10.toFixed(1)}<small>/10</small></div>
-  </div>`;
-}
-
-function card(p, i) {
-  const col = CHAIN_COLORS[p.chain] || "#7d8d87";
-  const sigs = p.signals.map(s =>
-    `<span class="sig ${s.k === "confluence_bonus" ? "bonus" : ""}">${s.k.replace(/_/g, " ")}</span>`
-  ).join("");
-  const link = p.dexscreener ? `<a class="card-link" href="${p.dexscreener}" target="_blank" rel="noopener" aria-label="apri ${p.ticker} su DEXScreener"></a>` : "";
-  const go = p.dexscreener ? `<span class="go">grafico ↗</span>` : "";
-  return `<article class="card ${p.above_threshold ? "hot" : "watch"}" style="animation-delay:${i * 0.04}s">
-    ${link}
-    <div class="card-top">
-      <div class="id">
-        <div class="ticker">${p.ticker}</div>
-        <div class="name">${p.name || "—"}</div>
-        <div class="chip"><span class="cd" style="background:${col}"></span>${p.chain}</div>
-      </div>
-      ${gauge(p.score10)}
-    </div>
-    <div class="signals">${sigs || '<span class="sig">nessun segnale</span>'}</div>
-    <div class="meta">
-      <div>prezzo<b>${fmtPrice(p.price)}</b></div>
-      <div>liquidità<b>${fmtUsd(p.liquidity)}</b></div>
-      <div>età<b>${fmtAge(p.age_h)}</b></div>
-    </div>
-    ${go}
-  </article>`;
-}
+const pct = (x) => (x * 100).toFixed(0) + "%";
+const short = (a) => a ? a.slice(0, 4) + "…" + a.slice(-4) : "?";
+const fmtScore10 = (x) => (x == null ? "—" : x.toFixed(1));
 
 function statCard(n, l, hot) {
   return `<div class="stat ${hot ? "hot" : ""}"><div class="n">${n}</div><div class="l">${l}</div></div>`;
 }
 
-function chainBar(name, val, max) {
-  const col = CHAIN_COLORS[name] || "#7d8d87";
-  const w = max ? Math.max(6, (val / max) * 100) : 0;
-  return `<div class="cbar">
-    <span class="cname"><span class="cd" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${col};margin-right:7px"></span>${name}</span>
-    <span class="ctrack"><span class="cfill" style="width:${w}%"></span></span>
-    <span class="cval">${val}</span>
-  </div>`;
+function walletRow(w) {
+  const verified = w.verified && !w.is_bot;
+  const badge = w.is_bot ? '<span class="wb bot">bot</span>'
+    : verified ? '<span class="wb ok">verificata</span>'
+    : '<span class="wb pend">da verificare</span>';
+  const win = w.win_rate != null ? Math.round(w.win_rate * 100) + "%" : "—";
+  const pnl = w.pnl_sol != null ? (w.pnl_sol >= 0 ? "+" : "") + w.pnl_sol.toFixed(2) + " SOL" : "—";
+  const toks = (w.tokens || []).join(" · ");
+  return `<a class="wrow2 ${verified ? "is-v" : ""} ${w.is_bot ? "is-bot" : ""}"
+      href="https://solscan.io/account/${w.address}" target="_blank" rel="noopener">
+    <span class="wscore2 ${w.smart_score > 0 ? "pos" : ""}">${(w.smart_score || 0).toFixed(2)}</span>
+    <span class="wmeta">
+      <span class="waddr">${short(w.address)} ${badge}</span>
+      <span class="wtok">${toks || "—"}</span>
+    </span>
+    <span class="wpnl ${(w.pnl_sol || 0) >= 0 ? "pos" : "neg"}">${pnl}</span>
+    <span class="wwin">win ${win}</span>
+  </a>`;
+}
+
+function pickRow(p) {
+  const sig = (p.signals || []).slice(0, 2).map(s => s.k.replace(/_/g, " ")).join(", ");
+  const href = p.dexscreener || "#";
+  return `<a class="crow" href="${href}" target="_blank" rel="noopener">
+    <span class="cscore">${fmtScore10(p.score10)}</span>
+    <span class="cticker">${p.ticker}</span>
+    <span class="cchain">${p.chain}</span>
+    <span class="csig">${sig || "—"}</span>
+  </a>`;
 }
 
 function valCell(v) {
   let body;
   if (v.avg_net == null) {
-    body = `<div class="vv wait">in maturazione</div><div class="vsub">i prezzi futuri non sono ancora pronti</div>`;
+    body = `<div class="vv wait">in maturazione</div>`;
   } else {
     const cls = v.avg_net > 0 ? "pos" : "neg";
-    const sign = v.avg_net > 0 ? "+" : "";
-    body = `<div class="vv ${cls}">${sign}${pct(v.avg_net)}</div>
-      <div class="vsub">valore atteso netto · n=${v.n} · win ${pct(v.win_rate)}</div>`;
+    body = `<div class="vv ${cls}">${v.avg_net > 0 ? "+" : ""}${(v.avg_net * 100).toFixed(1)}%</div>
+      <div class="vsub">n=${v.n} · win ${pct(v.win_rate)}</div>`;
   }
   return `<div class="vcell"><div class="vh">${v.horizon}</div>${body}</div>`;
 }
@@ -90,101 +54,61 @@ function valCell(v) {
 async function load() {
   let d;
   try {
-    const res = await fetch("./data.json?t=" + Date.now());
-    d = await res.json();
+    d = await (await fetch("./data.json?t=" + Date.now())).json();
   } catch (e) {
     document.getElementById("updated").textContent = "dati non disponibili";
     return;
   }
-
   document.getElementById("updated").textContent = "agg. " + d.updated_iso;
+  const w = d.wallets || { tracked: 0, whales: 0, bots: 0, leaderboard: [] };
+  const s = d.stats || {};
 
-  const s = d.stats;
   document.getElementById("stats").innerHTML =
-    statCard(s.candidates, "candidati", false) +
-    statCard(s.above_threshold, "in evidenza", true) +
-    statCard(s.watching, "in osservazione", false) +
-    statCard(s.outcomes_open, "paper trade aperti", false) +
-    statCard(s.excluded, "esclusi (trappole)", false);
+    statCard(w.tracked, "wallet tracciati", false) +
+    statCard(w.whales || 0, "whale verificate", true) +
+    statCard(w.bots || 0, "bot esclusi", false) +
+    statCard(s.candidates || 0, "crypto candidati", false) +
+    statCard(s.outcomes_open || 0, "paper trade", false);
 
-  const chains = Object.entries(d.by_chain).sort((a, b) => b[1] - a[1]);
-  const max = chains.length ? chains[0][1] : 0;
-  document.getElementById("chains").innerHTML =
-    chains.length ? chains.map(([n, v]) => chainBar(n, v, max)).join("")
-                  : '<div class="hint">nessun candidato attivo</div>';
+  document.getElementById("wcount").textContent =
+    `${w.whales || 0} verificate · ${w.tracked} tracciati`;
 
-  const picks = d.picks || [];
-  if (picks.length) {
-    document.getElementById("picks").innerHTML = picks.map(card).join("");
-    document.getElementById("empty").hidden = true;
+  const lb = w.leaderboard || [];
+  const wl = document.getElementById("wallets");
+  if (lb.length) {
+    wl.innerHTML = lb.map(walletRow).join("");
   } else {
-    document.getElementById("picks").innerHTML = "";
-    const e = document.getElementById("empty");
-    e.hidden = false;
-    e.textContent = "Nessun candidato sul radar in questo momento. Il sistema sta osservando.";
+    wl.innerHTML = `<div class="empty">Cattura in corso. I wallet appaiono man mano che il radar entra sui token, poi vengono qualificati col PnL reale.</div>`;
   }
 
-  document.getElementById("validation").innerHTML = d.validation.map(valCell).join("");
+  document.getElementById("validation").innerHTML = (d.validation || []).map(valCell).join("");
 
   const learn = d.learning || [];
   const le = document.getElementById("learning");
-  if (learn.length) {
-    le.innerHTML = learn.map(l => {
-      const cls = l.avg_net > 0 ? "pos" : "neg";
-      const sign = l.avg_net > 0 ? "+" : "";
-      const m = l.multiplier != null ? l.multiplier : 1;
-      const mcls = m > 1.02 ? "pos" : m < 0.98 ? "neg" : "";
-      return `<div class="lrow ${l.confidence}">
-        <span class="lname">${l.signal.replace(/_/g, " ")}</span>
-        <span class="lbar"><span class="lfill ${cls}" style="width:${Math.min(100, Math.abs(l.avg_net) * 400)}%"></span></span>
-        <span class="lval ${cls}">${sign}${pct(l.avg_net)}</span>
-        <span class="lmult ${mcls}" title="peso appreso applicato allo score">${m}×</span>
-        <span class="ln">n=${l.n} · ${l.confidence}</span>
-      </div>`;
-    }).join("");
-  } else {
-    le.innerHTML = '<div class="empty">Ancora nessun esito maturo. Il sistema sta accumulando il materiale per imparare.</div>';
-  }
+  le.innerHTML = learn.length
+    ? learn.map(l => {
+        const cls = l.avg_net > 0 ? "pos" : "neg";
+        return `<div class="lrow ${l.confidence}">
+          <span class="lname">${l.signal.replace(/_/g, " ")}</span>
+          <span class="lval ${cls}">${l.avg_net > 0 ? "+" : ""}${(l.avg_net * 100).toFixed(1)}%</span>
+          <span class="ln">n=${l.n}</span></div>`;
+      }).join("")
+    : '<div class="wnote">Nessun esito netto ancora. Si accumula mentre gira.</div>';
 
-  const w = d.wallets || { tracked: 0, smart: [], emerging: [] };
-  document.getElementById("wcount").textContent =
-    `${w.tracked} tracciati · ${(w.smart || []).length} smart`;
-  const short = (a) => a ? a.slice(0, 4) + "…" + a.slice(-4) : "?";
-  const wallet = (x, isSmart) => {
-    const toks = (x.tokens || []).join(" · ");
-    let right;
-    if (isSmart) {
-      const wr = x.win_rate != null ? Math.round(x.win_rate * 100) + "%" : "—";
-      right = `<span class="wscore pos">+${(x.pnl_sol || 0).toFixed(2)} SOL · ${wr}</span>`;
-    } else {
-      right = `<span class="wrec">×${x.buys_count}</span>`;
-    }
-    const sub = isSmart ? `${x.closed_count} chiuse` : `su ${x.buys_count} token`;
-    return `<a class="wrow ${isSmart ? "is-smart" : ""}" href="https://gmgn.ai/sol/address/${x.address}" target="_blank" rel="noopener">
-      <span class="waddr">${short(x.address)}</span>
-      <span class="wtok">${toks || "—"}</span>
-      <span class="wbuys">${sub}</span>
-      ${right}
-    </a>`;
-  };
-  const wl = document.getElementById("wallets");
-  const smart = w.smart || [], emerging = w.emerging || [];
-  const recent = w.recent || [];
-  if (smart.length) {
-    wl.innerHTML = smart.map(x => wallet(x, true)).join("");
-  } else if (emerging.length) {
-    wl.innerHTML = `<div class="wnote">Nessuno “smart” provato ancora (serve ricorrenza su ≥3 vincitori). Wallet che stanno emergendo:</div>`
-      + emerging.map(x => wallet(x, false)).join("");
-  } else if (recent.length) {
-    wl.innerHTML = `<div class="wnote">Cattura in corso (${w.captures} acquisti, ${w.tracked} wallet). Nessuna ricorrenza ancora — ultimi catturati:</div>`
-      + recent.map(x => wallet(x, false)).join("");
+  const picks = d.picks || [];
+  const pe = document.getElementById("picks"), em = document.getElementById("empty");
+  if (picks.length) {
+    em.hidden = true;
+    pe.innerHTML = picks.slice(0, 15).map(pickRow).join("");
   } else {
-    wl.innerHTML = `<div class="empty">Cattura in corso. I wallet appariranno man mano che il radar entra sui token.</div>`;
+    pe.innerHTML = "";
+    em.hidden = false;
+    em.textContent = "Nessun candidato sopra soglia ora.";
   }
 
   document.getElementById("counts").textContent =
-    `${s.candidates} candidati · ${s.excluded} esclusi · soglia ${d.threshold}`;
+    `${w.tracked} wallet · ${w.whales || 0} verificate · ${w.bots || 0} bot`;
 }
 
 load();
-setInterval(load, 5 * 60 * 1000); // ricarica ogni 5 min (la dashboard resta fresca)
+setInterval(load, 5 * 60 * 1000);

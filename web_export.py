@@ -89,29 +89,27 @@ def build():
         for p in picks:
             by_chain[p["chain"]] = by_chain.get(p["chain"], 0) + 1
 
-        # SMART MONEY in costruzione (wallet scoperti dal basso)
+        # SMART MONEY — classifica wallet (il focus principale della dashboard)
         def _tokens_of(addr):
             return [r[0] for r in c.execute(
                 "SELECT DISTINCT ticker FROM wallet_buys WHERE address=? LIMIT 6", (addr,)).fetchall()]
-        smart = [dict(r) for r in c.execute(
-            """SELECT address, buys_count, smart_score, pnl_sol, win_rate, closed_count
-               FROM wallets WHERE pnl_sol > 0 AND closed_count >= 2
-               ORDER BY smart_score DESC LIMIT 12""").fetchall()]
-        emerging = [dict(r) for r in c.execute(
-            """SELECT address, buys_count FROM wallets
-               WHERE buys_count >= 2 ORDER BY buys_count DESC LIMIT 12""").fetchall()]
-        for w in smart + emerging:
+        leaderboard = [dict(r) for r in c.execute(
+            """SELECT address, smart_score, pnl_sol, win_rate, closed_count, buys_count,
+                      verified, is_bot, tx_per_day
+               FROM wallets
+               WHERE (verified=1 AND is_bot=0 AND pnl_sol>0)
+                  OR (pnl_sol>0 AND closed_count>=2)
+                  OR buys_count>=2
+               ORDER BY (verified=1 AND is_bot=0) DESC, smart_score DESC LIMIT 20""").fetchall()]
+        for w in leaderboard:
             w["tokens"] = _tokens_of(w["address"])
-        recent = [{"address": r[0], "tokens": [r[1]], "buys_count": 1}
-                  for r in c.execute(
-                      """SELECT address, ticker FROM wallet_buys
-                         ORDER BY captured_at DESC LIMIT 10""").fetchall()]
         wallets_data = {
             "tracked": c.execute("SELECT COUNT(*) FROM wallets").fetchone()[0],
+            "verified": c.execute("SELECT COUNT(*) FROM wallets WHERE verified=1 AND is_bot=0").fetchone()[0],
+            "whales": c.execute("SELECT COUNT(*) FROM wallets WHERE verified=1 AND is_bot=0 AND pnl_sol>0").fetchone()[0],
+            "bots": c.execute("SELECT COUNT(*) FROM wallets WHERE is_bot=1").fetchone()[0],
             "captures": c.execute("SELECT COUNT(*) FROM wallet_buys").fetchone()[0],
-            "smart": smart,
-            "emerging": emerging,
-            "recent": recent,
+            "leaderboard": leaderboard,
         }
 
     # cosa sta imparando il sistema (per-segnale: netto + peso APPRESO applicato).

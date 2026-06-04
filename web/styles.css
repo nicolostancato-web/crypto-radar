@@ -4,20 +4,20 @@
    ============================================================ */
 
 :root {
-  --bg: #06090a;
-  --bg-2: #0a0e10;
-  --surface: #0e1416;
-  --surface-2: #121a1d;
-  --line: #1b2528;
-  --line-2: #243034;
-  --text: #d6e2dc;
-  --muted: #6c7d77;
-  --faint: #46524e;
-  --phosphor: #74ffb0;
-  --phosphor-dim: #3fcf85;
+  --bg: #1b212b;
+  --bg-2: #212834;
+  --surface: #283140;
+  --surface-2: #303b4b;
+  --line: #3a4658;
+  --line-2: #495669;
+  --text: #eef2f7;
+  --muted: #a3b0c2;
+  --faint: #6b7892;
+  --phosphor: #4fe09a;
+  --phosphor-dim: #36c382;
   --amber: #ffcf7a;
-  --danger: #ff7a7a;
-  --glow: 0 0 24px rgba(116, 255, 176, 0.18);
+  --danger: #ff8a8a;
+  --glow: 0 0 22px rgba(79, 224, 154, 0.20);
   --radius: 14px;
   --mono: "JetBrains Mono", ui-monospace, monospace;
   --display: "Clash Display", sans-serif;
@@ -44,9 +44,9 @@ body {
   position: absolute; top: -20%; left: 50%; width: 130vmax; height: 130vmax;
   transform: translateX(-50%);
   background:
-    radial-gradient(circle, transparent 0, transparent calc(10% - 1px), rgba(116,255,176,0.045) 10%, transparent calc(10% + 1px)) center/100% 100%,
-    repeating-radial-gradient(circle at center, rgba(116,255,176,0.035) 0 1px, transparent 1px 9%);
-  opacity: 0.5;
+    radial-gradient(circle, transparent 0, transparent calc(10% - 1px), rgba(79,224,154,0.05) 10%, transparent calc(10% + 1px)) center/100% 100%,
+    repeating-radial-gradient(circle at center, rgba(79,224,154,0.04) 0 1px, transparent 1px 9%);
+  opacity: 0.35;
 }
 .sweep {
   position: absolute; top: -20%; left: 50%; width: 130vmax; height: 130vmax;
@@ -64,7 +64,7 @@ body {
 }
 body::after {
   content: ""; position: fixed; inset: 0; z-index: 1; pointer-events: none;
-  background: radial-gradient(ellipse at 50% -10%, transparent 40%, rgba(0,0,0,0.55) 100%);
+  background: radial-gradient(ellipse at 50% -10%, transparent 55%, rgba(8,11,16,0.35) 100%);
 }
 
 /* ---------- topbar ---------- */
@@ -254,6 +254,68 @@ body::after {
 @media (max-width: 760px) {
   .wrow { grid-template-columns: 90px 1fr 64px; }
   .wrow .wbuys { display: none; }
+}
+
+/* ---------- WALLET LEADERBOARD (focus principale) ---------- */
+.smart { margin-top: 8px; margin-bottom: 48px; }
+.wcount { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); font-weight: 400; }
+.wlead { display: flex; flex-direction: column; gap: 9px; }
+.wrow2 { display: grid; grid-template-columns: 76px 1fr 120px 86px; align-items: center; gap: 16px;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+  padding: 16px 20px; text-decoration: none; color: var(--text);
+  transition: transform .15s, border-color .15s, box-shadow .15s; }
+.wrow2:hover { transform: translateY(-2px); border-color: var(--line-2); }
+.wrow2.is-v { border-color: rgba(79,224,154,0.4); background: linear-gradient(180deg, rgba(79,224,154,0.05), var(--surface)); }
+.wrow2.is-v:hover { box-shadow: 0 8px 36px rgba(79,224,154,0.12); }
+.wrow2.is-bot { opacity: 0.5; }
+.wscore2 { font-family: var(--mono); font-weight: 700; font-size: 1.9rem; line-height: 1;
+  color: var(--faint); text-align: center; }
+.wscore2.pos { color: var(--phosphor); text-shadow: 0 0 22px rgba(79,224,154,0.4); }
+.wmeta { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.waddr { font-family: var(--mono); font-size: 0.92rem; display: flex; align-items: center; gap: 8px; }
+.wtok { font-family: var(--mono); font-size: 0.72rem; color: var(--muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wb { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.08em; padding: 2px 7px; border-radius: 999px; }
+.wb.ok { color: var(--phosphor); background: rgba(79,224,154,0.12); border: 1px solid rgba(79,224,154,0.3); }
+.wb.bot { color: var(--danger); background: rgba(255,138,138,0.1); border: 1px solid rgba(255,138,138,0.3); }
+.wb.pend { color: var(--muted); border: 1px solid var(--line-2); }
+.wpnl { font-family: var(--mono); font-size: 1.05rem; text-align: right; font-weight: 500; }
+.wpnl.pos { color: var(--phosphor); } .wpnl.neg { color: var(--danger); }
+.wwin { font-family: var(--mono); font-size: 0.82rem; color: var(--muted); text-align: right; }
+.wnote { color: var(--muted); font-size: 0.82rem; margin-bottom: 4px; }
+
+/* ---------- sezioni secondarie (validazione + apprendimento) ---------- */
+.secondary { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 48px; }
+.sec-col h3, .board-compact h3 { font-family: var(--display); font-weight: 600; font-size: 1.1rem;
+  margin-bottom: 14px; color: var(--text); }
+.val-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.lrow { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: center;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 9px; padding: 9px 13px; }
+.lrow.bassa { opacity: 0.6; }
+.lname { font-family: var(--mono); font-size: 0.76rem; }
+.lval { font-family: var(--mono); font-size: 0.8rem; } .lval.pos { color: var(--phosphor); } .lval.neg { color: var(--danger); }
+.ln { font-family: var(--mono); font-size: 0.66rem; color: var(--faint); }
+.learn-list { display: flex; flex-direction: column; gap: 7px; }
+
+/* ---------- crypto compatti (in fondo, rilevanza minore) ---------- */
+.board-compact { margin-bottom: 40px; opacity: 0.92; }
+.clist { display: flex; flex-direction: column; gap: 5px; }
+.crow { display: grid; grid-template-columns: 46px 90px 70px 1fr; align-items: center; gap: 12px;
+  padding: 8px 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface);
+  text-decoration: none; color: var(--muted); font-size: 0.82rem; transition: border-color .12s; }
+.crow:hover { border-color: var(--line-2); }
+.cscore { font-family: var(--mono); font-weight: 700; color: var(--phosphor-dim); }
+.cticker { font-family: var(--mono); color: var(--text); }
+.cchain { font-size: 0.72rem; color: var(--faint); text-transform: capitalize; }
+.csig { font-family: var(--mono); font-size: 0.7rem; color: var(--muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+@media (max-width: 760px) {
+  .secondary { grid-template-columns: 1fr; }
+  .wrow2 { grid-template-columns: 56px 1fr 86px; }
+  .wrow2 .wwin { display: none; }
+  .crow { grid-template-columns: 40px 80px 1fr; }
+  .crow .cchain { display: none; }
 }
 
 /* ---------- footer ---------- */
