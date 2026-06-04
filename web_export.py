@@ -95,7 +95,7 @@ def build():
                 "SELECT DISTINCT ticker FROM wallet_buys WHERE address=? LIMIT 6", (addr,)).fetchall()]
         leaderboard = [dict(r) for r in c.execute(
             """SELECT address, smart_score, pnl_sol, win_rate, closed_count, buys_count,
-                      verified, is_bot, tx_per_day
+                      verified, is_bot, tx_per_day, tokens_count, open_count
                FROM wallets
                WHERE (verified=1 AND is_bot=0 AND pnl_sol>0)
                   OR (pnl_sol>0 AND closed_count>=2)

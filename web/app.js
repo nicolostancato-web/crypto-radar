@@ -8,23 +8,43 @@ function statCard(n, l, hot) {
   return `<div class="stat ${hot ? "hot" : ""}"><div class="n">${n}</div><div class="l">${l}</div></div>`;
 }
 
+function stat(label, val, cls) {
+  return `<div class="wcs"><span class="wcs-v ${cls || ""}">${val}</span><span class="wcs-l">${label}</span></div>`;
+}
+
 function walletRow(w) {
   const verified = w.verified && !w.is_bot;
-  const badge = w.is_bot ? '<span class="wb bot">bot</span>'
+  const badge = w.is_bot ? '<span class="wb bot">bot · non copiabile</span>'
     : verified ? '<span class="wb ok">verificata</span>'
     : '<span class="wb pend">da verificare</span>';
+  const closed = w.closed_count != null ? w.closed_count : "—";
+  const won = w.win_rate != null && w.closed_count != null ? Math.round(w.win_rate * w.closed_count) : null;
+  const lost = won != null ? w.closed_count - won : null;
   const win = w.win_rate != null ? Math.round(w.win_rate * 100) + "%" : "—";
-  const pnl = w.pnl_sol != null ? (w.pnl_sol >= 0 ? "+" : "") + w.pnl_sol.toFixed(2) + " SOL" : "—";
-  const toks = (w.tokens || []).join(" · ");
-  return `<a class="wrow2 ${verified ? "is-v" : ""} ${w.is_bot ? "is-bot" : ""}"
+  const pnl = w.pnl_sol != null ? (w.pnl_sol >= 0 ? "+" : "") + w.pnl_sol.toFixed(2) : "—";
+  const tokens = w.tokens_count != null ? w.tokens_count : "—";
+  const open = w.open_count != null ? w.open_count : "—";
+  const act = w.tx_per_day != null ? w.tx_per_day + "/g" : "—";
+  const ourToks = (w.tokens || []).join(" · ");
+  return `<a class="wcard ${verified ? "is-v" : ""} ${w.is_bot ? "is-bot" : ""}"
       href="https://solscan.io/account/${w.address}" target="_blank" rel="noopener">
-    <span class="wscore2 ${w.smart_score > 0 ? "pos" : ""}">${(w.smart_score || 0).toFixed(2)}</span>
-    <span class="wmeta">
-      <span class="waddr">${short(w.address)} ${badge}</span>
-      <span class="wtok">${toks || "—"}</span>
-    </span>
-    <span class="wpnl ${(w.pnl_sol || 0) >= 0 ? "pos" : "neg"}">${pnl}</span>
-    <span class="wwin">win ${win}</span>
+    <div class="wc-head">
+      <span class="wscore2 ${w.smart_score > 0 ? "pos" : ""}">${(w.smart_score || 0).toFixed(2)}</span>
+      <div class="wc-id">
+        <span class="waddr">${short(w.address)} ${badge}</span>
+        <span class="wpnl ${(w.pnl_sol || 0) >= 0 ? "pos" : "neg"}">PnL ${pnl} SOL realizzati</span>
+      </div>
+      <div class="wc-win"><span class="wcw-n ${(w.win_rate || 0) >= 0.5 ? "pos" : ""}">${win}</span><span class="wcw-l">win rate</span></div>
+    </div>
+    <div class="wc-stats">
+      ${stat("chiuse", closed)}
+      ${stat("vinte", won != null ? won : "—", "pos")}
+      ${stat("perse", lost != null ? lost : "—", "neg")}
+      ${stat("token tradati", tokens)}
+      ${stat("ancora aperte", open)}
+      ${stat("attività", act, w.is_bot ? "neg" : "")}
+    </div>
+    ${ourToks ? `<div class="wc-tokens">ha comprato dai nostri: <b>${ourToks}</b></div>` : ""}
   </a>`;
 }
 

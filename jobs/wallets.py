@@ -43,7 +43,7 @@ def _deepdive_batch(c):
             continue
         is_bot = d["tx_per_day"] > WALLETS["bot_tx_per_day"]
         set_wallet_deep(c, a, d["realized_sol"], d["win_rate"], d["closed"],
-                        d["tx_per_day"], is_bot, d["top_wins"])
+                        d["tx_per_day"], is_bot, d["top_wins"], d["tokens"], d["open"])
         done += 1
         if is_bot:
             bots += 1

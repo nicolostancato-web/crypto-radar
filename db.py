@@ -173,7 +173,8 @@ def _migrate(c):
                      ("closed_count", "INTEGER"), ("qualified_at", "REAL"),
                      ("verified", "INTEGER DEFAULT 0"), ("is_bot", "INTEGER DEFAULT 0"),
                      ("tx_per_day", "REAL"), ("top_wins", "TEXT"),
-                     ("deep_at", "REAL"), ("snowballed", "INTEGER DEFAULT 0")]:
+                     ("deep_at", "REAL"), ("snowballed", "INTEGER DEFAULT 0"),
+                     ("tokens_count", "INTEGER"), ("open_count", "INTEGER")]:
         if wc and col not in wc:
             c.execute(f"ALTER TABLE wallets ADD COLUMN {col} {ddl}")
 
@@ -340,13 +341,15 @@ def wallets_to_deepdive(c, limit):
            ORDER BY closed_count DESC LIMIT ?""", (limit,)).fetchall()]
 
 
-def set_wallet_deep(c, address, pnl_sol, win_rate, closed_count, tx_per_day, is_bot, top_wins):
+def set_wallet_deep(c, address, pnl_sol, win_rate, closed_count, tx_per_day, is_bot,
+                    top_wins, tokens_count, open_count):
     import json as _json
     c.execute(
         """UPDATE wallets SET pnl_sol=?, win_rate=?, closed_count=?, tx_per_day=?,
-                  is_bot=?, verified=1, top_wins=?, deep_at=?, qualified_at=? WHERE address=?""",
+                  is_bot=?, verified=1, top_wins=?, tokens_count=?, open_count=?,
+                  deep_at=?, qualified_at=? WHERE address=?""",
         (pnl_sol, win_rate, closed_count, tx_per_day, 1 if is_bot else 0,
-         _json.dumps(top_wins), time.time(), time.time(), address))
+         _json.dumps(top_wins), tokens_count, open_count, time.time(), time.time(), address))
 
 
 def whales_to_snowball(c, limit):

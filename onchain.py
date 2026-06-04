@@ -171,19 +171,24 @@ def wallet_deep(address, max_tx=200):
                 r["out"] += sol; r["sells"] += 1
     closed = [(m, v["out"] - v["in"]) for m, v in per.items() if v["sells"] > 0 and v["in"] > 0]
     pnls = [x[1] for x in closed]
+    open_count = sum(1 for v in per.values() if v["in"] > 0 and v["sells"] == 0)  # comprati, mai venduti
+    won = sum(1 for x in pnls if x > 0)
     span_days = ((max(times) - min(times)) / 86400.0) if len(times) >= 2 else 0.0
     txc = len(sigs)
     tx_per_day = txc / span_days if span_days > 0.05 else float(txc)
     top_wins = sorted([c for c in closed if c[1] > 0], key=lambda x: -x[1])[:5]
     return {
         "realized_sol": round(sum(pnls), 3) if pnls else 0.0,
-        "win_rate": round(sum(1 for x in pnls if x > 0) / len(pnls), 2) if pnls else None,
+        "win_rate": round(won / len(pnls), 2) if pnls else None,
         "closed": len(pnls),
+        "won": won,
+        "lost": len(pnls) - won,
+        "open": open_count,
         "tokens": len(per),
         "tx_count": txc,
         "span_days": round(span_days, 2),
         "tx_per_day": round(tx_per_day, 1),
-        "top_wins": [m for m, _ in top_wins],   # mint dei vincenti, per lo snowball
+        "top_wins": [m for m, _ in top_wins],
     }
 
 
