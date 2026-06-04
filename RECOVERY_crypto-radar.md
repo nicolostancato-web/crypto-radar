@@ -94,7 +94,18 @@ che Nicolò rivede e usa per paper trading. NON è un bot automatico. Vedi PLAN.
 2. Sezione "posizioni aperte" sulla dashboard (P&L live delle entrate finte) — quick.
 3. Segnali on-chain [RPC] (netflow, holder growth) — collegati al punto 1.
 
-## BLOCCHI: nessuno. Sistema autonomo, impara da solo quando i dati maturano.
+## FATTO dopo (2026-06-04) — SMART MONEY + ACCUMULO
+- Helius free attivo (chiave in .env + secret). onchain.py: recent_buyers + wallet_pnl (PnL reale SOL).
+- jobs/wallets.py: cattura buyer dei token su cui entriamo (forward) + QUALIFICA PnL bounded/cachata
+  (max 10/giro, requalify 4gg) + smart_score = PnL x win-rate x credibilità + ricorrenza.
+- DB: wallets (+pnl_sol,win_rate,closed_count,qualified_at), wallet_buys. Migrazioni idempotenti.
+- Prima qualifica reale: su 27 buyer catturati, solo ~4 profittevoli (il resto rumore) -> il filtro funziona.
+- Dashboard RIBALTATA: SMART MONEY in cima (wallet + PnL + win-rate, link GMGN), crypto in fondo.
+  Anti-cache ?v=4. Strategia condivisa con Nicolò: ORA si ACCUMULA (run 24/7), KPI dopo (n piccolo = rumore).
+- CFO: Helius free 1M crediti/mese; cattura+qualifica bounded -> dentro il free tier con margine.
+
+## STRATEGIA CORRENTE: accumulare dati di qualità senza sprecare crediti, poi analizzare KPI.
+## BLOCCHI: nessuno. Sistema autonomo, accumula e si qualifica da solo ogni ora.
 
 ## File modificati di recente
 - crypto-radar/PLAN.md (nuovo), sources.py (nuovo), probe_sources.py (nuovo),
