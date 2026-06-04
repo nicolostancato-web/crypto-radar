@@ -104,7 +104,17 @@ che Nicolò rivede e usa per paper trading. NON è un bot automatico. Vedi PLAN.
   Anti-cache ?v=4. Strategia condivisa con Nicolò: ORA si ACCUMULA (run 24/7), KPI dopo (n piccolo = rumore).
 - CFO: Helius free 1M crediti/mese; cattura+qualifica bounded -> dentro il free tier con margine.
 
-## STRATEGIA CORRENTE: accumulare dati di qualità senza sprecare crediti, poi analizzare KPI.
+## IDEA FUTURA (Nicolò, 2026-06-04) — ANALISI DI RETE / CLUSTER DI WHALE
+Pattern osservato spesso: token piatto -> 1a WHALE entra nella zona piatta (lei "sa") -> 1o pump
+-> ritracciamento -> 2a whale/ondata -> 2o pump -> distribuzione. Le whale SI CONOSCONO
+(cluster coordinato) + ci sono FOLLOWER che le copiano.
+=> Costruire (DOPO aver accumulato dati): analisi di CO-OCCORRENZA dei wallet — trovare i wallet
+   che comprano INSIEME gli stessi token vincenti, per primi (timing distingue whale vs follower).
+   Il segnale forte = cluster di 3-4 wallet che ricorrono insieme. Serve MOLTO dato (non con n=28).
+   Conferma tecnica: la whale NON si trova retroattivamente su token gia' pompati (HONTER e three
+   = troppo tradati per paginare alla nascita) -> SOLO forward-capture al momento della scoperta.
+
+## STRATEGIA CORRENTE: accumulare dati di qualità senza sprecare crediti, poi analizzare KPI + rete.
 ## BLOCCHI: nessuno. Sistema autonomo, accumula e si qualifica da solo ogni ora.
 
 ## File modificati di recente
