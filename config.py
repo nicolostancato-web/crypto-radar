@@ -194,10 +194,20 @@ WALLETS = {
     "min_buys_for_smart": 3,       # un wallet è "smart" solo se ricorre su >= 3 token (no rumore)
 
     # QUALIFICA PnL (accumulo efficiente: ogni wallet si qualifica UNA volta, poi cache)
-    "qualify_tx": 25,              # quante tx del wallet guardare per il PnL
-    "max_qualify_per_cycle": 10,   # max wallet qualificati per giro (tetto crediti)
-    "requalify_days": 4,           # ri-qualifica un wallet solo dopo N giorni (il PnL cambia lento)
-    "min_closed_for_proven": 2,    # un wallet è "provato" con >= 2 posizioni chiuse
+    "qualify_tx": 25,              # screen veloce: tx per il primo filtro
+    "max_qualify_per_cycle": 10,   # max wallet screenati per giro
+    "requalify_days": 4,           # ri-qualifica un wallet solo dopo N giorni
+    "min_closed_for_proven": 2,    # provato con >= 2 posizioni chiuse
+
+    # DEEP-DIVE (livello 2): solo su chi passa lo screen. Verità sul track record.
+    "deep_tx": 200,                # tx per l'analisi profonda
+    "max_deep_per_cycle": 2,       # max deep-dive per giro (tetto crediti: ~200 call l'uno)
+    "bot_tx_per_day": 60,          # sopra questa frequenza = bot/HFT -> scartato (no deep value)
+
+    # SNOWBALL: dalle whale verificate, scopri la rete (chi compra i loro vincenti)
+    "max_snowball_per_cycle": 1,   # max whale da cui espandere per giro
+    "snowball_tokens": 2,          # quanti token vincenti guardare per whale
+    "snowball_buyers_tx": 30,      # tx recenti per token per trovare i co-compratori
 }
 
 # ---------------------------------------------------------------------------

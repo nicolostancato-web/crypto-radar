@@ -170,7 +170,10 @@ def _migrate(c):
     # qualifica PnL dei wallet (accumulata e cachata, non si ricalcola ogni giro)
     wc = [r[1] for r in c.execute("PRAGMA table_info(wallets)").fetchall()]
     for col, ddl in [("pnl_sol", "REAL"), ("win_rate", "REAL"),
-                     ("closed_count", "INTEGER"), ("qualified_at", "REAL")]:
+                     ("closed_count", "INTEGER"), ("qualified_at", "REAL"),
+                     ("verified", "INTEGER DEFAULT 0"), ("is_bot", "INTEGER DEFAULT 0"),
+                     ("tx_per_day", "REAL"), ("top_wins", "TEXT"),
+                     ("deep_at", "REAL"), ("snowballed", "INTEGER DEFAULT 0")]:
         if wc and col not in wc:
             c.execute(f"ALTER TABLE wallets ADD COLUMN {col} {ddl}")
 
@@ -327,6 +330,43 @@ def set_wallet_pnl(c, address, pnl_sol, win_rate, closed_count):
     c.execute(
         """UPDATE wallets SET pnl_sol=?, win_rate=?, closed_count=?, qualified_at=? WHERE address=?""",
         (pnl_sol, win_rate, closed_count, time.time(), address))
+
+
+def wallets_to_deepdive(c, limit):
+    """Candidati al deep-dive: passati lo screen veloce (PnL>0, posizioni chiuse), non ancora verificati."""
+    return [r["address"] for r in c.execute(
+        """SELECT address FROM wallets
+           WHERE pnl_sol > 0 AND closed_count >= 1 AND (verified IS NULL OR verified=0)
+           ORDER BY closed_count DESC LIMIT ?""", (limit,)).fetchall()]
+
+
+def set_wallet_deep(c, address, pnl_sol, win_rate, closed_count, tx_per_day, is_bot, top_wins):
+    import json as _json
+    c.execute(
+        """UPDATE wallets SET pnl_sol=?, win_rate=?, closed_count=?, tx_per_day=?,
+                  is_bot=?, verified=1, top_wins=?, deep_at=?, qualified_at=? WHERE address=?""",
+        (pnl_sol, win_rate, closed_count, tx_per_day, 1 if is_bot else 0,
+         _json.dumps(top_wins), time.time(), time.time(), address))
+
+
+def whales_to_snowball(c, limit):
+    """Whale VERIFICATE (deep, profittevoli, non bot) da cui espandere la rete (non ancora fatte)."""
+    return c.execute(
+        """SELECT address, top_wins FROM wallets
+           WHERE verified=1 AND is_bot=0 AND pnl_sol>0 AND (snowballed IS NULL OR snowballed=0)
+           ORDER BY pnl_sol DESC LIMIT ?""", (limit,)).fetchall()
+
+
+def mark_snowballed(c, address):
+    c.execute("UPDATE wallets SET snowballed=1 WHERE address=?", (address,))
+
+
+def seed_wallet(c, address):
+    """Aggiunge un wallet-candidato (scoperto via snowball) da qualificare nei prossimi giri."""
+    c.execute(
+        """INSERT INTO wallets (address, first_seen, buys_count, updated_at)
+           VALUES (?,?,0,?) ON CONFLICT(address) DO NOTHING""",
+        (address, time.time(), time.time()))
 
 
 def get_learned_multipliers(c):

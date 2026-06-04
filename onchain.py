@@ -124,6 +124,69 @@ def wallet_pnl(address, max_tx=25):
             "win_rate": round(sum(1 for x in closed if x > 0) / len(closed), 2)}
 
 
+def wallet_deep(address, max_tx=200):
+    """
+    ANALISI PROFONDA di un wallet: track record vero su molte tx.
+    Ritorna PnL realizzato totale, win-rate, n. posizioni, frequenza (per rilevare i BOT),
+    e i MINT VINCENTI (per lo snowball: chi altro li ha comprati = la rete).
+    None se manca la chiave.
+    """
+    if not available():
+        return None
+    sigs = _rpc("getSignaturesForAddress", [address, {"limit": min(max_tx, 1000)}])
+    if not sigs:
+        return None
+    per = {}
+    times = []
+    for s in sigs:
+        if s.get("err"):
+            continue
+        if s.get("blockTime"):
+            times.append(s["blockTime"])
+        tx = _rpc("getTransaction", [s["signature"],
+                  {"maxSupportedTransactionVersion": 0, "encoding": "jsonParsed"}])
+        if not tx:
+            continue
+        meta = tx.get("meta") or {}
+        keys = tx.get("transaction", {}).get("message", {}).get("accountKeys", [])
+        idx = next((i for i, k in enumerate(keys)
+                    if (k.get("pubkey") if isinstance(k, dict) else k) == address), None)
+        if idx is None or idx >= len(meta.get("preBalances", [])):
+            continue
+        sol = (meta["postBalances"][idx] - meta["preBalances"][idx]) / 1e9
+        preT = {b["mint"]: (b["uiTokenAmount"]["uiAmount"] or 0)
+                for b in meta.get("preTokenBalances", []) if b.get("owner") == address}
+        postT = {b["mint"]: (b["uiTokenAmount"]["uiAmount"] or 0)
+                 for b in meta.get("postTokenBalances", []) if b.get("owner") == address}
+        for m in set(preT) | set(postT):
+            if m == WSOL:
+                continue
+            d = postT.get(m, 0) - preT.get(m, 0)
+            if d == 0:
+                continue
+            r = per.setdefault(m, {"in": 0.0, "out": 0.0, "sells": 0})
+            if d > 0 and sol < 0:
+                r["in"] += -sol
+            elif d < 0 and sol > 0:
+                r["out"] += sol; r["sells"] += 1
+    closed = [(m, v["out"] - v["in"]) for m, v in per.items() if v["sells"] > 0 and v["in"] > 0]
+    pnls = [x[1] for x in closed]
+    span_days = ((max(times) - min(times)) / 86400.0) if len(times) >= 2 else 0.0
+    txc = len(sigs)
+    tx_per_day = txc / span_days if span_days > 0.05 else float(txc)
+    top_wins = sorted([c for c in closed if c[1] > 0], key=lambda x: -x[1])[:5]
+    return {
+        "realized_sol": round(sum(pnls), 3) if pnls else 0.0,
+        "win_rate": round(sum(1 for x in pnls if x > 0) / len(pnls), 2) if pnls else None,
+        "closed": len(pnls),
+        "tokens": len(per),
+        "tx_count": txc,
+        "span_days": round(span_days, 2),
+        "tx_per_day": round(tx_per_day, 1),
+        "top_wins": [m for m, _ in top_wins],   # mint dei vincenti, per lo snowball
+    }
+
+
 if __name__ == "__main__":
     if not available():
         print("[onchain] HELIUS_API_KEY assente — no-op. Vedi SETUP.md.")
