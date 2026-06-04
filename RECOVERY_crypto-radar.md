@@ -126,7 +126,22 @@ Pattern osservato spesso: token piatto -> 1a WHALE entra nella zona piatta (lei 
 - Schema wallets +verified,is_bot,tx_per_day,top_wins,deep_at,snowballed. config WALLETS deep/snowball.
 - CFO: deep max 2/giro x200 + snowball 1x2x30 + screen 10x25 ~= 600 call/ciclo -> ~440k/mese < 1M free.
 
-## STRATEGIA CORRENTE: accumulare dati di qualità senza sprecare crediti, poi analizzare KPI + rete.
+## FATTO dopo (2026-06-04 sera) — "WHO KNOWS MORE THAN ME" (cuore nuovo)
+- SVOLTA: GeckoTerminal /pools/{addr}/trades da' wallet (tx_from_address) + size USD + timestamp
+  di ogni trade, GRATIS -> niente piu' muro di paginazione. Si vede CHI muove ogni spike.
+- spikes.py: pesca pool Solana (trending+new), estrae BIG-BUY (>=$1000). jobs/spikes.py li
+  registra in spike_buys + seed_wallet (entrano nella qualifica PnL). Coordinazione: >=3 wallet
+  sullo stesso token entro 10min = organizzati. boss_leaderboard: big-buy su >=2 token = BOSS.
+- Wired in run.py (stadio 'spikes'). Test: cattura big-buy reali (es. $13k su USELESS).
+- Dashboard: hero "Who knows more than me?", sezione "I Boss" in cima (chi mette $$ grossi),
+  poi wallet per PnL, crypto in fondo. v7.
+- DISCIPLINA condivisa con Nicolo: NON e' il momento di soldi veri. Prima accumulare + trovare
+  i boss + score alto. Solo DOPO costruire la strategia ($100 -> 1-2x -> esci). Idea: i boss sono
+  whale coordinate (Dubai money, info/gruppi). Da gestire: wallet-switching (linked wallets) = fase 2.
+
+## ROADMAP PROSSIMA: 1) accumulare spike/boss giorni; 2) score anticipo+coordinazione; 3) linked
+## wallets (anti-switching); 4) cross PnL Helius sui boss; 5) solo DOPO, strategia di copia.
+## STRATEGIA CORRENTE: accumulare dati di qualità senza sprecare crediti, poi analizzare KPI + boss.
 ## BLOCCHI: nessuno. Sistema autonomo, accumula e si qualifica da solo ogni ora.
 
 ## File modificati di recente
