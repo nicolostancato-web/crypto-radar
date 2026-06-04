@@ -186,6 +186,15 @@ LEARN = {
 }
 
 # ---------------------------------------------------------------------------
+# WALLETS — scoperta smart-money DAL BASSO (Helius). CFO: solo sui token su cui entriamo.
+# ---------------------------------------------------------------------------
+WALLETS = {
+    "capture_recent_n": 50,        # tx recenti da guardare per token (piccolo = pochi crediti)
+    "max_capture_per_cycle": 4,    # max token fotografati per giro (tetto duro sui crediti)
+    "min_buys_for_smart": 3,       # un wallet è "smart" solo se ricorre su >= 3 token (no rumore)
+}
+
+# ---------------------------------------------------------------------------
 # COSTI / RETE — paletti per non bruciare i rate limit gratuiti
 # ---------------------------------------------------------------------------
 LIMITS = {

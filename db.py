@@ -106,6 +106,29 @@ CREATE TABLE IF NOT EXISTS learned_weights (
     updated_at  REAL
 );
 
+-- WALLETS + WALLET_BUYS: la smart-money scoperta DAL BASSO. Quando il radar entra su un
+-- token, fotografiamo chi lo compra (wallet_buys). I wallet che RICORRONO sui token che poi
+-- performano prendono smart_score alto: sono quelli da seguire (i loro buy = entrata, sell = uscita).
+CREATE TABLE IF NOT EXISTS wallets (
+    address      TEXT PRIMARY KEY,
+    first_seen   REAL,
+    buys_count   INTEGER DEFAULT 0,    -- su quanti token distinti l'abbiamo visto comprare presto
+    smart_score  REAL DEFAULT 0,       -- appreso dagli esiti dei suoi token (ricorrenza x performance)
+    avg_net      REAL,
+    updated_at   REAL
+);
+
+CREATE TABLE IF NOT EXISTS wallet_buys (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    address     TEXT NOT NULL,
+    asset_id    INTEGER,
+    mint        TEXT,
+    ticker      TEXT,
+    bought_at   REAL,
+    captured_at REAL NOT NULL,
+    UNIQUE (address, mint)              -- un wallet conta una volta per token
+);
+
 -- NOTIFIED: per non rimandare la stessa notifica Telegram dello stesso pick.
 CREATE TABLE IF NOT EXISTS notified (
     contract_address TEXT PRIMARY KEY,
@@ -257,6 +280,32 @@ def open_outcome(c, asset_id, chain, contract, ticker, score, price, liquidity, 
 
 
 # --- NOTIFICHE (anti-spam) -----------------------------------------------
+
+def asset_has_wallet_capture(c, asset_id):
+    return c.execute("SELECT 1 FROM wallet_buys WHERE asset_id=? LIMIT 1", (asset_id,)).fetchone() is not None
+
+
+def record_wallet_buy(c, address, asset_id, mint, ticker, bought_at):
+    """Registra che `address` ha comprato un token su cui il radar è entrato. Dedup per (wallet, mint)."""
+    c.execute(
+        """INSERT OR IGNORE INTO wallet_buys (address, asset_id, mint, ticker, bought_at, captured_at)
+           VALUES (?,?,?,?,?,?)""",
+        (address, asset_id, mint, ticker, bought_at, time.time()),
+    )
+    c.execute(
+        """INSERT INTO wallets (address, first_seen, buys_count, updated_at)
+           VALUES (?,?,1,?)
+           ON CONFLICT(address) DO UPDATE SET
+             buys_count = (SELECT COUNT(DISTINCT mint) FROM wallet_buys WHERE address=?),
+             updated_at = excluded.updated_at""",
+        (address, time.time(), time.time(), address),
+    )
+
+
+def set_wallet_score(c, address, smart_score, avg_net):
+    c.execute("UPDATE wallets SET smart_score=?, avg_net=?, updated_at=? WHERE address=?",
+              (smart_score, avg_net, time.time(), address))
+
 
 def get_learned_multipliers(c):
     """Dizionario {signal: moltiplicatore} appreso dagli esiti. Default vuoto = tutto 1.0."""
