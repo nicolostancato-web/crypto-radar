@@ -146,6 +146,37 @@ async function load() {
     le.innerHTML = '<div class="empty">Ancora nessun esito maturo. Il sistema sta accumulando il materiale per imparare.</div>';
   }
 
+  const w = d.wallets || { tracked: 0, smart: [], emerging: [] };
+  document.getElementById("wcount").textContent =
+    `${w.tracked} tracciati · ${(w.smart || []).length} smart`;
+  const short = (a) => a ? a.slice(0, 4) + "…" + a.slice(-4) : "?";
+  const wallet = (x, isSmart) => {
+    const toks = (x.tokens || []).join(" · ");
+    const right = isSmart
+      ? `<span class="wscore pos">${x.avg_net >= 0 ? "+" : ""}${pct(x.avg_net || 0)} net</span>`
+      : `<span class="wrec">×${x.buys_count}</span>`;
+    return `<a class="wrow ${isSmart ? "is-smart" : ""}" href="https://solscan.io/account/${x.address}" target="_blank" rel="noopener">
+      <span class="waddr">${short(x.address)}</span>
+      <span class="wtok">${toks || "—"}</span>
+      <span class="wbuys">su ${x.buys_count} token</span>
+      ${right}
+    </a>`;
+  };
+  const wl = document.getElementById("wallets");
+  const smart = w.smart || [], emerging = w.emerging || [];
+  const recent = w.recent || [];
+  if (smart.length) {
+    wl.innerHTML = smart.map(x => wallet(x, true)).join("");
+  } else if (emerging.length) {
+    wl.innerHTML = `<div class="wnote">Nessuno “smart” provato ancora (serve ricorrenza su ≥3 vincitori). Wallet che stanno emergendo:</div>`
+      + emerging.map(x => wallet(x, false)).join("");
+  } else if (recent.length) {
+    wl.innerHTML = `<div class="wnote">Cattura in corso (${w.captures} acquisti, ${w.tracked} wallet). Nessuna ricorrenza ancora — ultimi catturati:</div>`
+      + recent.map(x => wallet(x, false)).join("");
+  } else {
+    wl.innerHTML = `<div class="empty">Cattura in corso. I wallet appariranno man mano che il radar entra sui token.</div>`;
+  }
+
   document.getElementById("counts").textContent =
     `${s.candidates} candidati · ${s.excluded} esclusi · soglia ${d.threshold}`;
 }

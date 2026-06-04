@@ -89,6 +89,30 @@ def build():
         for p in picks:
             by_chain[p["chain"]] = by_chain.get(p["chain"], 0) + 1
 
+        # SMART MONEY in costruzione (wallet scoperti dal basso)
+        def _tokens_of(addr):
+            return [r[0] for r in c.execute(
+                "SELECT DISTINCT ticker FROM wallet_buys WHERE address=? LIMIT 6", (addr,)).fetchall()]
+        smart = [dict(r) for r in c.execute(
+            """SELECT address, buys_count, smart_score, avg_net FROM wallets
+               WHERE smart_score != 0 ORDER BY smart_score DESC LIMIT 10""").fetchall()]
+        emerging = [dict(r) for r in c.execute(
+            """SELECT address, buys_count FROM wallets
+               WHERE buys_count >= 2 ORDER BY buys_count DESC LIMIT 12""").fetchall()]
+        for w in smart + emerging:
+            w["tokens"] = _tokens_of(w["address"])
+        recent = [{"address": r[0], "tokens": [r[1]], "buys_count": 1}
+                  for r in c.execute(
+                      """SELECT address, ticker FROM wallet_buys
+                         ORDER BY captured_at DESC LIMIT 10""").fetchall()]
+        wallets_data = {
+            "tracked": c.execute("SELECT COUNT(*) FROM wallets").fetchone()[0],
+            "captures": c.execute("SELECT COUNT(*) FROM wallet_buys").fetchone()[0],
+            "smart": smart,
+            "emerging": emerging,
+            "recent": recent,
+        }
+
     # cosa sta imparando il sistema (per-segnale: netto + peso APPRESO applicato).
     try:
         from jobs.outcomes import learning_signals
@@ -110,6 +134,7 @@ def build():
         "picks": picks,
         "validation": validation,
         "learning": learning,
+        "wallets": wallets_data,
     }
 
     os.makedirs(OUT_DIR, exist_ok=True)
