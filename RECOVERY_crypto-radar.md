@@ -154,7 +154,24 @@ Pattern osservato spesso: token piatto -> 1a WHALE entra nella zona piatta (lei 
 ## non solo outcome 24/72h. PUNTO 3 = smart-score su copiabilità (regge +10% entrata + ritardo).
 ## Poi: cluster coordinati, funding graph (linked wallets), Dune per backtest storico.
 ## DISCIPLINA: discover->CONGELA lista->testa FORWARD. Servono 100+ trade. Niente soldi veri.
-## STRATEGIA CORRENTE: accumulare EARLY di qualità, poi copy-sim con exit, poi validare EV.
+## FATTO (2026-06-05) — PUNTI 2 e 3 consulenza
+- PUNTO 2: copy-simulation con EXIT MECCANICHE. spikes.get_ohlcv (candele 15min GeckoTerminal).
+  outcomes._simulate_exit: TP1 +50%(40%), TP2 +100%(30%), trailing 30% (arm +40%), stop -30%,
+  hard 24h, sul path OHLCV reale. simulate_exits() wired (stadio 'exitsim'). config EXIT.
+  outcomes +sim_return,sim_reason,sim_at. RISULTATO: three HOLD -10% vs EXIT +64% (trailing!);
+  Magpie HOLD +6.7% vs EXIT -32% (stop). Media exit -0.6% vs hold -3.0% (n=3 = rumore).
+- PUNTO 3: COPIABILITA'. onchain.wallet_deep calcola copy_pnl = PnL se copiamo a +10% entrata
+  peggiore (latenza). wallets +copy_pnl. _smart_score usa copy_pnl (whale vera solo se profitta
+  COPIATA, non solo PnL nudo). Dashboard: card mostra "PnL X · copiato Y"; validazione mostra
+  EXIT meccanica vs HOLD. v9.
+
+## RIMANE (sistema "perfetto" = lavoro di settimane, NON una sessione):
+## - cluster coordinati (grafo wallet-wallet, community detection)
+## - funding graph / linked wallets (anti wallet-switching)
+## - Dune per backtest storico; forward-test con lista CONGELATA (anti look-ahead)
+## - tuning exit params + sourcing early piu' aggressivo (polling 5min)
+## DISCIPLINA: servono 100+ trade, niente soldi veri. Siamo a n=3 = zero validita'.
+## STRATEGIA CORRENTE: accumulare EARLY + exit + copiabilita, poi validare EV su volume.
 ## BLOCCHI: nessuno. Sistema autonomo, accumula e si qualifica da solo ogni ora.
 
 ## File modificati di recente
