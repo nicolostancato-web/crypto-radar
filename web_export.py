@@ -76,6 +76,16 @@ def build():
             else:
                 validation.append({"horizon": f"{h}h", "n": 0, "avg_net": None, "win_rate": None})
 
+        # EXIT SIMULATION (punto 2): rendimento con exit meccaniche vs hold
+        sims = [r[0] for r in c.execute("SELECT sim_return FROM outcomes WHERE sim_return IS NOT NULL").fetchall()]
+        holds = [r[0] for r in c.execute("SELECT ret_24h_net FROM outcomes WHERE ret_24h_net IS NOT NULL").fetchall()]
+        sim_data = {
+            "n": len(sims),
+            "avg_exit": round(sum(sims) / len(sims), 4) if sims else None,
+            "win_exit": round(sum(1 for x in sims if x > 0) / len(sims), 2) if sims else None,
+            "avg_hold": round(sum(holds) / len(holds), 4) if holds else None,
+        }
+
         stats = {
             "candidates": len(picks),
             "above_threshold": sum(1 for p in picks if p["above_threshold"]),
@@ -94,7 +104,7 @@ def build():
             return [r[0] for r in c.execute(
                 "SELECT DISTINCT ticker FROM wallet_buys WHERE address=? LIMIT 6", (addr,)).fetchall()]
         leaderboard = [dict(r) for r in c.execute(
-            """SELECT address, smart_score, pnl_sol, win_rate, closed_count, buys_count,
+            """SELECT address, smart_score, pnl_sol, copy_pnl, win_rate, closed_count, buys_count,
                       verified, is_bot, tx_per_day, tokens_count, open_count
                FROM wallets
                WHERE (verified=1 AND is_bot=0 AND pnl_sol>0)
@@ -150,6 +160,7 @@ def build():
         "learning": learning,
         "wallets": wallets_data,
         "spikes": spikes_data,
+        "sim": sim_data,
     }
 
     os.makedirs(OUT_DIR, exist_ok=True)

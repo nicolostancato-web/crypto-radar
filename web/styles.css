@@ -330,6 +330,12 @@ body::after {
 .sec-col h3, .board-compact h3 { font-family: var(--display); font-weight: 600; font-size: 1.1rem;
   margin-bottom: 14px; color: var(--text); }
 .val-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.simrow { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+.simcell { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+.simcell.hot { border-color: rgba(79,224,154,0.35); }
+.simcell .vv { font-family: var(--mono); font-weight: 700; font-size: 1.5rem; }
+.simcell .vv.pos { color: var(--phosphor); } .simcell .vv.neg { color: var(--danger); }
+.simcell .vsub { font-size: 0.68rem; color: var(--muted); display: block; margin-top: 4px; }
 .lrow { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: center;
   background: var(--surface); border: 1px solid var(--line); border-radius: 9px; padding: 9px 13px; }
 .lrow.bassa { opacity: 0.6; }

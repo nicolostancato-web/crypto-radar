@@ -25,6 +25,7 @@ def one_cycle():
         ("social", social.social_once),
         ("scoring", scoring.score_once),
         ("outcomes", outcomes.outcomes_once),
+        ("exitsim", outcomes.simulate_exits),
         ("spikes", spikes.spikes_once),
         ("wallets", wallets.capture_once),
         ("learn", learn.calibrate_once),

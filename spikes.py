@@ -64,6 +64,25 @@ def get_solana_pools(limit):
     return out
 
 
+DEX_TO_GT_NET = {"solana": "solana", "base": "base", "ethereum": "eth",
+                 "bsc": "bsc", "polygon": "polygon_pos", "arbitrum": "arbitrum", "ton": "ton"}
+
+
+def get_ohlcv(chain, pool_addr, aggregate_min=15, limit=120):
+    """Candele OHLCV (15min) di un pool. Ritorna [(ts,open,high,low,close)] crescente, o []."""
+    net = DEX_TO_GT_NET.get(chain, chain)
+    d = _gt(f"/networks/{net}/pools/{pool_addr}/ohlcv/minute?aggregate={aggregate_min}&limit={limit}")
+    lst = (((d or {}).get("data") or {}).get("attributes") or {}).get("ohlcv_list") or []
+    out = []
+    for row in lst:
+        try:
+            out.append((int(row[0]), float(row[1]), float(row[2]), float(row[3]), float(row[4])))
+        except (TypeError, ValueError, IndexError):
+            continue
+    out.sort(key=lambda x: x[0])
+    return out
+
+
 def get_big_buys(pool_addr, created_ts, liquidity):
     """Big-buy con dati EARLY. Ritorna lista di dict {wallet, usd, ts, price, age_min, runup, is_early}."""
     d = _gt(f"/networks/solana/pools/{pool_addr}/trades")

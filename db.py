@@ -183,6 +183,9 @@ def _migrate(c):
     cols = [r[1] for r in c.execute("PRAGMA table_info(outcomes)").fetchall()]
     if "signals_at_entry" not in cols:
         c.execute("ALTER TABLE outcomes ADD COLUMN signals_at_entry TEXT")
+    for col, ddl in [("sim_return", "REAL"), ("sim_reason", "TEXT"), ("sim_at", "REAL")]:
+        if cols and col not in cols:
+            c.execute(f"ALTER TABLE outcomes ADD COLUMN {col} {ddl}")
     # qualifica PnL dei wallet (accumulata e cachata, non si ricalcola ogni giro)
     sc = [r[1] for r in c.execute("PRAGMA table_info(spike_buys)").fetchall()]
     for col, ddl in [("price", "REAL"), ("token_age_min", "REAL"),
@@ -195,7 +198,8 @@ def _migrate(c):
                      ("verified", "INTEGER DEFAULT 0"), ("is_bot", "INTEGER DEFAULT 0"),
                      ("tx_per_day", "REAL"), ("top_wins", "TEXT"),
                      ("deep_at", "REAL"), ("snowballed", "INTEGER DEFAULT 0"),
-                     ("tokens_count", "INTEGER"), ("open_count", "INTEGER")]:
+                     ("tokens_count", "INTEGER"), ("open_count", "INTEGER"),
+                     ("copy_pnl", "REAL")]:
         if wc and col not in wc:
             c.execute(f"ALTER TABLE wallets ADD COLUMN {col} {ddl}")
 
@@ -363,14 +367,14 @@ def wallets_to_deepdive(c, limit):
 
 
 def set_wallet_deep(c, address, pnl_sol, win_rate, closed_count, tx_per_day, is_bot,
-                    top_wins, tokens_count, open_count):
+                    top_wins, tokens_count, open_count, copy_pnl):
     import json as _json
     c.execute(
         """UPDATE wallets SET pnl_sol=?, win_rate=?, closed_count=?, tx_per_day=?,
                   is_bot=?, verified=1, top_wins=?, tokens_count=?, open_count=?,
-                  deep_at=?, qualified_at=? WHERE address=?""",
+                  copy_pnl=?, deep_at=?, qualified_at=? WHERE address=?""",
         (pnl_sol, win_rate, closed_count, tx_per_day, 1 if is_bot else 0,
-         _json.dumps(top_wins), tokens_count, open_count, time.time(), time.time(), address))
+         _json.dumps(top_wins), tokens_count, open_count, copy_pnl, time.time(), time.time(), address))
 
 
 def whales_to_snowball(c, limit):

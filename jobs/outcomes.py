@@ -14,10 +14,11 @@ andata E ritorno. Su token illiquidi mangia i guadagni "sulla carta" — ed e' g
 import sys, os, time
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from config import OUTCOMES, LIMITS
+from config import OUTCOMES, EXIT, LIMITS
 from db import (get_conn, init_db, has_open_outcome, open_outcome,
                 get_open_outcomes, set_outcome_point, close_outcome)
 from net import RateLimiter, get_json
+import spikes
 
 DEX_BASE = "https://api.dexscreener.com"
 limiter = RateLimiter(LIMITS["dexscreener_max_calls_per_min"])
@@ -114,6 +115,63 @@ def outcomes_summary():
         avg = sum(nets) / len(nets)
         win = sum(1 for x in nets if x > 0) / len(nets)
         print(f"  {h}h: n={len(nets)}  valore_atteso_netto={avg:+.2%}  win_rate={win:.0%}")
+
+
+def _simulate_exit(candles, entered_at, entry_price, liquidity):
+    """Simula TP scalari + trailing + stop sul path di prezzo. Ritorna (net_return, motivo)."""
+    if not candles or not entry_price or entry_price <= 0:
+        return None, None
+    end = entered_at + EXIT["hard_hours"] * 3600
+    path = [c for c in candles if entered_at <= c[0] <= end]
+    if not path:
+        return None, None
+    pos, proceeds, peak = 1.0, 0.0, entry_price
+    tp1 = entry_price * (1 + EXIT["tp1_gain"])
+    tp2 = entry_price * (1 + EXIT["tp2_gain"])
+    stop = entry_price * (1 - EXIT["stop_loss"])
+    arm = entry_price * (1 + EXIT["trailing_arm"])
+    t1, t2, reason = False, False, "hard_24h"
+    for ts, o, hi, lo, cl in path:
+        peak = max(peak, hi)
+        # stop loss prima (pessimista)
+        if lo <= stop:
+            proceeds += pos * stop; pos = 0; reason = "stop_loss"; break
+        if not t1 and hi >= tp1:
+            proceeds += EXIT["tp1_sell"] * tp1; pos -= EXIT["tp1_sell"]; t1 = True
+        if not t2 and hi >= tp2:
+            proceeds += EXIT["tp2_sell"] * tp2; pos -= EXIT["tp2_sell"]; t2 = True
+        trail = peak * (1 - EXIT["trailing"])
+        if peak >= arm and lo <= trail and pos > 0:
+            proceeds += pos * trail; pos = 0; reason = "trailing"; break
+    if pos > 0:
+        proceeds += pos * path[-1][4]   # resto liquidato all'ultima candela
+    gross = proceeds / entry_price - 1
+    slip = min(OUTCOMES["paper_trade_usd"] / max(liquidity or 1, 1), OUTCOMES["slippage_cap_pct"])
+    net = gross - 2 * (slip + OUTCOMES["swap_fee_pct"])
+    return round(net, 4), reason
+
+
+def simulate_exits():
+    """Per ogni paper trade, simula la strategia d'uscita meccanica sul path reale (OHLCV)."""
+    init_db()
+    now, done = time.time(), 0
+    with get_conn() as c:
+        rows = c.execute(
+            """SELECT o.id, o.entered_at, o.price_at_entry, o.liquidity_at_entry,
+                      a.chain, a.pair_address, a.contract_address
+               FROM outcomes o JOIN assets a ON a.id = o.asset_id""").fetchall()
+        for o in rows:
+            pool = o["pair_address"] or o["contract_address"]
+            if not pool or not o["price_at_entry"]:
+                continue
+            candles = spikes.get_ohlcv(o["chain"], pool, EXIT["ohlcv_aggregate_min"])
+            net, reason = _simulate_exit(candles, o["entered_at"], o["price_at_entry"], o["liquidity_at_entry"])
+            if net is not None:
+                c.execute("UPDATE outcomes SET sim_return=?, sim_reason=?, sim_at=? WHERE id=?",
+                          (net, reason, now, o["id"]))
+                done += 1
+    print(f"[exitsim] paper trade simulati con exit meccaniche: {done}")
+    return done
 
 
 def learning_signals(horizon=72):

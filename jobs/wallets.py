@@ -43,7 +43,7 @@ def _deepdive_batch(c):
             continue
         is_bot = d["tx_per_day"] > WALLETS["bot_tx_per_day"]
         set_wallet_deep(c, a, d["realized_sol"], d["win_rate"], d["closed"],
-                        d["tx_per_day"], is_bot, d["top_wins"], d["tokens"], d["open"])
+                        d["tx_per_day"], is_bot, d["top_wins"], d["tokens"], d["open"], d["copy_pnl"])
         done += 1
         if is_bot:
             bots += 1
@@ -67,19 +67,22 @@ def _snowball(c):
 
 
 def _smart_score(c):
-    """smart_score: privilegia le whale VERIFICATE (deep) e profittevoli. I bot vanno a zero."""
+    """smart_score basato sulla COPIABILITA': conta il copy_pnl (profitto se copiamo a +10%
+    peggiore), non il PnL nudo. Bot fuori. Una whale 'vera' deve restare profittevole COPIATA."""
     scored = 0
-    for w in c.execute("""SELECT address, pnl_sol, win_rate, closed_count, buys_count,
+    for w in c.execute("""SELECT address, pnl_sol, copy_pnl, win_rate, closed_count, buys_count,
                                  verified, is_bot FROM wallets""").fetchall():
         buys = w["buys_count"] or 0
-        pnl, win, closed = w["pnl_sol"], w["win_rate"], w["closed_count"] or 0
+        win, closed = w["win_rate"], w["closed_count"] or 0
+        copy = w["copy_pnl"] if w["copy_pnl"] is not None else w["pnl_sol"]
         if w["is_bot"]:
-            score = 0.0                                   # bot/HFT: fuori
-        elif w["verified"] and pnl is not None and closed >= WALLETS["min_closed_for_proven"]:
+            score = 0.0                                   # bot/HFT: non copiabile
+        elif w["verified"] and copy is not None and closed >= WALLETS["min_closed_for_proven"]:
             cred = min(closed / 5.0, 1.0)
-            score = round(pnl * (win or 0) * cred + 0.1 * buys, 3)   # whale provata
-        elif pnl is not None and closed >= WALLETS["min_closed_for_proven"]:
-            score = round(0.3 * pnl * (win or 0) + 0.05 * buys, 3)   # promettente (screen) ma non verificata
+            # se copy_pnl<=0 -> non copiabile da noi -> score basso anche se PnL nudo positivo
+            score = round(copy * (win or 0) * cred + 0.1 * buys, 3)
+        elif w["pnl_sol"] is not None and closed >= WALLETS["min_closed_for_proven"]:
+            score = round(0.3 * w["pnl_sol"] * (win or 0) + 0.05 * buys, 3)   # promettente, non verificata
         else:
             score = round(0.03 * buys, 3)
         set_wallet_score(c, w["address"], score, win)

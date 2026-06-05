@@ -60,7 +60,7 @@ function walletRow(w) {
       <span class="wscore2 ${w.smart_score > 0 ? "pos" : ""}">${(w.smart_score || 0).toFixed(2)}</span>
       <div class="wc-id">
         <span class="waddr">${short(w.address)} ${badge}</span>
-        <span class="wpnl ${(w.pnl_sol || 0) >= 0 ? "pos" : "neg"}">PnL ${pnl} SOL realizzati</span>
+        <span class="wpnl ${(w.pnl_sol || 0) >= 0 ? "pos" : "neg"}">PnL ${pnl} SOL${w.copy_pnl != null ? ` · <span class="${w.copy_pnl >= 0 ? "pos" : "neg"}">copiato ${(w.copy_pnl >= 0 ? "+" : "") + w.copy_pnl.toFixed(2)}</span>` : ""}</span>
       </div>
       <div class="wc-win"><span class="wcw-n ${(w.win_rate || 0) >= 0.5 ? "pos" : ""}">${win}</span><span class="wcw-l">win rate</span></div>
     </div>
@@ -143,7 +143,19 @@ async function load() {
     wl.innerHTML = `<div class="empty">Cattura in corso. I wallet appaiono man mano che il radar entra sui token, poi vengono qualificati col PnL reale.</div>`;
   }
 
-  document.getElementById("validation").innerHTML = (d.validation || []).map(valCell).join("");
+  const sgn = (x) => (x == null ? "—" : (x > 0 ? "+" : "") + (x * 100).toFixed(1) + "%");
+  const sim = d.sim || {};
+  let valHtml = "";
+  if (sim.n) {
+    valHtml += `<div class="simrow">
+      <div class="simcell hot"><span class="vv ${sim.avg_exit > 0 ? "pos" : "neg"}">${sgn(sim.avg_exit)}</span>
+        <span class="vsub">EXIT meccanica · n=${sim.n} · win ${pct(sim.win_exit)}</span></div>
+      <div class="simcell"><span class="vv">${sgn(sim.avg_hold)}</span>
+        <span class="vsub">se tieni a 24h (no exit)</span></div>
+    </div>`;
+  }
+  valHtml += (d.validation || []).map(valCell).join("");
+  document.getElementById("validation").innerHTML = valHtml;
 
   const learn = d.learning || [];
   const le = document.getElementById("learning");

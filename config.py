@@ -173,6 +173,20 @@ OUTCOMES = {
 }
 
 # ---------------------------------------------------------------------------
+# EXIT — copy-simulation con regole MECCANICHE (punto 2 consulenza). Non solo hold a 24h.
+# Su ogni paper trade simula TP scalari + trailing + stop sul path di prezzo reale (OHLCV).
+# ---------------------------------------------------------------------------
+EXIT = {
+    "stop_loss": 0.30,        # -30% -> esci tutto
+    "tp1_gain": 0.50, "tp1_sell": 0.40,   # +50% -> vendi 40%
+    "tp2_gain": 1.00, "tp2_sell": 0.30,   # +100% -> vendi 30%
+    "trailing": 0.30,         # trailing stop 30% sul runner (resto 30%)
+    "trailing_arm": 0.40,     # il trailing si attiva dopo +40%
+    "hard_hours": 24,         # uscita dura dopo 24h
+    "ohlcv_aggregate_min": 15,  # candele a 15 minuti
+}
+
+# ---------------------------------------------------------------------------
 # LEARN — il motore di AUTO-MIGLIORAMENTO. Ritara i pesi dei segnali sugli esiti reali.
 # Con i FRENI: si muove solo con abbastanza dati, a piccoli passi, dentro limiti.
 # ---------------------------------------------------------------------------

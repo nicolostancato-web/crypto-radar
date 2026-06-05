@@ -171,6 +171,9 @@ def wallet_deep(address, max_tx=200):
                 r["out"] += sol; r["sells"] += 1
     closed = [(m, v["out"] - v["in"]) for m, v in per.items() if v["sells"] > 0 and v["in"] > 0]
     pnls = [x[1] for x in closed]
+    # COPIABILITA': PnL se NOI copiassimo a entrata +10% peggiore (latenza+slippage). Test di GPT.
+    LAT = 1.10
+    copy_pnl = sum(v["out"] - v["in"] * LAT for m, v in per.items() if v["sells"] > 0 and v["in"] > 0)
     open_count = sum(1 for v in per.values() if v["in"] > 0 and v["sells"] == 0)  # comprati, mai venduti
     won = sum(1 for x in pnls if x > 0)
     span_days = ((max(times) - min(times)) / 86400.0) if len(times) >= 2 else 0.0
@@ -179,6 +182,7 @@ def wallet_deep(address, max_tx=200):
     top_wins = sorted([c for c in closed if c[1] > 0], key=lambda x: -x[1])[:5]
     return {
         "realized_sol": round(sum(pnls), 3) if pnls else 0.0,
+        "copy_pnl": round(copy_pnl, 3),
         "win_rate": round(won / len(pnls), 2) if pnls else None,
         "closed": len(pnls),
         "won": won,
