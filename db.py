@@ -184,6 +184,11 @@ def _migrate(c):
     if "signals_at_entry" not in cols:
         c.execute("ALTER TABLE outcomes ADD COLUMN signals_at_entry TEXT")
     # qualifica PnL dei wallet (accumulata e cachata, non si ricalcola ogni giro)
+    sc = [r[1] for r in c.execute("PRAGMA table_info(spike_buys)").fetchall()]
+    for col, ddl in [("price", "REAL"), ("token_age_min", "REAL"),
+                     ("runup_pct", "REAL"), ("liquidity", "REAL"), ("is_early", "INTEGER DEFAULT 0")]:
+        if sc and col not in sc:
+            c.execute(f"ALTER TABLE spike_buys ADD COLUMN {col} {ddl}")
     wc = [r[1] for r in c.execute("PRAGMA table_info(wallets)").fetchall()]
     for col, ddl in [("pnl_sol", "REAL"), ("win_rate", "REAL"),
                      ("closed_count", "INTEGER"), ("qualified_at", "REAL"),
@@ -390,12 +395,16 @@ def seed_wallet(c, address):
 
 # --- SPIKE BUYS (Who Knows More Than Me) ---------------------------------
 
-def record_spike_buy(c, wallet, mint, pool_name, usd, bought_at):
-    """Registra un big-buy. Dedup su (wallet, mint, ts). Ritorna True se nuovo."""
+def record_spike_buy(c, wallet, mint, pool_name, usd, bought_at,
+                     price=None, token_age_min=None, runup_pct=None, liquidity=None, is_early=0):
+    """Registra un big-buy con i dati early. Dedup su (wallet, mint, ts). True se nuovo."""
     cur = c.execute(
-        """INSERT OR IGNORE INTO spike_buys (wallet, mint, pool_name, usd, bought_at, captured_at)
-           VALUES (?,?,?,?,?,?)""",
-        (wallet, mint, pool_name, usd, bought_at, time.time()))
+        """INSERT OR IGNORE INTO spike_buys
+           (wallet, mint, pool_name, usd, bought_at, captured_at,
+            price, token_age_min, runup_pct, liquidity, is_early)
+           VALUES (?,?,?,?,?,?,?,?,?,?,?)""",
+        (wallet, mint, pool_name, usd, bought_at, time.time(),
+         price, token_age_min, runup_pct, liquidity, 1 if is_early else 0))
     return cur.rowcount > 0
 
 
@@ -408,17 +417,18 @@ def coordination_count(c, mint, ts, window_s):
 
 
 def boss_leaderboard(c, min_tokens, limit):
-    """I BOSS: wallet che hanno fatto big-buy su >= min_tokens token diversi. Non casuali."""
+    """I BOSS: wallet con big-buy su >= min_tokens token. Priorità a chi entra EARLY (non polli del top)."""
     return c.execute(
         """SELECT wallet,
                   COUNT(DISTINCT mint) AS tokens,
+                  COUNT(DISTINCT CASE WHEN is_early=1 THEN mint END) AS early_tokens,
                   COUNT(*) AS buys,
                   ROUND(SUM(usd)) AS total_usd,
                   ROUND(MAX(usd)) AS biggest
            FROM spike_buys
            GROUP BY wallet
            HAVING tokens >= ?
-           ORDER BY tokens DESC, total_usd DESC
+           ORDER BY early_tokens DESC, tokens DESC, total_usd DESC
            LIMIT ?""", (min_tokens, limit)).fetchall()
 
 

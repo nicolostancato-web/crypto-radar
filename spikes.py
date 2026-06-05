@@ -1,11 +1,16 @@
 """
-spikes.py — "Who Knows More Than Me": trova CHI muove gli spike.
+spikes.py — "Who Knows More Than Me": trova CHI muove gli spike, PRESTO.
 
-Fonte: GeckoTerminal trades (gratis) — ci dà wallet + size USD + timestamp di ogni trade.
-Per ogni pool Solana di tendenza/nuovo, estraiamo i BIG-BUY (>= soglia): sono gli spike,
-i wallet che mettono $$ grossi e muovono il mercato. Chi ricorre su piu' vincitori = boss.
+Punto 1 della consulenza GPT: spostare il radar da "token già caldi" a "NEW POOL +
+flow anomalo PRIMA del trend". Su un token già pompato catturi i polli del top (exit
+liquidity); su un pool giovane catturi chi entra prima del movimento.
 
-Nessun muro di paginazione blockchain: GeckoTerminal ha gia' i trade con l'indirizzo.
+Per ogni big-buy calcoliamo i dati EARLY:
+  - token_age_min  = quanto è giovane il token al momento dell'acquisto
+  - runup_pct      = quanto è già salito il prezzo PRIMA di questo acquisto (se basso = non insegue)
+  - is_early       = entrato presto, prima del trend, con size significativa
+
+Fonte: GeckoTerminal /trades (gratis) — wallet + USD + prezzo + timestamp di ogni trade.
 """
 import time
 import requests
@@ -35,38 +40,67 @@ def _iso_to_ts(s):
 
 
 def get_solana_pools(limit):
-    """Pool Solana con volume (candidati vincitori): trending + nuovi. Ritorna [(mint, pool_addr, name)]."""
+    """NEW pool prima (giovani = early), poi trending per copertura.
+    Ritorna [(mint, pool_addr, name, created_ts, liquidity)]."""
     out, seen = [], set()
-    for ep in ("/networks/solana/trending_pools", "/networks/solana/new_pools"):
+    for ep in ("/networks/solana/new_pools", "/networks/solana/trending_pools"):
         d = _gt(ep)
         for p in (d or {}).get("data", []):
-            addr = p["attributes"]["address"]
+            a = p["attributes"]
+            addr = a["address"]
             if addr in seen:
                 continue
             seen.add(addr)
             bt = (p.get("relationships", {}).get("base_token", {}).get("data") or {}).get("id", "")
             mint = bt.split("_", 1)[1] if "_" in bt else bt
-            out.append((mint, addr, p["attributes"]["name"]))
+            created = _iso_to_ts(a.get("pool_created_at"))
+            try:
+                liq = float(a.get("reserve_in_usd") or 0)
+            except (TypeError, ValueError):
+                liq = 0
+            out.append((mint, addr, a["name"], created, liq))
             if len(out) >= limit:
                 return out
     return out
 
 
-def get_big_buys(pool_addr):
-    """Big-buy (>= soglia USD) su un pool. Ritorna [(wallet, usd, ts)]."""
+def get_big_buys(pool_addr, created_ts, liquidity):
+    """Big-buy con dati EARLY. Ritorna lista di dict {wallet, usd, ts, price, age_min, runup, is_early}."""
     d = _gt(f"/networks/solana/pools/{pool_addr}/trades")
-    out = []
-    for t in (d or {}).get("data", []):
+    trades = (d or {}).get("data", [])
+    # ordina per tempo crescente per calcolare il run-up PRIMA di ogni acquisto
+    rows = []
+    for t in trades:
         a = t["attributes"]
-        if a.get("kind") != "buy":
-            continue
+        ts = _iso_to_ts(a.get("block_timestamp"))
+        try:
+            price = float(a.get("price_to_in_usd") or 0)
+        except (TypeError, ValueError):
+            price = 0
         try:
             usd = float(a.get("volume_in_usd") or 0)
         except (TypeError, ValueError):
             usd = 0
-        if usd >= SPIKES["min_usd"]:
-            w = a.get("tx_from_address")
-            ts = _iso_to_ts(a.get("block_timestamp"))
-            if w and ts:
-                out.append((w, round(usd), ts))
+        rows.append((ts or 0, a.get("kind"), price, usd, a.get("tx_from_address")))
+    rows.sort(key=lambda x: x[0])
+
+    out = []
+    min_price = None
+    floor = max(SPIKES["min_usd"], SPIKES["early_min_liq_ratio"] * (liquidity or 0))
+    for ts, kind, price, usd, wallet in rows:
+        if price > 0:
+            min_price = price if min_price is None else min(min_price, price)
+        if kind != "buy" or usd < SPIKES["min_usd"] or not wallet or not ts:
+            continue
+        runup = (price / min_price - 1) if (min_price and price > 0) else None
+        age_min = ((ts - created_ts) / 60.0) if created_ts else None
+        is_early = bool(
+            age_min is not None and age_min <= SPIKES["early_max_age_min"]
+            and (runup is None or runup <= SPIKES["early_max_runup"])
+            and usd >= floor
+        )
+        out.append({"wallet": wallet, "usd": round(usd), "ts": ts, "price": price,
+                    "age_min": round(age_min, 1) if age_min is not None else None,
+                    "runup": round(runup, 3) if runup is not None else None,
+                    "is_early": is_early})
     return out

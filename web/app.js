@@ -16,10 +16,12 @@ const usd = (n) => "$" + Math.round(n || 0).toLocaleString("en-US");
 
 function bossRow(b, rank) {
   const toks = b.tokens || 1;
+  const early = b.early_tokens || 0;
+  const earlyTag = early > 0 ? `<span class="etag">${early} early</span>` : "";
   return `<a class="brow" href="https://solscan.io/account/${b.wallet}" target="_blank" rel="noopener">
     <span class="brank">${rank}</span>
     <span class="bmeta">
-      <span class="baddr">${short(b.wallet)}</span>
+      <span class="baddr">${short(b.wallet)} ${earlyTag}</span>
       <span class="bsub">${toks} token diversi · ${b.buys || toks} big-buy</span>
     </span>
     <span class="btot">${usd(b.total_usd)}</span>
@@ -28,8 +30,11 @@ function bossRow(b, rank) {
 }
 
 function spikeRow(sp) {
-  return `<a class="srow" href="https://solscan.io/account/${sp.wallet}" target="_blank" rel="noopener">
-    <span class="saddr">${short(sp.wallet)}</span>
+  const early = sp.is_early
+    ? `<span class="etag">EARLY${sp.token_age_min != null ? " · " + Math.round(sp.token_age_min) + "min" : ""}</span>`
+    : "";
+  return `<a class="srow ${sp.is_early ? "is-early" : ""}" href="https://solscan.io/account/${sp.wallet}" target="_blank" rel="noopener">
+    <span class="saddr">${short(sp.wallet)} ${early}</span>
     <span class="spool">${sp.pool_name || "—"}</span>
     <span class="susd">${usd(sp.usd)}</span>
   </a>`;
@@ -114,9 +119,9 @@ async function load() {
     statCard(s.outcomes_open || 0, "paper trade", false);
 
   // BOSS — Who Knows More Than Me
-  const sp = d.spikes || { big_buys: 0, wallets: 0, bosses: [], recent: [] };
+  const sp = d.spikes || { big_buys: 0, early: 0, wallets: 0, bosses: [], recent: [] };
   document.getElementById("bcount").textContent =
-    `${sp.bosses.length} boss · ${sp.big_buys} big-buy · ${sp.wallets} wallet`;
+    `${sp.bosses.length} boss · ${sp.early || 0} entrate early · ${sp.big_buys} big-buy`;
   const be = document.getElementById("bosses");
   if (sp.bosses.length) {
     be.innerHTML = sp.bosses.map((b, i) => bossRow(b, i + 1)).join("");

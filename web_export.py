@@ -105,11 +105,14 @@ def build():
             w["tokens"] = _tokens_of(w["address"])
         # BOSS — "Who Knows More Than Me": chi muove i big-buy sui token
         bosses = [dict(r) for r in boss_leaderboard(c, SPIKES["boss_min_tokens"], 15)]
+        # mostra prima gli EARLY (chi entra prima del trend), poi gli altri
         recent_spikes = [dict(r) for r in c.execute(
-            """SELECT wallet, pool_name, ROUND(usd) AS usd FROM spike_buys
-               ORDER BY bought_at DESC LIMIT 12""").fetchall()]
+            """SELECT wallet, pool_name, ROUND(usd) AS usd, is_early,
+                      token_age_min, runup_pct FROM spike_buys
+               ORDER BY is_early DESC, bought_at DESC LIMIT 14""").fetchall()]
         spikes_data = {
             "big_buys": c.execute("SELECT COUNT(*) FROM spike_buys").fetchone()[0],
+            "early": c.execute("SELECT COUNT(*) FROM spike_buys WHERE is_early=1").fetchone()[0],
             "wallets": c.execute("SELECT COUNT(DISTINCT wallet) FROM spike_buys").fetchone()[0],
             "bosses": bosses,
             "recent": recent_spikes,

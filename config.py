@@ -214,10 +214,15 @@ WALLETS = {
 # SPIKES — "Who Knows More Than Me": i big-buy che muovono il mercato (GeckoTerminal, gratis).
 # ---------------------------------------------------------------------------
 SPIKES = {
-    "min_usd": 1000,              # soglia big-buy: su microcap, $1k+ = entrata da whale
+    "min_usd": 700,               # soglia big-buy (abbassata: i veri early su pool piccoli)
     "max_pools_per_cycle": 30,    # pool analizzati per giro (rate limit GeckoTerminal free)
     "coordination_window_s": 600, # 10 min: big-buy sullo stesso token entro = COORDINATI
     "boss_min_tokens": 2,         # boss = big-buy su >= 2 token diversi (non casuale)
+
+    # EARLY (punto 1 consulenza): distinguere chi entra PRIMA del trend dal pollo del top
+    "early_max_age_min": 120,     # entrato entro 2h dalla nascita del pool
+    "early_max_runup": 1.0,       # prezzo salito < +100% prima del suo ingresso (non insegue)
+    "early_min_liq_ratio": 0.005, # buy >= 0.5% della liquidità (size significativa)
 }
 
 # ---------------------------------------------------------------------------

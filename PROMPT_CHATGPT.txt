@@ -1,0 +1,116 @@
+================================================================================
+PROMPT PER CHATGPT — CONSULENZA SU SISTEMA DI "SMART MONEY TRACKING" SU SOLANA
+================================================================================
+
+## IL TUO RUOLO
+Agisci come un SENIOR QUANT + ON-CHAIN ANALYST con 10+ anni di esperienza reale su
+trading crypto, memecoin Solana, analisi on-chain e copy-trading di "smart money".
+Sei BRUTALMENTE ONESTO, non incoraggiante: se una cosa non funziona, lo dici. Distingui
+sempre fatti da speculazione. Dai consigli CONCRETI e IMPLEMENTABILI (algoritmi, formule,
+soglie, fonti dati, tecniche note), non genericità motivazionali.
+
+## IL CONTESTO (cosa abbiamo costruito)
+Sto costruendo un sistema automatico ("crypto-radar") che gira 24/7 nel cloud (gratis,
+GitHub Actions, ogni ora). Obiettivo: PAPER TRADING + scoperta di wallet "smart money"
+su Solana. NON eseguiamo trade reali: solo analisi e simulazione finché i dati non
+provano un edge. Stack attuale, TUTTO con API gratuite:
+
+DATI / FONTI (tutte free tier):
+- DEXScreener (gratis, no key): prezzo/volume/liquidità/txns dei token, multi-chain.
+- GeckoTerminal API (gratis, no key): pool di tendenza + endpoint /trades che restituisce
+  OGNI trade con: wallet (tx_from_address), size in USD (volume_in_usd), prezzo
+  (price_to_in_usd), timestamp, kind (buy/sell). QUESTO è il nostro accesso ai "chi ha
+  comprato cosa, quando, quanto".
+- Helius RPC Solana (free tier 1M crediti/mese): getSignaturesForAddress + getTransaction
+  (jsonParsed) per ricostruire la storia di un wallet e calcolarne il PnL.
+- Telegram (5 canali pubblici letti via web-preview), 4chan /biz/, CoinGecko trending:
+  segnali di attenzione/social.
+
+PIPELINE ATTUALE (gira ogni ora):
+1. DISCOVERY: pesca token Solana/multi-chain con volume/momentum.
+2. SOCIAL: conta menzioni dei ticker su Telegram/4chan/CoinGecko.
+3. SCORING: somma pesata dei segnali -> score 0-10. Bonus di "confluenza" se 3+ segnali.
+4. OUTCOMES (paper trading): quando uno score supera soglia, registra prezzo d'ingresso
+   ipotetico; a 24h/72h/168h misura il rendimento NETTO di slippage+fee simulati
+   (slippage ~ size_trade / liquidità). Misura il VALORE ATTESO, non la % di colpi.
+5. WALLET CAPTURE: cattura i compratori dei token su cui "entriamo".
+6. WALLET QUALIFIER (Helius): per ogni wallet calcola PnL realizzato in SOL, win-rate,
+   n. posizioni chiuse, transazioni/giorno. Filtro ANTI-BOT: >60 tx/giorno = bot, escluso.
+   Deep-dive su 200 tx per il track record vero.
+7. SPIKE HUNTER ("Who Knows More Than Me"): da GeckoTerminal /trades, cattura i BIG-BUY
+   (>=$1000) sui token caldi -> registra (wallet, token, $, timestamp). I wallet che
+   ricorrono come big-buyer su >=2 token diversi = "boss". Rileva coordinazione (3+ wallet
+   stesso token entro 10 min).
+8. LEARNING: man mano che gli outcomes maturano, ri-tara i pesi dei segnali (con freni:
+   min 15 campioni, passi piccoli) per non fare overfitting.
+9. Dashboard web pubblica + Excel.
+
+## IL GOAL (chiarissimo)
+Il ragionamento di base: SE certi wallet fanno soldi costantemente entrando al momento
+giusto, allora hanno qualcosa che noi non abbiamo (info, gruppi privati, accesso). Se li
+identifichiamo e li COPIAMO (prima in paper, poi forse $100 a posizione per 1-2x ed esci),
+possiamo fare soldi anche noi. Obiettivo ATTUALE = identificare con certezza statistica
+questi "boss" e capire SE seguirli funziona. NON mettere soldi veri finché non è provato.
+
+## I NOSTRI DATI DOPO ~10 CICLI (per darti il quadro reale)
+- 29 big-buy catturati, 24 wallet distinti -> 0 wallet ricorrenti su >=2 token (nessun "boss" ancora).
+- 61 wallet tracciati, deep-verificati 6 -> SOLO 1 "whale" vera (profittevole, non bot), 5 bot scartati.
+- Paper trades: "three" era +67% non realizzato a 12h, ma a 24h è -10% (si è ribaltato).
+  Media outcomes 24h: ~-1.7% (n=2, rumore). NESSUN edge visibile finora.
+
+## I NOSTRI DUBBI / DOMANDE (rispondi a OGNUNA, in dettaglio)
+
+1. PROBLEMA EARLY vs LATE: i nostri big-buy li catturiamo dai trade RECENTI di token GIA'
+   caldi/trending. Sospettiamo di catturare i COMPRATORI DEL TOP (la "exit liquidity",
+   i polli grossi) invece della smart money ANTICIPATA (che ha comprato nel piatto prima
+   del pump). Come distinguiamo on-chain un big-buy "early/informato" da uno "late/pollo"?
+   La nostra idea: misurare se il prezzo SALE dopo il loro ingresso ("entry-worked" score).
+   E' la metrica giusta? Ce ne sono di migliori? Come la implementeresti esattamente?
+
+2. SCOPERTA EARLY: come pescare i big-buy DAVVERO presto (token giovani, ancora piatti,
+   appena un whale entra) usando solo API gratuite (GeckoTerminal new_pools, Helius,
+   DEXScreener)? Quali endpoint/strategie? Come gestire che i token virali esplodono a
+   60k+ transazioni e non si pagina indietro a buon mercato?
+
+3. WALLET COORDINATI / GRUPPI: come identificare on-chain un CLUSTER di wallet coordinati
+   (3-4 che comprano gli stessi token insieme prima dei pump)? Tecniche concrete di
+   co-occurrence / network analysis applicabili con i nostri dati?
+
+4. WALLET-SWITCHING: questi trader cambiano wallet per nascondersi (spostano SOL da un
+   wallet all'altro, poi smettono e ne usano un altro). Come tracciare wallet COLLEGATI
+   (funding graph) con Helius/dati gratuiti? Come non perderli quando "spariscono"?
+
+5. QUALIFICA DI UN WALLET: oltre a PnL realizzato + win-rate + tx/giorno (anti-bot), quali
+   altre metriche on-chain identificano un trader DAVVERO bravo e COPIABILE (non un bot
+   MEV, non un insider/dev che scarica)? Es. holding time, dimensione media, % entrate
+   in token che poi fanno >2x, età del wallet, ecc. Dammi una formula di "smart score".
+
+6. VALIDITA' STATISTICA: con quanti campioni (paper trades, big-buy osservati) possiamo
+   iniziare a credere a un edge senza ingannarci col survivorship/fortuna? Come strutturare
+   il test onestamente (es. valore atteso netto, non win-rate)?
+
+7. L'EXIT: il nostro paper trade "three" è passato da +67% a -10% perché non avevamo regola
+   d'uscita. Se copiamo gli ingressi di uno smart wallet, come gestiamo l'USCITA? Copiamo
+   anche le loro vendite (e con che latenza)? Regole meccaniche (trailing stop, take-profit)?
+
+8. FONTI/METODI CHE CI MANCANO: quali strumenti/dataset GRATIS o low-cost per smart-money
+   Solana NON stiamo usando e dovremmo (es. Dune Analytics, Birdeye free, indicizzatori,
+   liste pubbliche di smart wallet)? GMGN.ai l'abbiamo provato ma blocca (Cloudflare 403).
+
+9. LA DOMANDA ONESTA: secondo la tua esperienza reale, questo edge (copiare smart money su
+   memecoin Solana via dati on-chain pubblici) ESISTE davvero ed è sfruttabile da un retail
+   con strumenti gratuiti? O i pro hanno latenza/accesso che lo rende impossibile da copiare
+   in tempo? Cosa fanno DAVVERO i pro che noi non vediamo? Dove falliscono i sistemi come il
+   nostro? Sii brutale.
+
+## VINCOLI
+- Solo API gratuite o quasi (budget ~0). Focus Solana (dove c'è l'azione memecoin).
+- Paper trading prima, soldi veri solo se provato statisticamente.
+- Deve girare in automatico (cloud, no intervento umano continuo).
+
+## COSA VOGLIO DA TE (formato risposta)
+Per OGNI domanda 1-9: (a) risposta concreta e tecnica, (b) come implementarla con i nostri
+dati/strumenti, (c) le insidie/errori comuni. Dove utile, dai formule, soglie numeriche di
+partenza, nomi di endpoint/tecniche/paper. Alla fine: le 3 cose PIU' IMPORTANTI che faresti
+TU al nostro posto, in ordine di priorita'. Niente fuffa motivazionale. Brutalmente onesto.
+================================================================================
