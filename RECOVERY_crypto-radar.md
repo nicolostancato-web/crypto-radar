@@ -141,7 +141,20 @@ Pattern osservato spesso: token piatto -> 1a WHALE entra nella zona piatta (lei 
 
 ## ROADMAP PROSSIMA: 1) accumulare spike/boss giorni; 2) score anticipo+coordinazione; 3) linked
 ## wallets (anti-switching); 4) cross PnL Helius sui boss; 5) solo DOPO, strategia di copia.
-## STRATEGIA CORRENTE: accumulare dati di qualità senza sprecare crediti, poi analizzare KPI + boss.
+## FATTO dopo (2026-06-05) — CONSULENZA GPT + PUNTO 1 (early watcher)
+- Salvata CONSULENZA_GPT_2026-06-05.md (formule, soglie, 3 priorità). Reframe chiave:
+  valutare COPIABILITÀ ("copiarlo alla MIA latenza, +5-10% prezzo peggiore, dà EV>0?"), non PnL.
+- PUNTO 1 FATTO: spikes.py ora pesca NEW_POOLS prima (giovani), calcola per ogni big-buy:
+  token_age_min, runup_pct (quanto è salito PRIMA dell'ingresso), is_early. Solo gli EARLY
+  (age<120min, runup<100%, size>=max($700,0.5%liq)) entrano nella qualifica wallet (no polli del top).
+  spike_buys +price,token_age_min,runup_pct,liquidity,is_early. boss_leaderboard ordina per early_tokens.
+  Dashboard: tag EARLY, focus su chi entra prima del trend. Test OK (es. $725 su wNOT età 0min runup 0%).
+
+## PROSSIMI (da consulenza): PUNTO 2 = copy-simulation con EXIT meccaniche (TP/trailing/stop),
+## non solo outcome 24/72h. PUNTO 3 = smart-score su copiabilità (regge +10% entrata + ritardo).
+## Poi: cluster coordinati, funding graph (linked wallets), Dune per backtest storico.
+## DISCIPLINA: discover->CONGELA lista->testa FORWARD. Servono 100+ trade. Niente soldi veri.
+## STRATEGIA CORRENTE: accumulare EARLY di qualità, poi copy-sim con exit, poi validare EV.
 ## BLOCCHI: nessuno. Sistema autonomo, accumula e si qualifica da solo ogni ora.
 
 ## File modificati di recente
