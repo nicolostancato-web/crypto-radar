@@ -128,12 +128,20 @@ def build():
             "recent": recent_spikes,
         }
 
-        # MAIN WALLETS — gli operatori coi capitali (funding graph)
-        mains = [dict(r) for r in main_leaderboard(c, 10)]
+        # WHALE WALLET — ricco + persistente + profittevole + ancora attivo (il bersaglio giusto)
+        whales = [dict(r) for r in c.execute(
+            """SELECT address, smart_score, pnl_sol, copy_pnl, win_rate, closed_count,
+                      balance_sol, biggest_buy, span_days, last_active_days
+               FROM wallets
+               WHERE verified=1 AND is_bot=0 AND copy_pnl>0 AND smart_score>0
+               ORDER BY smart_score DESC LIMIT 10""").fetchall()]
+        for w in whales:
+            w["tokens"] = _tokens_of(w["address"]) if "_tokens_of" in dir() else []
         mains_data = {
-            "count": c.execute("SELECT COUNT(*) FROM main_wallets").fetchone()[0],
-            "spawns": c.execute("SELECT COUNT(*) FROM main_spawns").fetchone()[0],
-            "list": mains,
+            "count": c.execute(
+                "SELECT COUNT(*) FROM wallets WHERE verified=1 AND is_bot=0 AND copy_pnl>0").fetchone()[0],
+            "spawns": 0,
+            "list": whales,
         }
 
         wallets_data = {

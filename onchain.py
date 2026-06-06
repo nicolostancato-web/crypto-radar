@@ -175,6 +175,12 @@ def wallet_deep(address, max_tx=200):
     LAT = 1.10
     copy_pnl = sum(v["out"] - v["in"] * LAT for m, v in per.items() if v["sells"] > 0 and v["in"] > 0)
     open_count = sum(1 for v in per.values() if v["in"] > 0 and v["sells"] == 0)  # comprati, mai venduti
+    # CAPITALE: saldo attuale + acquisto piu' grosso (size = quanto e' "ricco" il wallet)
+    balr = _rpc("getBalance", [address])
+    balance_sol = round((balr.get("value", 0) / 1e9), 2) if balr else 0
+    biggest_buy = round(max((v["in"] for v in per.values()), default=0), 3)
+    # PERSISTENZA / ATTIVITA': giorni dall'ultima operazione (basso = ancora attivo)
+    last_active_days = round((time.time() - max(times)) / 86400.0, 1) if times else None
     won = sum(1 for x in pnls if x > 0)
     span_days = ((max(times) - min(times)) / 86400.0) if len(times) >= 2 else 0.0
     txc = len(sigs)
@@ -193,6 +199,9 @@ def wallet_deep(address, max_tx=200):
         "span_days": round(span_days, 2),
         "tx_per_day": round(tx_per_day, 1),
         "top_wins": [m for m, _ in top_wins],
+        "balance_sol": balance_sol,
+        "biggest_buy": biggest_buy,
+        "last_active_days": last_active_days,
     }
 
 
@@ -234,6 +243,10 @@ def main_wallet_stats(main, n=120):
     bal = _rpc("getBalance", [main])
     sol = (bal.get("value", 0) / 1e9) if bal else 0
     sigs = _rpc("getSignaturesForAddress", [main, {"limit": n}]) or []
+    # RILEVA HUB/EXCHANGE: alta frequenza = infrastruttura, non operatore personale
+    bts = [s.get("blockTime") for s in sigs if s.get("blockTime")]
+    span_h = (max(bts) - min(bts)) / 3600.0 if len(bts) > 1 else 0.0
+    tx_per_hour = len(sigs) / span_h if span_h > 0.1 else float(len(sigs))
     recipients = {}   # child -> [sol_totale, ultimo_ts]
     for s in sigs:
         if s.get("err"):
@@ -253,7 +266,8 @@ def main_wallet_stats(main, n=120):
                     r = recipients.setdefault(k, [0.0, 0])
                     r[0] += (post[i] - pre[i]) / 1e9
                     r[1] = max(r[1], s.get("blockTime") or 0)
-    return {"balance_sol": round(sol, 2), "funded_count": len(recipients), "recipients": recipients}
+    return {"balance_sol": round(sol, 2), "funded_count": len(recipients),
+            "tx_per_hour": round(tx_per_hour, 1), "recipients": recipients}
 
 
 if __name__ == "__main__":

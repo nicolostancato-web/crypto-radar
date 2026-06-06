@@ -227,6 +227,12 @@ WALLETS = {
     "requalify_days": 4,           # ri-qualifica un wallet solo dopo N giorni
     "min_closed_for_proven": 2,    # provato con >= 2 posizioni chiuse
 
+    # WHALE = ricco + persistente + ancora attivo (oltre a profittevole+copiabile)
+    "whale_min_balance_sol": 50,   # tiene >= 50 SOL (~$7.5k)
+    "whale_min_biggest_buy": 8,    # ha fatto almeno un acquisto da >= 8 SOL (~$1.2k)
+    "whale_min_span_days": 14,     # persistente: opera da >= 14 giorni
+    "whale_max_inactive_days": 7,  # ancora attivo: ultima operazione entro 7 giorni
+
     # DEEP-DIVE (livello 2): solo su chi passa lo screen. Verità sul track record.
     "deep_tx": 200,                # tx per l'analisi profonda
     "max_deep_per_cycle": 2,       # max deep-dive per giro (tetto crediti: ~200 call l'uno)

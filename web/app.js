@@ -16,14 +16,19 @@ const usd = (n) => "$" + Math.round(n || 0).toLocaleString("en-US");
 
 function mainRow(m, rank) {
   const usdBal = "$" + Math.round((m.balance_sol || 0) * 150).toLocaleString("en-US");
+  const age = m.span_days != null ? Math.round(m.span_days) + "g" : "—";
+  const act = m.last_active_days != null
+    ? (m.last_active_days <= 7 ? "attivo" : Math.round(m.last_active_days) + "g fa")
+    : "—";
+  const pnl = m.copy_pnl != null ? (m.copy_pnl >= 0 ? "+" : "") + m.copy_pnl.toFixed(2) : "—";
   return `<a class="brow" href="https://solscan.io/account/${m.address}" target="_blank" rel="noopener">
-    <span class="brank">🐙</span>
+    <span class="brank">🐋</span>
     <span class="bmeta">
       <span class="baddr">${short(m.address)} <span class="etag">${usdBal}</span></span>
-      <span class="bsub">genera ${m.funded_count || 0} wallet · ${m.spawns || 0} tentacoli osservati</span>
+      <span class="bsub">attivo da ${age} · ${act} · ${m.closed_count || 0} trade · copiato ${pnl} SOL</span>
     </span>
     <span class="btot">${m.balance_sol ? Math.round(m.balance_sol).toLocaleString("en-US") + " SOL" : "—"}</span>
-    <span class="bbig">main</span>
+    <span class="bbig">max buy ${m.biggest_buy != null ? Math.round(m.biggest_buy) + " SOL" : "—"}</span>
   </a>`;
 }
 
@@ -131,15 +136,14 @@ async function load() {
     statCard(s.candidates || 0, "crypto candidati", false) +
     statCard(s.outcomes_open || 0, "paper trade", false);
 
-  // MAIN WALLETS — gli operatori coi capitali
-  const mn = d.mains || { count: 0, spawns: 0, list: [] };
-  document.getElementById("mcount").textContent =
-    `${mn.count} operatori · ${mn.spawns} tentacoli tracciati`;
+  // WHALE WALLETS — ricchi + persistenti + profittevoli + attivi
+  const mn = d.mains || { count: 0, list: [] };
+  document.getElementById("mcount").textContent = `${mn.count} whale qualificati`;
   const me = document.getElementById("mains");
   if ((mn.list || []).length) {
     me.innerHTML = mn.list.map((m, i) => mainRow(m, i + 1)).join("");
   } else {
-    me.innerHTML = `<div class="empty">Risalgo ai main dai trader bravi. Appaiono man mano che troviamo wallet copiabili e tracciamo chi li finanzia.</div>`;
+    me.innerHTML = `<div class="empty">Nessun whale qualificato ancora — serve ricco + persistente + profittevole + attivo. Si costruisce man mano che i wallet vengono verificati a fondo.</div>`;
   }
 
   // BOSS — Who Knows More Than Me

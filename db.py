@@ -211,6 +211,15 @@ def _migrate(c):
     for col, ddl in [("sim_return", "REAL"), ("sim_reason", "TEXT"), ("sim_at", "REAL")]:
         if cols and col not in cols:
             c.execute(f"ALTER TABLE outcomes ADD COLUMN {col} {ddl}")
+    # PULIZIA approccio funding-graph (abbandonato: risaliva agli hub CEX come Binance).
+    # Rimuove i wallet inquinati (prelievi CEX seminati come spawn) + svuota le tabelle main.
+    try:
+        c.execute("""DELETE FROM wallets WHERE address IN (SELECT child FROM main_spawns)
+                     AND buys_count=0 AND (verified IS NULL OR verified=0)""")
+        c.execute("DELETE FROM main_spawns")
+        c.execute("DELETE FROM main_wallets")
+    except sqlite3.OperationalError:
+        pass
     # qualifica PnL dei wallet (accumulata e cachata, non si ricalcola ogni giro)
     sc = [r[1] for r in c.execute("PRAGMA table_info(spike_buys)").fetchall()]
     for col, ddl in [("price", "REAL"), ("token_age_min", "REAL"),
@@ -224,7 +233,8 @@ def _migrate(c):
                      ("tx_per_day", "REAL"), ("top_wins", "TEXT"),
                      ("deep_at", "REAL"), ("snowballed", "INTEGER DEFAULT 0"),
                      ("tokens_count", "INTEGER"), ("open_count", "INTEGER"),
-                     ("copy_pnl", "REAL")]:
+                     ("copy_pnl", "REAL"), ("balance_sol", "REAL"), ("biggest_buy", "REAL"),
+                     ("span_days", "REAL"), ("last_active_days", "REAL")]:
         if wc and col not in wc:
             c.execute(f"ALTER TABLE wallets ADD COLUMN {col} {ddl}")
 
@@ -392,14 +402,17 @@ def wallets_to_deepdive(c, limit):
 
 
 def set_wallet_deep(c, address, pnl_sol, win_rate, closed_count, tx_per_day, is_bot,
-                    top_wins, tokens_count, open_count, copy_pnl):
+                    top_wins, tokens_count, open_count, copy_pnl,
+                    balance_sol, biggest_buy, span_days, last_active_days):
     import json as _json
     c.execute(
         """UPDATE wallets SET pnl_sol=?, win_rate=?, closed_count=?, tx_per_day=?,
-                  is_bot=?, verified=1, top_wins=?, tokens_count=?, open_count=?,
-                  copy_pnl=?, deep_at=?, qualified_at=? WHERE address=?""",
+                  is_bot=?, verified=1, top_wins=?, tokens_count=?, open_count=?, copy_pnl=?,
+                  balance_sol=?, biggest_buy=?, span_days=?, last_active_days=?,
+                  deep_at=?, qualified_at=? WHERE address=?""",
         (pnl_sol, win_rate, closed_count, tx_per_day, 1 if is_bot else 0,
-         _json.dumps(top_wins), tokens_count, open_count, copy_pnl, time.time(), time.time(), address))
+         _json.dumps(top_wins), tokens_count, open_count, copy_pnl,
+         balance_sol, biggest_buy, span_days, last_active_days, time.time(), time.time(), address))
 
 
 def whales_to_snowball(c, limit):

@@ -43,7 +43,8 @@ def _deepdive_batch(c):
             continue
         is_bot = d["tx_per_day"] > WALLETS["bot_tx_per_day"]
         set_wallet_deep(c, a, d["realized_sol"], d["win_rate"], d["closed"],
-                        d["tx_per_day"], is_bot, d["top_wins"], d["tokens"], d["open"], d["copy_pnl"])
+                        d["tx_per_day"], is_bot, d["top_wins"], d["tokens"], d["open"], d["copy_pnl"],
+                        d["balance_sol"], d["biggest_buy"], d["span_days"], d["last_active_days"])
         done += 1
         if is_bot:
             bots += 1
@@ -71,7 +72,8 @@ def _smart_score(c):
     peggiore), non il PnL nudo. Bot fuori. Una whale 'vera' deve restare profittevole COPIATA."""
     scored = 0
     for w in c.execute("""SELECT address, pnl_sol, copy_pnl, win_rate, closed_count, buys_count,
-                                 verified, is_bot FROM wallets""").fetchall():
+                                 verified, is_bot, balance_sol, biggest_buy, span_days,
+                                 last_active_days FROM wallets""").fetchall():
         buys = w["buys_count"] or 0
         win, closed = w["win_rate"], w["closed_count"] or 0
         copy = w["copy_pnl"] if w["copy_pnl"] is not None else w["pnl_sol"]
@@ -79,10 +81,23 @@ def _smart_score(c):
             score = 0.0                                   # bot/HFT: non copiabile
         elif w["verified"] and copy is not None and closed >= WALLETS["min_closed_for_proven"]:
             cred = min(closed / 5.0, 1.0)
-            # se copy_pnl<=0 -> non copiabile da noi -> score basso anche se PnL nudo positivo
-            score = round(copy * (win or 0) * cred + 0.1 * buys, 3)
+            base = copy * (win or 0) * cred
+            # FATTORI WHALE: ricco + persistente + ancora attivo
+            rich = (w["balance_sol"] or 0) >= WALLETS["whale_min_balance_sol"] \
+                or (w["biggest_buy"] or 0) >= WALLETS["whale_min_biggest_buy"]
+            persistent = (w["span_days"] or 0) >= WALLETS["whale_min_span_days"]
+            la = w["last_active_days"]
+            active = (la is None) or (la <= WALLETS["whale_max_inactive_days"])
+            mult = 1.0
+            if rich:
+                mult *= 1.6
+            if persistent:
+                mult *= 1.3
+            if not active:
+                mult *= 0.3            # ha svuotato / dormiente -> declassa
+            score = round(base * mult + 0.1 * buys, 3)
         elif w["pnl_sol"] is not None and closed >= WALLETS["min_closed_for_proven"]:
-            score = round(0.3 * w["pnl_sol"] * (win or 0) + 0.05 * buys, 3)   # promettente, non verificata
+            score = round(0.3 * w["pnl_sol"] * (win or 0) + 0.05 * buys, 3)
         else:
             score = round(0.03 * buys, 3)
         set_wallet_score(c, w["address"], score, win)
