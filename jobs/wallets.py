@@ -76,7 +76,7 @@ def _smart_score(c):
                                  last_active_days FROM wallets""").fetchall():
         buys = w["buys_count"] or 0
         win, closed = w["win_rate"], w["closed_count"] or 0
-        copy = w["copy_pnl"] if w["copy_pnl"] is not None else w["pnl_sol"]
+        copy = w["copy_pnl"]   # il copy_pnl VERO (None se non ancora ri-qualificato col codice nuovo)
         if w["is_bot"]:
             score = 0.0                                   # bot/HFT: non copiabile
         elif w["verified"] and copy is not None and closed >= WALLETS["min_closed_for_proven"]:
@@ -96,9 +96,11 @@ def _smart_score(c):
             if not active:
                 mult *= 0.3            # ha svuotato / dormiente -> declassa
             score = round(base * mult + 0.1 * buys, 3)
-        elif w["pnl_sol"] is not None and closed >= WALLETS["min_closed_for_proven"]:
+        elif (not w["verified"]) and w["pnl_sol"] is not None and closed >= WALLETS["min_closed_for_proven"]:
+            # solo NON-verificati: screen veloce (provvisorio, peso basso)
             score = round(0.3 * w["pnl_sol"] * (win or 0) + 0.05 * buys, 3)
         else:
+            # verificato ma copy_pnl mancante (dati vecchi) -> basso, attende ri-qualifica
             score = round(0.03 * buys, 3)
         set_wallet_score(c, w["address"], score, win)
         if score > 0:
