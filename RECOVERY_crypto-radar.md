@@ -186,7 +186,22 @@ Pattern osservato spesso: token piatto -> 1a WHALE entra nella zona piatta (lei 
 ## STATO DATI (2026-06-06): paper trade negativi (-6/-7%, n=5 = rumore), 0 boss, 0 early,
 ## 2 sole whale copiabili su 110. NESSUN edge nel sistema spike. La pista vera = MAIN WALLET.
 ## DA VERIFICARE: i figli del main $27M tradano bene? (= operatore vero o servizio). + fase 2 fingerprint.
-## STRATEGIA: tracciare i MAIN persistenti (i veloci usa-e-getta sono fuori portata, ok cosi').
+## FATTO (2026-06-06) — FIX ERRORE BINANCE + PIVOT a WHALE WALLET
+- ERRORE (beccato da Nicolo): il "main $27M" era un HOT WALLET DI BINANCE (151 tx/ora, 104
+  controparti distinte = hub, non operatore). Il funding-graph finisce sugli exchange -> vicolo cieco.
+- DROP funding-graph: tolto stadio mainwallet dalla pipeline. Pulizia idempotente in _migrate
+  (svuota main_wallets/main_spawns + rimuove i wallet inquinati seminati dagli spawn CEX).
+- PIVOT: il bersaglio non e' CHI finanzia (=Binance), ma il TRADER ricco stesso (la persona che
+  prende $1M e li tradano). wallet_deep ora calcola: balance_sol, biggest_buy (CAPITALE),
+  span_days, last_active_days (PERSISTENZA/ATTIVITA'). _smart_score: WHALE = copiabile +
+  ricco(>=50 SOL o buy>=8 SOL) x1.6 + persistente(>=14gg) x1.3 + attivo(<=7gg, senno x0.3).
+- Dashboard: "Main Wallet" -> "🐋 Whale Wallet" (ricco+persistente+profittevole+attivo). v11.
+- DISCIPLINA condivisa: basta pivot a ogni messaggio. COMMIT su questa strada, giudicare l'EV
+  di copia coi dati in avanti. Se EV<=0 dopo volume -> accettare che l'edge non c'e'.
+
+## STRATEGIA CORRENTE: identificare WHALE (ricco+persistente+profittevole+attivo) direttamente,
+## copiarli in paper FORWARD con exit meccaniche, misurare EV. NIENTE soldi veri. NO altri pivot
+## finche non ci sono dati su QUESTA strada.
 ## BLOCCHI: nessuno. Sistema autonomo, accumula e si qualifica da solo ogni ora.
 
 ## File modificati di recente
