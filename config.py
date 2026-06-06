@@ -200,6 +200,20 @@ LEARN = {
 }
 
 # ---------------------------------------------------------------------------
+# MAIN — Main Wallet Tracker (funding graph). Risale dai wallet bravi al MAIN coi capitali
+# (es. $27M che genera 74 wallet). Tracciando il main becchiamo ogni nuovo spawn dal minuto zero.
+# ---------------------------------------------------------------------------
+MAIN = {
+    "min_balance_sol": 30,        # un main "serio" tiene >=30 SOL
+    "min_funded": 3,              # ha generato >=3 wallet di trading
+    "max_funded_hub": 150,        # oltre = probabile CEX/servizio (non un operatore) -> scartato
+    "max_trace_per_cycle": 2,     # quante whale risalire per giro (paging costoso)
+    "max_watch_per_cycle": 3,     # quanti main ri-controllare per giro (nuovi spawn)
+    "recheck_hours": 2,           # ogni 2h ricontrolla un main per nuovi tentacoli
+    "spawn_min_sol": 0.1,         # finanziamento minimo per considerarlo uno spawn di trading
+}
+
+# ---------------------------------------------------------------------------
 # WALLETS — scoperta smart-money DAL BASSO (Helius). CFO: solo sui token su cui entriamo.
 # ---------------------------------------------------------------------------
 WALLETS = {

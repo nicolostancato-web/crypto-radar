@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://api.fontshare.com" />
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css?v=9" />
+  <link rel="stylesheet" href="./styles.css?v=10" />
 </head>
 <body>
   <div class="radar-bg" aria-hidden="true">
@@ -38,6 +38,16 @@
     </section>
 
     <section class="stats" id="stats"></section>
+
+    <section class="mains">
+      <div class="board-head">
+        <h2>🐙 Main Wallet <span id="mcount" class="wcount"></span></h2>
+      </div>
+      <p class="sec-note">Gli <strong>operatori coi capitali</strong>: wallet da milioni che generano
+        decine di wallet di trading usa-e-getta. Risaliti dai trader bravi. Il main non sparisce —
+        tracciandolo becchiamo <strong>ogni nuovo tentacolo dal minuto zero</strong>.</p>
+      <div class="main-list" id="mains"></div>
+    </section>
 
     <section class="bosses">
       <div class="board-head">
@@ -86,6 +96,6 @@
     <span id="counts" class="muted"></span>
   </footer>
 
-  <script src="./app.js?v=9"></script>
+  <script src="./app.js?v=10"></script>
 </body>
 </html>

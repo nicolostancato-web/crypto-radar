@@ -145,6 +145,31 @@ CREATE TABLE IF NOT EXISTS spike_buys (
 CREATE INDEX IF NOT EXISTS idx_spike_wallet ON spike_buys(wallet);
 CREATE INDEX IF NOT EXISTS idx_spike_mint ON spike_buys(mint, bought_at);
 
+-- MAIN_WALLETS: i wallet "madre" coi capitali (es. $27M) che generano decine di wallet di
+-- trading usa-e-getta. Tracciando il MAIN becchiamo OGNI nuovo spawn dal minuto zero -> risolve
+-- la disposabilita' (il main non sparisce, ha i milioni). Risaliti dai wallet bravi via funding.
+CREATE TABLE IF NOT EXISTS main_wallets (
+    address       TEXT PRIMARY KEY,
+    balance_sol   REAL,
+    funded_count  INTEGER,        -- quanti wallet ha generato
+    smart_children INTEGER DEFAULT 0,  -- quanti dei suoi figli sono trader bravi (verifica)
+    source_wallet TEXT,           -- il wallet bravo da cui siamo risaliti
+    discovered_at REAL,
+    last_checked  REAL
+);
+
+-- MAIN_SPAWNS: i wallet figli generati da un main (i tentacoli da osservare).
+CREATE TABLE IF NOT EXISTS main_spawns (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    main        TEXT NOT NULL,
+    child       TEXT NOT NULL,
+    funded_sol  REAL,
+    funded_at   REAL,
+    captured_at REAL NOT NULL,
+    UNIQUE (main, child)
+);
+CREATE INDEX IF NOT EXISTS idx_spawn_main ON main_spawns(main);
+
 -- NOTIFIED: per non rimandare la stessa notifica Telegram dello stesso pick.
 CREATE TABLE IF NOT EXISTS notified (
     contract_address TEXT PRIMARY KEY,
@@ -395,6 +420,52 @@ def seed_wallet(c, address):
         """INSERT INTO wallets (address, first_seen, buys_count, updated_at)
            VALUES (?,?,0,?) ON CONFLICT(address) DO NOTHING""",
         (address, time.time(), time.time()))
+
+
+# --- MAIN WALLETS (funding graph) ----------------------------------------
+
+def upsert_main(c, address, balance_sol, funded_count, source_wallet):
+    c.execute(
+        """INSERT INTO main_wallets (address, balance_sol, funded_count, source_wallet,
+                                     discovered_at, last_checked)
+           VALUES (?,?,?,?,?,?)
+           ON CONFLICT(address) DO UPDATE SET
+             balance_sol=excluded.balance_sol, funded_count=excluded.funded_count,
+             last_checked=excluded.last_checked""",
+        (address, balance_sol, funded_count, source_wallet, time.time(), time.time()))
+
+
+def already_traced(c, source_wallet):
+    return c.execute("SELECT 1 FROM main_wallets WHERE source_wallet=? LIMIT 1",
+                     (source_wallet,)).fetchone() is not None
+
+
+def get_mains_to_watch(c, older_than_s, limit):
+    """Main da ri-controllare (per scovare nuovi spawn). I piu' grossi per primi."""
+    cutoff = time.time() - older_than_s
+    return [r["address"] for r in c.execute(
+        """SELECT address FROM main_wallets WHERE last_checked IS NULL OR last_checked < ?
+           ORDER BY balance_sol DESC LIMIT ?""", (cutoff, limit)).fetchall()]
+
+
+def set_main_checked(c, address, balance_sol, funded_count):
+    c.execute("UPDATE main_wallets SET balance_sol=?, funded_count=?, last_checked=? WHERE address=?",
+              (balance_sol, funded_count, time.time(), address))
+
+
+def record_spawn(c, main, child, funded_sol, funded_at):
+    """Registra un wallet figlio generato dal main. True se NUOVO (= nuovo tentacolo da osservare)."""
+    cur = c.execute(
+        """INSERT OR IGNORE INTO main_spawns (main, child, funded_sol, funded_at, captured_at)
+           VALUES (?,?,?,?,?)""", (main, child, funded_sol, funded_at, time.time()))
+    return cur.rowcount > 0
+
+
+def main_leaderboard(c, limit):
+    return c.execute(
+        """SELECT m.address, m.balance_sol, m.funded_count, m.smart_children, m.source_wallet,
+                  (SELECT COUNT(*) FROM main_spawns s WHERE s.main=m.address) AS spawns
+           FROM main_wallets m ORDER BY m.balance_sol DESC LIMIT ?""", (limit,)).fetchall()
 
 
 # --- SPIKE BUYS (Who Knows More Than Me) ---------------------------------

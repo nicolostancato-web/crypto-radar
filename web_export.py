@@ -9,7 +9,7 @@ import sys, os, json, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from config import SCORING, OUTCOMES, SPIKES
-from db import get_conn, init_db, boss_leaderboard
+from db import get_conn, init_db, boss_leaderboard, main_leaderboard
 
 OUT_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "web")
 OUT_PATH = os.path.join(OUT_DIR, "data.json")
@@ -128,6 +128,14 @@ def build():
             "recent": recent_spikes,
         }
 
+        # MAIN WALLETS — gli operatori coi capitali (funding graph)
+        mains = [dict(r) for r in main_leaderboard(c, 10)]
+        mains_data = {
+            "count": c.execute("SELECT COUNT(*) FROM main_wallets").fetchone()[0],
+            "spawns": c.execute("SELECT COUNT(*) FROM main_spawns").fetchone()[0],
+            "list": mains,
+        }
+
         wallets_data = {
             "tracked": c.execute("SELECT COUNT(*) FROM wallets").fetchone()[0],
             "verified": c.execute("SELECT COUNT(*) FROM wallets WHERE verified=1 AND is_bot=0").fetchone()[0],
@@ -161,6 +169,7 @@ def build():
         "wallets": wallets_data,
         "spikes": spikes_data,
         "sim": sim_data,
+        "mains": mains_data,
     }
 
     os.makedirs(OUT_DIR, exist_ok=True)

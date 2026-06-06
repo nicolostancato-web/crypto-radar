@@ -14,6 +14,19 @@ function stat(label, val, cls) {
 
 const usd = (n) => "$" + Math.round(n || 0).toLocaleString("en-US");
 
+function mainRow(m, rank) {
+  const usdBal = "$" + Math.round((m.balance_sol || 0) * 150).toLocaleString("en-US");
+  return `<a class="brow" href="https://solscan.io/account/${m.address}" target="_blank" rel="noopener">
+    <span class="brank">🐙</span>
+    <span class="bmeta">
+      <span class="baddr">${short(m.address)} <span class="etag">${usdBal}</span></span>
+      <span class="bsub">genera ${m.funded_count || 0} wallet · ${m.spawns || 0} tentacoli osservati</span>
+    </span>
+    <span class="btot">${m.balance_sol ? Math.round(m.balance_sol).toLocaleString("en-US") + " SOL" : "—"}</span>
+    <span class="bbig">main</span>
+  </a>`;
+}
+
 function bossRow(b, rank) {
   const toks = b.tokens || 1;
   const early = b.early_tokens || 0;
@@ -117,6 +130,17 @@ async function load() {
     statCard(w.bots || 0, "bot esclusi", false) +
     statCard(s.candidates || 0, "crypto candidati", false) +
     statCard(s.outcomes_open || 0, "paper trade", false);
+
+  // MAIN WALLETS — gli operatori coi capitali
+  const mn = d.mains || { count: 0, spawns: 0, list: [] };
+  document.getElementById("mcount").textContent =
+    `${mn.count} operatori · ${mn.spawns} tentacoli tracciati`;
+  const me = document.getElementById("mains");
+  if ((mn.list || []).length) {
+    me.innerHTML = mn.list.map((m, i) => mainRow(m, i + 1)).join("");
+  } else {
+    me.innerHTML = `<div class="empty">Risalgo ai main dai trader bravi. Appaiono man mano che troviamo wallet copiabili e tracciamo chi li finanzia.</div>`;
+  }
 
   // BOSS — Who Knows More Than Me
   const sp = d.spikes || { big_buys: 0, early: 0, wallets: 0, bosses: [], recent: [] };

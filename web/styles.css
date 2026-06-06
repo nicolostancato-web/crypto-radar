@@ -256,6 +256,10 @@ body::after {
   .wrow .wbuys { display: none; }
 }
 
+/* ---------- MAIN WALLETS (operatori) ---------- */
+.mains { margin-top: 8px; margin-bottom: 48px; }
+.main-list { display: flex; flex-direction: column; gap: 10px; }
+
 /* ---------- BOSS (Who Knows More Than Me) ---------- */
 .bosses { margin-top: 8px; margin-bottom: 48px; }
 .boss-list { display: flex; flex-direction: column; gap: 10px; }

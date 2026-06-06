@@ -196,6 +196,66 @@ def wallet_deep(address, max_tx=200):
     }
 
 
+def funder_of(address, max_pages=15):
+    """Chi ha FINANZIATO per primo questo wallet (= candidato MAIN wallet). (funder, sol) o (None,0)."""
+    if not available():
+        return None, 0
+    before, oldest = None, []
+    for _ in range(max_pages):
+        s = _rpc("getSignaturesForAddress", [address, {"limit": 1000, **({"before": before} if before else {})}])
+        if not s:
+            break
+        oldest = s
+        before = s[-1]["signature"]
+        if len(s) < 1000:
+            break
+    early = sorted(oldest, key=lambda x: x.get("blockTime") or 0)[:6]
+    for s in early:
+        tx = _rpc("getTransaction", [s["signature"], {"maxSupportedTransactionVersion": 0, "encoding": "jsonParsed"}])
+        if not tx:
+            continue
+        meta = tx.get("meta") or {}
+        keys = [k.get("pubkey") for k in tx.get("transaction", {}).get("message", {}).get("accountKeys", [])]
+        if address not in keys:
+            continue
+        wi = keys.index(address)
+        pre, post = meta.get("preBalances", []), meta.get("postBalances", [])
+        if wi < len(pre) and (post[wi] - pre[wi]) / 1e9 > 0.05:   # ha RICEVUTO SOL
+            for i, k in enumerate(keys):
+                if k != address and i < len(pre) and (pre[i] - post[i]) / 1e9 > 0.05:
+                    return k, round((post[wi] - pre[wi]) / 1e9, 3)
+    return None, 0
+
+
+def main_wallet_stats(main, n=120):
+    """Saldo del main + i wallet che ha finanziato (con timestamp, per scovare i NUOVI spawn)."""
+    if not available():
+        return None
+    bal = _rpc("getBalance", [main])
+    sol = (bal.get("value", 0) / 1e9) if bal else 0
+    sigs = _rpc("getSignaturesForAddress", [main, {"limit": n}]) or []
+    recipients = {}   # child -> [sol_totale, ultimo_ts]
+    for s in sigs:
+        if s.get("err"):
+            continue
+        tx = _rpc("getTransaction", [s["signature"], {"maxSupportedTransactionVersion": 0, "encoding": "jsonParsed"}])
+        if not tx:
+            continue
+        meta = tx.get("meta") or {}
+        keys = [k.get("pubkey") for k in tx.get("transaction", {}).get("message", {}).get("accountKeys", [])]
+        if main not in keys:
+            continue
+        mi = keys.index(main)
+        pre, post = meta.get("preBalances", []), meta.get("postBalances", [])
+        if mi < len(pre) and (pre[mi] - post[mi]) / 1e9 > 0.05:   # il main ha MANDATO SOL
+            for i, k in enumerate(keys):
+                if k != main and i < len(pre) and (post[i] - pre[i]) / 1e9 > 0.05:
+                    r = recipients.setdefault(k, [0.0, 0])
+                    r[0] += (post[i] - pre[i]) / 1e9
+                    r[1] = max(r[1], s.get("blockTime") or 0)
+    return {"balance_sol": round(sol, 2), "funded_count": len(recipients), "recipients": recipients}
+
+
 if __name__ == "__main__":
     if not available():
         print("[onchain] HELIUS_API_KEY assente — no-op. Vedi SETUP.md.")
