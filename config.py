@@ -225,7 +225,8 @@ WALLETS = {
     "qualify_tx": 25,              # screen veloce: tx per il primo filtro
     "max_qualify_per_cycle": 10,   # max wallet screenati per giro
     "requalify_days": 4,           # ri-qualifica un wallet solo dopo N giorni
-    "min_closed_for_proven": 2,    # provato con >= 2 posizioni chiuse
+    "min_closed_for_proven": 10,   # provato con >= 10 posizioni chiuse (stabilita': con poche, il
+                                   # copy_pnl balla e mostra trappole. Meglio classifica corta ma vera)
 
     # WHALE = ricco + persistente + ancora attivo (oltre a profittevole+copiabile)
     "whale_min_balance_sol": 50,   # tiene >= 50 SOL (~$7.5k)
@@ -234,8 +235,8 @@ WALLETS = {
     "whale_max_inactive_days": 7,  # ancora attivo: ultima operazione entro 7 giorni
 
     # DEEP-DIVE (livello 2): solo su chi passa lo screen. Verità sul track record.
-    "deep_tx": 200,                # tx per l'analisi profonda
-    "max_deep_per_cycle": 2,       # max deep-dive per giro (tetto crediti: ~200 call l'uno)
+    "deep_tx": 300,                # tx per l'analisi profonda (piu' profonda = piu' stabile)
+    "max_deep_per_cycle": 2,       # max deep-dive per giro (tetto crediti: ~300 call l'uno)
     "bot_tx_per_day": 60,          # sopra questa frequenza = bot/HFT -> scartato (no deep value)
 
     # SNOWBALL: dalle whale verificate, scopri la rete (chi compra i loro vincenti)

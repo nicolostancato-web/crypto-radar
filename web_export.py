@@ -133,7 +133,7 @@ def build():
             """SELECT address, smart_score, pnl_sol, copy_pnl, win_rate, closed_count,
                       balance_sol, biggest_buy, span_days, last_active_days
                FROM wallets
-               WHERE verified=1 AND is_bot=0 AND copy_pnl>0 AND smart_score>0
+               WHERE verified=1 AND is_bot=0 AND copy_pnl>0 AND closed_count>=10
                ORDER BY smart_score DESC LIMIT 10""").fetchall()]
         for w in whales:
             w["tokens"] = _tokens_of(w["address"]) if "_tokens_of" in dir() else []
