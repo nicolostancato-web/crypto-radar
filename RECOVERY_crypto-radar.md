@@ -171,7 +171,22 @@ Pattern osservato spesso: token piatto -> 1a WHALE entra nella zona piatta (lei 
 ## - Dune per backtest storico; forward-test con lista CONGELATA (anti look-ahead)
 ## - tuning exit params + sourcing early piu' aggressivo (polling 5min)
 ## DISCIPLINA: servono 100+ trade, niente soldi veri. Siamo a n=3 = zero validita'.
-## STRATEGIA CORRENTE: accumulare EARLY + exit + copiabilita, poi validare EV su volume.
+## FATTO (2026-06-06) — MAIN WALLET TRACKER (la svolta, il funding graph)
+- SCOPERTA: risalendo dal funder di un wallet bravo (F8GgV2rW) trovato un MAIN da ~$27M
+  (H8sMJSCQ..3WjS) che genera 74+ wallet di trading. Il main NON sparisce -> risolve la
+  disposabilita' (i wallet usa-e-getta sono finanziati TUTTI dal main).
+- onchain.funder_of (chi finanzia un wallet) + main_wallet_stats (saldo, wallet generati, ts).
+- DB: main_wallets + main_spawns. jobs/mainwallet.py: risale dai wallet COPIABILI ai loro main,
+  filtra hub/CEX (funded>150 scartato), registra i tentacoli (spawn) e li mette in coda alla
+  qualifica -> li becca dal minuto zero. Wired (stadio 'mainwallet'). config MAIN. Pre-seedato H8sMJS.
+- Dashboard: sezione "Main Wallet" in cima (operatori coi capitali + tentacoli osservati). v10.
+- Test: 1 main + 75-101 tentacoli catturati. CFO: bounded (max 2 trace + 3 watch/giro);
+  ~635k crediti/mese stimati totali, sotto 1M ma da monitorare.
+
+## STATO DATI (2026-06-06): paper trade negativi (-6/-7%, n=5 = rumore), 0 boss, 0 early,
+## 2 sole whale copiabili su 110. NESSUN edge nel sistema spike. La pista vera = MAIN WALLET.
+## DA VERIFICARE: i figli del main $27M tradano bene? (= operatore vero o servizio). + fase 2 fingerprint.
+## STRATEGIA: tracciare i MAIN persistenti (i veloci usa-e-getta sono fuori portata, ok cosi').
 ## BLOCCHI: nessuno. Sistema autonomo, accumula e si qualifica da solo ogni ora.
 
 ## File modificati di recente
