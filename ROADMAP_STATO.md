@@ -97,3 +97,13 @@ _(ogni run del loop autonomo appende qui: data, scenario, # trade accumulati, EV
     - **S2_smartexit**: imposta un trailing stop loss fisso al 15% dal prezzo d’ingresso, dato che non hai EV per calcolare uscite ottimali.
     
     (3) **S2_smartexit** è più vicino a un vicolo cieco: hai già capitale allocato senza alcun framework decisionale per chiudere la posizione. Senza dati, rischi di tenere trade morti o esplodere in perdita. S3_cluster almeno è a rischio zero.
+- **2026-06-09 20:22 UTC** · S3_cluster it2 · n=0 EV=— aperti=0 · **CONTINUA**
+- **2026-06-09 20:22 UTC** · S2_smartexit it2 · n=1 EV=+31.27% · meccanica +31.27% aperti=0 · **CONTINUA**
+  - 🤖 Double Agent:
+    **deepseek:** **Lettura brutale:** S3_cluster è vuoto: zero trade, nessun EV. Continuare è autolesionismo. S2_smartexit ha un solo trade (+31%) — è rumore, non conferma. Entrambe le scelte "CONTINUA" sono pretestuose.
+    
+    **Aggiustamenti concreti:**  
+    - **S3_cluster:** Imposta soglia minima n≥5 per abilitare decisioni. Con n=0, stop immediato.  
+    - **S2_smartexit:** Richiedi n≥30 campioni con EV>0 per proseguire; altrimenti pausa.
+    
+    **Vicolo cieco:** S3_cluster. Nessun dato, nessuna opportunità — è un buco nero. S2_smartexit almeno ha un segnale (seppur debole).
