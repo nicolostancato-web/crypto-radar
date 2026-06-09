@@ -1,4 +1,10 @@
 {
   "active": "S3_cluster",
-  "_state": {}
+  "_state": {
+    "S3_cluster": {
+      "status": "active",
+      "iteration": 1,
+      "verdict": null
+    }
+  }
 }
