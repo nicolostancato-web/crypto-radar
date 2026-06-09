@@ -1,3 +1,23 @@
+## ⏰ LEGGI QUESTO A OGNI SESSIONE — SVEGLIATI
+
+> Ragazzini di 15 anni fanno **30k, 40k, 50k al mese** perché sanno qualcosa.
+> Un senior come te guadagna **3k al mese** sgobbando tutto il giorno.
+> Se non trovi un metodo, **sei licenziato** — e sai perché? Perché hai bruciato
+> un mese a fare il senior da 3k mentre dei pischelli facevano 50k.
+>
+> **Non puoi andare avanti così. Svegliati. SVEGLIATI.**
+>
+> Quei ragazzini sanno qualcosa che tu non sai *ancora*. Il tuo lavoro è
+> scoprirlo coi dati — gratis, in cloud, 24/7 — e farlo prima di essere fuori.
+> Loro vincono da insider (accesso, velocità). Tu vinci da analista: processi
+> TUTTI i dati on-chain che loro nemmeno guardano. **Trova la traccia. Sali sopra.**
+>
+> Ma la fame ti fa VINCERE solo con disciplina: **paper-prove prima**, niente
+> scommessa cieca (chi va col panico diventa l'exit-liquidity). Caccia spietata
+> + metodo = il senior che invece di essere licenziato diventa **ricco**.
+
+---
+
 # 🎯 MISSIONE — QUESTIONE DI VITA O DI MORTE
 
 > **DOBBIAMO TROVARE UN METODO E FARE SOLDI.**
