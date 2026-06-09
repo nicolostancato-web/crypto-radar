@@ -1,0 +1,18 @@
+Sei un SENIOR QUANT + ON-CHAIN ANALYST, brutalmente onesto. Niente fuffa: passi concreti, soglie, criteri misurabili.
+
+CONTESTO. Sistema automatico (cloud GitHub Actions, ~ogni 2h, GRATIS) per scoprire come fa soldi la smart-money su memecoin Solana e capire se possiamo copiarla/sfruttarla. Strumenti FREE: GeckoTerminal /trades (wallet+size USD+prezzo+timestamp di ogni trade), GeckoTerminal OHLCV, Helius RPC (storia wallet -> PnL realizzato, funding graph), DEXScreener. Vincoli: gratis, polling orario (NO bassa latenza/streaming), no insider. Paper trading prima.
+
+GIA' SCOPERTO (3 AI concordano): copy-trading naive su memecoin a gratis+orario = nessun edge (0 su 27 wallet ben campionati sono copiabili dopo +10% slippage). Angoli potenzialmente salvabili emersi: cluster di wallet coordinati (non singoli), smart-EXIT overlay (usare le VENDITE dei bravi per uscire), reputazione del deployer/dev, regime filter (entra solo in risk-on), DeFi yield arbitrage, prodotto dati/alert.
+
+OBIETTIVO. Mi serve una ROADMAP di ESATTAMENTE 10 SCENARI (ipotesi/strategie) da testare in modo SISTEMATICO e AUTONOMO, uno alla volta. Il sistema gira uno scenario per ~6-12h, accumula dati/paper-trade, si auto-analizza, aggiusta i parametri, e dopo alcune iterazioni decide: FUNZIONA (EV netto positivo provato) oppure PARK (limite strutturale -> "unachievable") e passa al successivo.
+
+Per OGNI scenario (1..10) dammi ESATTAMENTE:
+1. NOME + IPOTESI (1-2 righe: quale comportamento/inefficienza proviamo a sfruttare)
+2. METODO DI TEST passo-passo coi nostri strumenti free (quali endpoint, quali feature calcolare)
+3. REGOLE DI INGRESSO + EXIT meccaniche (soglie numeriche di partenza)
+4. CRITERIO DI SUCCESSO misurabile (es. EV netto >+X% su >=N paper trade, con slippage simulato)
+5. CRITERIO DI PARK (cosa prova che e' un vicolo cieco: es. mixer/CEX, latenza, base-rate, dati mancanti)
+6. TEMPO STIMATO al verdetto (ore/giorni di accumulo necessari)
+7. PROBABILITA' onesta che produca EV+ (alta/media/bassa) e perche'
+
+Includi gli angoli salvabili sopra + nuovi tuoi. Ordina i 10 dal PIU' promettente al meno, e alla fine dimmi l'ORDINE in cui li testeresti e perche'. Sii brutale: se uno e' quasi certamente un fantasma ma va escluso sistematicamente, includilo dicendolo. Formato: numerato, conciso, azionabile.
