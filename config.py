@@ -170,6 +170,8 @@ OUTCOMES = {
     "swap_fee_pct": 0.003,        # fee DEX per lato (0.3% tipico)
     "slippage_cap_pct": 0.15,     # tetto allo slippage stimato (15%) per non esagerare
     "max_open_assets": 100,       # tetto entrate aperte in parallelo (controllo chiamate)
+    "max_ohlcv_per_cycle": 6,     # CFO: tetto chiamate OHLCV/giro (free tier CoinGecko 10k/mese)
+    "sim_recent_hours": 26,       # ri-simula solo i trade < 26h (oltre l'uscita è già definitiva)
 }
 
 # ---------------------------------------------------------------------------
@@ -250,7 +252,7 @@ WALLETS = {
 # ---------------------------------------------------------------------------
 SPIKES = {
     "min_usd": 700,               # soglia big-buy (abbassata: i veri early su pool piccoli)
-    "max_pools_per_cycle": 30,    # pool analizzati per giro (rate limit GeckoTerminal free)
+    "max_pools_per_cycle": 8,     # pool/giro (CFO: free tier CoinGecko 10k chiamate/mese)
     "coordination_window_s": 600, # 10 min: big-buy sullo stesso token entro = COORDINATI
     "boss_min_tokens": 2,         # boss = big-buy su >= 2 token diversi (non casuale)
 

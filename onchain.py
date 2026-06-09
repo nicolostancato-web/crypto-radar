@@ -71,6 +71,49 @@ def recent_buyers(mint, n=50):
 WSOL = "So11111111111111111111111111111111111111112"
 
 
+def recent_trades(mint, n=40):
+    """BUY e SELL recenti di un token via Helius (funziona in cloud, ≠ GeckoTerminal bloccato).
+    Per ogni tx: il firmatario, la variazione del token, e il SOL nativo mosso (per stimare i $).
+    Ritorna lista dict {wallet, side, sol, token_delta, ts}. side = 'buy' | 'sell'.
+    [] se manca la chiave o nessun dato. CFO: 1 + n chiamate per mint -> tieni n basso."""
+    if not available():
+        return []
+    sigs = _rpc("getSignaturesForAddress", [mint, {"limit": n}])
+    if not sigs:
+        return []
+    out = []
+    for s in sigs:
+        if s.get("err"):
+            continue
+        tx = _rpc("getTransaction", [s["signature"],
+                  {"maxSupportedTransactionVersion": 0, "encoding": "jsonParsed"}])
+        if not tx:
+            continue
+        meta = tx.get("meta") or {}
+        keys = tx.get("transaction", {}).get("message", {}).get("accountKeys", [])
+        signer = keys[0]["pubkey"] if keys and isinstance(keys[0], dict) else None
+        if not signer:
+            continue
+        idx = next((i for i, k in enumerate(keys)
+                    if (k.get("pubkey") if isinstance(k, dict) else k) == signer), None)
+        pre_sol = meta.get("preBalances", [])
+        post_sol = meta.get("postBalances", [])
+        sol_delta = ((post_sol[idx] - pre_sol[idx]) / 1e9) if (idx is not None
+                     and idx < len(pre_sol) and idx < len(post_sol)) else 0.0
+        pre = {b["owner"]: (b["uiTokenAmount"]["uiAmount"] or 0)
+               for b in meta.get("preTokenBalances", []) if b.get("mint") == mint and b.get("owner")}
+        post = {b["owner"]: (b["uiTokenAmount"]["uiAmount"] or 0)
+                for b in meta.get("postTokenBalances", []) if b.get("mint") == mint and b.get("owner")}
+        delta = post.get(signer, 0) - pre.get(signer, 0)
+        if delta > 0 and sol_delta < 0:        # riceve token, spende SOL -> BUY
+            out.append({"wallet": signer, "side": "buy", "sol": -sol_delta,
+                        "token_delta": delta, "ts": s.get("blockTime")})
+        elif delta < 0 and sol_delta > 0:      # cede token, incassa SOL -> SELL
+            out.append({"wallet": signer, "side": "sell", "sol": sol_delta,
+                        "token_delta": delta, "ts": s.get("blockTime")})
+    return out
+
+
 def wallet_pnl(address, max_tx=25):
     """
     QUALIFICA un wallet: PnL realizzato (in SOL) e win-rate sui suoi swap recenti.

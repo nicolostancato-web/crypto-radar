@@ -152,14 +152,19 @@ def _simulate_exit(candles, entered_at, entry_price, liquidity):
 
 
 def simulate_exits():
-    """Per ogni paper trade, simula la strategia d'uscita meccanica sul path reale (OHLCV)."""
+    """Per ogni paper trade RECENTE, simula l'uscita meccanica sul path reale (OHLCV).
+    CFO: solo trade < sim_recent_hours (oltre l'uscita è definitiva) e max_ohlcv_per_cycle a giro."""
     init_db()
     now, done = time.time(), 0
+    cutoff = now - OUTCOMES["sim_recent_hours"] * 3600
     with get_conn() as c:
         rows = c.execute(
             """SELECT o.id, o.entered_at, o.price_at_entry, o.liquidity_at_entry,
                       a.chain, a.pair_address, a.contract_address
-               FROM outcomes o JOIN assets a ON a.id = o.asset_id""").fetchall()
+               FROM outcomes o JOIN assets a ON a.id = o.asset_id
+               WHERE o.entered_at > ?
+               ORDER BY o.entered_at DESC LIMIT ?""",
+            (cutoff, OUTCOMES["max_ohlcv_per_cycle"])).fetchall()
         for o in rows:
             pool = o["pair_address"] or o["contract_address"]
             if not pool or not o["price_at_entry"]:

@@ -149,11 +149,14 @@ def s2_compute_smart_exits(c):
     di un wallet bravo dopo l'ingresso, con stop-loss a protezione. È il test dell'overlay:
     sim_return (meccanica) vs sim_return_smart (smart) sugli STESSI ingressi."""
     smart = _smart_wallets(c, "soft")
+    cutoff = time.time() - OUTCOMES["sim_recent_hours"] * 3600
     rows = c.execute(
         """SELECT o.id, o.entered_at, o.price_at_entry, o.liquidity_at_entry,
                   o.contract_address, a.pair_address
            FROM outcomes o JOIN assets a ON a.id=o.asset_id
-           WHERE o.scenario='S2_smartexit'""").fetchall()
+           WHERE o.scenario='S2_smartexit' AND o.entered_at > ?
+           ORDER BY o.entered_at DESC LIMIT ?""",
+        (cutoff, OUTCOMES["max_ohlcv_per_cycle"])).fetchall()
     done = 0
     for o in rows:
         pool = o["pair_address"] or o["contract_address"]

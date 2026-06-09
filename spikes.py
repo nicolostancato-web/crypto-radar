@@ -27,10 +27,12 @@ UA = {"User-Agent": "crypto-radar (research; paper-trading)", "Accept": "applica
 
 
 def _gt(path, _tries=5):
-    """GET con backoff esponenziale e rispetto del 429. Usa CoinGecko+key se disponibile."""
+    """GET con backoff esponenziale e rispetto del 429. Usa CoinGecko+key se disponibile
+    (le stesse rotte vivono sotto /onchain dell'API CoinGecko, auth per-CHIAVE -> ok in cloud)."""
     if CG_DEMO:
-        url = f"{CG}{path}"
-        headers = {**UA, "x-cg-demo-api-key": CG_DEMO}
+        sep = "&" if "?" in path else "?"
+        url = f"{CG}{path}{sep}x_cg_demo_api_key={CG_DEMO}"
+        headers = UA
     else:
         url = f"{GT}{path}"
         headers = UA
