@@ -39,15 +39,15 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python auto_analysis.py
 
-      - name: Checkpoint SQLite
-        run: |
-          python -c "import sqlite3; c=sqlite3.connect('radar.db'); c.execute('PRAGMA wal_checkpoint(TRUNCATE)'); c.close()"
-
-      - name: Salva stato (overrides + roadmap + DB)
+      - name: Salva stato (solo file di testo, mergeabili - niente radar.db)
         run: |
           git config user.name "crypto-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add scenario_overrides.json ROADMAP_STATO.md radar.db
-          git commit -m "auto-analisi $(date -u +%Y-%m-%dT%H:%MZ)" || echo "niente da committare"
-          git pull --no-rebase --no-edit || true
-          git push
+          git add scenario_overrides.json ROADMAP_STATO.md
+          git commit -m "auto-analisi $(date -u +%Y-%m-%dT%H:%MZ)" || { echo "niente da committare"; exit 0; }
+          for i in 1 2 3; do
+            git pull --no-rebase --no-edit origin main || true
+            git push origin main && exit 0
+            sleep 5
+          done
+          echo "push fallito dopo 3 tentativi"; exit 1

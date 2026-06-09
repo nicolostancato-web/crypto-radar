@@ -309,6 +309,8 @@ def _apply_scenario_overrides():
     except Exception:
         return
     for k, v in ov.items():
+        if k.startswith("_"):      # _state = stato interno del loop, non un parametro
+            continue
         if isinstance(v, dict) and isinstance(SCENARIOS.get(k), dict):
             SCENARIOS[k].update(v)
         else:

@@ -79,3 +79,4 @@ _(ogni run del loop autonomo appende qui: data, scenario, # trade accumulati, EV
     (2) Abbassa **max_runup_at_entry** a **0.1** (10%) – così catturi movimenti più precoci prima che il run-up escluda l’entry. In alternativa, riduci **smart_min_wallets** a 1 (ma degrada qualità). Proverei prima il runup.
     
     (3) Non è un vicolo cieco, ma il paper-trading su memecoin Solana richiede parametri più aggressivi. Se dopo l’aggiustamento ancora zero trade, allora switcha a finestra più lunga (7200s) o cambia asset.
+- **2026-06-09 07:57 UTC** · S3_cluster it1 · n=0 EV=— aperti=0 · **CONTINUA**

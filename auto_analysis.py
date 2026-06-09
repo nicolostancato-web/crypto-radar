@@ -18,8 +18,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import config
 from config import SCENARIOS
-from db import (get_conn, init_db, ensure_scenario, get_scenario_state,
-                set_scenario_status, bump_scenario_iteration, scenario_stats)
+from db import get_conn, init_db, scenario_stats
 import scenarios
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -61,15 +60,15 @@ def _telegram(msg):
         print(f"[auto] telegram errore: {str(e)[:120]}")
 
 
-def _next_scenario(c, current):
-    """Prossimo scenario non ancora parcheggiato/promosso nell'ordine."""
+def _next_scenario(state, current):
+    """Prossimo scenario non ancora parcheggiato/promosso nell'ordine (stato in JSON)."""
     try:
         idx = ADVANCE_ORDER.index(current)
     except ValueError:
         idx = -1
     for name in ADVANCE_ORDER[idx + 1:]:
-        st = get_scenario_state(c, name)
-        if not st or st["status"] in ("idle", "active"):
+        st = state.get(name, {})
+        if st.get("status", "active") in ("idle", "active"):
             return name
     return None
 
@@ -120,36 +119,36 @@ def run():
     park_thr = SCENARIOS["park_ev_threshold"]
     succ_thr = SCENARIOS["success_ev_threshold"]
 
-    with get_conn() as c:
-        ensure_scenario(c, active)
-        bump_scenario_iteration(c, active)
+    # Stato del motore in JSON (mergeabile, niente conflitti binari su radar.db).
+    ov = _load_overrides()
+    state = ov.setdefault("_state", {})
+    sstate = state.setdefault(active, {"status": "active", "iteration": 0, "verdict": None})
+    sstate["iteration"] += 1
+    iteration = sstate["iteration"]
+
+    with get_conn() as c:   # SOLO lettura degli outcome (il radar orario possiede radar.db)
         st = scenario_stats(c, active, horizon=HORIZON)
-        state = get_scenario_state(c, active)
-        iteration = state["iteration"]
 
     n, ev, total = st["n"], st["ev_net"], st["n"] + st["open"]
     ts = time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime())
     print(f"[auto] {ts} attivo={active} it={iteration} n={n} EV={ev} aperti={st['open']}")
 
     decision, verdict = "CONTINUA", None
-    ov = _load_overrides()
 
     # 1) FUNZIONA?
     if n >= min_trades and ev is not None and ev >= succ_thr:
         decision = "FUNZIONA"
         verdict = f"EV netto {ev:+.2%} su {n} trade (>= +{succ_thr:.0%})"
-        with get_conn() as c:
-            set_scenario_status(c, active, "works", verdict=verdict)
+        sstate["status"], sstate["verdict"] = "works", verdict
         _telegram(f"🟢 CRYPTO-RADAR: scenario {active} FUNZIONA! {verdict}. Controlla la dashboard.")
     # 2) PARK?
     elif n >= min_trades and ev is not None and ev <= park_thr:
-        decision = "PARK"
         verdict = f"EV netto {ev:+.2%} su {n} trade (<= {park_thr:.0%}) -> vicolo cieco"
-        with get_conn() as c:
-            set_scenario_status(c, active, "parked", verdict=verdict)
-            nxt = _next_scenario(c, active)
+        sstate["status"], sstate["verdict"] = "parked", verdict
+        nxt = _next_scenario(state, active)
         if nxt:
             ov["active"] = nxt
+            state.setdefault(nxt, {"status": "active", "iteration": 0, "verdict": None})
             decision = f"PARK -> avanzo a {nxt}"
         else:
             decision = "PARK -> nessuno scenario rimasto (esauriti gli implementati)"
