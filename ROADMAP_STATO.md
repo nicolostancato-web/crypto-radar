@@ -80,3 +80,10 @@ _(ogni run del loop autonomo appende qui: data, scenario, # trade accumulati, EV
     
     (3) Non è un vicolo cieco, ma il paper-trading su memecoin Solana richiede parametri più aggressivi. Se dopo l’aggiustamento ancora zero trade, allora switcha a finestra più lunga (7200s) o cambia asset.
 - **2026-06-09 07:57 UTC** · S3_cluster it1 · n=0 EV=— aperti=0 · **CONTINUA**
+- **2026-06-09 07:58 UTC** · S3_cluster it1 · n=0 EV=— aperti=0 · **CONTINUA**
+  - 🤖 Double Agent:
+    **deepseek:** (1) **Brutale**: Zero trades eseguiti. Nessun segnale ha superato i filtri. `smart_min_wallets=2` blocca tutto – o non trovi abbastanza wallet "smart" nell’ora, o il `max_runup_at_entry=0.3` è troppo stretto. Strategia paralizzata.
+    
+    (2) **Un aggiustamento**: Abbassa `smart_min_wallets` a **1**. Una sola smart wallet basti per entrare. Se ancora zero, prova `max_runup_at_entry=0.5`.
+    
+    (3) **Vicolo cieco?** No, ma se dopo questo cambio non hai trade in 24h, il dataset di smart wallet è inesistente o la definizione "soft" è troppo morbida – allora abbandona.
