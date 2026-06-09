@@ -1,4 +1,18 @@
 {
-  "running": ["S3_cluster", "S2_smartexit"],
-  "_state": {}
+  "running": [
+    "S3_cluster",
+    "S2_smartexit"
+  ],
+  "_state": {
+    "S3_cluster": {
+      "status": "active",
+      "iteration": 1,
+      "verdict": null
+    },
+    "S2_smartexit": {
+      "status": "active",
+      "iteration": 1,
+      "verdict": null
+    }
+  }
 }
