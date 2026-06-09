@@ -1,10 +1,10 @@
 {
-  "updated_at": 1780991508.48667,
-  "updated_iso": "2026-06-09 07:51 UTC",
+  "updated_at": 1780994557.8380437,
+  "updated_iso": "2026-06-09 08:42 UTC",
   "threshold": 4.0,
   "stats": {
     "candidates": 28,
-    "above_threshold": 4,
+    "above_threshold": 2,
     "watching": 28,
     "excluded": 35,
     "outcomes_open": 12
@@ -20,28 +20,28 @@
       "name": "Jotchua",
       "chain": "solana",
       "score10": 3.5,
-      "score_raw": 4.25,
-      "price": 0.003622,
-      "liquidity": 220580,
-      "age_h": 0.1,
-      "updated_min": 3.5,
+      "score_raw": 4.21,
+      "price": 0.005091,
+      "liquidity": 234413,
+      "age_h": 0.9,
+      "updated_min": 3.1,
       "source": "geckoterminal_trending",
       "signals": [
-        {
-          "k": "young_with_volume",
-          "v": 1.5
-        },
         {
           "k": "confluence_bonus",
           "v": 1.5
         },
         {
+          "k": "young_with_volume",
+          "v": 1.45
+        },
+        {
           "k": "volume_accel",
-          "v": 1.14
+          "v": 1.1
         },
         {
           "k": "buy_pressure",
-          "v": 0.11
+          "v": 0.17
         }
       ],
       "above_threshold": true,
@@ -49,48 +49,15 @@
       "contract": "BcHEaaTCvycPwwsJ9yQTXdHP9X2gCLkznDbZ8VySpump"
     },
     {
-      "ticker": "GOKU",
-      "name": "Son Goku",
-      "chain": "solana",
-      "score10": 3.5,
-      "score_raw": 4.17,
-      "price": 0.001456,
-      "liquidity": 86452,
-      "age_h": 12.3,
-      "updated_min": 3.5,
-      "source": "dexscreener_boosts",
-      "signals": [
-        {
-          "k": "confluence_bonus",
-          "v": 1.5
-        },
-        {
-          "k": "volume_accel",
-          "v": 0.98
-        },
-        {
-          "k": "buy_pressure",
-          "v": 0.96
-        },
-        {
-          "k": "young_with_volume",
-          "v": 0.73
-        }
-      ],
-      "above_threshold": true,
-      "dexscreener": "https://dexscreener.com/solana/Fkt8xVrcxwrv5QxqP6EGbXLuJZCUV82fRtf1P2KbKXvX",
-      "contract": "BUvuChjfCJxfUyCRMNWtm2W5ygTc7vV7mK4N22tGpump"
-    },
-    {
       "ticker": "Bank",
       "name": "Bankcoin",
       "chain": "solana",
       "score10": 3.4,
-      "score_raw": 4.08,
-      "price": 0.0002108,
+      "score_raw": 4.06,
+      "price": 0.0002019,
       "liquidity": 61177,
-      "age_h": 84.8,
-      "updated_min": 3.5,
+      "age_h": 85.6,
+      "updated_min": 3.1,
       "source": "dexscreener_boosts",
       "signals": [
         {
@@ -107,7 +74,7 @@
         },
         {
           "k": "buy_pressure",
-          "v": 0.33
+          "v": 0.31
         }
       ],
       "above_threshold": true,
@@ -115,15 +82,48 @@
       "contract": "2jCt3hj9vd7YpV7Sr3VA5nk3tdSpJtZezeoJXW4Xpump"
     },
     {
+      "ticker": "GOKU",
+      "name": "Son Goku",
+      "chain": "solana",
+      "score10": 3.3,
+      "score_raw": 3.97,
+      "price": 0.001545,
+      "liquidity": 86372,
+      "age_h": 13.2,
+      "updated_min": 3.1,
+      "source": "dexscreener_boosts",
+      "signals": [
+        {
+          "k": "confluence_bonus",
+          "v": 1.5
+        },
+        {
+          "k": "volume_accel",
+          "v": 0.91
+        },
+        {
+          "k": "buy_pressure",
+          "v": 0.89
+        },
+        {
+          "k": "young_with_volume",
+          "v": 0.68
+        }
+      ],
+      "above_threshold": false,
+      "dexscreener": "https://dexscreener.com/solana/Fkt8xVrcxwrv5QxqP6EGbXLuJZCUV82fRtf1P2KbKXvX",
+      "contract": "BUvuChjfCJxfUyCRMNWtm2W5ygTc7vV7mK4N22tGpump"
+    },
+    {
       "ticker": "GO",
       "name": "PumpGO",
       "chain": "solana",
-      "score10": 3.4,
-      "score_raw": 4.05,
-      "price": 0.0003261,
-      "liquidity": 72144,
-      "age_h": 15.6,
-      "updated_min": 3.5,
+      "score10": 3.2,
+      "score_raw": 3.8,
+      "price": 0.0003241,
+      "liquidity": 63921,
+      "age_h": 16.5,
+      "updated_min": 3.1,
       "source": "geckoterminal_trending",
       "signals": [
         {
@@ -132,22 +132,22 @@
         },
         {
           "k": "volume_accel",
-          "v": 1.18
+          "v": 1.11
         },
         {
           "k": "young_with_volume",
-          "v": 0.89
+          "v": 0.83
         },
         {
           "k": "liquidity_growth",
-          "v": 0.32
+          "v": 0.29
         },
         {
           "k": "buy_pressure",
-          "v": 0.17
+          "v": 0.06
         }
       ],
-      "above_threshold": true,
+      "above_threshold": false,
       "dexscreener": "https://dexscreener.com/solana/2rLXrMvGta3TgveizhDjUgiHShJupw6srEboiAo6JbS2",
       "contract": "CujZ5W6GWYb5XYe3hsTJ6kjiaw5MdZjbKQEuGA6jpump"
     },
@@ -157,10 +157,10 @@
       "chain": "solana",
       "score10": 2.8,
       "score_raw": 3.39,
-      "price": 0.001107,
-      "liquidity": 104019,
-      "age_h": 46.3,
-      "updated_min": 3.5,
+      "price": 0.001136,
+      "liquidity": 104292,
+      "age_h": 47.2,
+      "updated_min": 3.1,
       "source": "dexscreener_boosts",
       "signals": [
         {
@@ -189,11 +189,11 @@
       "name": "three.ws",
       "chain": "solana",
       "score10": 2.3,
-      "score_raw": 2.73,
-      "price": 0.003769,
-      "liquidity": 243992,
-      "age_h": 135.3,
-      "updated_min": 3.5,
+      "score_raw": 2.71,
+      "price": 0.003604,
+      "liquidity": 239860,
+      "age_h": 136.2,
+      "updated_min": 3.1,
       "source": "geckoterminal_trending",
       "signals": [
         {
@@ -210,7 +210,7 @@
         },
         {
           "k": "buy_pressure",
-          "v": 0.35
+          "v": 0.33
         }
       ],
       "above_threshold": false,
@@ -218,15 +218,40 @@
       "contract": "FeMbDoX7R1Psc4GEcvJdsbNbZA3bfztcyDCatJVJpump"
     },
     {
+      "ticker": "BULL",
+      "name": "Bull",
+      "chain": "solana",
+      "score10": 1.3,
+      "score_raw": 1.5,
+      "price": 0.001802,
+      "liquidity": 192633,
+      "age_h": 132.1,
+      "updated_min": 3.1,
+      "source": "dexscreener_boosts",
+      "signals": [
+        {
+          "k": "biz_mentions",
+          "v": 1.5
+        },
+        {
+          "k": "buy_pressure",
+          "v": 0.0
+        }
+      ],
+      "above_threshold": false,
+      "dexscreener": "https://dexscreener.com/solana/HNGjLLZkWx2mNwhWdKFYcMowz8FTh2bXxdpJ1vBVkjNB",
+      "contract": "3TYgKwkE2Y3rxdw9osLRSpxpXmSC1C1oo19W9KHspump"
+    },
+    {
       "ticker": "MONEY",
       "name": "Everyone is lying to you for $",
       "chain": "solana",
       "score10": 1.2,
       "score_raw": 1.5,
-      "price": 2.777e-05,
+      "price": 2.794e-05,
       "liquidity": 35815,
-      "age_h": 87.7,
-      "updated_min": 3.5,
+      "age_h": 88.6,
+      "updated_min": 3.1,
       "source": "dexscreener_boosts",
       "signals": [
         {
@@ -239,45 +264,20 @@
       "contract": "CotmxNNE85WeyFr5xvzJksEZhLctqhD9uzFFbkHCpump"
     },
     {
-      "ticker": "BULL",
-      "name": "Bull",
-      "chain": "solana",
-      "score10": 1.0,
-      "score_raw": 1.25,
-      "price": 0.001826,
-      "liquidity": 192633,
-      "age_h": 131.3,
-      "updated_min": 3.5,
-      "source": "dexscreener_boosts",
-      "signals": [
-        {
-          "k": "biz_mentions",
-          "v": 1.25
-        },
-        {
-          "k": "buy_pressure",
-          "v": 0.0
-        }
-      ],
-      "above_threshold": false,
-      "dexscreener": "https://dexscreener.com/solana/HNGjLLZkWx2mNwhWdKFYcMowz8FTh2bXxdpJ1vBVkjNB",
-      "contract": "3TYgKwkE2Y3rxdw9osLRSpxpXmSC1C1oo19W9KHspump"
-    },
-    {
       "ticker": "EURO",
       "name": "European Union Reserved Oil",
       "chain": "solana",
       "score10": 0.8,
-      "score_raw": 0.94,
+      "score_raw": 0.96,
       "price": 0.002166,
-      "liquidity": 124693,
-      "age_h": 3.5,
-      "updated_min": 3.5,
+      "liquidity": 124800,
+      "age_h": 4.4,
+      "updated_min": 3.1,
       "source": "dexscreener_boosts",
       "signals": [
         {
           "k": "buy_pressure",
-          "v": 0.94
+          "v": 0.96
         }
       ],
       "above_threshold": false,
@@ -288,21 +288,21 @@
       "ticker": "Surplus",
       "name": "Surplus Intelligence",
       "chain": "base",
-      "score10": 0.5,
-      "score_raw": 0.57,
-      "price": 2.656e-05,
-      "liquidity": 887996,
-      "age_h": 122.8,
-      "updated_min": 3.5,
+      "score10": 0.4,
+      "score_raw": 0.53,
+      "price": 2.726e-05,
+      "liquidity": 903579,
+      "age_h": 123.7,
+      "updated_min": 3.1,
       "source": "geckoterminal_trending",
       "signals": [
         {
           "k": "buy_pressure",
-          "v": 0.31
+          "v": 0.29
         },
         {
           "k": "biz_mentions",
-          "v": 0.26
+          "v": 0.24
         }
       ],
       "above_threshold": false,
@@ -310,45 +310,20 @@
       "contract": "0xc52aedec3374422d7510e294cfaa90799595cba3"
     },
     {
-      "ticker": "SLAB",
-      "name": "SlabDrop",
-      "chain": "solana",
-      "score10": 0.4,
-      "score_raw": 0.43,
-      "price": 0.0001992,
-      "liquidity": 47631,
-      "age_h": 46.3,
-      "updated_min": 3.5,
-      "source": "geckoterminal_trending",
-      "signals": [
-        {
-          "k": "biz_mentions",
-          "v": 0.24
-        },
-        {
-          "k": "buy_pressure",
-          "v": 0.19
-        }
-      ],
-      "above_threshold": false,
-      "dexscreener": "https://dexscreener.com/solana/HU92r1WaiLq6GMeymyNcdyRSjo7fzzTu9AUuA5EouFaD",
-      "contract": "6RXiM7kFbVhqNnS12m8gUjNrvzUdL9kRTsYGJWHEFQTc"
-    },
-    {
       "ticker": "FCM",
       "name": "Football Capital Markets",
       "chain": "solana",
       "score10": 0.3,
-      "score_raw": 0.32,
-      "price": 0.005371,
+      "score_raw": 0.31,
+      "price": 0.00536,
       "liquidity": 185118,
-      "age_h": 135.3,
-      "updated_min": 3.5,
+      "age_h": 136.2,
+      "updated_min": 3.1,
       "source": "dexscreener_boosts",
       "signals": [
         {
           "k": "buy_pressure",
-          "v": 0.32
+          "v": 0.31
         }
       ],
       "above_threshold": false,
@@ -360,16 +335,16 @@
       "name": "Siren Coin",
       "chain": "base",
       "score10": 0.2,
-      "score_raw": 0.29,
-      "price": 0.0009512,
+      "score_raw": 0.28,
+      "price": 0.0009586,
       "liquidity": 74277,
-      "age_h": 57.6,
-      "updated_min": 3.5,
+      "age_h": 58.5,
+      "updated_min": 3.1,
       "source": "dexscreener_boosts",
       "signals": [
         {
           "k": "buy_pressure",
-          "v": 0.29
+          "v": 0.28
         }
       ],
       "above_threshold": false,
@@ -377,25 +352,29 @@
       "contract": "0xbCff5AF58099311135F183f1230F5F16BfaCF464"
     },
     {
-      "ticker": "IMOUT",
-      "name": "I AM OUT",
+      "ticker": "SLAB",
+      "name": "SlabDrop",
       "chain": "solana",
       "score10": 0.2,
-      "score_raw": 0.27,
-      "price": 0.0001465,
-      "liquidity": 53819,
-      "age_h": 15.6,
-      "updated_min": 3.5,
-      "source": "dexscreener_boosts",
+      "score_raw": 0.25,
+      "price": 0.0001786,
+      "liquidity": 45931,
+      "age_h": 47.2,
+      "updated_min": 3.1,
+      "source": "geckoterminal_trending",
       "signals": [
         {
+          "k": "biz_mentions",
+          "v": 0.23
+        },
+        {
           "k": "buy_pressure",
-          "v": 0.27
+          "v": 0.03
         }
       ],
       "above_threshold": false,
-      "dexscreener": "https://dexscreener.com/solana/2i1CtveDHPVVyrdyZT26vSAVD17H6Ctqs9EQ9xoYXFMR",
-      "contract": "DACYVx34V5aQaehN3MZGYxPfoyQYHZSnFAFw3T2Vbonk"
+      "dexscreener": "https://dexscreener.com/solana/HU92r1WaiLq6GMeymyNcdyRSjo7fzzTu9AUuA5EouFaD",
+      "contract": "6RXiM7kFbVhqNnS12m8gUjNrvzUdL9kRTsYGJWHEFQTc"
     },
     {
       "ticker": "FIVE",
@@ -403,10 +382,10 @@
       "chain": "base",
       "score10": 0.2,
       "score_raw": 0.25,
-      "price": 1.143e-06,
-      "liquidity": 65187,
-      "age_h": 0.1,
-      "updated_min": 3.5,
+      "price": 1.418e-06,
+      "liquidity": 68736,
+      "age_h": 0.9,
+      "updated_min": 3.1,
       "source": "geckoterminal_trending",
       "signals": [
         {
@@ -419,25 +398,25 @@
       "contract": "0x84048da9ff8366efb2111a8013c4de8216ab8b07"
     },
     {
-      "ticker": "HONTER",
-      "name": "honter boden",
+      "ticker": "IMOUT",
+      "name": "I AM OUT",
       "chain": "solana",
       "score10": 0.2,
-      "score_raw": 0.23,
-      "price": 0.0001387,
-      "liquidity": 44865,
-      "age_h": 131.3,
-      "updated_min": 3.5,
+      "score_raw": 0.25,
+      "price": 0.0001465,
+      "liquidity": 53743,
+      "age_h": 16.5,
+      "updated_min": 3.1,
       "source": "dexscreener_boosts",
       "signals": [
         {
           "k": "buy_pressure",
-          "v": 0.23
+          "v": 0.25
         }
       ],
       "above_threshold": false,
-      "dexscreener": "https://dexscreener.com/solana/EKALmxf1JWVJ5LL3fp4KeUrQXeirHjeLomBLCNBTZbSZ",
-      "contract": "uuxWwFL6G9UjiYRZvWxJrSB18V1oKBgYrmueamREK57"
+      "dexscreener": "https://dexscreener.com/solana/2i1CtveDHPVVyrdyZT26vSAVD17H6Ctqs9EQ9xoYXFMR",
+      "contract": "DACYVx34V5aQaehN3MZGYxPfoyQYHZSnFAFw3T2Vbonk"
     },
     {
       "ticker": "XRPS",
@@ -445,10 +424,10 @@
       "chain": "solana",
       "score10": 0.2,
       "score_raw": 0.23,
-      "price": 0.0004494,
-      "liquidity": 46813,
-      "age_h": 25.8,
-      "updated_min": 3.5,
+      "price": 0.0004435,
+      "liquidity": 47379,
+      "age_h": 26.6,
+      "updated_min": 3.1,
       "source": "dexscreener_boosts",
       "signals": [
         {
@@ -461,15 +440,15 @@
       "contract": "7XLu71Wvq7zuNU7TP5qjYY8kqg9zxtrsb7sJEEF6pump"
     },
     {
-      "ticker": "peg",
-      "name": "peg",
+      "ticker": "HONTER",
+      "name": "honter boden",
       "chain": "solana",
       "score10": 0.2,
       "score_raw": 0.21,
-      "price": 0.0001429,
-      "liquidity": 43356,
-      "age_h": 37.6,
-      "updated_min": 3.5,
+      "price": 0.000133,
+      "liquidity": 44865,
+      "age_h": 132.1,
+      "updated_min": 3.1,
       "source": "dexscreener_boosts",
       "signals": [
         {
@@ -478,24 +457,66 @@
         }
       ],
       "above_threshold": false,
+      "dexscreener": "https://dexscreener.com/solana/EKALmxf1JWVJ5LL3fp4KeUrQXeirHjeLomBLCNBTZbSZ",
+      "contract": "uuxWwFL6G9UjiYRZvWxJrSB18V1oKBgYrmueamREK57"
+    },
+    {
+      "ticker": "peg",
+      "name": "peg",
+      "chain": "solana",
+      "score10": 0.2,
+      "score_raw": 0.2,
+      "price": 0.0001607,
+      "liquidity": 43919,
+      "age_h": 38.4,
+      "updated_min": 3.1,
+      "source": "dexscreener_boosts",
+      "signals": [
+        {
+          "k": "buy_pressure",
+          "v": 0.2
+        }
+      ],
+      "above_threshold": false,
       "dexscreener": "https://dexscreener.com/solana/HnJ5Ny2mxxwAodk7w7MHGTRkzodkKTfrVCKFDpS3SWd8",
       "contract": "3GDrBbgzMfokcYChDqBZijXS3ppwhEEmosFQbgbPpump"
+    },
+    {
+      "ticker": "Screwworm",
+      "name": "New World Screwworm enters USA",
+      "chain": "solana",
+      "score10": 0.1,
+      "score_raw": 0.16,
+      "price": 0.0001249,
+      "liquidity": 28546,
+      "age_h": 13.2,
+      "updated_min": 3.1,
+      "source": "dexscreener_boosts",
+      "signals": [
+        {
+          "k": "buy_pressure",
+          "v": 0.16
+        }
+      ],
+      "above_threshold": false,
+      "dexscreener": "https://dexscreener.com/solana/7n4TUnrJhKk5QtbR2ukB8LKhSK82WQwB36gQ5pmQVmt2",
+      "contract": "APuHvJfKUckaxZug1QGE4mPELEMV5s8JyCMcBT2fpump"
     },
     {
       "ticker": "cbBTC",
       "name": "Coinbase Wrapped BTC",
       "chain": "base",
       "score10": 0.1,
-      "score_raw": 0.13,
-      "price": 63198.37,
-      "liquidity": 12219017,
-      "age_h": 3.5,
-      "updated_min": 3.5,
+      "score_raw": 0.12,
+      "price": 62890.62,
+      "liquidity": 12231261,
+      "age_h": 4.4,
+      "updated_min": 3.1,
       "source": "geckoterminal_trending",
       "signals": [
         {
           "k": "buy_pressure",
-          "v": 0.13
+          "v": 0.12
         }
       ],
       "above_threshold": false,
@@ -508,10 +529,10 @@
       "chain": "ethereum",
       "score10": 0.1,
       "score_raw": 0.08,
-      "price": 0.006167,
-      "liquidity": 231777,
-      "age_h": 135.3,
-      "updated_min": 3.5,
+      "price": 0.006007,
+      "liquidity": 234234,
+      "age_h": 136.2,
+      "updated_min": 3.1,
       "source": "geckoterminal_trending",
       "signals": [
         {
@@ -524,62 +545,20 @@
       "contract": "0x759f8b83db57033aed95545694f6ada480b6e987"
     },
     {
-      "ticker": "Screwworm",
-      "name": "New World Screwworm enters USA",
-      "chain": "solana",
-      "score10": 0.0,
-      "score_raw": 0.06,
-      "price": 0.0001366,
-      "liquidity": 29372,
-      "age_h": 12.3,
-      "updated_min": 3.5,
-      "source": "dexscreener_boosts",
-      "signals": [
-        {
-          "k": "buy_pressure",
-          "v": 0.06
-        }
-      ],
-      "above_threshold": false,
-      "dexscreener": "https://dexscreener.com/solana/7n4TUnrJhKk5QtbR2ukB8LKhSK82WQwB36gQ5pmQVmt2",
-      "contract": "APuHvJfKUckaxZug1QGE4mPELEMV5s8JyCMcBT2fpump"
-    },
-    {
-      "ticker": "GOLDENGOAL",
-      "name": "Golden Goal",
-      "chain": "solana",
-      "score10": 0.0,
-      "score_raw": 0.06,
-      "price": 0.0002081,
-      "liquidity": 27969,
-      "age_h": 82.9,
-      "updated_min": 3.5,
-      "source": "dexscreener_boosts",
-      "signals": [
-        {
-          "k": "buy_pressure",
-          "v": 0.06
-        }
-      ],
-      "above_threshold": false,
-      "dexscreener": "https://dexscreener.com/solana/UbeSDe3i1gHeZwKkFPLcAAqTXnbgGufp9goyCJ4fAgR",
-      "contract": "GU527smM71ht8aCA8ouShfXhahVq6crz51FMbfZ8pump"
-    },
-    {
       "ticker": "BOUTYWORK",
       "name": "BOUTYWORK",
       "chain": "solana",
-      "score10": 0.0,
-      "score_raw": 0.04,
-      "price": 2.92e-05,
-      "liquidity": 21242,
-      "age_h": 41.6,
-      "updated_min": 3.5,
+      "score10": 0.1,
+      "score_raw": 0.07,
+      "price": 2.625e-05,
+      "liquidity": 19236,
+      "age_h": 42.4,
+      "updated_min": 3.1,
       "source": "geckoterminal_trending",
       "signals": [
         {
           "k": "buy_pressure",
-          "v": 0.04
+          "v": 0.07
         }
       ],
       "above_threshold": false,
@@ -587,25 +566,25 @@
       "contract": "3oL99tu2qnxka3HnxY8g1cXNpgBJ5ojoSWWFiDMopump"
     },
     {
-      "ticker": "Bountywork",
-      "name": "Bountywork",
+      "ticker": "GOLDENGOAL",
+      "name": "Golden Goal",
       "chain": "solana",
       "score10": 0.0,
-      "score_raw": 0.03,
-      "price": 0.0004143,
-      "liquidity": 97620,
-      "age_h": 46.3,
-      "updated_min": 3.5,
-      "source": "geckoterminal_trending",
+      "score_raw": 0.04,
+      "price": 0.0002221,
+      "liquidity": 27969,
+      "age_h": 83.8,
+      "updated_min": 3.1,
+      "source": "dexscreener_boosts",
       "signals": [
         {
           "k": "buy_pressure",
-          "v": 0.03
+          "v": 0.04
         }
       ],
       "above_threshold": false,
-      "dexscreener": "https://dexscreener.com/solana/2C1XgnTarjmMNZpup44BL3rjsuWLPgsF3pHjzwRiXthS",
-      "contract": "J4x1EMmQjF6WEzXq2tUtzY89x5aMhYz5CzfevcJEpump"
+      "dexscreener": "https://dexscreener.com/solana/UbeSDe3i1gHeZwKkFPLcAAqTXnbgGufp9goyCJ4fAgR",
+      "contract": "GU527smM71ht8aCA8ouShfXhahVq6crz51FMbfZ8pump"
     },
     {
       "ticker": "RPGKITTY",
@@ -613,10 +592,10 @@
       "chain": "solana",
       "score10": 0.0,
       "score_raw": 0.02,
-      "price": 7.877e-05,
+      "price": 1.394e-05,
       "liquidity": 27330,
-      "age_h": 122.8,
-      "updated_min": 3.5,
+      "age_h": 123.7,
+      "updated_min": 3.1,
       "source": "dexscreener_boosts",
       "signals": [
         {
@@ -634,10 +613,10 @@
       "chain": "solana",
       "score10": 0.0,
       "score_raw": 0.02,
-      "price": 0.0007148,
-      "liquidity": 79360,
-      "age_h": 135.3,
-      "updated_min": 3.5,
+      "price": 0.0007215,
+      "liquidity": 77414,
+      "age_h": 136.2,
+      "updated_min": 3.1,
       "source": "geckoterminal_trending",
       "signals": [
         {
@@ -655,10 +634,10 @@
       "chain": "solana",
       "score10": 0.0,
       "score_raw": 0.02,
-      "price": 0.00343,
+      "price": 0.003238,
       "liquidity": 141946,
-      "age_h": 127.9,
-      "updated_min": 3.5,
+      "age_h": 128.7,
+      "updated_min": 3.1,
       "source": "dexscreener_boosts",
       "signals": [
         {
@@ -678,8 +657,8 @@
       "score_raw": 0.01,
       "price": 4.781e-06,
       "liquidity": 6398,
-      "age_h": 74.8,
-      "updated_min": 1546.4,
+      "age_h": 75.7,
+      "updated_min": 1597.2,
       "source": "dexscreener_boosts",
       "signals": [
         {
@@ -690,6 +669,27 @@
       "above_threshold": false,
       "dexscreener": "https://dexscreener.com/solana/9vp5T5XV8tSaKg9esdqFbY2MTTBEmTNCPEDPVznhAr2q",
       "contract": "78B31QV1rtyoe2EYvVNjBVjeowyrtcH5FPTE4tCypump"
+    },
+    {
+      "ticker": "Bountywork",
+      "name": "Bountywork",
+      "chain": "solana",
+      "score10": 0.0,
+      "score_raw": 0.01,
+      "price": 0.0003567,
+      "liquidity": 88559,
+      "age_h": 47.2,
+      "updated_min": 3.1,
+      "source": "geckoterminal_trending",
+      "signals": [
+        {
+          "k": "buy_pressure",
+          "v": 0.01
+        }
+      ],
+      "above_threshold": false,
+      "dexscreener": "https://dexscreener.com/solana/2C1XgnTarjmMNZpup44BL3rjsuWLPgsF3pHjzwRiXthS",
+      "contract": "J4x1EMmQjF6WEzXq2tUtzY89x5aMhYz5CzfevcJEpump"
     }
   ],
   "validation": [
@@ -757,12 +757,29 @@
     }
   ],
   "wallets": {
-    "tracked": 235,
-    "verified": 31,
-    "whales": 13,
-    "bots": 30,
+    "tracked": 243,
+    "verified": 33,
+    "whales": 14,
+    "bots": 32,
     "captures": 135,
     "leaderboard": [
+      {
+        "address": "6QrcQFuGfbKmi6ett9oaCnTVLGMDHP9azEFDvuyULgNE",
+        "smart_score": 0.499,
+        "pnl_sol": 7.538,
+        "copy_pnl": 1.01,
+        "win_rate": 0.19,
+        "closed_count": 26,
+        "buys_count": 1,
+        "verified": 1,
+        "is_bot": 0,
+        "tx_per_day": 3.1,
+        "tokens_count": 40,
+        "open_count": 8,
+        "tokens": [
+          "Jotchua"
+        ]
+      },
       {
         "address": "8d9rjisDA7yaTAVeG3LvcfgFwvoZ2SbBnEzD8GRAAmtF",
         "smart_score": 0.168,
@@ -1023,10 +1040,10 @@
       {
         "address": "FHYCPf2K7TU7RB7Yd2UpP5if6UsVe6RS8SUKJULngUw1",
         "smart_score": 0.0,
-        "pnl_sol": 0.683,
+        "pnl_sol": 0.892,
         "copy_pnl": null,
-        "win_rate": 0.56,
-        "closed_count": 9,
+        "win_rate": 1.0,
+        "closed_count": 3,
         "buys_count": 1,
         "verified": 1,
         "is_bot": 1,
@@ -1050,23 +1067,6 @@
         "tx_per_day": 381.5,
         "tokens_count": 14,
         "open_count": 1,
-        "tokens": [
-          "RPGKITTY"
-        ]
-      },
-      {
-        "address": "7yy13aDYCvFa96mL5z58uWZhiXEqUjdG2ZKPdezV4Gb3",
-        "smart_score": 0.0,
-        "pnl_sol": 0.183,
-        "copy_pnl": null,
-        "win_rate": 0.38,
-        "closed_count": 42,
-        "buys_count": 1,
-        "verified": 1,
-        "is_bot": 1,
-        "tx_per_day": 1190.2,
-        "tokens_count": 60,
-        "open_count": 8,
         "tokens": [
           "RPGKITTY"
         ]
@@ -1211,14 +1211,30 @@
     ]
   },
   "sim": {
-    "n": 8,
-    "avg_exit": 0.0061,
-    "win_exit": 0.38,
+    "n": 9,
+    "avg_exit": 0.0106,
+    "win_exit": 0.44,
     "avg_hold": -0.0473
   },
   "mains": {
-    "count": 9,
+    "count": 10,
     "spawns": 0,
-    "list": []
+    "list": [
+      {
+        "address": "6QrcQFuGfbKmi6ett9oaCnTVLGMDHP9azEFDvuyULgNE",
+        "smart_score": 0.499,
+        "pnl_sol": 7.538,
+        "copy_pnl": 1.01,
+        "win_rate": 0.19,
+        "closed_count": 26,
+        "balance_sol": 0.79,
+        "biggest_buy": 32.9,
+        "span_days": 97.63,
+        "last_active_days": 0.0,
+        "tokens": [
+          "Jotchua"
+        ]
+      }
+    ]
   }
 }
