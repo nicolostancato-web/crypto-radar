@@ -178,6 +178,21 @@ CREATE TABLE IF NOT EXISTS notified (
     notified_at      REAL NOT NULL
 );
 
+-- WALLET_SELLS: i SELL grossi (per S2 Smart-EXIT overlay). Quando un wallet SMART vende un
+-- token che stiamo "tenendo" in paper-trade, è il segnale per uscire. Dedup (wallet, mint, ts).
+CREATE TABLE IF NOT EXISTS wallet_sells (
+    id          INTEGER PRIMARY KEY AUTOINCREMENT,
+    wallet      TEXT NOT NULL,
+    mint        TEXT,
+    pool_addr   TEXT,
+    usd         REAL,
+    price       REAL,
+    sold_at     REAL,
+    captured_at REAL NOT NULL,
+    UNIQUE (wallet, mint, sold_at)
+);
+CREATE INDEX IF NOT EXISTS idx_sells_mint ON wallet_sells(mint, sold_at);
+
 -- SCENARIO_STATE: lo stato del motore a eliminazione sistematica (vedi ROADMAP_STATO.md).
 -- Una riga per scenario: stato corrente, iterazione del loop 6h, verdetto raggiunto.
 CREATE TABLE IF NOT EXISTS scenario_state (
@@ -254,6 +269,8 @@ def _migrate(c):
     oc = [r[1] for r in c.execute("PRAGMA table_info(outcomes)").fetchall()]
     if oc and "scenario" not in oc:
         c.execute("ALTER TABLE outcomes ADD COLUMN scenario TEXT")
+    if oc and "sim_return_smart" not in oc:
+        c.execute("ALTER TABLE outcomes ADD COLUMN sim_return_smart REAL")
     c.execute("CREATE INDEX IF NOT EXISTS idx_outcomes_scenario ON outcomes(scenario)")
 
 
@@ -629,18 +646,44 @@ def open_scenario_outcome(c, scenario, asset_id, chain, contract, ticker, price,
 
 
 def scenario_stats(c, scenario, horizon=24):
-    """Verdetto coi dati per uno scenario: N trade, EV netto (exit meccanica), win-rate.
-    Usa sim_return (uscita meccanica reale); fallback su ret_{h}h_net se sim assente."""
+    """Verdetto coi dati per uno scenario: N trade, EV netto, win-rate.
+    Per S2_smartexit usa l'uscita SMART (sim_return_smart); per gli altri l'uscita meccanica
+    (sim_return). Fallback su ret_{h}h_net se la simulazione non è ancora disponibile."""
+    use_smart = scenario == "S2_smartexit"
+    col = "sim_return_smart" if use_smart else "sim_return"
     rows = c.execute(
-        f"""SELECT sim_return, ret_{horizon}h_net AS hnet FROM outcomes
-            WHERE scenario=?""", (scenario,)).fetchall()
-    nets = [(r["sim_return"] if r["sim_return"] is not None else r["hnet"])
-            for r in rows if (r["sim_return"] is not None or r["hnet"] is not None)]
+        f"""SELECT {col} AS sim, sim_return AS mech, ret_{horizon}h_net AS hnet
+            FROM outcomes WHERE scenario=?""", (scenario,)).fetchall()
+    nets = [(r["sim"] if r["sim"] is not None else r["hnet"])
+            for r in rows if (r["sim"] is not None or r["hnet"] is not None)]
     n = len(nets)
-    if n == 0:
-        return {"scenario": scenario, "n": 0, "ev_net": None, "win_rate": None,
-                "open": len(rows)}
-    avg = sum(nets) / n
-    win = sum(1 for x in nets if x > 0) / n
-    return {"scenario": scenario, "n": n, "ev_net": round(avg, 4),
-            "win_rate": round(win, 3), "open": len(rows) - n}
+    out = {"scenario": scenario, "n": n, "ev_net": None, "win_rate": None, "open": len(rows) - n}
+    if n:
+        out["ev_net"] = round(sum(nets) / n, 4)
+        out["win_rate"] = round(sum(1 for x in nets if x > 0) / n, 3)
+    if use_smart:  # confronto overlay vs meccanica sugli STESSI ingressi (il vero test di S2)
+        mech = [r["mech"] for r in rows if r["mech"] is not None]
+        out["ev_mech"] = round(sum(mech) / len(mech), 4) if mech else None
+    return out
+
+
+def record_wallet_sell(c, wallet, mint, pool_addr, usd, price, sold_at):
+    """Registra un SELL grosso. Dedup (wallet, mint, ts). True se nuovo."""
+    cur = c.execute(
+        """INSERT OR IGNORE INTO wallet_sells (wallet, mint, pool_addr, usd, price, sold_at, captured_at)
+           VALUES (?,?,?,?,?,?,?)""", (wallet, mint, pool_addr, usd, price, sold_at, time.time()))
+    return cur.rowcount > 0
+
+
+def first_smart_sell_after(c, mint, after_ts, smart_wallets):
+    """Primo SELL di un wallet SMART sul token DOPO l'ingresso. Ritorna (sold_at, price) o None.
+    È il trigger di uscita di S2: usciamo quando i bravi iniziano a scaricare."""
+    if not smart_wallets:
+        return None
+    ph = ",".join("?" * len(smart_wallets))
+    row = c.execute(
+        f"""SELECT sold_at, price FROM wallet_sells
+            WHERE mint=? AND sold_at > ? AND wallet IN ({ph}) AND price > 0
+            ORDER BY sold_at ASC LIMIT 1""",
+        (mint, after_ts, *smart_wallets)).fetchone()
+    return (row["sold_at"], row["price"]) if row else None

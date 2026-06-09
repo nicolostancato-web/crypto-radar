@@ -268,7 +268,8 @@ SPIKES = {
 # e decide PARK / CONTINUA / FUNZIONA. "active" = lo scenario in test ora.
 # ---------------------------------------------------------------------------
 SCENARIOS = {
-    "active": "S3_cluster",     # scenario attivo (il loop 6h lo cambia). Fail-fast: parto dai due forti.
+    "active": "S3_cluster",     # fallback se 'running' assente
+    "running": ["S3_cluster", "S2_smartexit"],  # i due cavalli ad alta conviction, IN PARALLELO
     "min_trades_for_verdict": 30,   # sotto N paper-trade NON si dà verdetto (rumore)
     "park_ev_threshold": 0.0,       # se EV netto <= questo dopo abbastanza trade -> PARK
     "success_ev_threshold": 0.05,   # EV netto >= +5% su campione adeguato -> FUNZIONA (avvisa Nick)
@@ -285,7 +286,7 @@ SCENARIOS = {
     },
     # --- S2 Smart-EXIT overlay (entry momentum, exit sui sell dei bravi) ---
     "S2_smartexit": {
-        "momentum_runup_min": 0.05, # entra su un minimo di slancio recente
+        "momentum_lookback_s": 21600,  # entra su token con big-buy EARLY nelle ultime 6h
     },
     # --- S3 Cluster accumulation (>=N smart wallet co-comprano lo stesso token) ---
     "S3_cluster": {

@@ -11,17 +11,19 @@ import sys, os
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from config import SPIKES
-from db import get_conn, init_db, record_spike_buy, seed_wallet, coordination_count
+from db import (get_conn, init_db, record_spike_buy, record_wallet_sell,
+                seed_wallet, coordination_count)
 import spikes
 
 
 def spikes_once():
     init_db()
     pools = spikes.get_solana_pools(SPIKES["max_pools_per_cycle"])
-    new_events, seeded, early_n = 0, 0, 0
+    new_events, seeded, early_n, sells_n = 0, 0, 0, 0
     with get_conn() as c:
         for mint, addr, name, created, liq in pools:
-            for b in spikes.get_big_buys(addr, created, liq):
+            buys, sells = spikes.get_big_buys_and_sells(addr, created, liq)
+            for b in buys:
                 if record_spike_buy(c, b["wallet"], mint, name, b["usd"], b["ts"],
                                     price=b["price"], token_age_min=b["age_min"],
                                     runup_pct=b["runup"], liquidity=liq, is_early=b["is_early"],
@@ -31,7 +33,11 @@ def spikes_once():
                         early_n += 1
                         seed_wallet(c, b["wallet"])   # solo gli EARLY entrano nella qualifica (non i polli)
                         seeded += 1
-    print(f"[spikes] pool={len(pools)} big_buy_nuovi={new_events} EARLY={early_n} wallet_nuovi={seeded}")
+            for s in sells:   # i SELL grossi servono a S2 (smart-exit overlay)
+                if record_wallet_sell(c, s["wallet"], mint, addr, s["usd"], s["price"], s["ts"]):
+                    sells_n += 1
+    print(f"[spikes] pool={len(pools)} big_buy_nuovi={new_events} EARLY={early_n} "
+          f"wallet_nuovi={seeded} sell_nuovi={sells_n}")
     return new_events
 
 

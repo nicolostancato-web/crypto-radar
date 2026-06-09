@@ -15,10 +15,12 @@ S2/S4+ arrivano quando il loop avanza (richiedono cattura dei SELL / metadata de
 import sys, os, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from config import SCENARIOS
+from config import SCENARIOS, OUTCOMES, EXIT
 from db import (get_conn, init_db, upsert_asset, ensure_scenario,
-                has_open_scenario_outcome, open_scenario_outcome, scenario_stats)
+                has_open_scenario_outcome, open_scenario_outcome, scenario_stats,
+                first_smart_sell_after)
 from jobs.outcomes import _price_and_liq
+import spikes as gt
 
 
 # --- SMART WALLET SET (per S3) --------------------------------------------
@@ -113,6 +115,77 @@ def _baseline_entries(c, cfg, max_entries, scenario):
     return opened
 
 
+def s2_smartexit(c, cfg, max_entries):
+    """S2 — Smart-EXIT Overlay: ENTRA su momentum (token con big-buy EARLY recenti), poi
+    l'uscita la decidono i SELL dei wallet bravi (calcolata in s2_compute_smart_exits)."""
+    now = time.time()
+    look = cfg.get("momentum_lookback_s", 21600)  # 6h
+    rows = c.execute(
+        """SELECT mint, MAX(pool_addr) AS pool, MAX(pool_name) AS name,
+                  AVG(price) AS px, AVG(liquidity) AS liq, MAX(bought_at) AS last_buy
+           FROM spike_buys
+           WHERE is_early=1 AND bought_at >= ? AND pool_addr IS NOT NULL
+           GROUP BY mint
+           ORDER BY last_buy DESC LIMIT ?""",
+        (now - look, max_entries * 3)).fetchall()
+    opened = 0
+    for r in rows:
+        if opened >= max_entries:
+            break
+        if not r["px"] or not r["pool"]:
+            continue
+        asset_id = upsert_asset(c, "solana", r["mint"], (r["mint"] or "")[:6],
+                                r["name"], r["pool"], "S2_smartexit")
+        if not asset_id or has_open_scenario_outcome(c, asset_id, "S2_smartexit"):
+            continue
+        open_scenario_outcome(c, "S2_smartexit", asset_id, "solana", r["mint"],
+                              (r["mint"] or "")[:6], r["px"], r["liq"], signals='{"momentum":1}')
+        opened += 1
+    return opened
+
+
+def s2_compute_smart_exits(c):
+    """Per ogni paper-trade S2 calcola l'uscita SMART (sim_return_smart): esci al PRIMO sell
+    di un wallet bravo dopo l'ingresso, con stop-loss a protezione. È il test dell'overlay:
+    sim_return (meccanica) vs sim_return_smart (smart) sugli STESSI ingressi."""
+    smart = _smart_wallets(c, "soft")
+    rows = c.execute(
+        """SELECT o.id, o.entered_at, o.price_at_entry, o.liquidity_at_entry,
+                  o.contract_address, a.pair_address
+           FROM outcomes o JOIN assets a ON a.id=o.asset_id
+           WHERE o.scenario='S2_smartexit'""").fetchall()
+    done = 0
+    for o in rows:
+        pool = o["pair_address"] or o["contract_address"]
+        entry, liq = o["price_at_entry"], o["liquidity_at_entry"]
+        if not pool or not entry or entry <= 0:
+            continue
+        candles = gt.get_ohlcv("solana", pool, EXIT["ohlcv_aggregate_min"])
+        if not candles:
+            continue
+        end = o["entered_at"] + EXIT["hard_hours"] * 3600
+        path = [k for k in candles if o["entered_at"] <= k[0] <= end]
+        if not path:
+            continue
+        smart_sell = first_smart_sell_after(c, o["contract_address"], o["entered_at"], smart)
+        sell_ts = smart_sell[0] if smart_sell else None
+        stop = entry * (1 - EXIT["stop_loss"])
+        exit_price, reason = path[-1][4], "hard_24h"
+        for ts, op, hi, lo, cl in path:
+            if lo <= stop:                              # downside: stop-loss prima di tutto
+                exit_price, reason = stop, "stop_loss"; break
+            if sell_ts is not None and ts >= sell_ts:   # i bravi vendono -> esci
+                exit_price, reason = (smart_sell[1] or cl), "smart_sell"; break
+        gross = exit_price / entry - 1
+        slip = min(OUTCOMES["paper_trade_usd"] / max(liq or 1, 1), OUTCOMES["slippage_cap_pct"])
+        net = round(gross - 2 * (slip + OUTCOMES["swap_fee_pct"]), 4)
+        c.execute("UPDATE outcomes SET sim_return_smart=? WHERE id=?", (net, o["id"]))
+        done += 1
+    if done:
+        print(f"[S2] uscite smart calcolate su {done} paper-trade")
+    return done
+
+
 def s0_baseline(c, cfg, max_entries):
     """S0 — Baseline futility (controllo): compra ogni asset attivo con volume. Deve perdere."""
     return _baseline_entries(c, cfg, max_entries, "S0_baseline")
@@ -138,24 +211,32 @@ def s1_regime(c, cfg, max_entries):
 REGISTRY = {
     "S0_baseline": s0_baseline,
     "S1_regime": s1_regime,
+    "S2_smartexit": s2_smartexit,
     "S3_cluster": s3_cluster,
 }
 
 
+def _running_scenarios():
+    """Scenari da far girare ora: lista 'running' (parallelo) o singolo 'active' di fallback."""
+    run = SCENARIOS.get("running") or [SCENARIOS.get("active", "S3_cluster")]
+    return [s for s in run if s in REGISTRY]
+
+
 def run_active_scenario():
-    """Stadio della pipeline: esegue SOLO lo scenario attivo. Apre paper-trade taggati."""
+    """Stadio pipeline: esegue TUTTI gli scenari 'running' (in parallelo). Apre paper-trade taggati
+    e calcola le uscite smart di S2."""
     init_db()
-    active = SCENARIOS["active"]
-    fn = REGISTRY.get(active)
-    if not fn:
-        print(f"[scenari] scenario attivo '{active}' non implementato (ancora) — skip")
-        return 0
-    cfg = SCENARIOS.get(active, {})
+    running = _running_scenarios()
+    total = 0
     with get_conn() as c:
-        ensure_scenario(c, active)
-        opened = fn(c, cfg, SCENARIOS["max_entries_per_cycle"])
-    print(f"[scenari] attivo={active} nuovi_paper_trade={opened}")
-    return opened
+        for name in running:
+            ensure_scenario(c, name)
+            opened = REGISTRY[name](c, SCENARIOS.get(name, {}), SCENARIOS["max_entries_per_cycle"])
+            total += opened
+            print(f"[scenari] {name}: nuovi_paper_trade={opened}")
+        if "S2_smartexit" in running:
+            s2_compute_smart_exits(c)
+    return total
 
 
 def report():

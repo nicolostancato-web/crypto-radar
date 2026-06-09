@@ -1,4 +1,4 @@
 {
-  "active": "S3_cluster",
+  "running": ["S3_cluster", "S2_smartexit"],
   "_state": {}
 }

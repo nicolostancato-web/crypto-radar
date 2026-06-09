@@ -83,11 +83,10 @@ def get_ohlcv(chain, pool_addr, aggregate_min=15, limit=120):
     return out
 
 
-def get_big_buys(pool_addr, created_ts, liquidity):
-    """Big-buy con dati EARLY. Ritorna lista di dict {wallet, usd, ts, price, age_min, runup, is_early}."""
+def _fetch_trades_sorted(pool_addr):
+    """Scarica /trades una volta e ritorna [(ts,kind,price,usd,wallet)] in ordine di tempo."""
     d = _gt(f"/networks/solana/pools/{pool_addr}/trades")
     trades = (d or {}).get("data", [])
-    # ordina per tempo crescente per calcolare il run-up PRIMA di ogni acquisto
     rows = []
     for t in trades:
         a = t["attributes"]
@@ -102,24 +101,39 @@ def get_big_buys(pool_addr, created_ts, liquidity):
             usd = 0
         rows.append((ts or 0, a.get("kind"), price, usd, a.get("tx_from_address")))
     rows.sort(key=lambda x: x[0])
+    return rows
 
-    out = []
+
+def get_big_buys_and_sells(pool_addr, created_ts, liquidity):
+    """UNA chiamata /trades -> (buys, sells).
+    buys: dict EARLY {wallet, usd, ts, price, age_min, runup, is_early}.
+    sells: dict {wallet, usd, ts, price} per i SELL >= min_usd (servono a S2 smart-exit)."""
+    rows = _fetch_trades_sorted(pool_addr)
+    buys, sells = [], []
     min_price = None
     floor = max(SPIKES["min_usd"], SPIKES["early_min_liq_ratio"] * (liquidity or 0))
     for ts, kind, price, usd, wallet in rows:
         if price > 0:
             min_price = price if min_price is None else min(min_price, price)
-        if kind != "buy" or usd < SPIKES["min_usd"] or not wallet or not ts:
+        if not wallet or not ts:
             continue
-        runup = (price / min_price - 1) if (min_price and price > 0) else None
-        age_min = ((ts - created_ts) / 60.0) if created_ts else None
-        is_early = bool(
-            age_min is not None and age_min <= SPIKES["early_max_age_min"]
-            and (runup is None or runup <= SPIKES["early_max_runup"])
-            and usd >= floor
-        )
-        out.append({"wallet": wallet, "usd": round(usd), "ts": ts, "price": price,
-                    "age_min": round(age_min, 1) if age_min is not None else None,
-                    "runup": round(runup, 3) if runup is not None else None,
-                    "is_early": is_early})
-    return out
+        if kind == "buy" and usd >= SPIKES["min_usd"]:
+            runup = (price / min_price - 1) if (min_price and price > 0) else None
+            age_min = ((ts - created_ts) / 60.0) if created_ts else None
+            is_early = bool(
+                age_min is not None and age_min <= SPIKES["early_max_age_min"]
+                and (runup is None or runup <= SPIKES["early_max_runup"])
+                and usd >= floor)
+            buys.append({"wallet": wallet, "usd": round(usd), "ts": ts, "price": price,
+                         "age_min": round(age_min, 1) if age_min is not None else None,
+                         "runup": round(runup, 3) if runup is not None else None,
+                         "is_early": is_early})
+        elif kind == "sell" and usd >= SPIKES["min_usd"]:
+            sells.append({"wallet": wallet, "usd": round(usd), "ts": ts, "price": price})
+    return buys, sells
+
+
+def get_big_buys(pool_addr, created_ts, liquidity):
+    """Compat: solo i big-buy EARLY (riusa get_big_buys_and_sells)."""
+    buys, _ = get_big_buys_and_sells(pool_addr, created_ts, liquidity)
+    return buys

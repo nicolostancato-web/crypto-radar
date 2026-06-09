@@ -25,8 +25,8 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 OVERRIDES = os.path.join(ROOT, "scenario_overrides.json")
 ROADMAP = os.path.join(ROOT, "ROADMAP_STATO.md")
 
-# Ordine di avanzamento: solo scenari IMPLEMENTATI. (S2/S4+ si aggiungono quando pronti.)
-ADVANCE_ORDER = ["S3_cluster", "S1_regime", "S0_baseline"]
+# Ordine di avanzamento: i due ad alta conviction prima, poi gli altri implementati.
+ADVANCE_ORDER = ["S3_cluster", "S2_smartexit", "S1_regime", "S0_baseline"]
 HORIZON = 24  # orizzonte di verdetto (ore)
 
 
@@ -60,15 +60,13 @@ def _telegram(msg):
         print(f"[auto] telegram errore: {str(e)[:120]}")
 
 
-def _next_scenario(state, current):
-    """Prossimo scenario non ancora parcheggiato/promosso nell'ordine (stato in JSON)."""
-    try:
-        idx = ADVANCE_ORDER.index(current)
-    except ValueError:
-        idx = -1
-    for name in ADVANCE_ORDER[idx + 1:]:
+def _next_scenario(state, running):
+    """Prossimo scenario da attivare: primo nell'ordine non già running e non parcheggiato/promosso."""
+    for name in ADVANCE_ORDER:
+        if name in running:
+            continue
         st = state.get(name, {})
-        if st.get("status", "active") in ("idle", "active"):
+        if st.get("status") in (None, "active", "idle"):
             return name
     return None
 
@@ -111,70 +109,105 @@ def _append_log(line):
         print(f"[auto] log errore: {e}")
 
 
-def run():
-    init_db()
-    active = SCENARIOS["active"]
-    params = dict(SCENARIOS.get(active, {}))
+def _evaluate(c, name, ov, state, ts):
+    """Valuta UNO scenario running: decide FUNZIONA/PARK/RARO/CONTINUA, aggiorna stato e running."""
+    params = dict(SCENARIOS.get(name, {}))
     min_trades = SCENARIOS["min_trades_for_verdict"]
-    park_thr = SCENARIOS["park_ev_threshold"]
-    succ_thr = SCENARIOS["success_ev_threshold"]
+    park_thr, succ_thr = SCENARIOS["park_ev_threshold"], SCENARIOS["success_ev_threshold"]
+    running = ov.setdefault("running", list(SCENARIOS.get("running", [])))
 
-    # Stato del motore in JSON (mergeabile, niente conflitti binari su radar.db).
-    ov = _load_overrides()
-    state = ov.setdefault("_state", {})
-    sstate = state.setdefault(active, {"status": "active", "iteration": 0, "verdict": None})
+    sstate = state.setdefault(name, {"status": "active", "iteration": 0, "verdict": None})
     sstate["iteration"] += 1
-    iteration = sstate["iteration"]
-
-    with get_conn() as c:   # SOLO lettura degli outcome (il radar orario possiede radar.db)
-        st = scenario_stats(c, active, horizon=HORIZON)
-
+    it = sstate["iteration"]
+    st = scenario_stats(c, name, horizon=HORIZON)
     n, ev, total = st["n"], st["ev_net"], st["n"] + st["open"]
-    ts = time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime())
-    print(f"[auto] {ts} attivo={active} it={iteration} n={n} EV={ev} aperti={st['open']}")
-
     decision, verdict = "CONTINUA", None
 
-    # 1) FUNZIONA?
     if n >= min_trades and ev is not None and ev >= succ_thr:
-        decision = "FUNZIONA"
-        verdict = f"EV netto {ev:+.2%} su {n} trade (>= +{succ_thr:.0%})"
+        decision, verdict = "FUNZIONA", f"EV netto {ev:+.2%} su {n} trade (>= +{succ_thr:.0%})"
         sstate["status"], sstate["verdict"] = "works", verdict
-        _telegram(f"🟢 CRYPTO-RADAR: scenario {active} FUNZIONA! {verdict}. Controlla la dashboard.")
-    # 2) PARK?
+        _telegram(f"🟢 CRYPTO-RADAR: {name} FUNZIONA! {verdict}. Guarda la dashboard.")
     elif n >= min_trades and ev is not None and ev <= park_thr:
         verdict = f"EV netto {ev:+.2%} su {n} trade (<= {park_thr:.0%}) -> vicolo cieco"
         sstate["status"], sstate["verdict"] = "parked", verdict
-        nxt = _next_scenario(state, active)
+        if name in running:
+            running.remove(name)
+        nxt = _next_scenario(state, running)
         if nxt:
-            ov["active"] = nxt
+            running.append(nxt)
             state.setdefault(nxt, {"status": "active", "iteration": 0, "verdict": None})
             decision = f"PARK -> avanzo a {nxt}"
         else:
-            decision = "PARK -> nessuno scenario rimasto (esauriti gli implementati)"
-            _telegram("⚠️ CRYPTO-RADAR: scenari implementati esauriti. Servono S2/S4+ o Piano B (tool).")
-    # 3) RARO: nessun segnale dopo abbastanza giri -> allarga la finestra (entro limiti duri)
-    elif total == 0 and iteration >= 3 and active == "S3_cluster":
+            decision = "PARK -> scenari implementati esauriti"
+            _telegram("⚠️ CRYPTO-RADAR: scenari esauriti. Servono S4+ o Piano B (tool alert).")
+    elif total == 0 and it >= 3 and name == "S3_cluster":
         cur_w = params.get("window_s", 3600)
-        new_w = min(int(cur_w * 1.5), 10800)  # max 3h
+        new_w = min(int(cur_w * 1.5), 10800)
         if new_w != cur_w:
             ov.setdefault("S3_cluster", {})["window_s"] = new_w
-            decision = f"RARO: 0 segnali in {iteration} giri -> finestra {cur_w}s->{new_w}s"
+            decision = f"RARO: 0 segnali in {it} giri -> finestra {cur_w}s->{new_w}s"
 
-    # Double Agent (consulente)
-    ai = _ai_consult(active, st, params)
+    ev_s = f"{ev:+.2%}" if ev is not None else "—"
+    extra = f" · meccanica {st['ev_mech']:+.2%}" if st.get("ev_mech") is not None else ""
+    _append_log(f"- **{ts}** · {name} it{it} · n={n} EV={ev_s}{extra} aperti={st['open']} · **{decision}**"
+                + (f" · {verdict}" if verdict else ""))
+    print(f"[auto] {name} it{it} n={n} EV={ev_s} -> {decision}")
+    return st, decision
+
+
+def run():
+    init_db()
+    ov = _load_overrides()
+    state = ov.setdefault("_state", {})
+    running = list(SCENARIOS.get("running", [SCENARIOS.get("active", "S3_cluster")]))
+    ts = time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime())
+    print(f"[auto] {ts} running={running}")
+
+    results = []
+    with get_conn() as c:
+        for name in running:
+            st, dec = _evaluate(c, name, ov, state, ts)
+            results.append((name, st, dec))
+
+    # Double Agent: UNA consultazione combinata (cost-bounded ~$0.11), solo se c'è dati o ogni 2 giri
+    ai = _combined_consult(results)
+    if ai:
+        _append_log("  - 🤖 Double Agent:\n    " + ai.replace("\n", "\n    "))
+        print("[auto] Double Agent consultato (loggato)")
 
     _save_overrides(ov)
-    ev_s = f"{ev:+.2%}" if ev is not None else "—"
-    _append_log(f"- **{ts}** · {active} it{iteration} · n={n} EV={ev_s} aperti={st['open']} · **{decision}**"
-                + (f" · {verdict}" if verdict else ""))
-    if ai:
-        _append_log(f"  - 🤖 Double Agent:\n    " + ai.replace("\n", "\n    "))
+    return [d for _, _, d in results]
 
-    print(f"[auto] decisione: {decision}")
-    if ai:
-        print("[auto] Double Agent consultato (loggato in ROADMAP_STATO.md)")
-    return decision
+
+def _combined_consult(results):
+    """Una sola chiamata al Double Agent con i numeri di tutti gli scenari running. Cost-bounded."""
+    try:
+        import double_agent as da
+    except Exception:
+        return ""
+    if not (os.getenv("OPENAI_API_KEY") or os.getenv("DEEPSEEK_API_KEY")):
+        return ""
+    lines = []
+    for name, st, dec in results:
+        ev = f"{st['ev_net']:+.2%}" if st["ev_net"] is not None else "n/d"
+        lines.append(f"- {name}: n={st['n']} EV={ev} aperti={st['open']} decisione={dec}")
+    body = "\n".join(lines)
+    prompt = (
+        "Quant on-chain brutalmente onesto. Sto testando in paper-trading (gratis, polling orario) "
+        "strategie per sfruttare la smart-money su memecoin Solana. Stato scenari:\n\n" + body +
+        "\n\nIn <=180 parole: (1) lettura brutale, (2) per ognuno UN aggiustamento concreto di parametro, "
+        "(3) quale è più vicino a essere un vicolo cieco. Niente fronzoli."
+    )
+    out = []
+    for nm in ("gpt5", "deepseek"):
+        try:
+            fn = da.ask_gpt5 if nm == "gpt5" else da.ask_deepseek
+            txt = fn(prompt, max_tokens=1400, timeout=180)
+            if txt:
+                out.append(f"**{nm}:** {txt.strip()}")
+        except Exception as e:
+            print(f"[auto] {nm} errore: {str(e)[:120]}")
+    return "\n\n".join(out)
 
 
 if __name__ == "__main__":
