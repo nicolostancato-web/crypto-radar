@@ -34,6 +34,7 @@ jobs:
       - name: Un giro del radar
         env:
           HELIUS_API_KEY: ${{ secrets.HELIUS_API_KEY }}
+          COINGECKO_DEMO_KEY: ${{ secrets.COINGECKO_DEMO_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python run.py --once

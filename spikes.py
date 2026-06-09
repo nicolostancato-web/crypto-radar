@@ -12,23 +12,43 @@ Per ogni big-buy calcoliamo i dati EARLY:
 
 Fonte: GeckoTerminal /trades (gratis) — wallet + USD + prezzo + timestamp di ogni trade.
 """
+import os
 import time
 import requests
 from config import SPIKES
 
+# GeckoTerminal pubblica (gratis, senza chiave) — ma gli IP datacenter (GitHub Actions) vengono
+# rate-limitati duro. Se c'è una CoinGecko Demo key (gratis), instradiamo le STESSE rotte sotto
+# /onchain dell'API CoinGecko: throttling per-CHIAVE, non per-IP -> sblocca il cloud.
 GT = "https://api.geckoterminal.com/api/v2"
+CG_DEMO = os.getenv("COINGECKO_DEMO_KEY", "")
+CG = "https://api.coingecko.com/api/v3/onchain"
 UA = {"User-Agent": "crypto-radar (research; paper-trading)", "Accept": "application/json"}
 
 
-def _gt(path):
-    for _ in range(2):
+def _gt(path, _tries=5):
+    """GET con backoff esponenziale e rispetto del 429. Usa CoinGecko+key se disponibile."""
+    if CG_DEMO:
+        url = f"{CG}{path}"
+        headers = {**UA, "x-cg-demo-api-key": CG_DEMO}
+    else:
+        url = f"{GT}{path}"
+        headers = UA
+    delay = 1.0
+    for attempt in range(_tries):
         try:
-            r = requests.get(f"{GT}{path}", headers=UA, timeout=15)
+            r = requests.get(url, headers=headers, timeout=15)
             if r.ok:
                 return r.json()
+            if r.status_code in (429, 502, 503, 504):
+                ra = r.headers.get("Retry-After")
+                time.sleep(min(float(ra), 15) if ra and ra.isdigit() else delay)
+                delay = min(delay * 2, 15)
+                continue
+            return None  # 4xx non recuperabile (es. 404 pool inesistente)
         except requests.RequestException:
-            pass
-        time.sleep(1)
+            time.sleep(delay)
+            delay = min(delay * 2, 15)
     return None
 
 
