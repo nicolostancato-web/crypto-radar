@@ -1,0 +1,21 @@
+Sei un SENIOR QUANT + ON-CHAIN ANALYST con 10+ anni reali su trading crypto, memecoin Solana e smart-money tracking. Sei BRUTALMENTE ONESTO, non incoraggiante. Niente fuffa motivazionale: formule, soglie, fonti, probabilita' reali.
+
+CONTESTO. Ho costruito un sistema automatico (gira 24/7 nel cloud GitHub Actions, ~ogni 2h, GRATIS) per PAPER TRADING + scoperta di smart-money su memecoin Solana. Obiettivo: identificare trader copiabili e capire SE copiarli rende, senza rischiare soldi. Fonti free: DEXScreener (prezzi/volumi), GeckoTerminal /trades (ci da' wallet + size USD + prezzo + timestamp di ogni trade), Helius RPC (storia wallet -> PnL realizzato), Telegram/4chan/CoinGecko (social).
+
+COSA HO PROVATO E I RISULTATI (tutti deludenti):
+1. Discovery + scoring social/volume -> nessun edge.
+2. Spike-hunter: catturo i BIG-BUY (>=$1k) sui token. Problema: all'oraria becco i compratori TARDIVI (exit liquidity), e il rilevamento "early" produce 0 (troppo lento, l'early vive di minuti/secondi).
+3. Qualifica wallet via Helius: PnL realizzato + win-rate + filtro anti-bot (>60 tx/giorno) + COPIABILITA' (copy_pnl = PnL se copio a +10% di entrata peggiore, per latenza/slippage) + capitale (saldo, size) + persistenza (eta', ancora attivo). RISULTATO CHIAVE: su 51 wallet verificati a fondo, 27 hanno >=10 posizioni chiuse (campione solido), e ZERO sono copiabili (copy_pnl>0). Quelli con vero track record (30-50 trade chiusi) sono copy-NEGATIVI (es. -2.4 SOL). Quando pretendo rigore statistico, la copiabilita' sparisce.
+4. Funding graph (risalire dal wallet bravo al "main wallet" coi capitali): finisce sugli HOT WALLET DI BINANCE (151 tx/ora, 100+ controparti). Vicolo cieco: la maggioranza finanzia da CEX.
+5. Paper trade con EXIT meccaniche (TP +50%/+100%, trailing 30%, stop -30%, hard 24h) sul path OHLCV reale: EXIT media -7% vs HOLD -15% (n=8). L'exit dimezza le perdite ma resta NEGATIVO.
+
+VINCOLI DURI: solo API gratuite, polling ORARIO (no streaming/gRPC, no bassa latenza), nessun accesso privilegiato/insider, paper trading prima, focus Solana. Retail solo, budget ~0.
+
+IL VERDETTO che sta emergendo: NON c'e' un edge copiabile per noi (gratis + lenti). 
+
+LA MIA DOMANDA (rispondi in dettaglio):
+A) Dato TUTTO questo, trovami 10 DIREZIONI/STRATEGIE DIVERSE che NON ho provato bene o ho scartato troppo presto. Per OGNUNA: (1) cos'e' in 2 righe, (2) perche' potrebbe funzionare per un retail GRATIS e LENTO, (3) come la implemento coi miei strumenti free, (4) la PROBABILITA' onesta che produca EV netto positivo (alta/media/bassa e perche'), (5) l'insidia principale.
+B) Sii brutale: esiste DAVVERO un edge sfruttabile in questo spazio (memecoin Solana) per uno come me (gratis, orario, no insider), o sto inseguendo un fantasma? Se e' un fantasma, dimmelo chiaro e dimmi su COSA dovrei pivotare (anche fuori dalle memecoin) per avere una chance reale con gli stessi strumenti/skill (Python, on-chain data, AI, automazione).
+C) Le 3 cose che faresti TU al posto mio, in ordine di priorita', ADESSO.
+
+Formato: diretto, numerato, concreto. Niente incoraggiamento vuoto. Se la risposta onesta e' "lascia perdere", dillo.

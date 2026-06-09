@@ -24,7 +24,8 @@ def spikes_once():
             for b in spikes.get_big_buys(addr, created, liq):
                 if record_spike_buy(c, b["wallet"], mint, name, b["usd"], b["ts"],
                                     price=b["price"], token_age_min=b["age_min"],
-                                    runup_pct=b["runup"], liquidity=liq, is_early=b["is_early"]):
+                                    runup_pct=b["runup"], liquidity=liq, is_early=b["is_early"],
+                                    pool_addr=addr):
                     new_events += 1
                     if b["is_early"]:
                         early_n += 1

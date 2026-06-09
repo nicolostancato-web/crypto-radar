@@ -3,8 +3,8 @@
 > Stato vivo. Aggiornato a ogni auto-analisi (ogni ~6h). Legenda stato:
 > 🔵 ATTIVO · ⏳ DA TESTARE · 🅿️ PARK (vicolo cieco, col motivo) · 🟢 FUNZIONA (avvisare Nick)
 
-**Ultima auto-analisi:** — (non ancora partita)
-**Scenario attivo:** S1 (in costruzione)
+**Scenario attivo:** S3_cluster (fail-fast: parto dai due ad alta conviction)
+**Loop auto-analisi:** 🟢 LIVE — gira in cloud ogni 6h (auto_analysis.py)
 **Slippage simulato:** 10% entry + 10% exit · fee 0.25% (stress test, come il fallimento copy-trading)
 
 ---
@@ -72,3 +72,10 @@
 
 ## Log auto-analisi
 _(ogni run del loop autonomo appende qui: data, scenario, # trade accumulati, EV corrente, decisione presa)_
+- **2026-06-09 07:44 UTC** · S3_cluster it1 · n=0 EV=— aperti=0 · **CONTINUA**
+  - 🤖 Double Agent:
+    **deepseek:** (1) Zero trades significa che nessun segnale ha soddisfatto i parametri: troppo restrittivi o assenza di smart-money attivo nel timeframe orario. Con max_runup 0.3 (30% di rialzo pre-entry) e finestra 3600s si escludono quasi tutte le entry.
+    
+    (2) Abbassa **max_runup_at_entry** a **0.1** (10%) – così catturi movimenti più precoci prima che il run-up escluda l’entry. In alternativa, riduci **smart_min_wallets** a 1 (ma degrada qualità). Proverei prima il runup.
+    
+    (3) Non è un vicolo cieco, ma il paper-trading su memecoin Solana richiede parametri più aggressivi. Se dopo l’aggiustamento ancora zero trade, allora switcha a finestra più lunga (7200s) o cambia asset.

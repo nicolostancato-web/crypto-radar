@@ -178,6 +178,18 @@ CREATE TABLE IF NOT EXISTS notified (
     notified_at      REAL NOT NULL
 );
 
+-- SCENARIO_STATE: lo stato del motore a eliminazione sistematica (vedi ROADMAP_STATO.md).
+-- Una riga per scenario: stato corrente, iterazione del loop 6h, verdetto raggiunto.
+CREATE TABLE IF NOT EXISTS scenario_state (
+    name        TEXT PRIMARY KEY,        -- es. 'S3_cluster'
+    status      TEXT NOT NULL DEFAULT 'idle',  -- idle | active | parked | works
+    iteration   INTEGER DEFAULT 0,       -- quante auto-analisi 6h ha ricevuto
+    started_at  REAL,
+    updated_at  REAL,
+    verdict     TEXT,                     -- motivo del park o della promozione
+    notes       TEXT
+);
+
 CREATE INDEX IF NOT EXISTS idx_signals_asset ON signals(asset_id, detected_at);
 CREATE INDEX IF NOT EXISTS idx_assets_status ON assets(status);
 CREATE INDEX IF NOT EXISTS idx_outcomes_status ON outcomes(status);
@@ -223,7 +235,8 @@ def _migrate(c):
     # qualifica PnL dei wallet (accumulata e cachata, non si ricalcola ogni giro)
     sc = [r[1] for r in c.execute("PRAGMA table_info(spike_buys)").fetchall()]
     for col, ddl in [("price", "REAL"), ("token_age_min", "REAL"),
-                     ("runup_pct", "REAL"), ("liquidity", "REAL"), ("is_early", "INTEGER DEFAULT 0")]:
+                     ("runup_pct", "REAL"), ("liquidity", "REAL"), ("is_early", "INTEGER DEFAULT 0"),
+                     ("pool_addr", "TEXT")]:
         if sc and col not in sc:
             c.execute(f"ALTER TABLE spike_buys ADD COLUMN {col} {ddl}")
     wc = [r[1] for r in c.execute("PRAGMA table_info(wallets)").fetchall()]
@@ -237,6 +250,11 @@ def _migrate(c):
                      ("span_days", "REAL"), ("last_active_days", "REAL")]:
         if wc and col not in wc:
             c.execute(f"ALTER TABLE wallets ADD COLUMN {col} {ddl}")
+    # SCENARIO ENGINE: tag scenario sugli outcome (il DB cloud esiste gia' -> ALTER idempotente)
+    oc = [r[1] for r in c.execute("PRAGMA table_info(outcomes)").fetchall()]
+    if oc and "scenario" not in oc:
+        c.execute("ALTER TABLE outcomes ADD COLUMN scenario TEXT")
+    c.execute("CREATE INDEX IF NOT EXISTS idx_outcomes_scenario ON outcomes(scenario)")
 
 
 # --- ESCLUSIONI -----------------------------------------------------------
@@ -484,15 +502,16 @@ def main_leaderboard(c, limit):
 # --- SPIKE BUYS (Who Knows More Than Me) ---------------------------------
 
 def record_spike_buy(c, wallet, mint, pool_name, usd, bought_at,
-                     price=None, token_age_min=None, runup_pct=None, liquidity=None, is_early=0):
+                     price=None, token_age_min=None, runup_pct=None, liquidity=None, is_early=0,
+                     pool_addr=None):
     """Registra un big-buy con i dati early. Dedup su (wallet, mint, ts). True se nuovo."""
     cur = c.execute(
         """INSERT OR IGNORE INTO spike_buys
            (wallet, mint, pool_name, usd, bought_at, captured_at,
-            price, token_age_min, runup_pct, liquidity, is_early)
-           VALUES (?,?,?,?,?,?,?,?,?,?,?)""",
+            price, token_age_min, runup_pct, liquidity, is_early, pool_addr)
+           VALUES (?,?,?,?,?,?,?,?,?,?,?,?)""",
         (wallet, mint, pool_name, usd, bought_at, time.time(),
-         price, token_age_min, runup_pct, liquidity, 1 if is_early else 0))
+         price, token_age_min, runup_pct, liquidity, 1 if is_early else 0, pool_addr))
     return cur.rowcount > 0
 
 
@@ -565,3 +584,63 @@ def set_outcome_point(c, outcome_id, horizon, price, ret_gross, ret_net):
 def close_outcome(c, outcome_id):
     c.execute("UPDATE outcomes SET status='closed', closed_at=? WHERE id=?",
               (time.time(), outcome_id))
+
+
+# --- SCENARIO ENGINE (motore a eliminazione sistematica) ------------------
+
+def get_scenario_state(c, name):
+    return c.execute("SELECT * FROM scenario_state WHERE name=?", (name,)).fetchone()
+
+
+def ensure_scenario(c, name):
+    """Crea la riga di stato dello scenario se non esiste. Ritorna lo stato."""
+    if not get_scenario_state(c, name):
+        c.execute("""INSERT INTO scenario_state (name, status, iteration, started_at, updated_at)
+                     VALUES (?, 'active', 0, ?, ?)""", (name, time.time(), time.time()))
+    return get_scenario_state(c, name)
+
+
+def set_scenario_status(c, name, status, verdict=None, notes=None):
+    c.execute("""UPDATE scenario_state SET status=?, verdict=COALESCE(?, verdict),
+                 notes=COALESCE(?, notes), updated_at=? WHERE name=?""",
+              (status, verdict, notes, time.time(), name))
+
+
+def bump_scenario_iteration(c, name):
+    c.execute("UPDATE scenario_state SET iteration=iteration+1, updated_at=? WHERE name=?",
+              (time.time(), name))
+
+
+def has_open_scenario_outcome(c, asset_id, scenario):
+    """Un paper-trade aperto alla volta per (asset, scenario): niente doppioni."""
+    return c.execute(
+        "SELECT 1 FROM outcomes WHERE asset_id=? AND scenario=? AND status='open' LIMIT 1",
+        (asset_id, scenario)).fetchone() is not None
+
+
+def open_scenario_outcome(c, scenario, asset_id, chain, contract, ticker, price, liquidity, signals=None):
+    """Apre un paper-trade taggato con lo scenario. L'exitsim esistente calcola il ritorno netto."""
+    c.execute(
+        """INSERT INTO outcomes (asset_id, chain, contract_address, ticker,
+               score_at_entry, signals_at_entry, price_at_entry, liquidity_at_entry,
+               entered_at, status, scenario)
+           VALUES (?,?,?,?,?,?,?,?,?, 'open', ?)""",
+        (asset_id, chain, contract, ticker, None, signals, price, liquidity, time.time(), scenario))
+
+
+def scenario_stats(c, scenario, horizon=24):
+    """Verdetto coi dati per uno scenario: N trade, EV netto (exit meccanica), win-rate.
+    Usa sim_return (uscita meccanica reale); fallback su ret_{h}h_net se sim assente."""
+    rows = c.execute(
+        f"""SELECT sim_return, ret_{horizon}h_net AS hnet FROM outcomes
+            WHERE scenario=?""", (scenario,)).fetchall()
+    nets = [(r["sim_return"] if r["sim_return"] is not None else r["hnet"])
+            for r in rows if (r["sim_return"] is not None or r["hnet"] is not None)]
+    n = len(nets)
+    if n == 0:
+        return {"scenario": scenario, "n": 0, "ev_net": None, "win_rate": None,
+                "open": len(rows)}
+    avg = sum(nets) / n
+    win = sum(1 for x in nets if x > 0) / n
+    return {"scenario": scenario, "n": n, "ev_net": round(avg, 4),
+            "win_rate": round(win, 3), "open": len(rows) - n}

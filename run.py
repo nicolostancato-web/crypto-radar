@@ -14,6 +14,7 @@ import sys, time
 from db import init_db
 from jobs import (discovery, enrichment, social, scoring, outcomes, spikes,
                   wallets, learn, export_excel)
+import scenarios
 import web_export
 
 
@@ -28,6 +29,7 @@ def one_cycle():
         ("exitsim", outcomes.simulate_exits),
         ("spikes", spikes.spikes_once),
         ("wallets", wallets.capture_once),
+        ("scenari", scenarios.run_active_scenario),
         ("learn", learn.calibrate_once),
         ("export", export_excel.export),
         ("web", web_export.build),

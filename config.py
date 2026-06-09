@@ -261,6 +261,62 @@ SPIKES = {
 }
 
 # ---------------------------------------------------------------------------
+# SCENARIOS — il MOTORE A ELIMINAZIONE SISTEMATICA (vedi ROADMAP_STATO.md).
+# Testiamo un'ipotesi alla volta: ogni scenario apre paper-trade taggati col suo nome,
+# con le SUE regole d'ingresso. L'exitsim meccanico esistente calcola il ritorno netto.
+# Il loop auto-analisi (ogni 6h) legge i risultati, aggiusta questi parametri da solo,
+# e decide PARK / CONTINUA / FUNZIONA. "active" = lo scenario in test ora.
+# ---------------------------------------------------------------------------
+SCENARIOS = {
+    "active": "S3_cluster",     # scenario attivo (il loop 6h lo cambia). Fail-fast: parto dai due forti.
+    "min_trades_for_verdict": 30,   # sotto N paper-trade NON si dà verdetto (rumore)
+    "park_ev_threshold": 0.0,       # se EV netto <= questo dopo abbastanza trade -> PARK
+    "success_ev_threshold": 0.05,   # EV netto >= +5% su campione adeguato -> FUNZIONA (avvisa Nick)
+    "max_entries_per_cycle": 6,     # tetto duro paper-trade aperti per giro (controllo)
+
+    # --- S0 Baseline futility (controllo: deve perdere) ---
+    "S0_baseline": {
+        "min_vol_usd": 5_000,       # compra ogni asset attivo con volume minimo
+    },
+    # --- S1 Regime filter (entra solo in risk-on) ---
+    "S1_regime": {
+        "min_active_candidates": 8, # proxy risk-on: abbastanza token vivi nel radar
+        "sol_trend_min": -0.05,     # SOL non in caduta (> -5% su 3g)
+    },
+    # --- S2 Smart-EXIT overlay (entry momentum, exit sui sell dei bravi) ---
+    "S2_smartexit": {
+        "momentum_runup_min": 0.05, # entra su un minimo di slancio recente
+    },
+    # --- S3 Cluster accumulation (>=N smart wallet co-comprano lo stesso token) ---
+    "S3_cluster": {
+        "smart_min_wallets": 2,     # >=2 wallet "smart" distinti sullo stesso token
+        "window_s": 3600,           # entro 60 minuti
+        "smart_def": "soft",        # soft = boss early O verificato ; strict = verificato+profittevole
+        "max_runup_at_entry": 0.30, # non inseguire: prezzo salito < +30% rispetto al loro buy
+    },
+}
+
+# Il loop auto-analisi (ogni 6h) scrive `scenario_overrides.json` per aggiustare i parametri
+# e lo scenario attivo SENZA toccare il codice. Qui lo carichiamo e lo fondiamo (deep-merge).
+def _apply_scenario_overrides():
+    import json
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "scenario_overrides.json")
+    if not os.path.exists(path):
+        return
+    try:
+        with open(path) as f:
+            ov = json.load(f)
+    except Exception:
+        return
+    for k, v in ov.items():
+        if isinstance(v, dict) and isinstance(SCENARIOS.get(k), dict):
+            SCENARIOS[k].update(v)
+        else:
+            SCENARIOS[k] = v
+
+_apply_scenario_overrides()
+
+# ---------------------------------------------------------------------------
 # COSTI / RETE — paletti per non bruciare i rate limit gratuiti
 # ---------------------------------------------------------------------------
 LIMITS = {
