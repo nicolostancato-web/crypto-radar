@@ -169,11 +169,16 @@ def run():
             st, dec = _evaluate(c, name, ov, state, ts)
             results.append((name, st, dec))
 
-    # Double Agent: UNA consultazione combinata (cost-bounded ~$0.11), solo se c'è dati o ogni 2 giri
-    ai = _combined_consult(results)
-    if ai:
-        _append_log("  - 🤖 Double Agent:\n    " + ai.replace("\n", "\n    "))
-        print("[auto] Double Agent consultato (loggato)")
+    # Double Agent (PAGAMENTO ~$0.11): solo quando c'e' una DECISIONE vera (park/avanza/funziona/raro),
+    # NON sui giri di routine "CONTINUA". CFO: il deep-think di routine lo fa il modello free.
+    decisione_vera = any(not d.startswith("CONTINUA") for _, _, d in results)
+    if decisione_vera:
+        ai = _combined_consult(results)
+        if ai:
+            _append_log("  - 🤖 Double Agent:\n    " + ai.replace("\n", "\n    "))
+            print("[auto] Double Agent consultato (decisione vera)")
+    else:
+        print("[auto] nessuna decisione -> Double Agent NON chiamato (risparmio)")
 
     _save_overrides(ov)
     return [d for _, _, d in results]
