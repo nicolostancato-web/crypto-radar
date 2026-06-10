@@ -117,3 +117,11 @@ _(ogni run del loop autonomo appende qui: data, scenario, # trade accumulati, EV
     - S2_smartexit: esigi n≥10 per CONTINUA, imposta trailing stop loss dinamico (es. 30% dal picco).
     
     (3) Vicolo cieco: S3_cluster. Zero segnali su 3 giri con finestra già estesa indica pattern inesistente o overfit. S2 almeno ha EV positivo, ma serve campione reale.
+- **2026-06-10 10:37 UTC** · S3_cluster it4 · n=0 EV=— aperti=0 · **RARO: 0 segnali in 4 giri -> finestra 5400s->8100s**
+- **2026-06-10 10:37 UTC** · S2_smartexit it4 · n=4 EV=+575.22% · meccanica +601.13% aperti=3 · **CONTINUA**
+  - 🤖 Double Agent:
+    **deepseek:** (1) S3_cluster: morto — zero segnali in 4 round su finestra 5400-8100s, il filtro cluster è troppo stretto o il mercato non si adatta. S2_smartexit: EV +575% su n=4 è irrealistico su memecoin, probabile outlier; 3 posizioni aperte rischiano un crollo.
+    
+    (2) S3: ridurre soglia cluster minima da 2 a 1 evento. S2: aggiungere trailing stop-loss al 20% del massimo di profitto non realizzato.
+    
+    (3) S3 è più vicino a vicolo cieco — zero segnali ripetuti indicano assenza di opportunità nel pattern, non solo parametri sbagliati.
