@@ -125,3 +125,22 @@ _(ogni run del loop autonomo appende qui: data, scenario, # trade accumulati, EV
     (2) S3: ridurre soglia cluster minima da 2 a 1 evento. S2: aggiungere trailing stop-loss al 20% del massimo di profitto non realizzato.
     
     (3) S3 è più vicino a vicolo cieco — zero segnali ripetuti indicano assenza di opportunità nel pattern, non solo parametri sbagliati.
+- **2026-06-10 16:12 UTC** · S3_cluster it5 · n=0 EV=— aperti=0 · **RARO: 0 segnali in 5 giri -> finestra 8100s->10800s**
+- **2026-06-10 16:12 UTC** · S2_smartexit it5 · n=5 EV=+453.31% · meccanica +489.83% aperti=7 · **CONTINUA**
+  - 🤖 Double Agent:
+    **gpt5:** (1) Lettura brutale
+    - S3_cluster: zero segnali in 5 giri = filtro troppo stretto + polling orario che perde i burst tipici (minuti) delle memecoin. Allargare solo la finestra (8100→10800s) è inutile: state guardando nel posto sbagliato al ritmo sbagliato.
+    - S2_smartexit: EV +453% con n=5 e 7 posizioni aperte puzza di bias (fill irreali, slippage/MEV/fee sottostimate). Rischio di over-exposure e drawdown non visto.
+    
+    (2) Un aggiustamento concreto
+    - S3_cluster: riduci detection_window a 1200s rolling (valutata a ogni poll), mantenendo gli altri filtri invariati. Obiettivo: catturare micro-cluster senza snaturare la precisione.
+    - S2_smartexit: imposta max_hold_time = 6 ore; alla scadenza chiudi a mercato. Taglia code e realizza PnL, riducendo l’EV gonfiato da posizioni “zombie”.
+    
+    (3) Più vicino al vicolo cieco
+    - S3_cluster, finché resti su polling orario gratuito: i segnali veri vivono su scale di minuti. Senza feed/event-driven o polling più denso, l’approccio cluster è strutturalmente castrato. S2 è migliorabile con risk/exit policy realistiche.
+    
+    **deepseek:** (1) S3_cluster: 0 segnali in 5 giri, finestra enorme (8100-10800s) → strategia paralizzata, nessun dato su cui valutare. S2_smartexit: EV +453% su 5 chiusi ma 7 aperti → performance gonfiata da pochi trade, alta concentrazione di rischio e possibile overfitting su campione piccolo.
+    
+    (2) S3: ridurre finestra a 3600s (1h) per forzare più tentativi e capire se il cluster esiste. S2: imporre max 2 posizioni aperte contemporaneamente per limitare drawdown e testare robustezza.
+    
+    (3) S3 è il vicolo cieco: zero segnali = nessuna opportunità di trading, mentre S2 almeno produce segnali e va disciplinato.
