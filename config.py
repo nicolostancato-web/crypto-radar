@@ -225,7 +225,7 @@ WALLETS = {
 
     # QUALIFICA PnL (accumulo efficiente: ogni wallet si qualifica UNA volta, poi cache)
     "qualify_tx": 25,              # screen veloce: tx per il primo filtro
-    "max_qualify_per_cycle": 10,   # max wallet screenati per giro
+    "max_qualify_per_cycle": 18,   # max wallet screenati per giro (spinto: cresce la rete piu' in fretta)
     "requalify_days": 4,           # ri-qualifica un wallet solo dopo N giorni
     "min_closed_for_proven": 10,   # provato con >= 10 posizioni chiuse (stabilita': con poche, il
                                    # copy_pnl balla e mostra trappole. Meglio classifica corta ma vera)
@@ -238,7 +238,7 @@ WALLETS = {
 
     # DEEP-DIVE (livello 2): solo su chi passa lo screen. Verità sul track record.
     "deep_tx": 300,                # tx per l'analisi profonda (piu' profonda = piu' stabile)
-    "max_deep_per_cycle": 2,       # max deep-dive per giro (tetto crediti: ~300 call l'uno)
+    "max_deep_per_cycle": 3,       # max deep-dive per giro (spinto da 2; ~300 call l'uno, ok 1M Helius)
     "bot_tx_per_day": 60,          # sopra questa frequenza = bot/HFT -> scartato (no deep value)
 
     # SNOWBALL: dalle whale verificate, scopri la rete (chi compra i loro vincenti)
@@ -252,8 +252,8 @@ WALLETS = {
 # I loro buy alimentano i cluster (S3), i loro sell il segnale d'uscita (S2). Validato dal Double Agent.
 # ---------------------------------------------------------------------------
 SMARTWATCH = {
-    "wallets_per_cycle": 12,   # wallet smart monitorati per giro (rotazione casuale)
-    "recent_tx": 15,           # tx recenti per wallet (CFO: ~12x15=180 chiamate Helius/giro)
+    "wallets_per_cycle": 20,   # TUTTI i wallet smart ogni giro (Helius ha 100x margine -> spingiamo)
+    "recent_tx": 20,           # tx recenti per wallet (CFO: ~20x20=400 chiamate Helius/giro, ok 1M/mese)
     "min_buy_usd": 100,        # buy minimo (abbassato 2026-06-10: dare a S3 la max chance di
                                # vedere cluster - gli smart wallet comprano raramente insieme)
     "min_sell_usd": 20,        # sell minimo (sotto = dust/gas, non un'uscita vera)
