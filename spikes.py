@@ -21,17 +21,17 @@ from config import SPIKES
 # rate-limitati duro. Se c'è una CoinGecko Demo key (gratis), instradiamo le STESSE rotte sotto
 # /onchain dell'API CoinGecko: throttling per-CHIAVE, non per-IP -> sblocca il cloud.
 GT = "https://api.geckoterminal.com/api/v2"
-CG_DEMO = os.getenv("COINGECKO_DEMO_KEY", "")
-CG = "https://api.coingecko.com/api/v3/onchain"
+CG_KEY = os.getenv("COINGECKO_DEMO_KEY", "")     # chiave CoinGecko (ora piano Basic/Pro: 100k/mese)
+CG_PRO = "https://pro-api.coingecko.com/api/v3/onchain"   # endpoint Pro (Basic+)
 UA = {"User-Agent": "crypto-radar (research; paper-trading)", "Accept": "application/json"}
 
 
 def _gt(path, _tries=5):
-    """GET con backoff esponenziale e rispetto del 429. Usa CoinGecko+key se disponibile
-    (le stesse rotte vivono sotto /onchain dell'API CoinGecko, auth per-CHIAVE -> ok in cloud)."""
-    if CG_DEMO:
+    """GET con backoff esponenziale e rispetto del 429. Usa CoinGecko Pro+key se disponibile
+    (le stesse rotte GeckoTerminal vivono sotto /onchain dell'API CoinGecko, auth per-CHIAVE)."""
+    if CG_KEY:
         sep = "&" if "?" in path else "?"
-        url = f"{CG}{path}{sep}x_cg_demo_api_key={CG_DEMO}"
+        url = f"{CG_PRO}{path}{sep}x_cg_pro_api_key={CG_KEY}"
         headers = UA
     else:
         url = f"{GT}{path}"
