@@ -90,10 +90,12 @@ DEX_TO_GT_NET = {"solana": "solana", "base": "base", "ethereum": "eth",
                  "bsc": "bsc", "polygon": "polygon_pos", "arbitrum": "arbitrum", "ton": "ton"}
 
 
-def get_ohlcv(chain, pool_addr, aggregate_min=15, limit=120):
-    """Candele OHLCV (15min) di un pool. Ritorna [(ts,open,high,low,close)] crescente, o []."""
+def get_ohlcv(chain, pool_addr, aggregate_min=15, limit=120, before=None):
+    """Candele OHLCV (15min) di un pool. Ritorna [(ts,open,high,low,close)] crescente, o [].
+    before=timestamp -> candele STORICHE fino a quel momento (per il backtest)."""
     net = DEX_TO_GT_NET.get(chain, chain)
-    d = _gt(f"/networks/{net}/pools/{pool_addr}/ohlcv/minute?aggregate={aggregate_min}&limit={limit}")
+    bt = f"&before_timestamp={int(before)}" if before else ""
+    d = _gt(f"/networks/{net}/pools/{pool_addr}/ohlcv/minute?aggregate={aggregate_min}&limit={limit}{bt}")
     lst = (((d or {}).get("data") or {}).get("attributes") or {}).get("ohlcv_list") or []
     out = []
     for row in lst:
