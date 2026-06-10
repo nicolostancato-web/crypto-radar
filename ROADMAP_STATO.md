@@ -144,3 +144,5 @@ _(ogni run del loop autonomo appende qui: data, scenario, # trade accumulati, EV
     (2) S3: ridurre finestra a 3600s (1h) per forzare più tentativi e capire se il cluster esiste. S2: imporre max 2 posizioni aperte contemporaneamente per limitare drawdown e testare robustezza.
     
     (3) S3 è il vicolo cieco: zero segnali = nessuna opportunità di trading, mentre S2 almeno produce segnali e va disciplinato.
+- **2026-06-10 21:04 UTC** · S3_cluster it6 · n=0 EV_med=— aperti=0 · **CONTINUA**
+- **2026-06-10 21:04 UTC** · S2_smartexit it6 · n=8 EV_med=-32.73% · hold -31.14% aperti=6 · **CONTINUA**
