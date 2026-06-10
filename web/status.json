@@ -1,0 +1,44 @@
+{
+  "updated_utc": "2026-06-10 20:48",
+  "scenarios": [
+    {
+      "name": "S3_cluster",
+      "horizon_h": 24,
+      "trades": 0,
+      "ev_median": null,
+      "ev_mean": null,
+      "win_rate": null,
+      "ev_hold_median": null,
+      "beats_hold": null,
+      "open": 0
+    },
+    {
+      "name": "S2_smartexit",
+      "horizon_h": 24,
+      "trades": 7,
+      "ev_median": -0.3432,
+      "ev_mean": 3.4842,
+      "win_rate": 0.429,
+      "ev_hold_median": 0.843,
+      "beats_hold": false,
+      "open": 6
+    },
+    {
+      "name": "S2_smartexit",
+      "horizon_h": 72,
+      "trades": 7,
+      "ev_median": -0.3432,
+      "ev_mean": 3.4842,
+      "win_rate": 0.429,
+      "ev_hold_median": 0.843,
+      "beats_hold": false,
+      "open": 6
+    }
+  ],
+  "totals": {
+    "spike_buys": 59,
+    "wallet_sells": 76,
+    "smart_wallets": 22,
+    "best_real_copy_pnl": 25.47
+  }
+}

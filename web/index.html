@@ -1,101 +1,77 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CRYPTO RADAR — console</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://api.fontshare.com" />
-  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=satoshi@400,500,700&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./styles.css?v=11" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crypto Radar — caccia all'edge</title>
+  <link rel="stylesheet" href="styles.css?v=20">
 </head>
 <body>
-  <div class="radar-bg" aria-hidden="true">
-    <div class="sweep"></div>
-    <div class="rings"></div>
-    <div class="grain"></div>
-  </div>
-
-  <header class="topbar">
-    <div class="brand">
-      <span class="logo-dot"></span>
-      <span class="wordmark">CRYPTO&nbsp;RADAR</span>
-      <span class="tag">console</span>
-    </div>
-    <div class="live">
-      <span class="pulse"></span>
-      <span id="updated" class="updated">—</span>
-    </div>
-  </header>
-
   <main class="wrap">
-    <section class="hero">
-      <h1 class="headline">Who knows more <span class="accent">than me?</span></h1>
-      <p class="sub">Chi mette <strong>$$ grossi</strong> e muove gli spike sui token. I wallet che
-        ricorrono sui vincitori al momento giusto — o sanno qualcosa, o sono abbastanza forti da
-        spostare il mercato. Li troviamo, li verifichiamo, li seguiamo.</p>
+
+    <header class="hero">
+      <div class="brand">CRYPTO&nbsp;RADAR</div>
+      <h1>Cerchiamo un metodo per fare soldi sulle memecoin Solana — coi dati, non a fortuna.</h1>
+      <p class="sub">Sistema autonomo che gira da solo in cloud 24/7. Studia chi compra e vende,
+      simula i trade <b>sulla carta</b> (zero soldi veri), e cerca la combinazione di fattori che
+      genera un vantaggio reale. Se la trova, te lo dice. Se non c'è, lo dimostra. Costo: €0.</p>
+      <div class="updated" id="updated">—</div>
+    </header>
+
+    <section class="verdict" id="verdict">
+      <div class="vlabel">Abbiamo trovato un edge?</div>
+      <div class="vbig" id="verdict-big">…</div>
+      <div class="vsub" id="verdict-sub"></div>
     </section>
 
-    <section class="stats" id="stats"></section>
-
-    <section class="mains">
-      <div class="board-head">
-        <h2>🐋 Whale Wallet <span id="mcount" class="wcount"></span></h2>
-      </div>
-      <p class="sec-note">Il bersaglio giusto: wallet <strong>ricchi</strong> (capitale grosso) +
-        <strong>persistenti</strong> (vecchi, non usa-e-getta) + <strong>profittevoli</strong> +
-        <strong>ancora attivi</strong>. Non chi finanzia (= Binance, vicolo cieco) — il trader stesso.</p>
-      <div class="main-list" id="mains"></div>
-    </section>
-
-    <section class="bosses">
-      <div class="board-head">
-        <h2>I Boss <span id="bcount" class="wcount"></span></h2>
-        <div class="legend"><span class="lg lg-hot">ricorrente sui vincitori</span></div>
-      </div>
-      <p class="sec-note">Chi fa <strong>big-buy EARLY</strong> — entra sui pool giovani <em>prima</em>
-        del trend (non i polli del top). Il tag <span class="etag">EARLY</span> = entrato presto,
-        nel piatto. Chi ricorre early su più token = un boss che sa quando entrare.</p>
-      <div class="boss-list" id="bosses"></div>
-    </section>
-
-    <section class="smart">
-      <div class="board-head">
-        <h2>Wallet — classifica per score <span id="wcount" class="wcount"></span></h2>
-        <div class="legend">
-          <span class="lg lg-hot">whale verificata</span>
-          <span class="lg lg-watch">da verificare</span>
+    <section>
+      <h2>Cosa stiamo facendo</h2>
+      <div class="cards3">
+        <div class="card">
+          <div class="step">1</div>
+          <h3>Troviamo i bravi</h3>
+          <p>Monitoriamo i wallet che storicamente fanno soldi on-chain (no bot, no exchange).</p>
+        </div>
+        <div class="card">
+          <div class="step">2</div>
+          <h3>Testiamo sulla carta</h3>
+          <p>Simuliamo "e se li copiassimo?" su migliaia di trade storici. Mediana onesta, mai la media gonfiata.</p>
+        </div>
+        <div class="card">
+          <div class="step">3</div>
+          <h3>Cerchiamo il setup</h3>
+          <p>Non basta copiare: cerchiamo <i>quale combinazione di fattori</i> (volume, whale, timing) rende davvero.</p>
         </div>
       </div>
-      <div class="wlead" id="wallets"></div>
     </section>
 
-    <section class="secondary">
-      <div class="sec-col">
-        <h3>Validazione segnali</h3>
-        <div class="val-grid" id="validation"></div>
-      </div>
-      <div class="sec-col">
-        <h3>Cosa sta imparando</h3>
-        <div class="learn-list" id="learning"></div>
+    <section>
+      <h2>Strategie in test <span class="muted" id="sc-count"></span></h2>
+      <div class="cards3" id="scenarios"></div>
+    </section>
+
+    <section>
+      <h2>Analisi dei setup <span class="muted">— dove si nasconde l'edge</span></h2>
+      <p class="note" id="seg-note"></p>
+      <div class="tablewrap">
+        <table id="segments">
+          <thead><tr><th>Setup (combinazione di fattori)</th><th>trade</th><th>guadagno mediano</th><th>vince</th><th>batte "tieni e basta"</th></tr></thead>
+          <tbody></tbody>
+        </table>
       </div>
     </section>
 
-    <section class="board-compact">
-      <div class="board-head">
-        <h3>Crypto candidati <span class="wcount">(rilevanza minore)</span></h3>
-      </div>
-      <div class="clist" id="picks"></div>
-      <div class="empty" id="empty" hidden></div>
+    <section>
+      <h2>I numeri</h2>
+      <div class="stats" id="stats"></div>
     </section>
+
+    <footer>
+      <p>Paper trading — nessun soldo reale è in gioco. I soldi veri si usano solo quando un metodo
+      è provato statisticamente. Onestà brutale sui dati: se l'edge non c'è, lo diciamo.</p>
+    </footer>
+
   </main>
-
-  <footer class="foot">
-    <span>Strumento di analisi e paper trading. Non è consulenza finanziaria.</span>
-    <span id="counts" class="muted"></span>
-  </footer>
-
-  <script src="./app.js?v=11"></script>
+  <script src="app.js?v=20"></script>
 </body>
 </html>

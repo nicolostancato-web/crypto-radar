@@ -13,6 +13,7 @@ import sys, os, json, statistics
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(ROOT, "data", "dataset.jsonl")
 REPORT = os.path.join(ROOT, "data", "analysis_report.md")
+JSON_OUT = os.path.join(ROOT, "web", "analysis.json")   # per la dashboard
 MIN_N = 20            # sotto questo, un segmento e' rumore
 EDGE_MEDIAN = 0.05    # mediana copy_net per essere "edge"
 
@@ -112,8 +113,19 @@ def analyze():
 
     out = "\n".join(lines)
     open(REPORT, "w").write(out)
+
+    # JSON per la dashboard
+    import time
+    seg_json = [{"name": n, "n": s["n"], "median": round(s["median"], 4),
+                 "win": round(s["win"], 3), "hold": round(s["hold_median"], 4) if s["hold_median"] is not None else None,
+                 "beats_hold": s["beats_hold"], "edge": s["median"] >= EDGE_MEDIAN and bool(s["beats_hold"])}
+                for n, s in results]
+    os.makedirs(os.path.dirname(JSON_OUT), exist_ok=True)
+    json.dump({"updated_utc": time.strftime("%Y-%m-%d %H:%M", time.gmtime()),
+               "events": len(rows), "edge_found": len(edges) > 0,
+               "edges": [n for n, _ in edges], "segments": seg_json}, open(JSON_OUT, "w"), indent=2)
     print("\n" + out)
-    print(f"\n[analyze] report -> {REPORT}")
+    print(f"\n[analyze] report -> {REPORT} + {JSON_OUT}")
 
 
 if __name__ == "__main__":
