@@ -71,6 +71,53 @@ def recent_buyers(mint, n=50):
 WSOL = "So11111111111111111111111111111111111111112"
 
 
+def wallet_recent_activity(address, n=20):
+    """Attivita' RECENTE di un wallet: i suoi buy/sell su QUALSIASI token (via Helius).
+    E' il cuore del pivot "monitora i wallet noti": dai loro buy ricaviamo i CLUSTER (S3),
+    dai loro sell il segnale d'USCITA (S2). Ritorna [{mint, side, sol, ts}] recente->vecchio.
+    [] se manca la chiave. CFO: 1 + n chiamate per wallet."""
+    if not available():
+        return []
+    sigs = _rpc("getSignaturesForAddress", [address, {"limit": n}])
+    if not sigs:
+        return []
+    out = []
+    for s in sigs:
+        if s.get("err"):
+            continue
+        tx = _rpc("getTransaction", [s["signature"],
+                  {"maxSupportedTransactionVersion": 0, "encoding": "jsonParsed"}])
+        if not tx:
+            continue
+        meta = tx.get("meta") or {}
+        keys = tx.get("transaction", {}).get("message", {}).get("accountKeys", [])
+        idx = next((i for i, k in enumerate(keys)
+                    if (k.get("pubkey") if isinstance(k, dict) else k) == address), None)
+        if idx is None or idx >= len(meta.get("preBalances", [])):
+            continue
+        sol = (meta["postBalances"][idx] - meta["preBalances"][idx]) / 1e9
+        preT = {b["mint"]: (b["uiTokenAmount"]["uiAmount"] or 0)
+                for b in meta.get("preTokenBalances", []) if b.get("owner") == address}
+        postT = {b["mint"]: (b["uiTokenAmount"]["uiAmount"] or 0)
+                 for b in meta.get("postTokenBalances", []) if b.get("owner") == address}
+        for m in set(preT) | set(postT):
+            if m in _NON_TRADABLE:       # SOL/stablecoin: non sono segnali memecoin
+                continue
+            d = postT.get(m, 0) - preT.get(m, 0)
+            if d > 0 and sol < 0:        # riceve token, spende SOL -> BUY
+                out.append({"mint": m, "side": "buy", "sol": round(-sol, 4), "ts": s.get("blockTime")})
+            elif d < 0 and sol > 0:      # cede token, incassa SOL -> SELL
+                out.append({"mint": m, "side": "sell", "sol": round(sol, 4), "ts": s.get("blockTime")})
+    return out
+
+
+_NON_TRADABLE = {
+    WSOL,
+    "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",  # USDC
+    "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",  # USDT
+}
+
+
 def recent_trades(mint, n=40):
     """BUY e SELL recenti di un token via Helius (funziona in cloud, ≠ GeckoTerminal bloccato).
     Per ogni tx: il firmatario, la variazione del token, e il SOL nativo mosso (per stimare i $).
