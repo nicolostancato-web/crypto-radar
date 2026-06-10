@@ -1,0 +1,47 @@
+name: crypto-radar-dataset
+
+# L'AGENTE DATI AUTONOMO: ogni giorno accumula eventi storici nel dataset, li ANALIZZA, e
+# committa dataset.jsonl + analysis_report.md su GitHub. "Uno studia i dati e ti da' i report".
+on:
+  schedule:
+    - cron: "30 3 * * *"     # una volta al giorno (CFO: l'estrazione e' OHLCV-heavy su CoinGecko)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: radar               # niente race git/DB col radar
+  cancel-in-progress: false
+
+jobs:
+  dataset:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+
+      - name: Accumula dataset (incrementale, dedup) + analizza
+        env:
+          HELIUS_API_KEY: ${{ secrets.HELIUS_API_KEY }}
+          COINGECKO_DEMO_KEY: ${{ secrets.COINGECKO_DEMO_KEY }}
+        run: |
+          python dataset.py 20
+          python analyze.py
+
+      - name: Salva dataset + report su GitHub
+        run: |
+          git config user.name "crypto-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/dataset.jsonl data/analysis_report.md
+          git commit -m "dataset+analisi $(date -u +%Y-%m-%dT%H:%MZ)" || { echo "niente di nuovo"; exit 0; }
+          for i in 1 2 3 4 5; do
+            git pull --no-rebase --no-edit origin main || true
+            git push origin main && exit 0
+            sleep 5
+          done
+          echo "push fallito"; exit 1
