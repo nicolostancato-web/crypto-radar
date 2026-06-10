@@ -271,6 +271,8 @@ def _migrate(c):
         c.execute("ALTER TABLE outcomes ADD COLUMN scenario TEXT")
     if oc and "sim_return_smart" not in oc:
         c.execute("ALTER TABLE outcomes ADD COLUMN sim_return_smart REAL")
+    if oc and "sim_return_hold" not in oc:   # benchmark buy-and-hold (battiamo il semplice tenere?)
+        c.execute("ALTER TABLE outcomes ADD COLUMN sim_return_hold REAL")
     c.execute("CREATE INDEX IF NOT EXISTS idx_outcomes_scenario ON outcomes(scenario)")
 
 
@@ -645,25 +647,40 @@ def open_scenario_outcome(c, scenario, asset_id, chain, contract, ticker, price,
         (asset_id, chain, contract, ticker, None, signals, price, liquidity, time.time(), scenario))
 
 
+def _median(xs):
+    if not xs:
+        return None
+    s = sorted(xs)
+    m = len(s) // 2
+    return s[m] if len(s) % 2 else (s[m - 1] + s[m]) / 2
+
+
 def scenario_stats(c, scenario, horizon=24):
-    """Verdetto coi dati per uno scenario: N trade, EV netto, win-rate.
-    Per S2_smartexit usa l'uscita SMART (sim_return_smart); per gli altri l'uscita meccanica
-    (sim_return). Fallback su ret_{h}h_net se la simulazione non è ancora disponibile."""
+    """Verdetto ONESTO coi dati: N, EV MEDIANO (robusto agli outlier: la media e' falsata da 1
+    moonshot), win-rate, e confronto col BUY-AND-HOLD sugli stessi ingressi (battiamo il tenere?).
+    Per S2 usa l'uscita SMART; per gli altri la meccanica. Fallback su ret_{h}h_net."""
     use_smart = scenario == "S2_smartexit"
     col = "sim_return_smart" if use_smart else "sim_return"
     rows = c.execute(
-        f"""SELECT {col} AS sim, sim_return AS mech, ret_{horizon}h_net AS hnet
+        f"""SELECT {col} AS sim, sim_return AS mech, sim_return_hold AS hold, ret_{horizon}h_net AS hnet
             FROM outcomes WHERE scenario=?""", (scenario,)).fetchall()
     nets = [(r["sim"] if r["sim"] is not None else r["hnet"])
             for r in rows if (r["sim"] is not None or r["hnet"] is not None)]
+    holds = [r["hold"] for r in rows if r["hold"] is not None]
     n = len(nets)
-    out = {"scenario": scenario, "n": n, "ev_net": None, "win_rate": None, "open": len(rows) - n}
+    out = {"scenario": scenario, "n": n, "ev_net": None, "ev_median": None,
+           "win_rate": None, "ev_hold_median": None, "beats_hold": None, "open": len(rows) - n}
     if n:
-        out["ev_net"] = round(sum(nets) / n, 4)
+        out["ev_net"] = round(sum(nets) / n, 4)              # media (tenuta come riferimento)
+        out["ev_median"] = round(_median(nets), 4)           # MEDIANA = metrica di verdetto
         out["win_rate"] = round(sum(1 for x in nets if x > 0) / n, 3)
-    if use_smart:  # confronto overlay vs meccanica sugli STESSI ingressi (il vero test di S2)
+    if holds:
+        out["ev_hold_median"] = round(_median(holds), 4)
+        if out["ev_median"] is not None:
+            out["beats_hold"] = out["ev_median"] > out["ev_hold_median"]
+    if use_smart:
         mech = [r["mech"] for r in rows if r["mech"] is not None]
-        out["ev_mech"] = round(sum(mech) / len(mech), 4) if mech else None
+        out["ev_mech_median"] = round(_median(mech), 4) if mech else None
     return out
 
 

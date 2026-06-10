@@ -151,6 +151,20 @@ def _simulate_exit(candles, entered_at, entry_price, liquidity):
     return round(net, 4), reason
 
 
+def _hold_return(candles, entered_at, entry_price, liquidity):
+    """BENCHMARK buy-and-hold: comprato all'ingresso, tenuto per tutta la finestra (hard_hours).
+    E' il metro di paragone onesto: una strategia ha valore solo se BATTE questo."""
+    if not candles or not entry_price or entry_price <= 0:
+        return None
+    end = entered_at + EXIT["hard_hours"] * 3600
+    path = [c for c in candles if entered_at <= c[0] <= end]
+    if not path:
+        return None
+    gross = path[-1][4] / entry_price - 1
+    slip = min(OUTCOMES["paper_trade_usd"] / max(liquidity or 1, 1), OUTCOMES["slippage_cap_pct"])
+    return round(gross - 2 * (slip + OUTCOMES["swap_fee_pct"]), 4)
+
+
 def simulate_exits():
     """Per ogni paper trade RECENTE, simula l'uscita meccanica sul path reale (OHLCV).
     CFO: solo trade < sim_recent_hours (oltre l'uscita è definitiva) e max_ohlcv_per_cycle a giro."""
@@ -172,8 +186,9 @@ def simulate_exits():
             candles = spikes.get_ohlcv(o["chain"], pool, EXIT["ohlcv_aggregate_min"])
             net, reason = _simulate_exit(candles, o["entered_at"], o["price_at_entry"], o["liquidity_at_entry"])
             if net is not None:
-                c.execute("UPDATE outcomes SET sim_return=?, sim_reason=?, sim_at=? WHERE id=?",
-                          (net, reason, now, o["id"]))
+                hold = _hold_return(candles, o["entered_at"], o["price_at_entry"], o["liquidity_at_entry"])
+                c.execute("UPDATE outcomes SET sim_return=?, sim_reason=?, sim_return_hold=?, sim_at=? WHERE id=?",
+                          (net, reason, hold, now, o["id"]))
                 done += 1
     print(f"[exitsim] paper trade simulati con exit meccaniche: {done}")
     return done

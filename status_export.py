@@ -18,9 +18,9 @@ def build():
                 st = scenario_stats(c, name, horizon=h)
                 if st["n"] > 0 or h == 24:
                     row = {"name": name, "horizon_h": h, "trades": st["n"],
-                           "ev_net": st["ev_net"], "win_rate": st["win_rate"], "open": st["open"]}
-                    if st.get("ev_mech") is not None:
-                        row["ev_mech"] = st["ev_mech"]
+                           "ev_median": st.get("ev_median"), "ev_mean": st["ev_net"],
+                           "win_rate": st["win_rate"], "ev_hold_median": st.get("ev_hold_median"),
+                           "beats_hold": st.get("beats_hold"), "open": st["open"]}
                     out["scenarios"].append(row)
         def q(s):
             try: return c.execute(s).fetchone()[0]

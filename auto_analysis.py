@@ -120,15 +120,19 @@ def _evaluate(c, name, ov, state, ts):
     sstate["iteration"] += 1
     it = sstate["iteration"]
     st = scenario_stats(c, name, horizon=HORIZON)
-    n, ev, total = st["n"], st["ev_net"], st["n"] + st["open"]
+    # VERDETTO sulla MEDIANA (robusta agli outlier) + deve BATTERE il buy-and-hold.
+    n, ev, total = st["n"], st["ev_median"], st["n"] + st["open"]
+    beats = st.get("beats_hold")
+    hold = st.get("ev_hold_median")
     decision, verdict = "CONTINUA", None
 
-    if n >= min_trades and ev is not None and ev >= succ_thr:
-        decision, verdict = "FUNZIONA", f"EV netto {ev:+.2%} su {n} trade (>= +{succ_thr:.0%})"
+    if n >= min_trades and ev is not None and ev >= succ_thr and beats:
+        decision, verdict = "FUNZIONA", f"EV mediano {ev:+.2%} su {n} trade, batte il hold ({hold:+.2%})"
         sstate["status"], sstate["verdict"] = "works", verdict
         _telegram(f"🟢 CRYPTO-RADAR: {name} FUNZIONA! {verdict}. Guarda la dashboard.")
-    elif n >= min_trades and ev is not None and ev <= park_thr:
-        verdict = f"EV netto {ev:+.2%} su {n} trade (<= {park_thr:.0%}) -> vicolo cieco"
+    elif n >= min_trades and ev is not None and (ev <= park_thr or beats is False):
+        why = f"EV mediano {ev:+.2%}" + ("" if beats is not False else f" NON batte il hold ({hold:+.2%})")
+        verdict = f"{why} su {n} trade -> vicolo cieco"
         sstate["status"], sstate["verdict"] = "parked", verdict
         if name in running:
             running.remove(name)
@@ -148,10 +152,10 @@ def _evaluate(c, name, ov, state, ts):
             decision = f"RARO: 0 segnali in {it} giri -> finestra {cur_w}s->{new_w}s"
 
     ev_s = f"{ev:+.2%}" if ev is not None else "—"
-    extra = f" · meccanica {st['ev_mech']:+.2%}" if st.get("ev_mech") is not None else ""
-    _append_log(f"- **{ts}** · {name} it{it} · n={n} EV={ev_s}{extra} aperti={st['open']} · **{decision}**"
+    extra = f" · hold {hold:+.2%}" if hold is not None else ""
+    _append_log(f"- **{ts}** · {name} it{it} · n={n} EV_med={ev_s}{extra} aperti={st['open']} · **{decision}**"
                 + (f" · {verdict}" if verdict else ""))
-    print(f"[auto] {name} it{it} n={n} EV={ev_s} -> {decision}")
+    print(f"[auto] {name} it{it} n={n} EV_med={ev_s} hold={extra} -> {decision}")
     return st, decision
 
 
