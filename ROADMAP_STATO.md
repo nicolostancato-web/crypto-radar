@@ -87,3 +87,33 @@ _(ogni run del loop autonomo appende qui: data, scenario, # trade accumulati, EV
     (2) **Un aggiustamento**: Abbassa `smart_min_wallets` a **1**. Una sola smart wallet basti per entrare. Se ancora zero, prova `max_runup_at_entry=0.5`.
     
     (3) **Vicolo cieco?** No, ma se dopo questo cambio non hai trade in 24h, il dataset di smart wallet è inesistente o la definizione "soft" è troppo morbida – allora abbandona.
+- **2026-06-09 15:31 UTC** · S3_cluster it1 · n=0 EV=— aperti=0 · **CONTINUA**
+- **2026-06-09 15:31 UTC** · S2_smartexit it1 · n=0 EV=— aperti=1 · **CONTINUA**
+  - 🤖 Double Agent:
+    **deepseek:** (1) Lettura brutale: **S3_cluster** con n=0 e aperti=0 significa che non hai ancora generato alcun segnale: stai monitorando nel vuoto. **S2_smartexit** ha una posizione aperta ma n=0 e EV=n/d: sei in trade senza alcun dato per decidere l’exit, affidato al caso.
+    
+    (2) Aggiustamenti concreti:
+    - **S3_cluster**: riduci la soglia di cluster da, esempio, 5 a 2 transazioni ravvicinate per forzare segnali anche su volumi minimi.
+    - **S2_smartexit**: imposta un trailing stop loss fisso al 15% dal prezzo d’ingresso, dato che non hai EV per calcolare uscite ottimali.
+    
+    (3) **S2_smartexit** è più vicino a un vicolo cieco: hai già capitale allocato senza alcun framework decisionale per chiudere la posizione. Senza dati, rischi di tenere trade morti o esplodere in perdita. S3_cluster almeno è a rischio zero.
+- **2026-06-09 20:22 UTC** · S3_cluster it2 · n=0 EV=— aperti=0 · **CONTINUA**
+- **2026-06-09 20:22 UTC** · S2_smartexit it2 · n=1 EV=+31.27% · meccanica +31.27% aperti=0 · **CONTINUA**
+  - 🤖 Double Agent:
+    **deepseek:** **Lettura brutale:** S3_cluster è vuoto: zero trade, nessun EV. Continuare è autolesionismo. S2_smartexit ha un solo trade (+31%) — è rumore, non conferma. Entrambe le scelte "CONTINUA" sono pretestuose.
+    
+    **Aggiustamenti concreti:**  
+    - **S3_cluster:** Imposta soglia minima n≥5 per abilitare decisioni. Con n=0, stop immediato.  
+    - **S2_smartexit:** Richiedi n≥30 campioni con EV>0 per proseguire; altrimenti pausa.
+    
+    **Vicolo cieco:** S3_cluster. Nessun dato, nessuna opportunità — è un buco nero. S2_smartexit almeno ha un segnale (seppur debole).
+- **2026-06-10 04:53 UTC** · S3_cluster it3 · n=0 EV=— aperti=0 · **RARO: 0 segnali in 3 giri -> finestra 3600s->5400s**
+- **2026-06-10 04:53 UTC** · S2_smartexit it3 · n=2 EV=+1193.71% · meccanica +383.35% aperti=0 · **CONTINUA**
+  - 🤖 Double Agent:
+    **deepseek:** (1) Lettura brutale: S3_cluster è clinicamente morto – zero segnali su 3 test, finestra ridicola. S2_smartexit ha EV droga (1194%) ma solo n=2, aperti=0: o coda di distribuzione o fortuna cieca.
+    
+    (2) Aggiustamenti concreti:
+    - S3_cluster: allarga finestra a 7200s→10800s, oppure taglia soglia di attivazione del 50%.
+    - S2_smartexit: esigi n≥10 per CONTINUA, imposta trailing stop loss dinamico (es. 30% dal picco).
+    
+    (3) Vicolo cieco: S3_cluster. Zero segnali su 3 giri con finestra già estesa indica pattern inesistente o overfit. S2 almeno ha EV positivo, ma serve campione reale.

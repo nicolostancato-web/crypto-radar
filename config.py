@@ -251,8 +251,10 @@ WALLETS = {
 # SPIKES — "Who Knows More Than Me": i big-buy che muovono il mercato (GeckoTerminal, gratis).
 # ---------------------------------------------------------------------------
 SPIKES = {
-    "min_usd": 700,               # soglia big-buy (abbassata: i veri early su pool piccoli)
-    "max_pools_per_cycle": 8,     # pool/giro (CFO: free tier CoinGecko 10k chiamate/mese)
+    "min_usd": 400,               # soglia big-buy: via di mezzo (i $700 erano troppo stretti per
+                                  # i pool piccoli; i $250 = rumore, warning del Double Agent 2026-06-10)
+    "max_pools_per_cycle": 12,    # pool/giro, priorita' ai TRENDING (alto volume = profondita').
+                                  # CFO: ~9.4k chiamate/mese, sotto il free tier CoinGecko 10k
     "coordination_window_s": 600, # 10 min: big-buy sullo stesso token entro = COORDINATI
     "boss_min_tokens": 2,         # boss = big-buy su >= 2 token diversi (non casuale)
 
