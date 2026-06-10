@@ -253,6 +253,8 @@ WALLETS = {
 SPIKES = {
     "min_usd": 400,               # soglia big-buy: via di mezzo (i $700 erano troppo stretti per
                                   # i pool piccoli; i $250 = rumore, warning del Double Agent 2026-06-10)
+    "min_sell_usd": 100,          # soglia SELL piu' bassa: si vende in pezzi piccoli (diagnosi
+                                  # 2026-06-10: 0 sell >$400, => S2 a secco di segnali d'uscita)
     "max_pools_per_cycle": 12,    # pool/giro, priorita' ai TRENDING (alto volume = profondita').
                                   # CFO: ~9.4k chiamate/mese, sotto il free tier CoinGecko 10k
     "coordination_window_s": 600, # 10 min: big-buy sullo stesso token entro = COORDINATI

@@ -150,7 +150,7 @@ def get_big_buys_and_sells(pool_addr, created_ts, liquidity):
                          "age_min": round(age_min, 1) if age_min is not None else None,
                          "runup": round(runup, 3) if runup is not None else None,
                          "is_early": is_early})
-        elif kind == "sell" and usd >= SPIKES["min_usd"]:
+        elif kind == "sell" and usd >= SPIKES.get("min_sell_usd", SPIKES["min_usd"]):
             sells.append({"wallet": wallet, "usd": round(usd), "ts": ts, "price": price})
     return buys, sells
 
