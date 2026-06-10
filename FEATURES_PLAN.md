@@ -94,3 +94,29 @@ visibilità totale → solo on-chain. Scegliere i wallet SBAGLIATi = perdere tem
 **Nota strategica (Nicolò):** si potrebbe partire dai wallet "importanti" (es. chi riceve da exchange
 e POI tradeggia bene) con un tracciamento diverso — ma attenzione: il funding-graph porta agli hub CEX
 (già provato, abbandonato). Conta il COMPORTAMENTO del wallet che tradeggia, non chi lo finanzia.
+
+---
+
+## 🎯 PRINCIPIO GUIDA (input Nicolò 2026-06-10) — l'edge è un SETUP, non un wallet
+
+**Lo scopo NON è tracciare bene i wallet. È CREARE L'EDGE.** Il wallet è UN fattore tra tanti.
+L'edge vero è una **combinazione di fattori** che, statisticamente su MIGLIAIA di eventi storici,
+precede un buon movimento — anche se i wallet coinvolti non sono "conosciuti".
+
+**L'ipotesi (più ampia e migliore):** quando si accende un SETUP del tipo
+`[spike di volume in un certo modo] + [holders che cambiano] + [whale/più soggetti che aprono posizione]
++ [hype]` → storicamente è una buona entrata. Perché le whale coi soldi veri **non entrano a caso**:
+se entra uno scappato di casa è gambling, ma se la combinazione di fattori è "seria", c'è segnale.
+Strategia: entra → aspetta → **x2 → esci**, e componi (x2, x2, x2 → da €100 a €20k).
+
+**Implicazione sul dataset (allarga il bersaglio):**
+- Non solo righe "wallet-compra-token", ma anche righe **"token-momento" (il SETUP)**: per ogni
+  momento in cui su un token si accende una combinazione di fattori, qual è il **ritorno futuro**?
+- Le feature wallet (chi entra, quante whale, coordinazione) restano, ma sono **alcune** delle
+  condizioni del setup, non tutto.
+- La ricerca dell'edge = trovare **QUALE COMBINAZIONE di fattori** ha ritorno futuro mediano positivo
+  (su 30+ casi, batte il hold). Quella combinazione = l'edge, indipendentemente dai wallet specifici.
+- Testare anche la regola d'uscita **"+x2 poi esci"** (oltre alle uscite meccaniche attuali).
+
+**In una riga:** target = il SETUP (combinazione di fattori) che predice il movimento. I wallet/whale
+sono input forti del setup, non il fine. Si trova segmentando il dataset per combinazioni di fattori.
