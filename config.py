@@ -254,7 +254,8 @@ WALLETS = {
 SMARTWATCH = {
     "wallets_per_cycle": 12,   # wallet smart monitorati per giro (rotazione casuale)
     "recent_tx": 15,           # tx recenti per wallet (CFO: ~12x15=180 chiamate Helius/giro)
-    "min_buy_usd": 200,        # buy minimo da registrare come segnale di cluster
+    "min_buy_usd": 100,        # buy minimo (abbassato 2026-06-10: dare a S3 la max chance di
+                               # vedere cluster - gli smart wallet comprano raramente insieme)
     "min_sell_usd": 20,        # sell minimo (sotto = dust/gas, non un'uscita vera)
     "lookback_s": 86400,       # solo attivita' delle ultime 24h
 }
