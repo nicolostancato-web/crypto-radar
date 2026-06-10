@@ -16,6 +16,7 @@ from jobs import (discovery, enrichment, social, scoring, outcomes, spikes,
                   wallets, learn, export_excel)
 import scenarios
 import web_export
+import status_export
 
 
 def one_cycle():
@@ -33,6 +34,7 @@ def one_cycle():
         ("learn", learn.calibrate_once),
         ("export", export_excel.export),
         ("web", web_export.build),
+        ("status", status_export.build),
     ]:
         try:
             fn()
