@@ -111,7 +111,8 @@ def extract(max_wallets=20, history_tx=120, max_rows=4000):
             if key in seen:
                 continue
             seen.add(key)
-            price0, liq, pool, name = _dex_info(t["mint"], cache)
+            dx = _dex_full(t["mint"], cache)
+            liq, pool, name = dx.get("liquidity"), dx.get("pool"), dx.get("token")
             if not pool:
                 continue
             ts = t["ts"]
@@ -142,6 +143,12 @@ def extract(max_wallets=20, history_tx=120, max_rows=4000):
                 "buy_usd": round(usd), "runup_before": round(runup, 3) if runup is not None else None,
                 "liquidity": round(liq) if liq else None,
                 "buy_pct_liq": round(usd / liq, 4) if liq else None,
+                "token_age_min": round((ts - dx["pair_created_ms"] / 1000) / 60) if dx.get("pair_created_ms") else None,
+                "volume_24h": round(dx["volume_24h"]) if dx.get("volume_24h") else None,
+                "price_change_1h": dx.get("price_change_1h"),
+                "txn_bs_ratio_1h": dx.get("txn_bs_ratio_1h"),
+                "fdv": round(dx["fdv"]) if dx.get("fdv") else None,
+                "venue": dx.get("venue"),
                 # coordinazione
                 "smart_coord_1h": others,
                 # ESITO (la verita')
