@@ -17,6 +17,7 @@ try:
 except Exception:
     pass
 
+import requests
 import onchain
 import spikes
 from jobs.outcomes import _simulate_exit, _hold_return
@@ -26,6 +27,39 @@ from db import get_conn, init_db
 
 LATENCY = 1.10
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "dataset.jsonl")
+
+
+def _dex_full(mint, cache):
+    """Tutti i campi DEXScreener in UNA chiamata (cache per giro): prezzo, liq, pool, eta',
+    volume, price-change, rapporto buy/sell, fdv, venue. Costo: zero extra (stessa risposta)."""
+    ck = ("full", mint)
+    if ck in cache:
+        return cache[ck]
+    info = {}
+    try:
+        r = requests.get("https://api.dexscreener.com/latest/dex/tokens/" + mint, timeout=10)
+        if r.ok:
+            pairs = [p for p in (r.json().get("pairs") or []) if p.get("chainId") == "solana"]
+            if pairs:
+                p = max(pairs, key=lambda x: (x.get("liquidity") or {}).get("usd") or 0)
+                tx1 = (p.get("txns") or {}).get("h1") or {}
+                b, s = tx1.get("buys") or 0, tx1.get("sells") or 0
+                info = {
+                    "price": float(p["priceUsd"]) if p.get("priceUsd") else None,
+                    "liquidity": (p.get("liquidity") or {}).get("usd") or 0,
+                    "pool": p.get("pairAddress"),
+                    "token": (p.get("baseToken") or {}).get("symbol") or mint[:6],
+                    "pair_created_ms": p.get("pairCreatedAt"),
+                    "volume_24h": (p.get("volume") or {}).get("h24"),
+                    "volume_1h": (p.get("volume") or {}).get("h1"),
+                    "price_change_1h": (p.get("priceChange") or {}).get("h1"),
+                    "txn_bs_ratio_1h": round(b / s, 3) if s else (b if b else None),
+                    "fdv": p.get("fdv"), "venue": p.get("dexId"),
+                }
+    except Exception:
+        pass
+    cache[ck] = info
+    return info
 
 
 def _load_seen():
