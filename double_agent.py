@@ -52,7 +52,24 @@ def ask_gemini(prompt):
     return r["candidates"][0]["content"]["parts"][0]["text"]
 
 
-MODELS = {"gpt5": ask_gpt5, "deepseek": ask_deepseek, "gemini": ask_gemini}
+def ask_grok(prompt, max_tokens=2000, timeout=120, live_x=True):
+    """Grok (xAI) — ha X/Twitter INTEGRATO in tempo reale. Con live_x cerca su X mentre risponde.
+    E' la nostra fonte del segnale TREND/virale a costo ~zero (entro i $175/mese di crediti free).
+    None se manca la chiave XAI_API_KEY."""
+    key = os.getenv("XAI_API_KEY")
+    if not key:
+        return None
+    body = {"model": os.getenv("GROK_MODEL", "grok-4-1-fast"),
+            "messages": [{"role": "user", "content": prompt}], "max_tokens": max_tokens}
+    if live_x:
+        body["search_parameters"] = {"mode": "on", "sources": [{"type": "x"}],
+                                     "max_search_results": 25, "return_citations": True}
+    r = _post("https://api.x.ai/v1/chat/completions",
+              {"Authorization": f"Bearer {key}"}, body, timeout=timeout)
+    return r["choices"][0]["message"]["content"]
+
+
+MODELS = {"gpt5": ask_gpt5, "deepseek": ask_deepseek, "gemini": ask_gemini, "grok": ask_grok}
 
 
 def consult(prompt, models=("gpt5", "deepseek")):
