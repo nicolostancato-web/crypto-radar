@@ -74,11 +74,24 @@ def _load_seen():
     return seen
 
 
+def _dataset_wallets(c, limit):
+    """Rete LARGA per accumulare: tutti i wallet qualificati non-bot (l'analisi segmenta per
+    qualita'). Priorita' ai verificati/profittevoli, poi gli altri. 'l'edge e' un setup, non un wallet'."""
+    rows = c.execute(
+        """SELECT address FROM wallets
+           WHERE (is_bot IS NULL OR is_bot=0)
+             AND (verified=1 OR closed_count IS NOT NULL OR qualified_at IS NOT NULL)
+           ORDER BY verified DESC, pnl_sol DESC, closed_count DESC
+           LIMIT ?""", (limit,)).fetchall()
+    return [r[0] for r in rows]
+
+
 def _wallet_profile(c):
     """Cache profilo dei wallet qualificati (dal DB): la 'qualita'' del wallet."""
     prof = {}
     for r in c.execute("""SELECT address,pnl_sol,win_rate,closed_count,balance_sol,
-                                 span_days,is_bot,copy_pnl FROM wallets WHERE verified=1""").fetchall():
+                                 span_days,is_bot,copy_pnl FROM wallets
+                          WHERE qualified_at IS NOT NULL OR verified=1""").fetchall():
         prof[r["address"]] = dict(r)
     return prof
 
@@ -90,7 +103,7 @@ def extract(max_wallets=20, history_tx=120, max_rows=4000):
     cache = {}
     sol_price = _dex_info(WSOL, cache)[0] or 150.0
     with get_conn() as c:
-        wallets = _smart_wallets(c, max_wallets)
+        wallets = _dataset_wallets(c, max_wallets)
         prof = _wallet_profile(c)
         # coordinazione: tutti gli acquisti smart per mint (dal DB spike_buys)
         coord = {}
