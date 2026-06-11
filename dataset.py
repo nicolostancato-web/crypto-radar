@@ -144,7 +144,18 @@ def extract(max_wallets=20, history_tx=120, max_rows=4000):
             net, reason = _simulate_exit(candles, ts, entry * LATENCY, liq)
             hold = _hold_return(candles, ts, entry * LATENCY, liq)
             window = [k for k in after if k[0] <= ts + EXIT["hard_hours"] * 3600]
-            max_gain = (max(k[2] for k in window) / entry - 1) if window else None
+            entry_p = after[0][4]   # prezzo reale d'ingresso (senza latenza, per le label d'esito)
+            max_gain = max_dd = ret_1h = ret_6h = ret_24h = ttp = hit2x = None
+            if window and entry_p > 0:
+                peak = max(window, key=lambda k: k[2])           # candela col massimo
+                max_gain = round(peak[2] / entry_p - 1, 3)        # max salita
+                max_dd = round(min(k[3] for k in window) / entry_p - 1, 3)  # max discesa
+                ttp = round((peak[0] - ts) / 60)                  # minuti al picco
+                hit2x = 1 if max_gain >= 1.0 else 0               # ha fatto un x2?
+                def ret_at(h):
+                    cs = [k for k in window if k[0] <= ts + h * 3600]
+                    return round(cs[-1][4] / entry_p - 1, 3) if cs else None
+                ret_1h, ret_6h, ret_24h = ret_at(1), ret_at(6), ret_at(24)
             # ATTRIBUTI token all'ingresso
             runup = (entry / min(k[3] for k in before_c) - 1) if before_c else None
             usd = (t["sol"] or 0) * sol_price
@@ -162,6 +173,7 @@ def extract(max_wallets=20, history_tx=120, max_rows=4000):
                 "buy_pct_liq": round(usd / liq, 4) if liq else None,
                 "token_age_min": round((ts - dx["pair_created_ms"] / 1000) / 60) if dx.get("pair_created_ms") else None,
                 "volume_24h": round(dx["volume_24h"]) if dx.get("volume_24h") else None,
+                "volume_1h": round(dx["volume_1h"]) if dx.get("volume_1h") else None,
                 "price_change_1h": dx.get("price_change_1h"),
                 "txn_bs_ratio_1h": dx.get("txn_bs_ratio_1h"),
                 "fdv": round(dx["fdv"]) if dx.get("fdv") else None,
@@ -173,9 +185,11 @@ def extract(max_wallets=20, history_tx=120, max_rows=4000):
                 "holders": safe.get("holders"),
                 # coordinazione
                 "smart_coord_1h": others,
-                # ESITO (la verita')
+                # ESITO (la verita') — traiettoria completa per testare la strategia d'uscita
                 "copy_net": net, "hold_net": hold,
-                "max_gain_24h": round(max_gain, 3) if max_gain is not None else None,
+                "max_gain_24h": max_gain, "max_dd_24h": max_dd,
+                "ret_1h": ret_1h, "ret_6h": ret_6h, "ret_24h": ret_24h,
+                "time_to_peak_min": ttp, "hit_2x": hit2x,
                 "exit_reason": reason,
             }
             f.write(json.dumps(row) + "\n")
