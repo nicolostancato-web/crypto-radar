@@ -1,0 +1,46 @@
+name: crypto-radar-trends
+
+# L'AGENTE TREND: ogni 4h chiede a Grok (X live) cosa scalda sulle memecoin Solana e salva il
+# segnale nella serie storica (data/trends.jsonl). E' la nostra fonte social/virale a basso costo.
+# Il nostro edge non e' avere Grok (ce l'hanno tutti) ma la STRUTTURA: serie storica + cross-check
+# on-chain + backtest di quali segnali predicono il pump.
+on:
+  schedule:
+    - cron: "15 */4 * * *"     # ogni 4 ore (CFO: ~$0.02/chiamata, 6/giorno)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: radar
+  cancel-in-progress: false
+
+jobs:
+  trends:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+
+      - name: Cattura trend da Grok (X live)
+        env:
+          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
+        run: python trend_agent.py
+
+      - name: Salva la serie storica trend
+        run: |
+          git config user.name "crypto-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/trends.jsonl
+          git commit -m "trend $(date -u +%Y-%m-%dT%H:%MZ)" || { echo "niente di nuovo"; exit 0; }
+          for i in 1 2 3 4 5; do
+            git pull --no-rebase --no-edit origin main || true
+            git push origin main && exit 0
+            sleep 5
+          done
+          echo "push fallito"; exit 1

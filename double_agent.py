@@ -52,18 +52,26 @@ def ask_gemini(prompt):
     return r["candidates"][0]["content"]["parts"][0]["text"]
 
 
-def ask_grok(prompt, max_tokens=2000, timeout=120, live_x=True):
-    """Grok (xAI) — ha X/Twitter INTEGRATO in tempo reale e cerca su X da solo (agentico).
-    E' la nostra fonte del segnale TREND/virale a costo basso. None se manca XAI_API_KEY.
-    (live_x tenuto per compat; Grok-4 cerca comunque su X nativamente)."""
+def ask_grok(prompt, max_tokens=3000, timeout=240, live_x=True):
+    """Grok (xAI) con RICERCA LIVE su X. Usa /v1/responses + tool x_search (il vecchio
+    search_parameters e' stato ritirato -> 410). Con live_x Grok cerca DAVVERO su X in tempo
+    reale (non dalla memoria di training). E' la nostra fonte del segnale virale. None se manca la key."""
     key = os.getenv("XAI_API_KEY")
     if not key:
         return None
-    body = {"model": os.getenv("GROK_MODEL", "grok-4-1-fast"),
-            "messages": [{"role": "user", "content": prompt}], "max_tokens": max_tokens}
-    r = _post("https://api.x.ai/v1/chat/completions",
+    body = {"model": os.getenv("GROK_MODEL", "grok-4.3"),
+            "input": [{"role": "user", "content": prompt}],
+            "max_output_tokens": max_tokens}
+    if live_x:
+        body["tools"] = [{"type": "x_search"}]      # ricerca live su X (server-side, agentica)
+    r = _post("https://api.x.ai/v1/responses",
               {"Authorization": f"Bearer {key}"}, body, timeout=timeout)
-    return r["choices"][0]["message"]["content"]
+    for item in reversed(r.get("output", [])):       # il messaggio finale e' l'ultimo 'message'
+        if item.get("type") == "message":
+            for c in item.get("content", []):
+                if c.get("text"):
+                    return c["text"]
+    return None
 
 
 MODELS = {"gpt5": ask_gpt5, "deepseek": ask_deepseek, "gemini": ask_gemini, "grok": ask_grok}
