@@ -71,6 +71,35 @@ def recent_buyers(mint, n=50):
 WSOL = "So11111111111111111111111111111111111111112"
 
 
+def token_safety(mint):
+    """SICUREZZA del token (per il setup): authority mint/freeze revocate + concentrazione top holder.
+    Ritorna {mint_revoked, freeze_revoked, top1_pct, top10_pct, holders}. {} se manca la chiave.
+    CFO: 2 chiamate Helius per token (cacheare per mint)."""
+    if not available():
+        return {}
+    out = {}
+    supply = None
+    info = _rpc("getAccountInfo", [mint, {"encoding": "jsonParsed"}])
+    try:
+        p = info["value"]["data"]["parsed"]["info"]
+        out["mint_revoked"] = p.get("mintAuthority") is None
+        out["freeze_revoked"] = p.get("freezeAuthority") is None
+        dec = p.get("decimals", 0)
+        supply = float(p.get("supply", 0)) / (10 ** dec) if p.get("supply") else None
+    except Exception:
+        pass
+    largest = _rpc("getTokenLargestAccounts", [mint])
+    try:
+        amts = sorted([float(a.get("uiAmount") or 0) for a in largest["value"]], reverse=True)
+        out["holders"] = sum(1 for a in amts if a > 0)
+        if supply and supply > 0 and amts:
+            out["top1_pct"] = round(amts[0] / supply, 3)
+            out["top10_pct"] = round(sum(amts[:10]) / supply, 3)
+    except Exception:
+        pass
+    return out
+
+
 def wallet_recent_activity(address, n=20):
     """Attivita' RECENTE di un wallet: i suoi buy/sell su QUALSIASI token (via Helius).
     E' il cuore del pivot "monitora i wallet noti": dai loro buy ricaviamo i CLUSTER (S3),

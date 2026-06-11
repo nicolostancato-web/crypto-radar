@@ -115,6 +115,10 @@ def extract(max_wallets=20, history_tx=120, max_rows=4000):
             liq, pool, name = dx.get("liquidity"), dx.get("pool"), dx.get("token")
             if not pool:
                 continue
+            sk = ("safe", t["mint"])
+            if sk not in cache:
+                cache[sk] = onchain.token_safety(t["mint"])
+            safe = cache[sk]
             ts = t["ts"]
             candles = spikes.get_ohlcv("solana", pool, EXIT["ohlcv_aggregate_min"],
                                        limit=140, before=ts + EXIT["hard_hours"] * 3600 + 1800)
@@ -149,6 +153,11 @@ def extract(max_wallets=20, history_tx=120, max_rows=4000):
                 "txn_bs_ratio_1h": dx.get("txn_bs_ratio_1h"),
                 "fdv": round(dx["fdv"]) if dx.get("fdv") else None,
                 "venue": dx.get("venue"),
+                # sicurezza / rug
+                "mint_revoked": safe.get("mint_revoked"),
+                "freeze_revoked": safe.get("freeze_revoked"),
+                "top10_pct": safe.get("top10_pct"),
+                "holders": safe.get("holders"),
                 # coordinazione
                 "smart_coord_1h": others,
                 # ESITO (la verita')

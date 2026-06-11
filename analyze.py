@@ -63,11 +63,17 @@ SEGMENTS = [
     ("buy grosso (>=$1000)", lambda r: (_g(r, "buy_usd") or 0) >= 1000),
     ("token early (<60min)", lambda r: (_g(r, "token_age_min") is not None and r["token_age_min"] < 60)),
     ("pressione buy (bs_ratio>1.5)", lambda r: (_g(r, "txn_bs_ratio_1h") or 0) > 1.5),
+    # SICUREZZA (feature nuove del setup)
+    ("token SICURO (authority revocata)", lambda r: r.get("mint_revoked") is True and r.get("freeze_revoked") is True),
+    ("non centralizzato (top10<60%)", lambda r: (_g(r, "top10_pct") is not None and r["top10_pct"] < 0.60)),
     # COMBINAZIONI (qui si nasconde l'edge)
     ("provato + FLAT", lambda r: (_g(r, "w_closed") or 0) >= 10 and (_g(r, "runup_before") is not None and r["runup_before"] < 0.10)),
     ("provato + coordinato", lambda r: (_g(r, "w_closed") or 0) >= 10 and (_g(r, "smart_coord_1h") or 0) >= 1),
     ("FLAT + coordinato", lambda r: (_g(r, "runup_before") is not None and r["runup_before"] < 0.10) and (_g(r, "smart_coord_1h") or 0) >= 1),
     ("winrate>=60% + FLAT", lambda r: (_g(r, "w_winrate") or 0) >= 0.6 and (_g(r, "runup_before") is not None and r["runup_before"] < 0.10)),
+    ("SICURO + early", lambda r: r.get("mint_revoked") is True and (_g(r, "token_age_min") is not None and r["token_age_min"] < 60)),
+    ("SICURO + FLAT + coordinato", lambda r: r.get("mint_revoked") is True and (_g(r, "runup_before") is not None and r["runup_before"] < 0.10) and (_g(r, "smart_coord_1h") or 0) >= 1),
+    ("SETUP: sicuro+early+coord", lambda r: r.get("mint_revoked") is True and (_g(r, "token_age_min") is not None and r["token_age_min"] < 120) and (_g(r, "smart_coord_1h") or 0) >= 1),
 ]
 
 
