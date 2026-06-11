@@ -1,88 +1,115 @@
 {
-  "updated_utc": "2026-06-10 21:35",
-  "events": 1535,
+  "updated_utc": "2026-06-11 06:56",
+  "events": 1611,
   "edge_found": false,
   "edges": [],
   "segments": [
     {
+      "name": "winrate>=60% + FLAT",
+      "n": 238,
+      "median": -0.1778,
+      "win": 0.21,
+      "hold": -0.1684,
+      "beats_hold": false,
+      "edge": false
+    },
+    {
       "name": "ingresso FLAT (runup<10%)",
-      "n": 281,
-      "median": -0.1872,
-      "win": 0.185,
-      "hold": -0.1691,
+      "n": 339,
+      "median": -0.1787,
+      "win": 0.171,
+      "hold": -0.1739,
+      "beats_hold": false,
+      "edge": false
+    },
+    {
+      "name": "non centralizzato (top10<60%)",
+      "n": 931,
+      "median": -0.1962,
+      "win": 0.222,
+      "hold": -0.151,
       "beats_hold": false,
       "edge": false
     },
     {
       "name": "provato + FLAT",
-      "n": 97,
-      "median": -0.1972,
-      "win": 0.175,
-      "hold": -0.1641,
-      "beats_hold": false,
-      "edge": false
-    },
-    {
-      "name": "winrate>=60% + FLAT",
-      "n": 206,
-      "median": -0.2171,
-      "win": 0.228,
-      "hold": -0.1993,
+      "n": 108,
+      "median": -0.2322,
+      "win": 0.167,
+      "hold": -0.1967,
       "beats_hold": false,
       "edge": false
     },
     {
       "name": "pressione buy (bs_ratio>1.5)",
-      "n": 77,
-      "median": -0.3117,
-      "win": 0.221,
-      "hold": -0.1434,
-      "beats_hold": false,
-      "edge": false
-    },
-    {
-      "name": "wallet provato (closed>=10)",
-      "n": 553,
-      "median": -0.3124,
-      "win": 0.217,
-      "hold": -0.2525,
-      "beats_hold": false,
-      "edge": false
-    },
-    {
-      "name": "liquidita' 20k-200k",
-      "n": 480,
-      "median": -0.3147,
-      "win": 0.231,
-      "hold": -0.1817,
-      "beats_hold": false,
-      "edge": false
-    },
-    {
-      "name": "TUTTO (baseline)",
-      "n": 1535,
-      "median": -0.3164,
-      "win": 0.191,
-      "hold": -0.2674,
+      "n": 169,
+      "median": -0.3082,
+      "win": 0.249,
+      "hold": -0.1962,
       "beats_hold": false,
       "edge": false
     },
     {
       "name": "wallet winrate>=60%",
-      "n": 1118,
-      "median": -0.3168,
-      "win": 0.199,
-      "hold": -0.276,
+      "n": 1174,
+      "median": -0.3091,
+      "win": 0.193,
+      "hold": -0.2496,
+      "beats_hold": false,
+      "edge": false
+    },
+    {
+      "name": "TUTTO (baseline)",
+      "n": 1611,
+      "median": -0.3098,
+      "win": 0.18,
+      "hold": -0.2598,
+      "beats_hold": false,
+      "edge": false
+    },
+    {
+      "name": "token SICURO (authority revocata)",
+      "n": 1607,
+      "median": -0.3098,
+      "win": 0.18,
+      "hold": -0.262,
+      "beats_hold": false,
+      "edge": false
+    },
+    {
+      "name": "liquidita' 20k-200k",
+      "n": 420,
+      "median": -0.3145,
+      "win": 0.224,
+      "hold": -0.1583,
+      "beats_hold": false,
+      "edge": false
+    },
+    {
+      "name": "wallet provato (closed>=10)",
+      "n": 500,
+      "median": -0.3205,
+      "win": 0.188,
+      "hold": -0.3179,
       "beats_hold": false,
       "edge": false
     },
     {
       "name": "token early (<60min)",
-      "n": 43,
-      "median": -0.4177,
-      "win": 0.116,
-      "hold": 0.084,
-      "beats_hold": false,
+      "n": 91,
+      "median": -0.4307,
+      "win": 0.121,
+      "hold": -0.5775,
+      "beats_hold": true,
+      "edge": false
+    },
+    {
+      "name": "SICURO + early",
+      "n": 91,
+      "median": -0.4307,
+      "win": 0.121,
+      "hold": -0.5775,
+      "beats_hold": true,
       "edge": false
     }
   ]
