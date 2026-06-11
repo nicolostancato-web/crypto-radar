@@ -22,20 +22,17 @@ import double_agent as da
 
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "trends.jsonl")
 
-PROMPT = """Sei un analista crypto on-chain in tempo reale con accesso a X/Twitter LIVE.
+PROMPT = """Sei Grok con accesso a X/Twitter in tempo reale.
 
-Dimmi ADESSO quali memecoin / narrative su SOLANA stanno guadagnando attenzione su X nelle ULTIME ORE.
-Voglio roba EARLY (che inizia a scaldare ora), non quella gia' arcinota e pumpata.
+Quali memecoin SOLANA stanno guadagnando attenzione su X nelle ultime ore? Dammene fino a 8 che
+VEDI menzionate o in crescita adesso (anche se hai solo info parziali). Dai priorita' a quelle che
+stanno appena partendo ("early"), ma includi anche quelle che corrono.
 
-Per ognuna (max 8): ticker, contract address se lo trovi, perche' sta scaldando (chi ne parla:
-KOL/account grossi? quale narrativa?), e lo stage (early = appena parte, mid = sta correndo,
-late = gia' pompata). Dai un punteggio heat 1-10 e velocity (sta accelerando l'attenzione?).
+Per ognuna: ticker (obbligatorio), contract address SOLO se lo trovi davvero (altrimenti null),
+perche' ne parlano (chi/quale narrativa), stage (early/mid/late), heat 1-10, velocity (rising/flat/fading).
 
-REGOLE: solo roba REALE e recente da X, NIENTE invenzioni. Se non sei sicuro di un contract address,
-lascialo null. Meglio poche ma vere.
-
-Rispondi SOLO con un array JSON valido, niente testo attorno:
-[{"ticker":"...","ca":"...|null","why":"...","stage":"early|mid|late","heat":1-10,"velocity":"rising|flat|fading"}]"""
+Rispondi SOLO con un array JSON, niente altro testo. Dammi quello che VEDI realmente su X ora.
+Esempio formato: [{"ticker":"MOODENG","ca":null,"why":"KOL ne parlano, narrativa hippo","stage":"mid","heat":7,"velocity":"rising"}]"""
 
 
 def _parse(txt):

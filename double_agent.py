@@ -53,17 +53,14 @@ def ask_gemini(prompt):
 
 
 def ask_grok(prompt, max_tokens=2000, timeout=120, live_x=True):
-    """Grok (xAI) — ha X/Twitter INTEGRATO in tempo reale. Con live_x cerca su X mentre risponde.
-    E' la nostra fonte del segnale TREND/virale a costo ~zero (entro i $175/mese di crediti free).
-    None se manca la chiave XAI_API_KEY."""
+    """Grok (xAI) — ha X/Twitter INTEGRATO in tempo reale e cerca su X da solo (agentico).
+    E' la nostra fonte del segnale TREND/virale a costo basso. None se manca XAI_API_KEY.
+    (live_x tenuto per compat; Grok-4 cerca comunque su X nativamente)."""
     key = os.getenv("XAI_API_KEY")
     if not key:
         return None
     body = {"model": os.getenv("GROK_MODEL", "grok-4-1-fast"),
             "messages": [{"role": "user", "content": prompt}], "max_tokens": max_tokens}
-    if live_x:
-        body["search_parameters"] = {"mode": "on", "sources": [{"type": "x"}],
-                                     "max_search_results": 25, "return_citations": True}
     r = _post("https://api.x.ai/v1/chat/completions",
               {"Authorization": f"Bearer {key}"}, body, timeout=timeout)
     return r["choices"][0]["message"]["content"]
