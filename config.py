@@ -220,7 +220,7 @@ MAIN = {
 # ---------------------------------------------------------------------------
 WALLETS = {
     "capture_recent_n": 50,        # tx recenti da guardare per token (piccolo = pochi crediti)
-    "max_capture_per_cycle": 4,    # max token fotografati per giro (tetto duro sui crediti)
+    "max_capture_per_cycle": 8,    # max token fotografati per giro (ALZATO: Helius ha 1M/mese)
     "min_buys_for_smart": 3,       # un wallet è "smart" solo se ricorre su >= 3 token (no rumore)
 
     # QUALIFICA PnL (accumulo efficiente: ogni wallet si qualifica UNA volta, poi cache)
@@ -242,7 +242,7 @@ WALLETS = {
     "bot_tx_per_day": 60,          # sopra questa frequenza = bot/HFT -> scartato (no deep value)
 
     # SNOWBALL: dalle whale verificate, scopri la rete (chi compra i loro vincenti)
-    "max_snowball_per_cycle": 1,   # max whale da cui espandere per giro
+    "max_snowball_per_cycle": 3,   # max whale da cui espandere per giro (ALZATO: rete cresce piu' in fretta)
     "snowball_tokens": 2,          # quanti token vincenti guardare per whale
     "snowball_buyers_tx": 30,      # tx recenti per token per trovare i co-compratori
 }
@@ -268,8 +268,8 @@ SPIKES = {
                                   # i pool piccoli; i $250 = rumore, warning del Double Agent 2026-06-10)
     "min_sell_usd": 100,          # soglia SELL piu' bassa: si vende in pezzi piccoli (diagnosi
                                   # 2026-06-10: 0 sell >$400, => S2 a secco di segnali d'uscita)
-    "max_pools_per_cycle": 12,    # pool/giro, priorita' ai TRENDING (alto volume = profondita').
-                                  # CFO: ~9.4k chiamate/mese, sotto il free tier CoinGecko 10k
+    "max_pools_per_cycle": 25,    # pool/giro ALZATO (CoinGecko Pro 100k/mese -> tanta capacita').
+                                  # Piu' pool = piu' wallet scoperti = piu' dati da accumulare.
     "coordination_window_s": 600, # 10 min: big-buy sullo stesso token entro = COORDINATI
     "boss_min_tokens": 2,         # boss = big-buy su >= 2 token diversi (non casuale)
 
