@@ -146,3 +146,5 @@ _(ogni run del loop autonomo appende qui: data, scenario, # trade accumulati, EV
     (3) S3 è il vicolo cieco: zero segnali = nessuna opportunità di trading, mentre S2 almeno produce segnali e va disciplinato.
 - **2026-06-10 21:04 UTC** · S3_cluster it6 · n=0 EV_med=— aperti=0 · **CONTINUA**
 - **2026-06-10 21:04 UTC** · S2_smartexit it6 · n=8 EV_med=-32.73% · hold -31.14% aperti=6 · **CONTINUA**
+- **2026-06-11 05:03 UTC** · S3_cluster it7 · n=0 EV_med=— aperti=0 · **CONTINUA**
+- **2026-06-11 05:03 UTC** · S2_smartexit it7 · n=9 EV_med=-31.32% · hold +100.85% aperti=6 · **CONTINUA**
