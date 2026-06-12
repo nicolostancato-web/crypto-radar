@@ -61,8 +61,8 @@ jobs:
           PAGES_PAT: ${{ secrets.PAGES_PAT }}
         run: |
           git clone --depth 1 "https://x-access-token:${PAGES_PAT}@github.com/nicolostancato-web/crypto-radar-dashboard.git" /tmp/dash
-          cp web/index.html web/styles.css web/app.js web/data.json /tmp/dash/
-          cp web/status.json web/analysis.json /tmp/dash/ 2>/dev/null || true
+          cp web/index.html web/styles.css web/app.js /tmp/dash/
+          cp web/pipeline.json /tmp/dash/ 2>/dev/null || true
           cd /tmp/dash
           git config user.name "crypto-radar-bot"
           git config user.email "bot@users.noreply.github.com"

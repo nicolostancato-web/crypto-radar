@@ -1,8 +1,13 @@
-/* CRYPTO RADAR dashboard — legge status.json (scenari) + analysis.json (segmenti). */
+/* CRYPTO RADAR dashboard — pipeline X-FIRST. Legge pipeline.json. */
 
 const $ = (id) => document.getElementById(id);
-const pct = (x, d = 1) => (x == null ? "—" : (x >= 0 ? "+" : "") + (x * 100).toFixed(d) + "%");
-const cls = (x) => (x == null ? "" : x >= 0 ? "pos" : "neg");
+const fmtUsd = (x) => {
+  if (x == null) return "—";
+  if (x >= 1e6) return "$" + (x / 1e6).toFixed(1) + "M";
+  if (x >= 1e3) return "$" + (x / 1e3).toFixed(0) + "k";
+  return "$" + Math.round(x);
+};
+const fmtPct = (x) => (x == null ? "—" : Math.round(x * 100) + "%");
 
 async function load(name) {
   try {
@@ -12,95 +17,92 @@ async function load(name) {
   return null;
 }
 
-const SC_NAME = {
-  S2_smartexit: "Smart-Exit",
-  S3_cluster: "Cluster",
-  S1_regime: "Regime Filter",
-  S0_baseline: "Baseline",
-};
-const SC_DESC = {
-  S2_smartexit: "Entra sullo slancio, esce quando i bravi vendono.",
-  S3_cluster: "Entra quando più wallet smart comprano lo stesso token.",
-  S1_regime: "Entra solo quando il mercato è 'risk-on'.",
-  S0_baseline: "Compra a caso — il controllo che deve perdere.",
-};
-
-function renderVerdict(an) {
-  const box = $("verdict");
-  if (!an || an.events < 20) {
-    $("verdict-big").textContent = "Stiamo raccogliendo i dati";
-    $("verdict-sub").textContent = "Servono migliaia di trade storici prima di poter dire la verità. Il sistema accumula da solo.";
-    box.classList.add("no");
-    return;
-  }
-  if (an.edge_found) {
-    box.classList.add("yes");
-    $("verdict-big").textContent = "SÌ — un segnale c'è";
-    $("verdict-sub").innerHTML = "Setup promettenti: <b>" + an.edges.join(", ") + "</b>. Da validare con più dati prima di rischiare denaro.";
-  } else {
-    box.classList.add("no");
-    $("verdict-big").textContent = "Non ancora";
-    const best = an.segments && an.segments[0];
-    const bestTxt = best ? `Il setup meno peggio ("${best.name}") rende ${pct(best.median)} — perde ancora.` : "";
-    $("verdict-sub").innerHTML = `Su ${an.events.toLocaleString()} trade analizzati, nessuna combinazione di fattori è profittevole. ${bestTxt} È un risultato vero: niente soldi rischiati su una strada che non rende.`;
-  }
+function heatDots(h) {
+  h = Math.max(0, Math.min(10, h || 0));
+  const full = Math.round(h / 2); // 0..5
+  return "●".repeat(full) + "○".repeat(5 - full);
 }
 
-function renderScenarios(st) {
-  const box = $("scenarios");
-  if (!st || !st.scenarios) { box.innerHTML = '<p class="muted">In avvio…</p>'; return; }
-  const seen = new Set();
-  const rows = st.scenarios.filter((s) => s.horizon_h === 24 && !seen.has(s.name) && seen.add(s.name));
-  $("sc-count").textContent = `(${rows.length})`;
-  box.innerHTML = rows.map((s) => {
-    const med = s.ev_median;
-    const beats = s.beats_hold;
-    return `<div class="card sc">
-      <span class="tag live">in test</span>
-      <h3>${SC_NAME[s.name] || s.name}</h3>
-      <p class="muted" style="font-size:.86rem">${SC_DESC[s.name] || ""}</p>
-      <div class="big ${cls(med)}">${med == null ? "—" : pct(med)}</div>
-      <div class="row"><span>guadagno mediano</span><span>${s.trades} trade</span></div>
-      <div class="row"><span>batte "tieni e basta"</span><span>${beats == null ? "—" : beats ? "sì" : "no"}</span></div>
-    </div>`;
+function renderTrends(d) {
+  const box = $("trends");
+  const sc = (d && d.last_scan) || {};
+  $("scan-when").textContent = sc.utc ? `— ${sc.utc} UTC` : "";
+  const toks = sc.tokens || [];
+  if (!toks.length) {
+    box.innerHTML = '<p class="muted">In attesa del prossimo ascolto di Grok…</p>';
+    return;
+  }
+  box.innerHTML = toks.map((t) => `
+    <div class="card sc">
+      <div class="ttop"><h3>${t.ticker || "?"}</h3><span class="heat" title="quanto scalda">${heatDots(t.heat)}</span></div>
+      <p class="muted" style="font-size:.86rem">${t.narrative || ""}</p>
+      <div class="row"><span>chi ne parla</span><span>${t.callers || "—"}</span></div>
+      <div class="row"><span>età</span><span>${t.age_hours != null ? t.age_hours + "h" : "—"} · ${t.velocity || "—"}</span></div>
+    </div>`).join("");
+}
+
+function metricChip(label, value, ok) {
+  const c = ok === true ? "ok" : ok === false ? "bad" : "";
+  return `<span class="chip ${c}"><i>${label}</i>${value}</span>`;
+}
+
+function renderCandidates(d) {
+  const box = $("candidates");
+  const list = (d && d.candidates) || [];
+  if (!list.length) {
+    box.innerHTML = '<p class="muted">Nessuna candidata valutata ancora.</p>';
+    $("filter-note").textContent = "";
+    return;
+  }
+  $("filter-note").innerHTML =
+    `Su <b>${d.evaluated}</b> token segnalati da X, il filtro ne ha promosso <b>${d.passed_count}</b> a perla. ` +
+    `Verde = passa tutti i controlli. Rosso = scartato (il perché è scritto). Niente euro in gioco.`;
+
+  box.innerHTML = list.map((c) => {
+    const safe = c.mint_revoked && c.freeze_revoked;
+    const chips = [
+      metricChip("liquidità", fmtUsd(c.liq), c.liq != null ? c.liq >= 10000 && c.liq <= 2000000 : null),
+      metricChip("vol 24h", fmtUsd(c.vol_24h), c.vol_24h != null ? c.vol_24h >= 50000 : null),
+      metricChip("vol 1h", fmtUsd(c.vol_1h), c.vol_1h != null ? c.vol_1h >= 3000 : null),
+      metricChip("età", c.age_h != null ? c.age_h + "h" : "—", c.age_h != null ? c.age_h >= 1 && c.age_h <= 72 : null),
+      metricChip("top 10 wallet", fmtPct(c.top10_pct), c.top10_pct != null ? c.top10_pct <= 0.5 : null),
+      metricChip("wallet #1", fmtPct(c.top1_pct), c.top1_pct != null ? c.top1_pct <= 0.3 : null),
+      metricChip("buy/sell 1h", c.bs_ratio_1h != null ? c.bs_ratio_1h + "×" : "—", c.bs_ratio_1h != null ? c.bs_ratio_1h >= 1.2 : null),
+      metricChip("authority", safe ? "revocata" : "attiva", safe),
+    ].join("");
+    const why = c.pass
+      ? '<span class="verdict-pearl">★ PERLA — passa tutti i controlli</span>'
+      : `<div class="reasons"><b>Scartato perché:</b> ${c.fails.join(" · ")}</div>`;
+    return `
+      <div class="cand ${c.pass ? "pass" : "fail"}">
+        <div class="chead">
+          <div class="cname">${c.ticker} ${c.pass ? '<span class="badge y">PERLA</span>' : '<span class="badge n">scartato</span>'}</div>
+          <a class="ca" href="https://dexscreener.com/solana/${c.ca}" target="_blank" rel="noopener">vedi su DexScreener →</a>
+        </div>
+        <div class="chips">${chips}</div>
+        ${why}
+      </div>`;
   }).join("");
 }
 
-function renderSegments(an) {
-  const tb = document.querySelector("#segments tbody");
-  if (!an || !an.segments || !an.segments.length) {
-    tb.innerHTML = '<tr><td colspan="5" class="muted">Dati insufficienti — in accumulo.</td></tr>';
-    $("seg-note").textContent = "";
-    return;
-  }
-  $("seg-note").textContent = `Ogni riga è una "ricetta" d'ingresso testata su ${an.events.toLocaleString()} trade storici. Cerchiamo una riga col guadagno mediano positivo che batte il semplice tenere.`;
-  tb.innerHTML = an.segments.map((s) => `
-    <tr class="${s.edge ? "edge" : ""}">
-      <td>${s.name}</td>
-      <td>${s.n}</td>
-      <td class="med ${cls(s.median)}">${pct(s.median)}</td>
-      <td>${s.win == null ? "—" : (s.win * 100).toFixed(0) + "%"}</td>
-      <td><span class="pill ${s.beats_hold ? "y" : "n"}">${s.beats_hold ? "sì" : "no"}</span></td>
-    </tr>`).join("");
-}
-
-function renderStats(an, st) {
-  const t = (st && st.totals) || {};
+function renderStats(d) {
   const items = [
-    [an ? an.events.toLocaleString() : "—", "trade analizzati"],
-    [t.smart_wallets ?? "—", "wallet smart seguiti"],
-    [t.wallet_sells ?? "—", "vendite catturate"],
-    [t.spike_buys ?? "—", "acquisti grossi"],
+    [d ? d.scans_total : "—", "ascolti di X fatti"],
+    [d ? d.evaluated : "—", "token passati al filtro"],
+    [d ? d.passed_count : "—", "perle trovate"],
+    ["€0", "speso finora"],
   ];
-  $("stats").innerHTML = items.map(([n, l]) => `<div class="stat"><div class="n">${n}</div><div class="l">${l}</div></div>`).join("");
+  $("stats").innerHTML = items
+    .map(([n, l]) => `<div class="stat"><div class="n">${n}</div><div class="l">${l}</div></div>`)
+    .join("");
 }
 
 (async function () {
-  const [an, st] = [await load("analysis.json"), await load("status.json")];
-  const when = (an && an.updated_utc) || (st && st.updated_utc) || "";
-  $("updated").textContent = "Aggiornato " + when + " UTC · gira da solo ogni 2h in cloud";
-  renderVerdict(an);
-  renderScenarios(st);
-  renderSegments(an);
-  renderStats(an, st);
+  const d = await load("pipeline.json");
+  $("updated").textContent = d
+    ? `Aggiornato ${d.updated_utc} UTC · Grok ascolta X ogni 4h, il filtro gira subito dopo`
+    : "In avvio…";
+  renderTrends(d);
+  renderCandidates(d);
+  renderStats(d);
 })();

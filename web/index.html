@@ -3,62 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crypto Radar — caccia all'edge</title>
-  <link rel="stylesheet" href="styles.css?v=20">
+  <title>Crypto Radar — dalla viralità su X alla perla on-chain</title>
+  <link rel="stylesheet" href="styles.css?v=21">
 </head>
 <body>
   <main class="wrap">
 
     <header class="hero">
       <div class="brand">CRYPTO&nbsp;RADAR</div>
-      <h1>Cerchiamo un metodo per fare soldi sulle memecoin Solana — coi dati, non a fortuna.</h1>
-      <p class="sub">Sistema autonomo che gira da solo in cloud 24/7. Studia chi compra e vende,
-      simula i trade <b>sulla carta</b> (zero soldi veri), e cerca la combinazione di fattori che
-      genera un vantaggio reale. Se la trova, te lo dice. Se non c'è, lo dimostra. Costo: €0.</p>
+      <h1>Partiamo da ciò che diventa virale su X. Poi i dati on-chain dicono se è una perla o una trappola.</h1>
+      <p class="sub">Sistema autonomo in cloud 24/7. Ogni 4 ore <b>Grok legge X dal vivo</b> e ci dice
+      quali memecoin Solana stanno scaldando <i>adesso</i>. Su ognuna scarichiamo i numeri veri
+      (liquidità, volume, chi tiene i token, sicurezza) e <b>scartiamo i rug</b>: resta solo la perla.
+      Nessun soldo reale — prima si prova che il metodo funziona. Costo: €0.</p>
       <div class="updated" id="updated">—</div>
     </header>
 
-    <section class="verdict" id="verdict">
-      <div class="vlabel">Abbiamo trovato un edge?</div>
-      <div class="vbig" id="verdict-big">…</div>
-      <div class="vsub" id="verdict-sub"></div>
-    </section>
-
     <section>
-      <h2>Cosa stiamo facendo</h2>
-      <div class="cards3">
-        <div class="card">
-          <div class="step">1</div>
-          <h3>Troviamo i bravi</h3>
-          <p>Monitoriamo i wallet che storicamente fanno soldi on-chain (no bot, no exchange).</p>
-        </div>
-        <div class="card">
-          <div class="step">2</div>
-          <h3>Testiamo sulla carta</h3>
-          <p>Simuliamo "e se li copiassimo?" su migliaia di trade storici. Mediana onesta, mai la media gonfiata.</p>
-        </div>
-        <div class="card">
-          <div class="step">3</div>
-          <h3>Cerchiamo il setup</h3>
-          <p>Non basta copiare: cerchiamo <i>quale combinazione di fattori</i> (volume, whale, timing) rende davvero.</p>
-        </div>
+      <h2>Come funziona, in 5 passi</h2>
+      <div class="flow" id="flow">
+        <div class="fstep"><div class="fn">1</div><div><b>Grok ascolta X</b><span>Ogni 4h chiede a X dal vivo: quali memecoin Solana fresche stanno scaldando ora?</span></div></div>
+        <div class="fstep"><div class="fn">2</div><div><b>Filtro on-chain</b><span>Su ogni token: liquidità, volume, età, chi detiene, authority. I numeri veri, non le chiacchiere.</span></div></div>
+        <div class="fstep"><div class="fn">3</div><div><b>Scartiamo i rug</b><span>Wallet concentrati, liquidità finta, creatore che può coniare ancora → fuori. Resta la perla.</span></div></div>
+        <div class="fstep"><div class="fn">4</div><div><b>Tracciamo</b><span>Le candidate che passano diventano "ingressi ipotetici": seguiamo cosa fanno davvero.</span></div></div>
+        <div class="fstep"><div class="fn">5</div><div><b>Calibriamo</b><span>Giorno dopo giorno impariamo quali segnali diventano runner e tariamo i filtri.</span></div></div>
       </div>
     </section>
 
     <section>
-      <h2>Strategie in test <span class="muted" id="sc-count"></span></h2>
-      <div class="cards3" id="scenarios"></div>
+      <h2>Cosa scalda su X adesso <span class="muted" id="scan-when"></span></h2>
+      <p class="note">L'ultimo ascolto di Grok su X. Sono solo <i>segnalazioni</i> — devono ancora passare il filtro on-chain qui sotto.</p>
+      <div class="cards3" id="trends"></div>
     </section>
 
     <section>
-      <h2>Analisi dei setup <span class="muted">— dove si nasconde l'edge</span></h2>
-      <p class="note" id="seg-note"></p>
-      <div class="tablewrap">
-        <table id="segments">
-          <thead><tr><th>Setup (combinazione di fattori)</th><th>trade</th><th>guadagno mediano</th><th>vince</th><th>batte "tieni e basta"</th></tr></thead>
-          <tbody></tbody>
-        </table>
-      </div>
+      <h2>Il filtro al lavoro <span class="muted">— chi è perla, chi è trappola</span></h2>
+      <p class="note" id="filter-note"></p>
+      <div id="candidates"></div>
     </section>
 
     <section>
@@ -67,11 +48,11 @@
     </section>
 
     <footer>
-      <p>Paper trading — nessun soldo reale è in gioco. I soldi veri si usano solo quando un metodo
-      è provato statisticamente. Onestà brutale sui dati: se l'edge non c'è, lo diciamo.</p>
+      <p>Paper trading — nessun soldo reale è in gioco. Il filtro on-chain serve a tenerci <b>fuori</b>
+      dalle trappole, non a pompare nulla. Onestà brutale sui dati: se un metodo non rende, lo diciamo.</p>
     </footer>
 
   </main>
-  <script src="app.js?v=20"></script>
+  <script src="app.js?v=21"></script>
 </body>
 </html>

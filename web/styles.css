@@ -39,9 +39,19 @@ h2 .muted{font-weight:400;font-size:.95rem}
 .verdict.yes .vbig{color:var(--green)}
 .vsub{color:var(--muted);max-width:560px;margin:0 auto;font-size:.98rem}
 
+/* FLOW (i 5 passi) */
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.fstep{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.fstep .fn{width:28px;height:28px;border-radius:50%;background:var(--panel2);color:var(--accent);
+  display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem}
+.fstep b{display:block;font-size:.95rem;margin-bottom:4px}
+.fstep span{color:var(--muted);font-size:.82rem;line-height:1.4}
+
 /* CARDS */
 .cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
+.card .ttop{display:flex;justify-content:space-between;align-items:center}
+.card .heat{color:var(--gold);letter-spacing:1px;font-size:.8rem}
 .card .step{width:26px;height:26px;border-radius:50%;background:var(--panel2);color:var(--accent);
   display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;margin-bottom:12px}
 .card h3{font-size:1.02rem;margin-bottom:6px}
@@ -68,6 +78,26 @@ tbody td.med{font-weight:700;font-variant-numeric:tabular-nums}
 .pill{font-size:.74rem;font-weight:700;padding:2px 8px;border-radius:20px}
 .pill.y{background:#13241d;color:var(--green)} .pill.n{background:#241b1b;color:var(--muted)}
 
+/* CANDIDATE (il filtro al lavoro) */
+.cand{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:14px}
+.cand.pass{border-color:#1f4034;background:linear-gradient(180deg,#13241d,#161d2e)}
+.cand.fail{opacity:.92}
+.chead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.cname{font-size:1.12rem;font-weight:800;letter-spacing:-.01em}
+.badge{font-size:.7rem;font-weight:800;letter-spacing:.05em;padding:2px 9px;border-radius:20px;vertical-align:middle;margin-left:6px}
+.badge.y{background:#13241d;color:var(--green)} .badge.n{background:#241b1b;color:var(--muted)}
+.ca{color:var(--accent);font-size:.82rem;text-decoration:none}
+.ca:hover{text-decoration:underline}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 4px}
+.chip{font-size:.8rem;color:var(--text);background:var(--panel2);border:1px solid var(--line);
+  border-radius:10px;padding:5px 10px;display:inline-flex;gap:6px;align-items:center}
+.chip i{color:var(--muted);font-style:normal;font-size:.72rem;text-transform:uppercase;letter-spacing:.03em}
+.chip.ok{border-color:#1f4034} .chip.ok i{color:var(--green)}
+.chip.bad{border-color:#3a2a2a} .chip.bad i{color:var(--red)}
+.reasons{margin-top:12px;font-size:.86rem;color:var(--muted);line-height:1.5}
+.reasons b{color:var(--red)}
+.verdict-pearl{display:inline-block;margin-top:12px;color:var(--green);font-weight:700;font-size:.92rem}
+
 /* STATS */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
@@ -79,6 +109,7 @@ footer{margin-top:54px;padding-top:24px;border-top:1px solid var(--line);
 
 @media(max-width:720px){
   .cards3,.stats{grid-template-columns:1fr 1fr}
+  .flow{grid-template-columns:1fr 1fr}
   .hero h1{font-size:1.5rem}.vbig{font-size:2rem}
 }
-@media(max-width:460px){.cards3,.stats{grid-template-columns:1fr}}
+@media(max-width:460px){.cards3,.stats,.flow{grid-template-columns:1fr}}

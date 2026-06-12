@@ -1,0 +1,232 @@
+{
+  "updated_utc": "2026-06-12 07:11",
+  "scans_total": 4,
+  "last_scan": {
+    "utc": "2026-06-12 05:02",
+    "n_tokens": 4,
+    "tokens": [
+      {
+        "ticker": "GOOAL",
+        "narrative": "football/community-driven",
+        "callers": "multiple mid accounts",
+        "why_now": "multiple independent posts last hours",
+        "heat": 6,
+        "velocity": "rising",
+        "age_hours": 24
+      },
+      {
+        "ticker": "CUM",
+        "narrative": "pure degen alpha call",
+        "callers": "DegenWar + replies",
+        "why_now": "2x pump already called on fresh CA",
+        "heat": 5,
+        "velocity": "rising",
+        "age_hours": 18
+      },
+      {
+        "ticker": "ROLL",
+        "narrative": "sushi-dragon meme",
+        "callers": "ROLLINGUPCOIN",
+        "why_now": "fresh post + MCAP tracking multiples",
+        "heat": 4,
+        "velocity": "rising",
+        "age_hours": 12
+      },
+      {
+        "ticker": "BrimfableAI",
+        "narrative": "embodied AI Raspberry Pi",
+        "callers": "btc2ai",
+        "why_now": "detailed narrative post with GitHub/wallet monitoring",
+        "heat": 5,
+        "velocity": "rising",
+        "age_hours": 30
+      }
+    ]
+  },
+  "evaluated": 8,
+  "passed_count": 1,
+  "candidates": [
+    {
+      "ticker": "BrimfableAI",
+      "ca": "9smMJxtru37j29w7pfcQZfpKXdsUohuDXqHFaLJcpump",
+      "pass": true,
+      "grok_heat": 5,
+      "fails": [],
+      "liq": 58908,
+      "vol_24h": 929231,
+      "vol_1h": 27719,
+      "age_h": 55.0,
+      "top10_pct": 0.255,
+      "top1_pct": 0.058,
+      "bs_ratio_1h": 1.31,
+      "mint_revoked": true,
+      "freeze_revoked": true,
+      "pc_24h": 182
+    },
+    {
+      "ticker": "ROLL",
+      "ca": "G4i3ba1BNwDGEvn5MJZFav1ivvo2kZgT16UWa7tMpump",
+      "pass": false,
+      "grok_heat": 4,
+      "fails": [
+        "liquidità troppo bassa (esci e crolla)",
+        "volume 24h troppo basso (nessuno scambia)",
+        "volume 1h troppo basso (non scalda ora)",
+        "i primi 10 wallet tengono troppo (rug pronto)",
+        "un solo wallet domina (balena che ti scarica addosso)",
+        "più vendite che acquisti (già in distribuzione)"
+      ],
+      "liq": 0,
+      "vol_24h": 19312,
+      "vol_1h": 209,
+      "age_h": 5.6,
+      "top10_pct": 1.0,
+      "top1_pct": 0.517,
+      "bs_ratio_1h": 0.97,
+      "mint_revoked": true,
+      "freeze_revoked": true,
+      "pc_24h": 6669
+    },
+    {
+      "ticker": "CUM",
+      "ca": "m3TWjwtb5Hkj5C3sLsiabc5erCBzvK4YULiyxkvpump",
+      "pass": false,
+      "grok_heat": 5,
+      "fails": [
+        "liquidità troppo bassa (esci e crolla)",
+        "volume 1h troppo basso (non scalda ora)",
+        "i primi 10 wallet tengono troppo (rug pronto)",
+        "un solo wallet domina (balena che ti scarica addosso)",
+        "più vendite che acquisti (già in distribuzione)"
+      ],
+      "liq": 3101,
+      "vol_24h": 65216,
+      "vol_1h": 182,
+      "age_h": 2.2,
+      "top10_pct": 0.919,
+      "top1_pct": 0.756,
+      "bs_ratio_1h": 0.94,
+      "mint_revoked": true,
+      "freeze_revoked": true,
+      "pc_24h": -92.02
+    },
+    {
+      "ticker": "GOOAL",
+      "ca": "BdgTsv3GyxMN89qAP2d9cTirAAnPtiXjVoZFCyAVpump",
+      "pass": false,
+      "grok_heat": 6,
+      "fails": [
+        "liquidità troppo bassa (esci e crolla)",
+        "volume 24h troppo basso (nessuno scambia)",
+        "volume 1h troppo basso (non scalda ora)",
+        "i primi 10 wallet tengono troppo (rug pronto)",
+        "un solo wallet domina (balena che ti scarica addosso)",
+        "più vendite che acquisti (già in distribuzione)"
+      ],
+      "liq": 0,
+      "vol_24h": 76,
+      "vol_1h": 0,
+      "age_h": 3.6,
+      "top10_pct": 1.0,
+      "top1_pct": 0.995,
+      "bs_ratio_1h": 0,
+      "mint_revoked": true,
+      "freeze_revoked": true,
+      "pc_24h": -0.42
+    },
+    {
+      "ticker": "$GTA6",
+      "ca": "DZ92aD9iWvDQiPCDPrcNdqcCEdfJxY2GnhK9xEtLpump",
+      "pass": false,
+      "grok_heat": 6,
+      "fails": [
+        "liquidità troppo bassa (esci e crolla)",
+        "rapporto volume/liquidità anomalo (volume finto o morto)",
+        "volume 1h troppo basso (non scalda ora)",
+        "i primi 10 wallet tengono troppo (rug pronto)",
+        "un solo wallet domina (balena che ti scarica addosso)",
+        "più vendite che acquisti (già in distribuzione)"
+      ],
+      "liq": 3807,
+      "vol_24h": 716073,
+      "vol_1h": 287,
+      "age_h": 11.8,
+      "top10_pct": 0.887,
+      "top1_pct": 0.711,
+      "bs_ratio_1h": 0.36,
+      "mint_revoked": true,
+      "freeze_revoked": true,
+      "pc_24h": -89.82
+    },
+    {
+      "ticker": "brasiliano",
+      "ca": "5YKAevdN2bTe3MnLi3S7MAVNCRh3eVGo6JQfMefHpump",
+      "pass": false,
+      "grok_heat": 4,
+      "fails": [
+        "nessun pool su DEX (token fantasma / non scambiabile)"
+      ],
+      "liq": null,
+      "vol_24h": null,
+      "vol_1h": null,
+      "age_h": null,
+      "top10_pct": null,
+      "top1_pct": null,
+      "bs_ratio_1h": null,
+      "mint_revoked": null,
+      "freeze_revoked": null,
+      "pc_24h": null
+    },
+    {
+      "ticker": "$THIEF",
+      "ca": "HCuEWUjbSU2LeeqPnkxGgdQPpzAEe6oqCktnFksxpump",
+      "pass": false,
+      "grok_heat": 7,
+      "fails": [
+        "liquidità troppo bassa (esci e crolla)",
+        "rapporto volume/liquidità anomalo (volume finto o morto)",
+        "volume 24h troppo basso (nessuno scambia)",
+        "volume 1h troppo basso (non scalda ora)",
+        "i primi 10 wallet tengono troppo (rug pronto)",
+        "un solo wallet domina (balena che ti scarica addosso)",
+        "più vendite che acquisti (già in distribuzione)"
+      ],
+      "liq": 2840,
+      "vol_24h": 8,
+      "vol_1h": 0,
+      "age_h": 61.7,
+      "top10_pct": 0.991,
+      "top1_pct": 0.963,
+      "bs_ratio_1h": 0,
+      "mint_revoked": true,
+      "freeze_revoked": true,
+      "pc_24h": 2.19
+    },
+    {
+      "ticker": "micro KOL",
+      "ca": "Cqdsb45qVEKUDa8jrJCyhjsnKqGpagYuGxbSHH4pump",
+      "pass": false,
+      "grok_heat": 5,
+      "fails": [
+        "liquidità troppo bassa (esci e crolla)",
+        "rapporto volume/liquidità anomalo (volume finto o morto)",
+        "volume 24h troppo basso (nessuno scambia)",
+        "volume 1h troppo basso (non scalda ora)",
+        "età fuori finestra (troppo nuovo o troppo vecchio)",
+        "i primi 10 wallet tengono troppo (rug pronto)",
+        "un solo wallet domina (balena che ti scarica addosso)",
+        "più vendite che acquisti (già in distribuzione)"
+      ],
+      "liq": 2567,
+      "vol_24h": 2,
+      "vol_1h": 0,
+      "age_h": 81.2,
+      "top10_pct": 0.995,
+      "top1_pct": 0.955,
+      "bs_ratio_1h": 0,
+      "mint_revoked": true,
+      "freeze_revoked": true,
+      "pc_24h": 1.95
+    }
+  ]
+}
