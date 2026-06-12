@@ -1,14 +1,19 @@
 {
-  "updated_utc": "2026-06-12 18:22",
+  "updated_utc": "2026-06-12 21:06",
   "runner_pct": 50,
-  "settled": 19,
+  "settled": 22,
   "runners": 2,
-  "deads": 17,
+  "deads": 20,
   "by_arena": {
     "memecoin": {
-      "trades": 19,
+      "trades": 20,
       "runners": 2,
-      "runner_rate": 0.11
+      "runner_rate": 0.1
+    },
+    "ai_agent": {
+      "trades": 2,
+      "runners": 0,
+      "runner_rate": 0.0
     }
   },
   "prelim_at": 8,
@@ -26,50 +31,50 @@
       "feature": "vol_24h",
       "label": "volume 24h",
       "runner_median": 1052035.0,
-      "dead_median": 54934.0,
-      "ratio": 19.15
+      "dead_median": 41377.0,
+      "ratio": 25.43
     },
     {
       "feature": "liq",
       "label": "liquidità",
       "runner_median": 100960.0,
-      "dead_median": 5627.5,
-      "ratio": 17.94
-    },
-    {
-      "feature": "age_h",
-      "label": "età (h)",
-      "runner_median": 84.65,
-      "dead_median": 25.6,
-      "ratio": 3.31
-    },
-    {
-      "feature": "bs_ratio_1h",
-      "label": "buy/sell 1h",
-      "runner_median": 1.825,
-      "dead_median": 1.085,
-      "ratio": 1.68
-    },
-    {
-      "feature": "top10_pct",
-      "label": "top 10 wallet",
-      "runner_median": 0.447,
-      "dead_median": 0.663,
-      "ratio": 0.67
-    },
-    {
-      "feature": "grok_heat",
-      "label": "heat di Grok",
-      "runner_median": 5.5,
-      "dead_median": 5,
-      "ratio": 1.1
+      "dead_median": 8266.0,
+      "ratio": 12.21
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
       "runner_median": 10.32,
-      "dead_median": 10.24,
-      "ratio": 1.01
+      "dead_median": 3.265,
+      "ratio": 3.16
+    },
+    {
+      "feature": "age_h",
+      "label": "età (h)",
+      "runner_median": 84.65,
+      "dead_median": 28.1,
+      "ratio": 3.01
+    },
+    {
+      "feature": "bs_ratio_1h",
+      "label": "buy/sell 1h",
+      "runner_median": 1.825,
+      "dead_median": 0.955,
+      "ratio": 1.91
+    },
+    {
+      "feature": "top10_pct",
+      "label": "top 10 wallet",
+      "runner_median": 0.447,
+      "dead_median": 0.717,
+      "ratio": 0.62
+    },
+    {
+      "feature": "grok_heat",
+      "label": "heat di Grok",
+      "runner_median": 5.5,
+      "dead_median": 5.0,
+      "ratio": 1.1
     }
   ],
   "best_runners": [
