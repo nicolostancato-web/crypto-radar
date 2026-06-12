@@ -32,13 +32,25 @@ function renderTrends(d) {
     box.innerHTML = '<p class="muted">In attesa del prossimo ascolto di Grok…</p>';
     return;
   }
-  box.innerHTML = toks.map((t) => `
+  box.innerHTML = toks.map((t) => {
+    const mom = t.momentum || t.velocity || "—";
+    const flags = t.red_flags
+      ? `<div class="row flag"><span>⚠ red flag</span><span>${t.red_flags}</span></div>` : "";
+    const thesis = t.entry_thesis
+      ? `<p class="thesis">“${t.entry_thesis}”</p>` : "";
+    const callers = t.distinct_callers != null
+      ? `${t.distinct_callers} account${t.distinct_callers == 1 ? "" : " indip."}` : (t.callers || "—");
+    return `
     <div class="card sc">
-      <div class="ttop"><h3>${t.ticker || "?"}</h3><span class="heat" title="quanto scalda">${heatDots(t.heat)}</span></div>
+      <div class="ttop"><h3>${t.ticker || "?"}</h3><span class="heat" title="quanto scalda su X">${heatDots(t.heat)}</span></div>
       <p class="muted" style="font-size:.86rem">${t.narrative || ""}</p>
-      <div class="row"><span>chi ne parla</span><span>${t.callers || "—"}</span></div>
-      <div class="row"><span>età</span><span>${t.age_hours != null ? t.age_hours + "h" : "—"} · ${t.velocity || "—"}</span></div>
-    </div>`).join("");
+      ${thesis}
+      <div class="row"><span>chi ne parla</span><span>${callers}</span></div>
+      <div class="row"><span>momentum</span><span>${mom}${t.confidence != null ? " · conf " + t.confidence + "/10" : ""}</span></div>
+      <div class="row"><span>età</span><span>${t.age_hours != null ? t.age_hours + "h" : "—"}</span></div>
+      ${flags}
+    </div>`;
+  }).join("");
 }
 
 function metricChip(label, value, ok) {

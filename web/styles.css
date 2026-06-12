@@ -52,6 +52,10 @@ h2 .muted{font-weight:400;font-size:.95rem}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
 .card .ttop{display:flex;justify-content:space-between;align-items:center}
 .card .heat{color:var(--gold);letter-spacing:1px;font-size:.8rem}
+.card .thesis{color:var(--text);font-size:.86rem;font-style:italic;margin:8px 0 4px;
+  border-left:2px solid var(--accent);padding-left:9px}
+.card .row.flag{color:var(--red)}
+.card .row.flag span:last-child{color:var(--red);text-align:right;max-width:62%}
 .card .step{width:26px;height:26px;border-radius:50%;background:var(--panel2);color:var(--accent);
   display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;margin-bottom:12px}
 .card h3{font-size:1.02rem;margin-bottom:6px}

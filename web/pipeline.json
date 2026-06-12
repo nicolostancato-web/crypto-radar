@@ -1,49 +1,73 @@
 {
-  "updated_utc": "2026-06-12 07:11",
-  "scans_total": 4,
+  "updated_utc": "2026-06-12 07:32",
+  "scans_total": 5,
   "last_scan": {
-    "utc": "2026-06-12 05:02",
+    "utc": "2026-06-12 07:32",
     "n_tokens": 4,
     "tokens": [
       {
-        "ticker": "GOOAL",
-        "narrative": "football/community-driven",
-        "callers": "multiple mid accounts",
-        "why_now": "multiple independent posts last hours",
-        "heat": 6,
-        "velocity": "rising",
-        "age_hours": 24
-      },
-      {
-        "ticker": "CUM",
-        "narrative": "pure degen alpha call",
-        "callers": "DegenWar + replies",
-        "why_now": "2x pump already called on fresh CA",
+        "ticker": "SPCX",
+        "narrative": "SpaceX energy on pump.fun",
+        "callers": "@solanadailys",
+        "distinct_callers": 1,
+        "why_now": "just launched + chart screenshot",
+        "entry_thesis": "early pump.fun launch with clear meme hook, enter on first multi-caller wave",
+        "red_flags": null,
+        "sentiment": "hype",
+        "momentum": "rising",
         "heat": 5,
+        "confidence": 4,
         "velocity": "rising",
-        "age_hours": 18
+        "age_hours": 6
       },
       {
-        "ticker": "ROLL",
-        "narrative": "sushi-dragon meme",
-        "callers": "ROLLINGUPCOIN",
-        "why_now": "fresh post + MCAP tracking multiples",
+        "ticker": "DINKY",
+        "narrative": "wholesome baby duck from viral TikTok videos",
+        "callers": "@JookCrypto",
+        "distinct_callers": 1,
+        "why_now": "organic TikTok crossover starting to hit CT",
+        "entry_thesis": "clean chart + real engagement, enter if replies and quotes accelerate",
+        "red_flags": null,
+        "sentiment": "organic",
+        "momentum": "rising",
         "heat": 4,
+        "confidence": 5,
         "velocity": "rising",
-        "age_hours": 12
+        "age_hours": 36
       },
       {
-        "ticker": "BrimfableAI",
-        "narrative": "embodied AI Raspberry Pi",
-        "callers": "btc2ai",
-        "why_now": "detailed narrative post with GitHub/wallet monitoring",
-        "heat": 5,
+        "ticker": "BioLLM",
+        "narrative": "AI merging with biology",
+        "callers": "@joejoeboy0",
+        "distinct_callers": 1,
+        "why_now": "daily narrative drop on pump.fun",
+        "entry_thesis": "watch for second independent caller before entry",
+        "red_flags": "single caller only",
+        "sentiment": "mixed",
+        "momentum": "steady",
+        "heat": 3,
+        "confidence": 3,
+        "velocity": "flat",
+        "age_hours": 8
+      },
+      {
+        "ticker": "GOLDENGOAL",
+        "narrative": "live football prediction on Solana",
+        "callers": "@Coindigger001",
+        "distinct_callers": 1,
+        "why_now": "fresh launch with video",
+        "entry_thesis": "sports narrative + pump.fun, monitor for independent reposts",
+        "red_flags": null,
+        "sentiment": "hype",
+        "momentum": "rising",
+        "heat": 4,
+        "confidence": 3,
         "velocity": "rising",
-        "age_hours": 30
+        "age_hours": 4
       }
     ]
   },
-  "evaluated": 8,
+  "evaluated": 12,
   "passed_count": 1,
   "candidates": [
     {
@@ -62,6 +86,86 @@
       "mint_revoked": true,
       "freeze_revoked": true,
       "pc_24h": 182
+    },
+    {
+      "ticker": "GOLDENGOAL",
+      "ca": "GU527smM71ht8aCA8ouShfXhahVq6crz51FMbfZ8pump",
+      "pass": false,
+      "grok_heat": 4,
+      "fails": [
+        "volume 24h troppo basso (nessuno scambia)",
+        "volume 1h troppo basso (non scalda ora)",
+        "età fuori finestra (troppo nuovo o troppo vecchio)",
+        "più vendite che acquisti (già in distribuzione)"
+      ],
+      "liq": 24477,
+      "vol_24h": 44652,
+      "vol_1h": 142,
+      "age_h": 161.4,
+      "top10_pct": 0.229,
+      "top1_pct": 0.103,
+      "bs_ratio_1h": 0.8,
+      "mint_revoked": true,
+      "freeze_revoked": true,
+      "pc_24h": 14.26
+    },
+    {
+      "ticker": "BioLLM",
+      "ca": "9oxGicd5KXNcthYM6yD23X9zcznQVnHjrAEN38fFpump",
+      "pass": false,
+      "grok_heat": 3,
+      "fails": [
+        "volume 1h troppo basso (non scalda ora)",
+        "età fuori finestra (troppo nuovo o troppo vecchio)"
+      ],
+      "liq": 88338,
+      "vol_24h": 67137,
+      "vol_1h": 1495,
+      "age_h": 2416.9,
+      "top10_pct": 0.337,
+      "top1_pct": 0.1,
+      "bs_ratio_1h": 3.0,
+      "mint_revoked": true,
+      "freeze_revoked": true,
+      "pc_24h": -7.77
+    },
+    {
+      "ticker": "SPCX",
+      "ca": "9qpDk7hGSHqyfMGDT7p4zFQ35aGff248Qes48CgLpump",
+      "pass": false,
+      "grok_heat": 5,
+      "fails": [
+        "più vendite che acquisti (già in distribuzione)"
+      ],
+      "liq": 49897,
+      "vol_24h": 1677911,
+      "vol_1h": 79244,
+      "age_h": 24.3,
+      "top10_pct": 0.202,
+      "top1_pct": 0.062,
+      "bs_ratio_1h": 1.2,
+      "mint_revoked": true,
+      "freeze_revoked": true,
+      "pc_24h": 1306
+    },
+    {
+      "ticker": "DINKY",
+      "ca": "3YNCESdqhSgvsD4aARHC4rdqXpjyW9CWjosH82hNpump",
+      "pass": false,
+      "grok_heat": 4,
+      "fails": [
+        "nessun pool su DEX (token fantasma / non scambiabile)"
+      ],
+      "liq": null,
+      "vol_24h": null,
+      "vol_1h": null,
+      "age_h": null,
+      "top10_pct": null,
+      "top1_pct": null,
+      "bs_ratio_1h": null,
+      "mint_revoked": null,
+      "freeze_revoked": null,
+      "pc_24h": null
     },
     {
       "ticker": "ROLL",
