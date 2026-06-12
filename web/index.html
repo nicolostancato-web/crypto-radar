@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Crypto Radar — dalla viralità su X alla perla on-chain</title>
-  <link rel="stylesheet" href="styles.css?v=22">
+  <link rel="stylesheet" href="styles.css?v=23">
 </head>
 <body>
   <main class="wrap">
@@ -47,12 +47,117 @@
       <div class="stats" id="stats"></div>
     </section>
 
+    <section>
+      <h2>Come gira il sistema <span class="muted">— il flusso completo, passo per passo</span></h2>
+      <p class="note">Questo è l'intero processo che gira da solo in cloud. Ogni stadio legge dei dati,
+      ne produce altri, e li passa al successivo. Guarda dove vuoi intervenire e dimmelo.</p>
+
+      <div class="pipe">
+
+        <div class="ptrigger">
+          <span class="pclock">⏱</span>
+          <div><b>OGNI 1 ORA</b><span>GitHub Actions sveglia il sistema nel cloud — 24/7, anche col Mac spento</span></div>
+        </div>
+        <div class="parrow"><span>parte il ciclo</span></div>
+
+        <div class="pnode live">
+          <div class="pnum">1</div>
+          <div class="pbody">
+            <div class="ptitle">Grok ascolta X dal vivo</div>
+            <div class="pdesc">Riceve un brief mostruoso da "alpha scout": cerca su X da 5 angoli le memecoin Solana
+            fresche che stanno accelerando ORA. Restituisce ticker, contract address, narrativa, chi ne parla,
+            red flag, tesi d'ingresso.</div>
+            <div class="pmeta">
+              <span class="ptech">Grok 4.3 · x_search live</span>
+              <span class="pin">legge: X / Twitter</span>
+              <span class="pout">scrive: trends.jsonl</span>
+              <span class="pcost">~$0.03</span>
+            </div>
+          </div>
+          <div class="pstatus y">LIVE</div>
+        </div>
+        <div class="parrow"><span>lista di token grezzi</span></div>
+
+        <div class="pnode live">
+          <div class="pnum">2</div>
+          <div class="pbody">
+            <div class="ptitle">Filtro on-chain — la verità dei numeri</div>
+            <div class="pdesc">Per ogni token scarica i dati reali della blockchain: liquidità, volume 1h/24h, età vera,
+            buy/sell, quanto tengono i primi 10 wallet, se il creatore può ancora coniare. Grok può sbagliare:
+            qui si verifica.</div>
+            <div class="pmeta">
+              <span class="ptech">DexScreener + Helius RPC</span>
+              <span class="pin">legge: trends.jsonl</span>
+              <span class="pout">scrive: candidates.jsonl</span>
+              <span class="pcost">gratis</span>
+            </div>
+          </div>
+          <div class="pstatus y">LIVE</div>
+        </div>
+        <div class="parrow"><span>scarta i rug, tiene le perle</span></div>
+
+        <div class="pnode live">
+          <div class="pnum">3</div>
+          <div class="pbody">
+            <div class="ptitle">Verdetto: perla o trappola</div>
+            <div class="pdesc">Chi passa TUTTI i controlli diventa "perla" = ingresso ipotetico da seguire.
+            Chi fallisce viene scartato col motivo scritto. Tutto resta salvato nella serie storica.</div>
+            <div class="pmeta">
+              <span class="ptech">config.FILTER (soglie tarabili)</span>
+              <span class="pin">legge: candidates.jsonl</span>
+              <span class="pout">scrive: pipeline.json → sito</span>
+              <span class="pcost">gratis</span>
+            </div>
+          </div>
+          <div class="pstatus y">LIVE</div>
+        </div>
+        <div class="parrow"><span>la perla va tracciata nel tempo</span></div>
+
+        <div class="pnode soon">
+          <div class="pnum">4</div>
+          <div class="pbody">
+            <div class="ptitle">Tracciamento esiti <span class="soonbadge">prossimo step</span></div>
+            <div class="pdesc">Ogni perla viene seguita per ore/giorni: registriamo il prezzo a +1h, +6h, +24h.
+            Ha davvero corso dopo che il filtro l'ha promossa? Questo è ciò che dirà se il metodo funziona.</div>
+            <div class="pmeta">
+              <span class="ptech">DexScreener prezzi nel tempo</span>
+              <span class="pin">legge: candidates.jsonl (perle)</span>
+              <span class="pout">scrive: outcomes.jsonl</span>
+              <span class="pcost">gratis</span>
+            </div>
+          </div>
+          <div class="pstatus n">IN ARRIVO</div>
+        </div>
+        <div class="parrow"><span>i risultati insegnano</span></div>
+
+        <div class="pnode soon">
+          <div class="pnum">5</div>
+          <div class="pbody">
+            <div class="ptitle">Calibrazione <span class="soonbadge">prossimo step</span></div>
+            <div class="pdesc">Giorno dopo giorno impariamo quali segnali (quali caller, quali soglie) diventano runner veri.
+            Tariamo i filtri sui dati reali. L'edge — se esiste — emerge qui, con onestà statistica.</div>
+            <div class="pmeta">
+              <span class="ptech">analisi storica + backtest</span>
+              <span class="pin">legge: outcomes.jsonl</span>
+              <span class="pout">aggiorna: config.FILTER</span>
+              <span class="pcost">gratis</span>
+            </div>
+          </div>
+          <div class="pstatus n">IN ARRIVO</div>
+        </div>
+        <div class="parrow"><span>e si ricomincia, ogni ora</span></div>
+
+        <div class="ploop">🔁 Il ciclo si ripete ogni ora. Ogni giro arricchisce la serie storica. Più dati = filtri più precisi.</div>
+
+      </div>
+    </section>
+
     <footer>
       <p>Paper trading — nessun soldo reale è in gioco. Il filtro on-chain serve a tenerci <b>fuori</b>
       dalle trappole, non a pompare nulla. Onestà brutale sui dati: se un metodo non rende, lo diciamo.</p>
     </footer>
 
   </main>
-  <script src="app.js?v=22"></script>
+  <script src="app.js?v=23"></script>
 </body>
 </html>
