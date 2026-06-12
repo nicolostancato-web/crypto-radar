@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Crypto Radar — dalla viralità su X alla perla on-chain</title>
-  <link rel="stylesheet" href="styles.css?v=26">
+  <link rel="stylesheet" href="styles.css?v=27">
 </head>
 <body>
   <main class="wrap">
@@ -53,6 +53,14 @@
           <tbody></tbody>
         </table>
       </div>
+    </section>
+
+    <section>
+      <h2>Cosa abbiamo imparato <span class="muted">— le regole che emergono dai trade</span></h2>
+      <p class="note">Ogni ora il sistema confronta i token che hanno corso (≥+50%) con quelli morti, e guarda
+      <i>che numeri avevano al momento del segnale</i>. Così impariamo le condizioni d'ingresso vere — con onestà:
+      finché i trade sono pochi, non concludiamo.</p>
+      <div id="lessons"></div>
     </section>
 
     <section>
@@ -144,20 +152,21 @@
         </div>
         <div class="parrow"><span>i risultati insegnano</span></div>
 
-        <div class="pnode soon">
+        <div class="pnode live">
           <div class="pnum">5</div>
           <div class="pbody">
-            <div class="ptitle">Calibrazione <span class="soonbadge">prossimo step</span></div>
-            <div class="pdesc">Giorno dopo giorno impariamo quali segnali (quali caller, quali soglie) diventano runner veri.
-            Tariamo i filtri sui dati reali. L'edge — se esiste — emerge qui, con onestà statistica.</div>
+            <div class="ptitle">Apprendimento costante</div>
+            <div class="pdesc">Ogni ora confronta i token che hanno corso con quelli morti e guarda che numeri avevano
+            al segnale (volume, voliq, età, heat). Impara le condizioni d'ingresso vere e suggerisce come tarare il
+            filtro. Onestà statistica: con pochi trade non conclude. Non tocca il filtro da solo — propone, decidi tu.</div>
             <div class="pmeta">
-              <span class="ptech">analisi storica + backtest</span>
-              <span class="pin">legge: outcomes.jsonl</span>
-              <span class="pout">aggiorna: config.FILTER</span>
+              <span class="ptech">statistica runner vs morti</span>
+              <span class="pin">legge: track.jsonl + candidates.jsonl</span>
+              <span class="pout">scrive: learnings.json</span>
               <span class="pcost">gratis</span>
             </div>
           </div>
-          <div class="pstatus n">IN ARRIVO</div>
+          <div class="pstatus y">LIVE</div>
         </div>
         <div class="parrow"><span>e si ricomincia, ogni ora</span></div>
 
@@ -172,6 +181,6 @@
     </footer>
 
   </main>
-  <script src="app.js?v=26"></script>
+  <script src="app.js?v=27"></script>
 </body>
 </html>

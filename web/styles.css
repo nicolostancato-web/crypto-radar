@@ -151,6 +151,15 @@ tbody td.med{font-weight:700;font-variant-numeric:tabular-nums}
 .learn .ll{color:var(--muted);font-size:.82rem;margin-top:4px;line-height:1.35}
 @media(max-width:540px){.learn{grid-template-columns:1fr}}
 
+/* LESSONS (apprendimento step 5) */
+.lacc{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
+.lacc p{color:var(--muted);font-size:.92rem;margin-top:14px}
+.lbar{height:10px;background:var(--panel2);border-radius:20px;overflow:hidden}
+.lbarfill{height:100%;background:linear-gradient(90deg,var(--accent),var(--green));border-radius:20px;transition:width .4s}
+.lbadge{font-size:.68rem;font-weight:800;letter-spacing:.05em;padding:3px 9px;border-radius:20px}
+.lbadge.ok{background:#13241d;color:var(--green)}
+.lbadge.prelim{background:#241f12;color:var(--gold)}
+
 /* STATS */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}

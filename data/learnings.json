@@ -1,0 +1,12 @@
+{
+  "updated_utc": "2026-06-12 13:07",
+  "runner_pct": 50,
+  "settled": 0,
+  "runners": 0,
+  "deads": 0,
+  "prelim_at": 8,
+  "ready_at": 25,
+  "status": "accumulo",
+  "lessons": [],
+  "best_runners": []
+}

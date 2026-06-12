@@ -131,6 +131,49 @@ function renderOutcomes(d) {
   }).join("");
 }
 
+function renderLessons(d) {
+  const box = document.getElementById("lessons");
+  const L = d && d.lessons;
+  if (!L) { box.innerHTML = '<p class="muted">Apprendimento in avvio…</p>'; return; }
+
+  if (L.status === "accumulo") {
+    const pct = Math.min(100, Math.round((L.settled / L.prelim_at) * 100));
+    box.innerHTML = `<div class="lacc">
+      <div class="lbar"><div class="lbarfill" style="width:${pct}%"></div></div>
+      <p><b>${L.settled}/${L.prelim_at}</b> trade conclusi. Le prime regole compaiono qui appena ci sono abbastanza
+      token seguiti per qualche ora. Il sistema impara da solo, ogni ora.</p>
+    </div>`;
+    return;
+  }
+
+  const badge = L.status === "ready"
+    ? '<span class="lbadge ok">DATI SOLIDI</span>'
+    : '<span class="lbadge prelim">PRELIMINARE — pochi trade, indicativo</span>';
+  const fmt = (k, v) => {
+    if (v == null) return "—";
+    if (["volume 1h", "volume 24h", "liquidità"].includes(k)) return fmtUsd(v);
+    if (k === "top 10 wallet") return Math.round(v * 100) + "%";
+    return (typeof v === "number" ? (Math.round(v * 100) / 100) : v);
+  };
+  const rows = (L.lessons || []).map((le) => {
+    const stronger = le.ratio && (le.ratio >= 1.3 || le.ratio <= 0.77);
+    return `<tr class="${stronger ? "edge" : ""}">
+      <td>${le.label}</td>
+      <td class="med pos">${fmt(le.label, le.runner_median)}</td>
+      <td class="neg">${fmt(le.label, le.dead_median)}</td>
+      <td>${le.ratio == null ? "—" : le.ratio + "×"}</td>
+    </tr>`;
+  }).join("");
+
+  box.innerHTML = `
+    <p class="note">${badge} &nbsp; ${L.settled} trade conclusi · ${L.runners} hanno corso (≥+${L.runner_pct}%).
+    Le righe evidenziate sono le condizioni che separano di più i runner dai morti.</p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>condizione al segnale</th><th>runner (mediana)</th><th>morti (mediana)</th><th>divario</th></tr></thead>
+      <tbody>${rows || '<tr><td colspan="4" class="muted">Calcolo in corso…</td></tr>'}</tbody>
+    </table></div>`;
+}
+
 function renderStats(d) {
   const items = [
     [d ? d.scans_total : "—", "ascolti di X fatti"],
@@ -151,5 +194,6 @@ function renderStats(d) {
   renderTrends(d);
   renderCandidates(d);
   renderOutcomes(d);
+  renderLessons(d);
   renderStats(d);
 })();

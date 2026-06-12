@@ -14,6 +14,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 TRENDS = os.path.join(HERE, "data", "trends.jsonl")
 CANDS = os.path.join(HERE, "data", "candidates.jsonl")
 TRACK = os.path.join(HERE, "data", "track.jsonl")
+LEARN = os.path.join(HERE, "data", "learnings.json")
 OUT = os.path.join(HERE, "web", "pipeline.json")
 
 # etichette in italiano per i motivi di scarto del filtro
@@ -189,6 +190,13 @@ def build():
         "rejects_2x_rate": hit2x_rate(rejects),   # quanti scartati hanno fatto 2x (= filtro troppo severo?)
         "best": outcomes[0] if outcomes and outcomes[0]["ret_max"] is not None else None,
     }
+
+    # --- lezioni apprese (step 5: learner.py) ---
+    if os.path.exists(LEARN):
+        try:
+            data["lessons"] = json.load(open(LEARN))
+        except Exception:
+            data["lessons"] = None
     return data
 
 
