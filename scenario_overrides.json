@@ -6,12 +6,12 @@
   "_state": {
     "S3_cluster": {
       "status": "active",
-      "iteration": 13,
+      "iteration": 14,
       "verdict": null
     },
     "S2_smartexit": {
       "status": "active",
-      "iteration": 13,
+      "iteration": 14,
       "verdict": null
     }
   },
