@@ -33,3 +33,26 @@ soglie d'eta'/volume che separano l'ignizione vera dall'onda gia' partita.
 **Stato:** osservazione registrata. In attesa di piu' trade conclusi prima di toccare config.FILTER.
 
 ---
+
+## Lezione #2 — Quale arena per il catch-via-X (consulenza Grok, 2026-06-12)
+
+**Domanda posta a Grok live:** non "il mercato piu' fruttifero" ma "quale arena rende di piu' PER IL NOSTRO
+metodo" (catch via X, retail lento, finestra ore). Vedi PROMPT_mercato_migliore.txt + CONSULENZA_mercato_2026-06-12.md.
+
+**Verdetto Grok (1 fonte, 1 fotografia — da verificare on-chain):**
+1. AI-agent tokens / Virtuals (Base+Solana) — 9/10 intercettabilita' via X
+2. Hyperliquid / perp farming — 8/10 MA e' airdrop farming, non token-pump
+3. Solana memecoin (attuale) — 7/10, volume alto ma piu' shill/bot, finestra che si stringe
+
+**Mio filtro critico (senior):**
+- Hyperliquid = gioco DIVERSO (farming punti, niente CA/liquidita'/entry-exit). Il nostro pipeline NON si
+  applica. Scartare per ora.
+- Virtuals/AI-agent = SI compatibile col nostro pipeline identico (token con CA su Base/Solana, DexScreener
+  li copre, stesso filtro). Arena azionabile.
+- Solana resta valido (liquidita' alta); il "piu' bot/finestra stretta" conferma la Lezione #1 (arriviamo tardi).
+
+**Direzione proposta (NON applicata — decide Nicolo):** allargare lo scouting Grok per includere anche
+AI-agent token, TENERE Solana, e lasciare che il learner (entry onesto) dica coi numeri quale arena rende di
+piu' PER NOI. Fedele al metodo: non scegliere a priori, far decidere i dati.
+
+**Stato:** consulenza registrata. In attesa di OK per allargare lo scouting oltre Solana.
