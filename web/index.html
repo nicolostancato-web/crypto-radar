@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Crypto Radar — dalla viralità su X alla perla on-chain</title>
-  <link rel="stylesheet" href="styles.css?v=24">
+  <link rel="stylesheet" href="styles.css?v=25">
 </head>
 <body>
   <main class="wrap">
@@ -40,6 +40,19 @@
       <h2>Il filtro al lavoro <span class="muted">— chi è perla, chi è trappola</span></h2>
       <p class="note" id="filter-note"></p>
       <div id="candidates"></div>
+    </section>
+
+    <section>
+      <h2>Entrate &amp; uscite simulate <span class="muted">— com'è andata dopo il segnale</span></h2>
+      <p class="note" id="out-note">Per ogni token chiamato ipotizziamo un'entrata al primo controllo dopo il segnale,
+      e seguiamo il prezzo. Entry onesta: mai prima del segnale. Nessun soldo reale — stiamo imparando le regole.</p>
+      <div id="learnbox"></div>
+      <div class="tablewrap">
+        <table id="outcomes">
+          <thead><tr><th>token</th><th>esito filtro</th><th>picco</th><th>ora</th><th>2x?</th><th>vol 1h al segnale</th><th>punti</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </section>
 
     <section>
@@ -159,6 +172,6 @@
     </footer>
 
   </main>
-  <script src="app.js?v=24"></script>
+  <script src="app.js?v=25"></script>
 </body>
 </html>

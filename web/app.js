@@ -97,6 +97,40 @@ function renderCandidates(d) {
   }).join("");
 }
 
+function renderOutcomes(d) {
+  const tb = document.querySelector("#outcomes tbody");
+  const L = d && d.learning;
+  const list = (d && d.outcomes) || [];
+  if (!list.length) {
+    tb.innerHTML = '<tr><td colspan="7" class="muted">Tracciamento appena avviato — gli esiti compaiono dopo qualche ora di osservazioni.</td></tr>';
+    return;
+  }
+  // box apprendimento
+  const lb = document.getElementById("learnbox");
+  if (L) {
+    const pr = L.pearls_2x_rate, rr = L.rejects_2x_rate;
+    const f = (x) => (x == null ? "—" : Math.round(x * 100) + "%");
+    lb.innerHTML = `<div class="learn">
+      <div class="li"><div class="ln">${L.tracked_tokens}</div><div class="ll">token tracciati</div></div>
+      <div class="li"><div class="ln pos">${f(pr)}</div><div class="ll">perle che fanno ≥2x</div></div>
+      <div class="li"><div class="ln ${rr ? "neg" : ""}">${f(rr)}</div><div class="ll">scartati che fanno 2x<br><span class="muted">(se alto → filtro troppo severo)</span></div></div>
+    </div>`;
+  }
+  tb.innerHTML = list.map((o) => {
+    const rm = o.ret_max == null ? "—" : (o.ret_max >= 0 ? "+" : "") + Math.round(o.ret_max * 100) + "%";
+    const rn = o.ret_now == null ? "—" : (o.ret_now >= 0 ? "+" : "") + Math.round(o.ret_now * 100) + "%";
+    return `<tr class="${o.hit_2x ? "edge" : ""}">
+      <td>${o.ticker || "?"}</td>
+      <td><span class="pill ${o.pass ? "y" : "n"}">${o.pass ? "perla" : "scarto"}</span></td>
+      <td class="med ${cls(o.ret_max)}">${rm}</td>
+      <td class="${cls(o.ret_now)}">${rn}</td>
+      <td>${o.hit_2x ? "✅" : o.rugged ? "💀" : "—"}</td>
+      <td>${fmtUsd(o.sig_vol_1h)}</td>
+      <td>${o.n_obs}</td>
+    </tr>`;
+  }).join("");
+}
+
 function renderStats(d) {
   const items = [
     [d ? d.scans_total : "—", "ascolti di X fatti"],
@@ -116,5 +150,6 @@ function renderStats(d) {
     : "In avvio…";
   renderTrends(d);
   renderCandidates(d);
+  renderOutcomes(d);
   renderStats(d);
 })();

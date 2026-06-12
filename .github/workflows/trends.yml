@@ -34,13 +34,14 @@ jobs:
         run: |
           python trend_agent.py
           python filter_tokens.py 3
+          python tracker.py
           python pipeline_export.py
 
       - name: Salva trend + candidate filtrate + dashboard json
         run: |
           git config user.name "crypto-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add data/trends.jsonl data/candidates.jsonl web/pipeline.json
+          git add data/trends.jsonl data/candidates.jsonl data/track.jsonl web/pipeline.json
           git commit -m "trend $(date -u +%Y-%m-%dT%H:%MZ)" || { echo "niente di nuovo"; exit 0; }
           for i in 1 2 3 4 5; do
             git pull --no-rebase --no-edit origin main || true

@@ -144,6 +144,13 @@ tbody td.med{font-weight:700;font-variant-numeric:tabular-nums}
   .pmeta span{white-space:normal}
 }
 
+/* LEARNING BOX (apprendimento dagli esiti) */
+.learn{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px}
+.learn .li{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;text-align:center}
+.learn .ln{font-size:1.8rem;font-weight:800;letter-spacing:-.02em}
+.learn .ll{color:var(--muted);font-size:.82rem;margin-top:4px;line-height:1.35}
+@media(max-width:540px){.learn{grid-template-columns:1fr}}
+
 /* STATS */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}

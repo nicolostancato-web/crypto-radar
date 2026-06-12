@@ -13,6 +13,7 @@ import os, json, time
 HERE = os.path.dirname(os.path.abspath(__file__))
 TRENDS = os.path.join(HERE, "data", "trends.jsonl")
 CANDS = os.path.join(HERE, "data", "candidates.jsonl")
+TRACK = os.path.join(HERE, "data", "track.jsonl")
 OUT = os.path.join(HERE, "web", "pipeline.json")
 
 # etichette in italiano per i motivi di scarto del filtro
@@ -44,6 +45,60 @@ def _read_jsonl(path):
             out.append(json.loads(l))
         except Exception:
             pass
+    return out
+
+
+def build_outcomes():
+    """Dalle osservazioni del tracker (track.jsonl), simula entrata/uscita per ogni token.
+
+    Entrata ONESTA = primo prezzo osservato DOPO il segnale (non si entra prima del segnale).
+    Calcola: picco, ritorno attuale, ritorno a +1h/+6h/+24h, max gain, se ha fatto 2x, se e' ruggato.
+    Mostra anche le condizioni AL SEGNALE (vol_1h, eta) per imparare cosa separa i runner dai morti.
+    """
+    obs = _read_jsonl(TRACK)
+    by_ca = {}
+    for o in obs:
+        by_ca.setdefault(o.get("ca"), []).append(o)
+
+    def ret_at(series, target_min):
+        """ritorno % piu' vicino a target_min minuti dall'entrata (entry = prima obs)."""
+        if not series:
+            return None
+        entry = series[0].get("price")
+        if not entry:
+            return None
+        best = min(series, key=lambda x: abs((x.get("age_min") or 0) - target_min))
+        if abs((best.get("age_min") or 0) - target_min) > 180:   # tolleranza 3h, altrimenti non ancora
+            return None
+        p = best.get("price")
+        return round(p / entry - 1, 3) if p else None
+
+    out = []
+    for ca, series in by_ca.items():
+        series = sorted(series, key=lambda x: x.get("obs_ts") or 0)
+        if not series:
+            continue
+        entry = series[0]
+        last = series[-1]
+        ep = entry.get("price")
+        prices = [s.get("price") for s in series if s.get("price")]
+        peak = max(prices) if prices else None
+        ret_now = round(last["price"] / ep - 1, 3) if (ep and last.get("price")) else None
+        ret_max = round(peak / ep - 1, 3) if (ep and peak) else None
+        dd_from_peak = round(last["price"] / peak - 1, 3) if (peak and last.get("price")) else None
+        rugged = bool(last.get("liq") is not None and entry.get("liq") and last["liq"] < entry["liq"] * 0.3)
+        out.append({
+            "ca": ca, "ticker": entry.get("ticker"), "pass": entry.get("pass"),
+            "entry_fdv": entry.get("fdv"), "last_fdv": last.get("fdv"),
+            "sig_vol_1h": entry.get("vol_1h"), "sig_liq": entry.get("liq"),
+            "ret_now": ret_now, "ret_max": ret_max, "dd_from_peak": dd_from_peak,
+            "ret_1h": ret_at(series, 60), "ret_6h": ret_at(series, 360), "ret_24h": ret_at(series, 1440),
+            "hit_2x": bool(ret_max is not None and ret_max >= 1.0),
+            "rugged": rugged, "n_obs": len(series),
+            "hours_tracked": round(((last.get("obs_ts") or 0) - (entry.get("obs_ts") or 0)) / 3600, 1),
+        })
+    # ordina per miglior picco raggiunto
+    out.sort(key=lambda x: (x["ret_max"] is not None, x["ret_max"] or -9), reverse=True)
     return out
 
 
@@ -113,6 +168,26 @@ def build():
         "evaluated": evaluated,
         "passed_count": len(passed),
         "candidates": [card(c) for c in cand_list],
+    }
+
+    # --- esiti simulati + apprendimento (perle vs scartati) ---
+    outcomes = build_outcomes()
+    data["outcomes"] = outcomes
+    settled = [o for o in outcomes if o["ret_max"] is not None]
+    pearls = [o for o in settled if o["pass"]]
+    rejects = [o for o in settled if not o["pass"]]
+
+    def hit2x_rate(group):
+        return round(sum(1 for o in group if o["hit_2x"]) / len(group), 2) if group else None
+
+    data["learning"] = {
+        "tracked_tokens": len(outcomes),
+        "settled": len(settled),
+        "pearls_tracked": len(pearls),
+        "rejects_tracked": len(rejects),
+        "pearls_2x_rate": hit2x_rate(pearls),     # quante perle hanno fatto almeno 2x
+        "rejects_2x_rate": hit2x_rate(rejects),   # quanti scartati hanno fatto 2x (= filtro troppo severo?)
+        "best": outcomes[0] if outcomes and outcomes[0]["ret_max"] is not None else None,
     }
     return data
 
