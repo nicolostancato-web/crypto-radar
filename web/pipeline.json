@@ -1,73 +1,58 @@
 {
-  "updated_utc": "2026-06-12 07:32",
-  "scans_total": 5,
+  "updated_utc": "2026-06-12 11:54",
+  "scans_total": 6,
   "last_scan": {
-    "utc": "2026-06-12 07:32",
-    "n_tokens": 4,
+    "utc": "2026-06-12 11:54",
+    "n_tokens": 3,
     "tokens": [
       {
-        "ticker": "SPCX",
-        "narrative": "SpaceX energy on pump.fun",
-        "callers": "@solanadailys",
-        "distinct_callers": 1,
-        "why_now": "just launched + chart screenshot",
-        "entry_thesis": "early pump.fun launch with clear meme hook, enter on first multi-caller wave",
+        "ticker": "ARX",
+        "narrative": "first sealed AI builder on Solana",
+        "callers": "@arxcodexyz",
+        "distinct_callers": 2,
+        "why_now": "live pump.fun launch + organic replies in last hours",
+        "entry_thesis": "AI narrative + sealed hook; enter on first 3-4 independent mentions before Raydium",
         "red_flags": null,
-        "sentiment": "hype",
+        "sentiment": "organic",
         "momentum": "rising",
         "heat": 5,
-        "confidence": 4,
+        "confidence": 6,
         "velocity": "rising",
         "age_hours": 6
       },
       {
-        "ticker": "DINKY",
-        "narrative": "wholesome baby duck from viral TikTok videos",
-        "callers": "@JookCrypto",
-        "distinct_callers": 1,
-        "why_now": "organic TikTok crossover starting to hit CT",
-        "entry_thesis": "clean chart + real engagement, enter if replies and quotes accelerate",
-        "red_flags": null,
-        "sentiment": "organic",
+        "ticker": "SPCX",
+        "narrative": "SpaceX energy meme on Solana",
+        "callers": "@solanadailys",
+        "distinct_callers": 2,
+        "why_now": "just launched + chart screenshots circulating",
+        "entry_thesis": "SpaceX hook + visual momentum; watch for 3+ independent posts in next 4h",
+        "red_flags": "single main caller + DCA shill language",
+        "sentiment": "hype",
         "momentum": "rising",
         "heat": 4,
         "confidence": 5,
         "velocity": "rising",
-        "age_hours": 36
+        "age_hours": 5
       },
       {
-        "ticker": "BioLLM",
-        "narrative": "AI merging with biology",
-        "callers": "@joejoeboy0",
+        "ticker": "SPC",
+        "narrative": "Solana crowdfunding platform token",
+        "callers": "@solpitch2026",
         "distinct_callers": 1,
-        "why_now": "daily narrative drop on pump.fun",
-        "entry_thesis": "watch for second independent caller before entry",
-        "red_flags": "single caller only",
+        "why_now": "CoinGecko listing request + pump.fun fair launch",
+        "entry_thesis": "project utility angle; only if independent callers appear",
+        "red_flags": "dev account self-promo + utility pitch",
         "sentiment": "mixed",
         "momentum": "steady",
         "heat": 3,
-        "confidence": 3,
+        "confidence": 4,
         "velocity": "flat",
         "age_hours": 8
-      },
-      {
-        "ticker": "GOLDENGOAL",
-        "narrative": "live football prediction on Solana",
-        "callers": "@Coindigger001",
-        "distinct_callers": 1,
-        "why_now": "fresh launch with video",
-        "entry_thesis": "sports narrative + pump.fun, monitor for independent reposts",
-        "red_flags": null,
-        "sentiment": "hype",
-        "momentum": "rising",
-        "heat": 4,
-        "confidence": 3,
-        "velocity": "rising",
-        "age_hours": 4
       }
     ]
   },
-  "evaluated": 12,
+  "evaluated": 14,
   "passed_count": 1,
   "candidates": [
     {
@@ -86,6 +71,69 @@
       "mint_revoked": true,
       "freeze_revoked": true,
       "pc_24h": 182
+    },
+    {
+      "ticker": "SPCX",
+      "ca": "9qpDk7hGSHqyfMGDT7p4zFQ35aGff248Qes48CgLpump",
+      "pass": false,
+      "grok_heat": 4,
+      "fails": [
+        "più vendite che acquisti (già in distribuzione)"
+      ],
+      "liq": 77374,
+      "vol_24h": 96858,
+      "vol_1h": 58578,
+      "age_h": 5.4,
+      "top10_pct": 0.172,
+      "top1_pct": 0.047,
+      "bs_ratio_1h": 0.89,
+      "mint_revoked": true,
+      "freeze_revoked": true,
+      "pc_24h": 118
+    },
+    {
+      "ticker": "SPC",
+      "ca": "2DkrY8hFQ47GCqMkUGCabbnm1sQMUJnMJhZjQW1Mpump",
+      "pass": false,
+      "grok_heat": 3,
+      "fails": [
+        "liquidità troppo bassa (esci e crolla)",
+        "volume 1h troppo basso (non scalda ora)",
+        "i primi 10 wallet tengono troppo (rug pronto)",
+        "un solo wallet domina (balena che ti scarica addosso)"
+      ],
+      "liq": 7448,
+      "vol_24h": 246404,
+      "vol_1h": 1506,
+      "age_h": 20.7,
+      "top10_pct": 0.601,
+      "top1_pct": 0.331,
+      "bs_ratio_1h": 2.8,
+      "mint_revoked": true,
+      "freeze_revoked": true,
+      "pc_24h": -57.99
+    },
+    {
+      "ticker": "ARX",
+      "ca": "HEWeSgpAzo2YPU8YeA264qc5nALRErFTED6DegH5pump",
+      "pass": false,
+      "grok_heat": 5,
+      "fails": [
+        "liquidità troppo bassa (esci e crolla)",
+        "volume 24h troppo basso (nessuno scambia)",
+        "i primi 10 wallet tengono troppo (rug pronto)",
+        "un solo wallet domina (balena che ti scarica addosso)"
+      ],
+      "liq": 0,
+      "vol_24h": 38102,
+      "vol_1h": 4553,
+      "age_h": 2.6,
+      "top10_pct": 0.609,
+      "top1_pct": 0.332,
+      "bs_ratio_1h": 1.24,
+      "mint_revoked": true,
+      "freeze_revoked": true,
+      "pc_24h": 512
     },
     {
       "ticker": "GOLDENGOAL",
@@ -128,25 +176,6 @@
       "mint_revoked": true,
       "freeze_revoked": true,
       "pc_24h": -7.77
-    },
-    {
-      "ticker": "SPCX",
-      "ca": "9qpDk7hGSHqyfMGDT7p4zFQ35aGff248Qes48CgLpump",
-      "pass": false,
-      "grok_heat": 5,
-      "fails": [
-        "più vendite che acquisti (già in distribuzione)"
-      ],
-      "liq": 49897,
-      "vol_24h": 1677911,
-      "vol_1h": 79244,
-      "age_h": 24.3,
-      "top10_pct": 0.202,
-      "top1_pct": 0.062,
-      "bs_ratio_1h": 1.2,
-      "mint_revoked": true,
-      "freeze_revoked": true,
-      "pc_24h": 1306
     },
     {
       "ticker": "DINKY",
