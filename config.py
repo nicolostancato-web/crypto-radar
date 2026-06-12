@@ -339,6 +339,27 @@ def _apply_scenario_overrides():
 _apply_scenario_overrides()
 
 # ---------------------------------------------------------------------------
+# FILTER — pipeline X-FIRST step 2: filtri FORTI su DexScreener+Helius per scartare rug/dud.
+# Soglie da deep search (DeepSeek 2026-06-12). CALIBRABILI: si stringono/allargano sui risultati.
+# ---------------------------------------------------------------------------
+FILTER = {
+    "min_liquidity": 10_000,      # sotto = rug/morto (ROLL, GOOAL avevano $0)
+    "max_liquidity": 2_000_000,   # sopra su token giovane = possibile wash/LP falso
+    "voliq_min": 0.5,             # volume24h/liquidita': sotto = morto
+    "voliq_max": 50,              # sopra = wash trading / pump artificiale
+    "voliq_healthy_lo": 2, "voliq_healthy_hi": 15,  # range sano (bonus)
+    "min_vol_24h": 50_000,
+    "min_vol_1h": 3_000,          # momentum early (un filo sotto i $5k di DeepSeek per non perdere troppo)
+    "age_min_hours": 1,           # <1h = flash-rug
+    "age_max_hours": 72,          # >72h = non piu' early (DeepSeek diceva 48; teniamo un filo largo)
+    "min_holders": 0,             # OFF: il conteggio via Helius e' limitato a 20 (top accounts), non affidabile
+    "max_top10_pct": 0.50,        # CALIBRATO 12/06: il runner BrimfableAI aveva 25%, i rug 88-100% -> 50% separa pulito
+    "max_top1_pct": 0.30,         # 1 wallet >30% = allarme (era 10%, troppo stretto per gli early)
+    "min_bs_ratio_1h": 1.2,       # pressione compratori (un filo sotto 1.5 per non essere troppo stretti)
+    "require_authority_revoked": True,  # mint+freeze revocate = obbligatorio (KILLER)
+}
+
+# ---------------------------------------------------------------------------
 # COSTI / RETE — paletti per non bruciare i rate limit gratuiti
 # ---------------------------------------------------------------------------
 LIMITS = {
