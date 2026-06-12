@@ -154,3 +154,5 @@ _(ogni run del loop autonomo appende qui: data, scenario, # trade accumulati, EV
 - **2026-06-11 16:32 UTC** · S2_smartexit it9 · n=10 EV_med=-32.82% · hold -31.55% aperti=12 · **CONTINUA**
 - **2026-06-11 20:39 UTC** · S3_cluster it10 · n=0 EV_med=— aperti=0 · **CONTINUA**
 - **2026-06-11 20:39 UTC** · S2_smartexit it10 · n=13 EV_med=-31.32% · hold +45.59% aperti=11 · **CONTINUA**
+- **2026-06-12 05:11 UTC** · S3_cluster it11 · n=0 EV_med=— aperti=0 · **CONTINUA**
+- **2026-06-12 05:11 UTC** · S2_smartexit it11 · n=17 EV_med=-31.32% · hold +103.43% aperti=10 · **CONTINUA**
