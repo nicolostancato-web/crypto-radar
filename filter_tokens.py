@@ -27,16 +27,17 @@ OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", "candidat
 
 
 def _dex(ca):
-    """Metriche DexScreener del pair Solana piu' liquido per un contract address."""
+    """Metriche DexScreener del pair piu' liquido (Solana o Base) per un contract address."""
     try:
         r = requests.get("https://api.dexscreener.com/latest/dex/tokens/" + ca, timeout=10)
-        pairs = [p for p in (r.json().get("pairs") or []) if p.get("chainId") == "solana"]
+        pairs = [p for p in (r.json().get("pairs") or []) if p.get("chainId") in ("solana", "base")]
         if not pairs:
             return None
         p = max(pairs, key=lambda x: (x.get("liquidity") or {}).get("usd") or 0)
         tx1 = (p.get("txns") or {}).get("h1") or {}
         return {
             "name": (p.get("baseToken") or {}).get("symbol"),
+            "chain": p.get("chainId"),
             "liq": (p.get("liquidity") or {}).get("usd") or 0,
             "vol_24h": (p.get("volume") or {}).get("h24") or 0,
             "vol_1h": (p.get("volume") or {}).get("h1") or 0,
@@ -54,7 +55,8 @@ def evaluate(ca):
     d = _dex(ca)
     if not d:
         return {"pass": False, "fails": ["no_pool"], "metrics": {}}
-    s = onchain.token_safety(ca) or {}
+    # i check di sicurezza Helius (concentrazione/authority) sono Solana-only; su Base si saltano
+    s = (onchain.token_safety(ca) or {}) if d.get("chain") == "solana" else {}
     now = time.time()
     age_h = ((now - d["created_ms"] / 1000) / 3600) if d.get("created_ms") else None
     voliq = (d["vol_24h"] / d["liq"]) if d["liq"] else None
@@ -64,7 +66,7 @@ def evaluate(ca):
          "age_h": round(age_h, 1) if age_h is not None else None, "bs_ratio_1h": round(bs1, 2),
          "holders": s.get("holders"), "top10_pct": s.get("top10_pct"), "top1_pct": s.get("top1_pct"),
          "mint_revoked": s.get("mint_revoked"), "freeze_revoked": s.get("freeze_revoked"),
-         "fdv": d.get("fdv"), "venue": d.get("venue"), "pc_24h": d.get("pc_24h")}
+         "fdv": d.get("fdv"), "venue": d.get("venue"), "pc_24h": d.get("pc_24h"), "chain": d.get("chain")}
 
     f = FILTER
     fails = []
@@ -78,7 +80,8 @@ def evaluate(ca):
     if s.get("top10_pct") is not None and s["top10_pct"] > f["max_top10_pct"]: fails.append("top10_concentrato")
     if s.get("top1_pct") is not None and s["top1_pct"] > f["max_top1_pct"]: fails.append("top1_balena")
     if bs1 < f["min_bs_ratio_1h"]: fails.append("bs_ratio_basso")
-    if f["require_authority_revoked"] and not (s.get("mint_revoked") and s.get("freeze_revoked")):
+    # authority verificabile solo su Solana (Helius); su Base (s vuoto) il check si salta
+    if f["require_authority_revoked"] and s and not (s.get("mint_revoked") and s.get("freeze_revoked")):
         fails.append("authority_attiva")
     return {"pass": len(fails) == 0, "fails": fails, "metrics": m}
 
@@ -109,7 +112,9 @@ def run(lookback_snapshots=2):
             res = evaluate(ca)
             evaluated += 1
             row = {"ts": int(time.time()), "snapshot_ts": snap["ts"], "ticker": t.get("ticker"),
-                   "ca": ca, "grok_heat": t.get("heat"), "grok_velocity": t.get("velocity"),
+                   "ca": ca, "arena": t.get("arena") or "memecoin",
+                   "chain": t.get("chain") or res["metrics"].get("chain"),
+                   "grok_heat": t.get("heat"), "grok_velocity": t.get("velocity"),
                    "pass": res["pass"], "fails": res["fails"], "metrics": res["metrics"]}
             f.write(json.dumps(row) + "\n")
             mark = "✅ PASSA" if res["pass"] else "❌ " + ",".join(res["fails"][:3])

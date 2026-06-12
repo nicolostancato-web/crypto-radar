@@ -30,10 +30,10 @@ TRACK_WINDOW_H = 48   # seguiamo ogni token per 48h dal PRIMO segnale, poi lo co
 
 
 def _dex(ca):
-    """Fotografia DexScreener del pair Solana piu' liquido: prezzo, fdv, liq, volumi, var%."""
+    """Fotografia DexScreener del pair piu' liquido (Solana o Base): prezzo, fdv, liq, volumi, var%."""
     try:
         r = requests.get("https://api.dexscreener.com/latest/dex/tokens/" + ca, timeout=10)
-        pairs = [p for p in (r.json().get("pairs") or []) if p.get("chainId") == "solana"]
+        pairs = [p for p in (r.json().get("pairs") or []) if p.get("chainId") in ("solana", "base")]
         if not pairs:
             return None
         p = max(pairs, key=lambda x: (x.get("liquidity") or {}).get("usd") or 0)
@@ -44,6 +44,7 @@ def _dex(ca):
             price = None
         return {
             "ticker": (p.get("baseToken") or {}).get("symbol"),
+            "chain": p.get("chainId"),
             "price": price,
             "fdv": p.get("fdv"),
             "liq": (p.get("liquidity") or {}).get("usd") or 0,
@@ -73,7 +74,8 @@ def _first_signals():
         if not sig:
             continue
         if ca not in first:
-            first[ca] = {"signal_ts": sig, "ticker": c.get("ticker"), "pass": bool(c.get("pass"))}
+            first[ca] = {"signal_ts": sig, "ticker": c.get("ticker"), "pass": bool(c.get("pass")),
+                         "arena": c.get("arena") or "memecoin", "chain": c.get("chain")}
         else:
             if sig < first[ca]["signal_ts"]:
                 first[ca]["signal_ts"] = sig
@@ -100,6 +102,7 @@ def run():
         if not d:
             continue
         row = {"ca": ca, "ticker": meta.get("ticker") or d.get("ticker"), "pass": meta["pass"],
+               "arena": meta.get("arena") or "memecoin", "chain": meta.get("chain") or d.get("chain"),
                "signal_ts": meta["signal_ts"], "obs_ts": now, "age_min": round(age_min),
                "price": d["price"], "fdv": d["fdv"], "liq": round(d["liq"]),
                "vol_1h": round(d["vol_1h"]), "vol_24h": round(d["vol_24h"]),

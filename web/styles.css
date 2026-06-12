@@ -144,6 +144,17 @@ tbody td.med{font-weight:700;font-variant-numeric:tabular-nums}
   .pmeta span{white-space:normal}
 }
 
+/* ARENA TAG (memecoin vs ai_agent) */
+.atag{font-size:.62rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;
+  padding:2px 7px;border-radius:20px;vertical-align:middle}
+.atag.meme{background:#1c2740;color:#9db2e6}
+.atag.ai{background:#231a3a;color:#c4a6ff}
+.arenacmp{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:16px}
+.arenacmp .acl{color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px}
+.arow{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-top:1px solid var(--line);font-size:.9rem}
+.arow:first-of-type{border-top:none}
+.arow span:last-child{color:var(--muted)}
+
 /* LEARNING BOX (apprendimento dagli esiti) */
 .learn{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px}
 .learn .li{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;text-align:center}

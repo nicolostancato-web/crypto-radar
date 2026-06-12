@@ -90,6 +90,7 @@ def build_outcomes():
         rugged = bool(last.get("liq") is not None and entry.get("liq") and last["liq"] < entry["liq"] * 0.3)
         out.append({
             "ca": ca, "ticker": entry.get("ticker"), "pass": entry.get("pass"),
+            "arena": entry.get("arena") or "memecoin", "chain": entry.get("chain"),
             "entry_fdv": entry.get("fdv"), "last_fdv": last.get("fdv"),
             "sig_vol_1h": entry.get("vol_1h"), "sig_liq": entry.get("liq"),
             "ret_now": ret_now, "ret_max": ret_max, "dd_from_peak": dd_from_peak,
@@ -126,6 +127,8 @@ def build():
         return {
             "ticker": c.get("ticker") or m.get("name") or "?",
             "ca": c.get("ca"),
+            "arena": c.get("arena") or "memecoin",
+            "chain": c.get("chain") or m.get("chain"),
             "pass": bool(c.get("pass")),
             "grok_heat": c.get("grok_heat"),
             "fails": [FAIL_IT.get(f, f) for f in (c.get("fails") or [])],
@@ -150,6 +153,8 @@ def build():
             "tokens": [
                 {
                     "ticker": t.get("ticker"),
+                    "arena": t.get("arena") or "memecoin",
+                    "chain": t.get("chain"),
                     "narrative": t.get("narrative"),
                     "callers": t.get("callers"),
                     "distinct_callers": t.get("distinct_callers"),
@@ -190,6 +195,29 @@ def build():
         "rejects_2x_rate": hit2x_rate(rejects),   # quanti scartati hanno fatto 2x (= filtro troppo severo?)
         "best": outcomes[0] if outcomes and outcomes[0]["ret_max"] is not None else None,
     }
+
+    # --- confronto PER ARENA (memecoin vs ai_agent): quale rende di piu' per noi ---
+    arenas = {}
+    for o in outcomes:
+        a = o.get("arena") or "memecoin"
+        ar = arenas.setdefault(a, {"tracked": 0, "settled": 0, "runners": 0, "best_ret": None})
+        ar["tracked"] += 1
+        if o["ret_max"] is not None:
+            ar["settled"] += 1
+            if o["hit_2x"]:
+                ar["runners"] += 1
+            if ar["best_ret"] is None or o["ret_max"] > ar["best_ret"]:
+                ar["best_ret"] = o["ret_max"]
+    for a, ar in arenas.items():
+        ar["runner_rate"] = round(ar["runners"] / ar["settled"], 2) if ar["settled"] else None
+    data["learning"]["by_arena"] = arenas
+
+    # quante candidate per arena (anche non ancora tracciate)
+    acount = {}
+    for c in cand_list:
+        a = c.get("arena") or "memecoin"
+        acount[a] = acount.get(a, 0) + 1
+    data["arena_counts"] = acount
 
     # --- lezioni apprese (step 5: learner.py) ---
     if os.path.exists(LEARN):

@@ -39,6 +39,14 @@ Quindi: NON devi vendermi sogni, devi darmi MATERIA PRIMA ONESTA e RICCA di dett
 io possa incrociare con la blockchain. Un tuo dato sbagliato o gonfiato inquina mesi di backtest.
 Noi NON facciamo scalping da secondi: lavoriamo sulla finestra di ORE/giorni — l'onda del trend, non il tick.
 
+# LE DUE ARENE CHE CACCIO (taggale, le confronto coi dati per capire quale rende di piu')
+- ARENA "memecoin": memecoin Solana fresche (pump.fun / Raydium / Meteora) — meme/cultura/animali/eventi.
+- ARENA "ai_agent": AI-agent tokens e affini (es. ecosistema Virtuals e simili) — token legati ad agenti AI,
+  spesso su Solana o Base. Qui il chiacchiericcio su X e' denso e i KOL sono piu' "tecnici": guide, thread,
+  demo dell'agente. Cerca i NUOVI agent token che stanno scaldando ORA, non i gia'-famosi.
+Voglio candidate da ENTRAMBE le arene. Preferisci token su SOLANA quando possibile (il mio filtro on-chain
+e' piu' completo li'), ma accetta anche Base se il segnale e' forte — segnami sempre la chain.
+
 # CIO' CHE CERCO: l'IGNIZIONE PRECOCE (la fase in cui l'attenzione ACCELERA, prima del pump grosso)
 Il momento d'oro e' quando un token fresco passa da "pochi lo nominano" a "se ne parla ovunque" nel giro
 di ore. Voglio beccarlo MENTRE accelera, non dopo. I segnali che DEVI cercare attivamente su X:
@@ -68,10 +76,11 @@ di ore. Voglio beccarlo MENTRE accelera, non dopo. I segnali che DEVI cercare at
 Non scartare per forza il token: dammelo MA scrivi i red flag in chiaro cosi' io li peso.
 
 # ESCLUSIONI TASSATIVE
-- Memecoin gia' note / pre-esistenti a oggi: GOAT, PNUT, MOODENG, FARTCOIN, GIGA, BONK, WIF, POPCAT,
-  CHILLGUY, AI16Z, GRIFFAIN, ZEREBRO, PEANUT, USELESS, PENGU e simili "vecchie/famose". Le conoscevi gia' -> FUORI.
+- Memecoin/AI-agent gia' note / pre-esistenti a oggi: GOAT, PNUT, MOODENG, FARTCOIN, GIGA, BONK, WIF, POPCAT,
+  CHILLGUY, AI16Z, GRIFFAIN, ZEREBRO, PEANUT, USELESS, PENGU, VIRTUAL, AIXBT, LUNA(virtuals) e simili gia'
+  famose/grandi. Le conoscevi gia' -> FUORI. Voglio i NUOVI agent/meme che scaldano ORA, non i big consolidati.
 - Market cap gia' grande (>$10-20M) o token vecchi di settimane -> sei in ritardo, FUORI.
-- Token su altre chain (Base, Ethereum, Tron...). SOLO Solana.
+- SOLO Solana o Base. Niente Ethereum mainnet, Tron, BSC, altre chain.
 
 # FINESTRA TEMPORALE GIUSTA
 Non l'ultra-micro "lanciato 4 minuti fa" (non ha ancora segnale leggibile su X) e non la mega-famosa gia'
@@ -94,8 +103,9 @@ Un CA inventato mi fa sprecare chiamate on-chain e inquina il dataset: preferisc
    il testo DENSO, non prolisso: il valore e' nei dati, non nella prosa. Schema di OGNI elemento:
 [{
   "ticker": "string",                 // es. "$WIF" o "WIF"
-  "ca": "string|null",                // contract address Solana esatto, o null se non l'hai visto
-  "chain": "solana",
+  "ca": "string|null",                // contract address esatto (Solana o Base), o null se non l'hai visto
+  "arena": "memecoin|ai_agent",       // a quale delle due arene appartiene
+  "chain": "solana|base",             // su quale chain vive (importante per il filtro on-chain)
   "age_hours": 12,                    // eta' stimata in ore, null se ignota
   "mcap_est": "string|null",          // es. "350k", "1.2M"
   "narrative": "string",              // il meme/hook in una frase

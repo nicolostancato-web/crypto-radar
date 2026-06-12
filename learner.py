@@ -89,6 +89,7 @@ def _signal_features():
             "liq": m.get("liq"), "age_h": m.get("age_h"), "top10_pct": m.get("top10_pct"),
             "bs_ratio_1h": m.get("bs_ratio_1h"), "grok_heat": c.get("grok_heat"),
             "ticker": c.get("ticker"), "pass": bool(c.get("pass")),
+            "arena": c.get("arena") or "memecoin",
         }
     return feat
 
@@ -102,11 +103,23 @@ def run():
         if not f:
             continue
         trades.append({"ca": ca, "ticker": f.get("ticker"), "pass": f.get("pass"),
-                       "ret_max": o["ret_max"], "runner": o["ret_max"] >= RUNNER_PCT, "feat": f})
+                       "arena": f.get("arena"), "ret_max": o["ret_max"],
+                       "runner": o["ret_max"] >= RUNNER_PCT, "feat": f})
 
     settled = len(trades)
     runners = [t for t in trades if t["runner"]]
     deads = [t for t in trades if not t["runner"]]
+
+    # confronto per arena: quale rende di piu' per il nostro metodo
+    by_arena = {}
+    for t in trades:
+        a = t.get("arena") or "memecoin"
+        ba = by_arena.setdefault(a, {"trades": 0, "runners": 0})
+        ba["trades"] += 1
+        if t["runner"]:
+            ba["runners"] += 1
+    for a, ba in by_arena.items():
+        ba["runner_rate"] = round(ba["runners"] / ba["trades"], 2) if ba["trades"] else None
 
     lessons = []
     if settled >= PRELIM and runners and deads:
@@ -129,6 +142,7 @@ def run():
         "updated_utc": time.strftime("%Y-%m-%d %H:%M", time.gmtime()),
         "runner_pct": int(RUNNER_PCT * 100),
         "settled": settled, "runners": len(runners), "deads": len(deads),
+        "by_arena": by_arena,
         "prelim_at": PRELIM, "ready_at": READY,
         "status": "ready" if settled >= READY else ("prelim" if settled >= PRELIM else "accumulo"),
         "lessons": lessons,

@@ -1,9 +1,16 @@
 {
-  "updated_utc": "2026-06-12 15:42",
+  "updated_utc": "2026-06-12 16:42",
   "runner_pct": 50,
   "settled": 18,
   "runners": 1,
   "deads": 17,
+  "by_arena": {
+    "memecoin": {
+      "trades": 18,
+      "runners": 1,
+      "runner_rate": 0.06
+    }
+  },
   "prelim_at": 8,
   "ready_at": 25,
   "status": "prelim",

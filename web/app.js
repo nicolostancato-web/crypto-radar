@@ -17,6 +17,11 @@ async function load(name) {
   return null;
 }
 
+const arenaTag = (a) =>
+  a === "ai_agent"
+    ? '<span class="atag ai">AI agent</span>'
+    : '<span class="atag meme">memecoin</span>';
+
 function heatDots(h) {
   h = Math.max(0, Math.min(10, h || 0));
   const full = Math.round(h / 2); // 0..5
@@ -42,7 +47,7 @@ function renderTrends(d) {
       ? `${t.distinct_callers} account${t.distinct_callers == 1 ? "" : " indip."}` : (t.callers || "—");
     return `
     <div class="card sc">
-      <div class="ttop"><h3>${t.ticker || "?"}</h3><span class="heat" title="quanto scalda su X">${heatDots(t.heat)}</span></div>
+      <div class="ttop"><h3>${t.ticker || "?"} ${arenaTag(t.arena)}</h3><span class="heat" title="quanto scalda su X">${heatDots(t.heat)}</span></div>
       <p class="muted" style="font-size:.86rem">${t.narrative || ""}</p>
       ${thesis}
       <div class="row"><span>chi ne parla</span><span>${callers}</span></div>
@@ -88,7 +93,7 @@ function renderCandidates(d) {
     return `
       <div class="cand ${c.pass ? "pass" : "fail"}">
         <div class="chead">
-          <div class="cname">${c.ticker} ${c.pass ? '<span class="badge y">PERLA</span>' : '<span class="badge n">scartato</span>'}</div>
+          <div class="cname">${c.ticker} ${arenaTag(c.arena)} ${c.pass ? '<span class="badge y">PERLA</span>' : '<span class="badge n">scartato</span>'}</div>
           <a class="ca" href="https://dexscreener.com/solana/${c.ca}" target="_blank" rel="noopener">vedi su DexScreener →</a>
         </div>
         <div class="chips">${chips}</div>
@@ -115,6 +120,10 @@ function renderOutcomes(d) {
       <div class="li"><div class="ln pos">${f(pr)}</div><div class="ll">perle che fanno ≥2x</div></div>
       <div class="li"><div class="ln ${rr ? "neg" : ""}">${f(rr)}</div><div class="ll">scartati che fanno 2x<br><span class="muted">(se alto → filtro troppo severo)</span></div></div>
     </div>`;
+    const ba = L.by_arena || {};
+    const arows = Object.entries(ba).map(([a, v]) =>
+      `<div class="arow"><span>${arenaTag(a)}</span><span>${v.tracked} tracciati${v.settled ? " · " + v.settled + " conclusi · " + Math.round((v.runner_rate || 0) * 100) + "% runner" : ""}</span></div>`).join("");
+    if (arows) lb.innerHTML += `<div class="arenacmp"><div class="acl">Confronto arene — chi rende di più per il nostro metodo</div>${arows}</div>`;
   }
   tb.innerHTML = list.map((o) => {
     const rm = o.ret_max == null ? "—" : (o.ret_max >= 0 ? "+" : "") + Math.round(o.ret_max * 100) + "%";
