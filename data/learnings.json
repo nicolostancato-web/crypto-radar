@@ -1,12 +1,70 @@
 {
-  "updated_utc": "2026-06-12 13:07",
+  "updated_utc": "2026-06-12 15:42",
   "runner_pct": 50,
-  "settled": 0,
-  "runners": 0,
-  "deads": 0,
+  "settled": 18,
+  "runners": 1,
+  "deads": 17,
   "prelim_at": 8,
   "ready_at": 25,
-  "status": "accumulo",
-  "lessons": [],
-  "best_runners": []
+  "status": "prelim",
+  "lessons": [
+    {
+      "feature": "vol_1h",
+      "label": "volume 1h",
+      "runner_median": 1877,
+      "dead_median": 664.5,
+      "ratio": 2.82
+    },
+    {
+      "feature": "vol_24h",
+      "label": "volume 24h",
+      "runner_median": 20005,
+      "dead_median": 66176.5,
+      "ratio": 0.3
+    },
+    {
+      "feature": "age_h",
+      "label": "età (h)",
+      "runner_median": 42.6,
+      "dead_median": 25.6,
+      "ratio": 1.66
+    },
+    {
+      "feature": "grok_heat",
+      "label": "heat di Grok",
+      "runner_median": 6,
+      "dead_median": 5,
+      "ratio": 1.2
+    },
+    {
+      "feature": "top10_pct",
+      "label": "top 10 wallet",
+      "runner_median": 0.718,
+      "dead_median": 0.605,
+      "ratio": 1.19
+    },
+    {
+      "feature": "bs_ratio_1h",
+      "label": "buy/sell 1h",
+      "runner_median": 1.15,
+      "dead_median": 1.22,
+      "ratio": 0.94
+    },
+    {
+      "feature": "liq",
+      "label": "liquidità",
+      "runner_median": 0,
+      "dead_median": 5627.5,
+      "ratio": null
+    }
+  ],
+  "best_runners": [
+    {
+      "ticker": "AgentFX",
+      "ret_max": 1.22,
+      "pass": false,
+      "vol_1h": 1877,
+      "voliq": null
+    }
+  ]
 }
