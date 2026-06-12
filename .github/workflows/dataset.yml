@@ -30,7 +30,7 @@ jobs:
           HELIUS_API_KEY: ${{ secrets.HELIUS_API_KEY }}
           COINGECKO_DEMO_KEY: ${{ secrets.COINGECKO_DEMO_KEY }}
         run: |
-          python dataset.py 150
+          python dataset.py 400
           python analyze.py
 
       - name: Salva dataset + report su GitHub
