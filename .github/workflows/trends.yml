@@ -6,7 +6,7 @@ name: crypto-radar-trends
 # on-chain + backtest di quali segnali predicono il pump.
 on:
   schedule:
-    - cron: "15 */4 * * *"     # ogni 4 ore (CFO: ~$0.02/chiamata, 6/giorno)
+    - cron: "15 * * * *"       # ogni 1 ora (CFO: ~$0.03/query, 24/giorno ≈ $22/mese, coperto dai $175 free se data-sharing ON; ~720 min/mese GitHub, dentro il free tier)
   workflow_dispatch: {}
 
 permissions:
