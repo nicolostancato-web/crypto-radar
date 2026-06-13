@@ -165,6 +165,7 @@ function renderSim(d) {
     Con l'entrata al segnale, le <b>perle</b> rendono ${pp(pm)} mediano vs <b>${pp(fm)}</b> degli scartati.
     ${lateEntry ? "Le perle le prendiamo a pump quasi finito → il problema è <b>quando entriamo</b>, non l'uscita. Va anticipata la cattura." : ""}
     ${s.by_arena ? "<br>Per arena (trailing −25%): " + Object.entries(s.by_arena).map(([a, r]) => `${a} ${pp(r)}`).join(" · ") : ""}
+    ${s.entry_timing && s.entry_timing.at_signal ? `<br><b>Timing d'ingresso (perle):</b> al segnale ${pp(s.entry_timing.at_signal.median)} · dopo correzione −15% ${s.entry_timing.dip15 ? pp(s.entry_timing.dip15.median) : "—"} → aspettare il dip rende di più` : ""}
   </div>`;
 }
 

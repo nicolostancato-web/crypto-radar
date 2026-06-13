@@ -81,3 +81,29 @@ servono piu' trade conclusi e idealmente vedere se il pattern regge su un'altra 
 Il dato sporco NON e' cancellato (append-only), solo ignorato in lettura.
 
 **Stato:** verdetto registrato. Filtro INVARIATO in attesa di piu' dati.
+
+## Lezione #4 — Review esterna (DeepSeek): il problema e' la LATENZA, non il filtro (2026-06-13)
+
+Double-agent: consulto massivo a DeepSeek + GPT5 (GPT5 timeout). Vedi CONSULENZA_review_deepseek.md.
+
+**Verdetto brutale DeepSeek:** "strutturalmente perdente con la config attuale". Causa precisa: la LATENZA.
+La tesi 'X precede il prezzo' regge solo per le PRIME 1-3 ore di un rally; con scan ogni 4h lo vediamo con
+2-8h di ritardo -> compriamo sempre dopo il pump. Inoltre, insight chiave: il filtro `vol24h>50k` ESCLUDE i
+token <24h -> ecco perche' le green hanno eta' 27h+ (cancelliamo i segnali precoci col nostro stesso filtro).
+
+**Implementato subito (gratis, test coi nostri dati):** il TIMING d'ingresso. Sulle perle:
+- entrare al segnale = -16% mediano
+- aspettare una correzione -15% poi entrare = +2% mediano (n piccolo, ma direzione coerente col pivot).
+Il test ora gira da solo e si popola. Conferma il pivot "compra la correzione, non il top".
+
+**Suggerimenti DeepSeek da DECIDERE (grossi, non applicati alla cieca):**
+1. Ridurre latenza scan (streaming/event-driven ~60s) — contraddice la scelta CFO 4h; va valutato (VPS/Twitter stream).
+2. Backtest STORICO su 500-1000 token (DexScreener/Birdeye) per sample size vero (ora 31 trade = troppo pochi).
+3. Regressione logistica/random forest (sklearn) sulle feature invece del confronto manuale (serve piu' dati).
+4. Fix filtro: per token <8h togliere vol24h/vol1h assoluti, usare ACCELERAZIONE volume (% su 30min).
+5. Aggiungere: buyers unici, eta'/storia del wallet deployer, slippage simulato (-2% al P&L).
+
+**Non applico:** togliere il watchdog (Nicolo lo vuole per il suo modo di lavorare). Resta.
+
+**Punto onesto:** 31 trade sono troppo pochi per qualunque conclusione forte. La review e' una bussola, non
+una verita'. Il valore vero arriva con piu' dati (accumulo) + i test (dip-entry) che ora girano da soli.

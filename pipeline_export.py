@@ -166,14 +166,31 @@ STRAT_LABEL = {
 }
 
 
+def _hold_from_dip(pts, dip):
+    """Testa il TIMING d'ingresso: entra al primo punto che e' sceso di 'dip' dal segnale, poi tieni fino a
+    fine. dip=0 = entra subito al segnale. Risponde a 'conviene aspettare la correzione invece di comprare il top?'"""
+    p0 = pts[0][1]
+    if dip <= 0:
+        return pts[-1][1] / p0 - 1
+    for i in range(len(pts)):
+        if pts[i][1] <= p0 * (1 - dip):
+            sub = pts[i:]
+            if len(sub) < 2:
+                return None
+            return sub[-1][1] / sub[0][1] - 1
+    return None   # non e' mai sceso di 'dip' -> non saremmo entrati
+
+
 def build_simulation():
-    """Paper trading: entra al segnale, prova diverse uscite, dice quale rende di più e quanto tenere."""
+    """Paper trading: entra al segnale, prova diverse uscite, dice quale rende di più e quanto tenere.
+    + testa il TIMING d'ingresso (al segnale vs dopo una correzione) — il pivot suggerito dalla review."""
     obs = {}
     for o in _read_jsonl(TRACK):
         obs.setdefault(o.get("ca"), []).append(o)
     agg = {k: {"rets": [], "holds": []} for k in STRAT_LABEL}
     arena_rets = {}
     pass_rets, fail_rets = [], []      # per capire se entriamo tardi (perle vs scartati con la miglior uscita)
+    entry_timing = {}                  # at_signal vs dip15 vs dip30 (solo perle, dove entriamo tardi)
     n = 0
     for ca, series in obs.items():
         series = _clean_series(sorted(series, key=lambda x: x.get("obs_ts") or 0))
@@ -188,6 +205,12 @@ def build_simulation():
         a = (series[0].get("arena") or "memecoin")
         arena_rets.setdefault(a, []).append(res["trail25"][0])
         (pass_rets if series[0].get("pass") else fail_rets).append(res["trail25"][0])
+        # timing d'ingresso: testato sulle PERLE (e' li' che compriamo il top)
+        if series[0].get("pass"):
+            for dip, lab in [(0.0, "at_signal"), (0.15, "dip15"), (0.30, "dip30")]:
+                r = _hold_from_dip(pts, dip)
+                if r is not None:
+                    entry_timing.setdefault(lab, []).append(r)
 
     def med(xs):
         xs = sorted(xs)
@@ -211,6 +234,8 @@ def build_simulation():
         "by_arena": {a: round(med(rs), 3) for a, rs in arena_rets.items()},
         "pass_median": round(med(pass_rets), 3) if pass_rets else None,
         "fail_median": round(med(fail_rets), 3) if fail_rets else None,
+        "entry_timing": {lab: {"median": round(med(rs), 3), "n": len(rs)}
+                         for lab, rs in entry_timing.items()},
     }
 
 

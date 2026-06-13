@@ -1,0 +1,59 @@
+Sei un partner senior di un hedge fund crypto + un data scientist quantitativo di altissimo livello.
+Ti chiedo una REVIEW BRUTALE e CONCRETA di un sistema che sto costruendo. Obiettivo: aumentare la probabilita'
+di trovare un EDGE reale e sfruttabile. Non essere gentile: dimmi dove mi sto illudendo, cosa e' rotto, cosa
+manca, e i miglioramenti ad alto impatto. Ho budget quasi zero (tool gratis/low-cost) e sono un RETAIL LENTO
+(finestra ORE, non secondi: niente sniping/bot in mempool). Paper trading, zero soldi reali finche' non provo l'edge.
+
+# COSA STO COSTRUENDO (sistema "crypto-radar", X-first)
+Tesi: la viralita' su X PRECEDE il movimento prezzo delle memecoin. Intercetto X -> filtro on-chain -> studio.
+Architettura, gira in cloud 24/7 gratis (GitHub Actions), tutto append-only su file:
+1. SCAN (ogni 4h): chiedo a Grok (X live, x_search) le memecoin Solana + AI-agent token freschi che scaldano
+   ORA su X. Output ricco: ticker, contract, arena, narrativa, caller, red flag, heat, confidence.
+2. FILTRO on-chain (DexScreener gratis + Helius RPC gratis): per ogni token scarico liquidita', volume 1h/24h,
+   eta', buy/sell, top10%/top1% holder, mint/freeze authority. Soglie (FILTER): liq 10k-2M, voliq 0.5-50,
+   vol24h>50k, vol1h>3k, eta 1-72h, top10<50%, top1<30%, buy/sell>1.2, authority revocata. Passa -> "GREEN"
+   (perla), altrimenti "RED" (scartato). Tutto salvato, niente cancellato.
+3. TRACKING (ogni 1h, gratis): per ogni token seguito (green 5 giorni, red 48h) registro ogni ora prezzo, fdv,
+   liq, vol 1h/24h, buys/sells, buy/sell ratio, top10%/top1%/holders (whale via Helius).
+4. SOCIAL green (ogni 4h, a pagamento Grok): per le sole green misuro posts/ora su X, trend, KOL, sentiment.
+5. LEARNER (ogni 1h): confronta token che hanno corso (>=+50%) vs morti, guarda le feature al segnale.
+6. SIMULATORE uscite: entro al segnale (entry onesto = primo check DOPO il segnale, no look-ahead) e provo
+   strategie d'uscita: stop fissi (trailing -25%, +100%/-30%) E su segnale (esci quando volume scende sotto
+   35/50% del picco). Calcolo ritorno mediano, win rate, durata.
+7. WATCHDOG (ogni 4h): health check + alert email se qualcosa si blocca.
+
+# DATI REALI GIA' OTTENUTI (31 trade paper, onesti)
+- ENTRO TROPPO TARDI: le "perle" (green), comprate al segnale, rendono -26% MEDIANO; gli scartati (red) -1.7%.
+  Cioe' il filtro promuove a perla i token GIA' pompati (eta' 27-55h, volume gia' esploso) = compro sul TOP,
+  poi ritracciano. Esempi: GAEJUKI +501% in 24h (ma -56% dopo il mio entry), BrimfableAI +162% (-10% dopo entry).
+- USCITE: gli stop fissi rendono -3% mediano; le uscite su SEGNALE volume -1%. Meglio il segnale ma ancora negativo.
+- Nessuna strategia e' profittevole perche' l'ENTRATA e' tardiva. Win rate migliore ~35%.
+- Confronto arene preliminare: memecoin runner_rate ~8%, ai_agent ~0% (pochi dati).
+
+# IL METODO entry/exit che ho derivato (soglie di partenza, non testate)
+INGRESSO (4/6 vere): eta<8h, accelerazione volume >=+80% vs ora prima, buy/sell>=2.8, whale in acquisto netto,
+hype X non eccessivo (<120 post/h), fdv<650k & liq>45k. USCITA su segnale: volume<35% del picco; top10 +1.8%/2h
+(distribuzione whale); buy/sell<1.2 per 2h. Filosofia: niente stop fissi, si esce quando lo STATO si rompe.
+
+# LE MIE DOMANDE (rispondi a tutte, brutale e concreto)
+1. Il problema ENTRY-TARDIVO e' il piu' grave: come lo risolvo DAVVERO? Il filtro va ripensato (premia
+   sintomi tardivi)? Devo entrare su token piu' giovani/meno scaldati e accettare piu' rumore?
+2. La tesi "X precede il prezzo" regge? O su memecoin la viralita' su X e' simultanea/posteriore al pump
+   (e quindi il mio edge non esiste strutturalmente)? Come lo verifico coi dati che ho?
+3. Sto misurando le cose giuste? Cosa manca nei parametri/feature? Cosa e' rumore che sto raccogliendo?
+4. L'impianto statistico e' sano? Rischi di look-ahead, overfitting, sample size, survivorship? Quanti
+   trade servono prima di fidarsi? Come evito di ingannarmi?
+5. Memecoin vs AI-agent: su quale concentrarsi per il MIO metodo (catch via X, retail lento)?
+6. Il "entry onesto = primo check dopo il segnale" e' realistico o sto sottostimando/sovrastimando?
+7. Cosa aggiungeresti che avrebbe l'impatto piu' alto sulla probabilita' di successo? E cosa toglieresti
+   perche' e' illusione/perdita di tempo?
+8. Verdetto netto: questo approccio ha una chance reale di trovare un edge, o e' strutturalmente perdente?
+   Se perdente, qual e' il pivot piu' intelligente che faresti coi miei stessi vincoli (gratis, retail lento)?
+
+# FORMATO RISPOSTA
+1. VERDETTO NETTO (3-4 righe): ha una chance o no, e il singolo cambiamento piu' importante.
+2. TOP 5 PROBLEMI (ordinati per gravita') con il fix concreto di ognuno.
+3. TOP 5 MIGLIORAMENTI ad alto impatto, applicabili coi miei vincoli (gratis, retail lento), con COME.
+4. COSA TOGLIERE (illusioni/rumore).
+5. Risposte secche alle 8 domande.
+Concreto, numerico dove puoi, niente fuffa motivazionale.
