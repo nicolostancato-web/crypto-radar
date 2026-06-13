@@ -83,7 +83,7 @@ si calcola in analisi) · 💸 a pagamento (Grok per-token).
 **I 6 NON-NEGOZIABILI secondo Grok:**
 1. Buy/Sell ratio 1h + unique buyers — ✅ ho buys/sells & ratio (unique buyers: proxy, Helius non li conta facile)
 2. Whale netflow 1h (wallet >0.5% supply) — 🔣 derivo dai top10 consecutivi (ho top10/top1 ogni ora)
-3. **Posts/ora su X (velocity)** — 💸 UNICO MANCANTE. Grok: "anticipa il volume di 1-3h". Il piu' importante che non ho.
+3. **Posts/ora su X (velocity)** — ✅ ATTIVO (green_engagement.py, ogni 4h, cap 5 green). Grok: "anticipa il volume di 1-3h".
 4. Top10% supply delta 1h — 🔣 derivo (ho top10_pct ogni ora)
 5. Holder growth rate 1h — 🔣 derivo (ho holders ogni ora; limite: Helius campiona ~top20, non il totale esatto)
 6. Volume 1h momentum (vol1h / vol1h precedente) — 🔣 derivo (ho vol_1h ogni ora)
