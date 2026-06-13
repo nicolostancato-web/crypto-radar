@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-06-13 20:49",
+  "updated_utc": "2026-06-13 21:36",
   "runner_pct": 50,
   "settled": 37,
-  "runners": 5,
-  "deads": 32,
+  "runners": 6,
+  "deads": 31,
   "by_arena": {
     "memecoin": {
       "trades": 31,
-      "runners": 5,
-      "runner_rate": 0.16
+      "runners": 6,
+      "runner_rate": 0.19
     },
     "ai_agent": {
       "trades": 6,
@@ -23,58 +23,58 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 2488,
-      "dead_median": 108.0,
-      "ratio": 23.04
+      "runner_median": 2182.5,
+      "dead_median": 74,
+      "ratio": 29.49
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 10.32,
-      "dead_median": 1.41,
-      "ratio": 7.32
+      "runner_median": 8.115,
+      "dead_median": 1.0,
+      "ratio": 8.12
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 38102,
-      "dead_median": 15724.5,
-      "ratio": 2.42
+      "runner_median": 47600.0,
+      "dead_median": 12137,
+      "ratio": 3.92
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
-      "runner_median": 1.15,
-      "dead_median": 0.55,
-      "ratio": 2.09
-    },
-    {
-      "feature": "liq",
-      "label": "liquidità",
-      "runner_median": 5099,
-      "dead_median": 8266.0,
-      "ratio": 0.62
-    },
-    {
-      "feature": "grok_heat",
-      "label": "heat di Grok",
-      "runner_median": 5,
-      "dead_median": 4.0,
-      "ratio": 1.25
-    },
-    {
-      "feature": "top10_pct",
-      "label": "top 10 wallet",
-      "runner_median": 0.613,
-      "dead_median": 0.792,
-      "ratio": 0.77
+      "runner_median": 1.195,
+      "dead_median": 0.5,
+      "ratio": 2.39
     },
     {
       "feature": "age_h",
       "label": "età (h)",
-      "runner_median": 42.6,
-      "dead_median": 41.35,
-      "ratio": 1.03
+      "runner_median": 35.7,
+      "dead_median": 53.4,
+      "ratio": 0.67
+    },
+    {
+      "feature": "top10_pct",
+      "label": "top 10 wallet",
+      "runner_median": 0.611,
+      "dead_median": 0.809,
+      "ratio": 0.75
+    },
+    {
+      "feature": "grok_heat",
+      "label": "heat di Grok",
+      "runner_median": 5.0,
+      "dead_median": 4,
+      "ratio": 1.25
+    },
+    {
+      "feature": "liq",
+      "label": "liquidità",
+      "runner_median": 7377.0,
+      "dead_median": 7448,
+      "ratio": 0.99
     }
   ],
   "best_runners": [
@@ -105,6 +105,13 @@
       "pass": false,
       "vol_1h": 39814,
       "voliq": 10.32
+    },
+    {
+      "ticker": "PVOXL",
+      "ret_max": 0.6,
+      "pass": false,
+      "vol_1h": 440,
+      "voliq": 5.91
     },
     {
       "ticker": "ARX",
