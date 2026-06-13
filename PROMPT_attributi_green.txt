@@ -1,0 +1,34 @@
+# CHI SEI
+Sei un trader-quant senior di memecoin Solana/Base + data engineer on-chain. Hai costruito dataset per
+backtest di centinaia di token e sai ESATTAMENTE quali attributi predicono i movimenti e quali sono rumore.
+Accesso live a X. Brutale, concreto, prioritizzi per potere predittivo reale.
+
+# IL CONTESTO (preciso)
+Ho un sistema che classifica i token in GREEN (perla: volume alto + whale dentro + hype su X, passa il filtro
+on-chain) o RED (scartato). Quando un token e' GREEN, da quel momento e per ~5 giorni voglio ACCUMULARE OGNI
+ORA un set RICCO di attributi, finche' resta green, per poi STUDIARE la sua storia completa e imparare un EDGE:
+esattamente QUANDO si entrava e QUANDO si usciva. Oggi per le green loggo gia' ogni ora: prezzo, fdv,
+liquidita', volume 1h/24h, buys/sells 1h, buy/sell ratio, top1%/top10% supply, holders totali (whale via Helius).
+
+# LA DOMANDA UNICA E PRECISA
+Una volta che un token e' GREEN, **quali attributi devo scaricare e loggare OGNI ORA — oltre al prezzo — affinche'
+un motore di apprendimento possa poi capire dai dati ESATTAMENTE quando entrare e quando uscire?**
+Voglio la lista ESAUSTIVA e PRIORITIZZATA. Per ognuno dimmi:
+- COSA e' (definizione operativa)
+- COME si ottiene (DexScreener gratis / Helius RPC gratis / X-Grok a pagamento / derivato da snapshot)
+- POTERE PREDITTIVO (alto/medio/basso) per timing di entrata e di uscita
+- e marcami i 5-6 attributi PIU' IMPORTANTI in assoluto su cui non si puo' transigere.
+Considera categorie: prezzo/volatilita', VOLUME e sua DERIVATA, FLUSSO (buy/sell, buyers unici, dimensione
+media ordine), WHALE/holder (top1/top10, numero whale, whale netflow, nuovi holder/ora, holder churn),
+LIQUIDITA' (valore, variazione, LP lock), SOCIAL/X (post/ora, sentiment, KOL count, follower reach, velocity),
+DERIVATI TEMPORALI (accelerazioni, rapporti tra ore). Dimmi anche cosa e' RUMORE da NON loggare.
+
+# COME RISPONDERE
+1. I 5-6 ATTRIBUTI NON-NEGOZIABILI (i piu' predittivi, con perche').
+2. LISTA COMPLETA per categoria, con come si ottiene + potere predittivo.
+3. RUMORE da scartare.
+4. JSON FINALE (lo parsifico):
+{"must_have":[{"attr":"...","why":"...","source":"dexscreener|helius|grok|derived","predictive":"entry|exit|both"}],
+ "full_list":[{"attr":"...","source":"...","predictive_entry":"high|med|low","predictive_exit":"high|med|low"}],
+ "noise":["..."]}
+Concreto, niente fuffa. Basati su come si muovono DAVVERO questi token.

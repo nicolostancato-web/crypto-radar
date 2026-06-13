@@ -75,6 +75,30 @@ accumulati, vede cosa avrebbe reso, e le AGGIUSTA. Magari scopre che l'acceleraz
 ma +50%, o che si puo' temporeggiare finche' le whale restano. La regola evolve coi dati. Decide l'umano
 prima di applicare in "produzione", ma la proposta di nuove soglie la genera il sistema da solo.
 
+## 7) ATTRIBUTI DA LOGGARE PER LE GREEN (deep agent Grok, 2026-06-13)
+Risposta alla domanda "quali attributi accumulare ogni ora per imparare entry/exit".
+Fonte: CONSULENZA_attributi_green.md. Legenda: ✅ gia' loggato grezzo · 🔣 derivato dagli snapshot (gratis,
+si calcola in analisi) · 💸 a pagamento (Grok per-token).
+
+**I 6 NON-NEGOZIABILI secondo Grok:**
+1. Buy/Sell ratio 1h + unique buyers — ✅ ho buys/sells & ratio (unique buyers: proxy, Helius non li conta facile)
+2. Whale netflow 1h (wallet >0.5% supply) — 🔣 derivo dai top10 consecutivi (ho top10/top1 ogni ora)
+3. **Posts/ora su X (velocity)** — 💸 UNICO MANCANTE. Grok: "anticipa il volume di 1-3h". Il piu' importante che non ho.
+4. Top10% supply delta 1h — 🔣 derivo (ho top10_pct ogni ora)
+5. Holder growth rate 1h — 🔣 derivo (ho holders ogni ora; limite: Helius campiona ~top20, non il totale esatto)
+6. Volume 1h momentum (vol1h / vol1h precedente) — 🔣 derivo (ho vol_1h ogni ora)
+
+**Quindi: 5 su 6 must-have sono GIA' coperti (grezzo o derivato, gratis). Manca solo il social (posts/ora).**
+
+**Derivati gratis che calcoleremo in analisi (dai grezzi gia' loggati):**
+price change 1h/4h/12h, volatilita' realizzata, volume momentum & acceleration, top10 delta, whale netflow,
+holder growth, buy-ratio acceleration, liquidity delta. — tutti dagli snapshot orari, nessun costo.
+
+**A pagamento (Grok per-token, da decidere CFO):** posts/ora, KOL mentions 1h, follower reach.
+
+**RUMORE da NON loggare (Grok):** holders totali assoluti (conta il delta), sentiment del singolo tweet,
+fdv assoluto, market-cap rank, membri Telegram/Discord, "hype score" generico non basato su velocity.
+
 ## Stato implementazione
 - ✅ Tracker esteso: logga tutti i parametri on-chain sopra, ogni ora (whale incluse).
 - ✅ Simulatore uscite su segnale (volume) + confronto con le fisse → su dashboard.
