@@ -65,6 +65,11 @@ def _outcomes():
     res = {}
     for ca, series in obs.items():
         series = sorted(series, key=lambda x: x.get("obs_ts") or 0)
+        # scarta prezzi glitch (outlier oltre 15x dalla mediana): dati sporchi DexScreener
+        ps = sorted(s.get("price") for s in series if s.get("price"))
+        if len(ps) >= 3 and ps[len(ps) // 2]:
+            med = ps[len(ps) // 2]
+            series = [s for s in series if not s.get("price") or (med / 15 <= s["price"] <= med * 15)] or series
         prices = [s.get("price") for s in series if s.get("price")]
         entry = series[0].get("price")
         if not entry or len(prices) < 2:

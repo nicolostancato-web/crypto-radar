@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-13 06:33",
+  "updated_utc": "2026-06-13 06:48",
   "scans_total": 14,
   "last_scan": {
     "utc": "2026-06-13 06:33",
@@ -892,27 +892,6 @@
   ],
   "outcomes": [
     {
-      "ca": "BcHEaaTCvycPwwsJ9yQTXdHP9X2gCLkznDbZ8VySpump",
-      "ticker": "JOTCHUA",
-      "pass": false,
-      "arena": "memecoin",
-      "chain": null,
-      "entry_fdv": 2736275,
-      "last_fdv": 3911875,
-      "sig_vol_1h": 16420,
-      "sig_liq": 205668,
-      "ret_now": 0.429,
-      "ret_max": 20200.023,
-      "dd_from_peak": -1.0,
-      "ret_1h": 0.0,
-      "ret_6h": 20200.023,
-      "ret_24h": null,
-      "hit_2x": true,
-      "rugged": false,
-      "n_obs": 9,
-      "hours_tracked": 17.5
-    },
-    {
       "ca": "BitL2G9vdUVJ4mEf2pGctJVVJECSF1u3jv11tXoBsauW",
       "ticker": "AgentFX",
       "pass": false,
@@ -931,6 +910,27 @@
       "hit_2x": true,
       "rugged": false,
       "n_obs": 9,
+      "hours_tracked": 17.5
+    },
+    {
+      "ca": "BcHEaaTCvycPwwsJ9yQTXdHP9X2gCLkznDbZ8VySpump",
+      "ticker": "JOTCHUA",
+      "pass": false,
+      "arena": "memecoin",
+      "chain": null,
+      "entry_fdv": 2736275,
+      "last_fdv": 3911875,
+      "sig_vol_1h": 16420,
+      "sig_liq": 205668,
+      "ret_now": 0.429,
+      "ret_max": 0.573,
+      "dd_from_peak": -0.091,
+      "ret_1h": 0.0,
+      "ret_6h": -0.122,
+      "ret_24h": null,
+      "hit_2x": false,
+      "rugged": false,
+      "n_obs": 8,
       "hours_tracked": 17.5
     },
     {
@@ -1570,22 +1570,22 @@
     "pearls_tracked": 2,
     "rejects_tracked": 30,
     "pearls_2x_rate": 0.0,
-    "rejects_2x_rate": 0.07,
+    "rejects_2x_rate": 0.03,
     "best": {
-      "ca": "BcHEaaTCvycPwwsJ9yQTXdHP9X2gCLkznDbZ8VySpump",
-      "ticker": "JOTCHUA",
+      "ca": "BitL2G9vdUVJ4mEf2pGctJVVJECSF1u3jv11tXoBsauW",
+      "ticker": "AgentFX",
       "pass": false,
       "arena": "memecoin",
       "chain": null,
-      "entry_fdv": 2736275,
-      "last_fdv": 3911875,
-      "sig_vol_1h": 16420,
-      "sig_liq": 205668,
-      "ret_now": 0.429,
-      "ret_max": 20200.023,
-      "dd_from_peak": -1.0,
+      "entry_fdv": 5704.49,
+      "last_fdv": 11514.57,
+      "sig_vol_1h": 1071,
+      "sig_liq": 0,
+      "ret_now": 1.018,
+      "ret_max": 1.221,
+      "dd_from_peak": -0.092,
       "ret_1h": 0.0,
-      "ret_6h": 20200.023,
+      "ret_6h": 0.965,
       "ret_24h": null,
       "hit_2x": true,
       "rugged": false,
@@ -1596,9 +1596,9 @@
       "memecoin": {
         "tracked": 27,
         "settled": 27,
-        "runners": 2,
-        "best_ret": 20200.023,
-        "runner_rate": 0.07
+        "runners": 1,
+        "best_ret": 1.221,
+        "runner_rate": 0.04
       },
       "ai_agent": {
         "tracked": 5,
@@ -1614,7 +1614,7 @@
     "ai_agent": 5
   },
   "lessons": {
-    "updated_utc": "2026-06-13 06:33",
+    "updated_utc": "2026-06-13 06:48",
     "runner_pct": 50,
     "settled": 31,
     "runners": 2,
@@ -1694,18 +1694,18 @@
     ],
     "best_runners": [
       {
-        "ticker": "JOTCHUA",
-        "ret_max": 20200.02,
-        "pass": false,
-        "vol_1h": 39814,
-        "voliq": 10.32
-      },
-      {
         "ticker": "AgentFX",
         "ret_max": 1.22,
         "pass": false,
         "vol_1h": 1877,
         "voliq": null
+      },
+      {
+        "ticker": "JOTCHUA",
+        "ret_max": 0.57,
+        "pass": false,
+        "vol_1h": 39814,
+        "voliq": 10.32
       }
     ]
   }

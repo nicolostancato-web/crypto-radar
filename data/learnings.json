@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-13 06:33",
+  "updated_utc": "2026-06-13 06:48",
   "runner_pct": 50,
   "settled": 31,
   "runners": 2,
@@ -79,18 +79,18 @@
   ],
   "best_runners": [
     {
-      "ticker": "JOTCHUA",
-      "ret_max": 20200.02,
-      "pass": false,
-      "vol_1h": 39814,
-      "voliq": 10.32
-    },
-    {
       "ticker": "AgentFX",
       "ret_max": 1.22,
       "pass": false,
       "vol_1h": 1877,
       "voliq": null
+    },
+    {
+      "ticker": "JOTCHUA",
+      "ret_max": 0.57,
+      "pass": false,
+      "vol_1h": 39814,
+      "voliq": 10.32
     }
   ]
 }

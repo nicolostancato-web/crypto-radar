@@ -49,6 +49,18 @@ def _read_jsonl(path):
     return out
 
 
+def _clean_series(series):
+    """Scarta osservazioni con prezzo glitch (outlier oltre 15x dalla mediana): dati sporchi DexScreener."""
+    ps = sorted(s.get("price") for s in series if s.get("price"))
+    if len(ps) < 3:
+        return series
+    med = ps[len(ps) // 2]
+    if not med:
+        return series
+    cleaned = [s for s in series if not s.get("price") or (med / 15 <= s["price"] <= med * 15)]
+    return cleaned or series
+
+
 def build_outcomes():
     """Dalle osservazioni del tracker (track.jsonl), simula entrata/uscita per ogni token.
 
@@ -76,7 +88,7 @@ def build_outcomes():
 
     out = []
     for ca, series in by_ca.items():
-        series = sorted(series, key=lambda x: x.get("obs_ts") or 0)
+        series = _clean_series(sorted(series, key=lambda x: x.get("obs_ts") or 0))
         if not series:
             continue
         entry = series[0]

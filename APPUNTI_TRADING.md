@@ -56,3 +56,28 @@ AI-agent token, TENERE Solana, e lasciare che il learner (entry onesto) dica coi
 piu' PER NOI. Fedele al metodo: non scegliere a priori, far decidere i dati.
 
 **Stato:** consulenza registrata. In attesa di OK per allargare lo scouting oltre Solana.
+
+## Lezione #3 — Primo verdetto del learner: gli SCARTATI battono le PERLE (2026-06-13)
+
+**Dati (31 trade conclusi, dati puliti dopo fix glitch JOTCHUA).** Con entry ONESTO (al segnale):
+- SCARTATI andati bene: AgentFX +122%, JOTCHUA +57%, ARX +48%, LARP +41%, BRAINDRAIN(ai) +37%.
+- PERLE in perdita: GAEJUKI +10% picco ma -56% ORA; BrimfableAI +8% picco, -10% ora.
+- runner_rate: memecoin 1/27, ai_agent 0/5 (ai_agent troppo pochi per dire).
+
+**Diagnosi (conferma e rafforza Lezione #1).** Il filtro attuale premia i token con volume/buy-sell GIA' alti =
+gia' pompati = li prendiamo al TOP → poi ritracciano. E SCARTA i giovani (eta'/vol assoluto sotto soglia) che
+pero' hanno ancora corsa davanti. Cioe' il filtro, con l'entry al segnale, sta selezionando i PERDENTI.
+
+**Direzione proposta (NON applicata — campione ancora piccolo, decide Nicolo):**
+1. Rilassare i filtri che bocciano i GIOVANI: min_vol_24h, min_vol_1h, age_max piu' stretto (preferire eta' bassa).
+2. Dare peso alla FRESCHEZZA/accelerazione invece che al livello assoluto di volume.
+3. Considerare che il "buy/sell alto" e "vol alto" sono sintomi TARDIVI, non precoci.
+
+**Cautela onesta.** 31 trade, solo 1-2 runner: pattern netto ma campione limitato. Prima di toccare config.FILTER
+servono piu' trade conclusi e idealmente vedere se il pattern regge su un'altra settimana. Il sistema continua.
+
+**Bug risolto oggi.** Un'osservazione glitch di DexScreener (price 55.27 vs 0.0025 reale) gonfiava JOTCHUA a
++2.020.002%. Aggiunto sanitizzatore: scarta prezzi outlier >15x dalla mediana (in pipeline_export + learner).
+Il dato sporco NON e' cancellato (append-only), solo ignorato in lettura.
+
+**Stato:** verdetto registrato. Filtro INVARIATO in attesa di piu' dati.
