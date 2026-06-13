@@ -57,6 +57,24 @@ DexScreener senza il resto dello stato.
 - **Auto-allenamento:** ogni ciclo il learner si chiede "le soglie attuali rendono? quale regola d'uscita
   vince? entro troppo tardi?" e propone aggiustamenti (decide l'umano prima di toccare config).
 
+## 5) GREEN DEEP TRACKING — il cuore dell'apprendimento (indicazione Nicolo, 2026-06-13)
+Quando un token diventa **GREEN** (perla: volume alto + whale dentro, passa il filtro), da quel momento
+inizia un tracking PROFONDO e PROLUNGATO — solo per le green, non per le red:
+- **Finestra lunga:** green seguite per **5 giorni** (red solo 48h). Una green accumula la sua storia
+  completa ora per ora finche' resta viva, poi quando torna red la parcheggiamo MA con tutto lo storico.
+- **Tanti attributi ogni ora:** prezzo, fdv, liq, volume 1h/24h, buys/sells, buy/sell ratio, top1%/top10%/
+  holders (whale). + derivati: accelerazione volume, whale netflow. + (a pagamento, da attivare) engagement X.
+- **Lo studio:** con la storia completa di 6-10 green in una settimana, si capisce DOVE si entrava e DOVE
+  si usciva, e quali attributi muovevano il prezzo (es. "partiva con 1 whale -> 3 whale -> prezzo sale ->
+  torna 1 whale -> scende"). Il prezzo non si legge col +30/-40 fisso: una green puo' fare -50% e poi x5.
+
+## 6) SOGLIE FLESSIBILI — il sistema si auto-corregge
+Tutte le soglie di questo metodo (l'80% di accelerazione, il 35% di volume, il 2.8 di buy/sell...) sono
+PUNTI DI PARTENZA, non verita'. Ogni X ore il sistema si auto-allena: testa le soglie sui dati green
+accumulati, vede cosa avrebbe reso, e le AGGIUSTA. Magari scopre che l'accelerazione giusta non e' +80%
+ma +50%, o che si puo' temporeggiare finche' le whale restano. La regola evolve coi dati. Decide l'umano
+prima di applicare in "produzione", ma la proposta di nuove soglie la genera il sistema da solo.
+
 ## Stato implementazione
 - ✅ Tracker esteso: logga tutti i parametri on-chain sopra, ogni ora (whale incluse).
 - ✅ Simulatore uscite su segnale (volume) + confronto con le fisse → su dashboard.

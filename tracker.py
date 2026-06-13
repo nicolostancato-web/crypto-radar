@@ -27,7 +27,10 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 CANDS = os.path.join(HERE, "data", "candidates.jsonl")
 OUT = os.path.join(HERE, "data", "track.jsonl")
 
-TRACK_WINDOW_H = 48   # seguiamo ogni token per 48h dal PRIMO segnale, poi lo consideriamo chiuso
+# Le GREEN (perle) si seguono a lungo per costruire la storia profonda ora-per-ora; le RED (scartate)
+# bastano poche ore per il confronto. E' qui che "popoliamo massivamente" solo le green.
+GREEN_WINDOW_H = 120   # perle: 5 giorni di tracking ricco
+RED_WINDOW_H = 48      # scartate: 48h per il confronto
 
 
 def _dex(ca):
@@ -98,7 +101,8 @@ def run():
     n = skipped = 0
     for ca, meta in first.items():
         age_min = (now - meta["signal_ts"]) / 60
-        if age_min > TRACK_WINDOW_H * 60:
+        window = GREEN_WINDOW_H if meta.get("pass") else RED_WINDOW_H
+        if age_min > window * 60:
             skipped += 1
             continue
         d = _dex(ca)
