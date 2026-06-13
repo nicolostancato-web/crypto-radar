@@ -139,11 +139,11 @@ def _data_quality(now):
     if by_ca and not any(c >= 3 for c in by_ca.values()):
         problems.append("Nessun token ha una serie ≥3 punti: non stiamo costruendo storia, solo singoli scatti.")
 
-    # 4) Il filtro fa passare delle PERLE?
+    # 4) Il filtro fa passare delle PERLE? (le perle sono rare 1-5%: allarme solo se 0 su un campione ampio in 48h)
     cands = _read(CANDS)
-    recent_c = [c for c in cands if now - c.get("ts", 0) < 24 * 3600]
-    if len(recent_c) >= 8 and not any(c.get("pass") for c in recent_c):
-        problems.append("0 perle in 24h su %d valutati: il filtro non fa passare nulla." % len(recent_c))
+    recent_c = [c for c in cands if now - c.get("ts", 0) < 48 * 3600]
+    if len(recent_c) >= 30 and not any(c.get("pass") for c in recent_c):
+        problems.append("0 perle in 48h su %d valutati: lo scout pesca male (vecchi/rug) o il filtro e' troppo stretto — da rivedere." % len(recent_c))
 
     return problems, fixes
 

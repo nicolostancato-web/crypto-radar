@@ -107,3 +107,16 @@ Il test ora gira da solo e si popola. Conferma il pivot "compra la correzione, n
 
 **Punto onesto:** 31 trade sono troppo pochi per qualunque conclusione forte. La review e' una bussola, non
 una verita'. Il valore vero arriva con piu' dati (accumulo) + i test (dip-entry) che ora girano da soli.
+
+## Lezione #5 — Lo SCOUT pesca male: vecchi e rug (watchdog, 2026-06-13)
+
+Il watchdog data-quality ha allertato: "0 perle in 24h su 19 valutati". Investigato: il filtro scarta TUTTO,
+ma GIUSTAMENTE — Grok sta ripescando token VECCHI (GORBA 84 giorni, MemesAI 240 giorni, DINKY 71 giorni) e
+RUG (DRP top10 100%, ELON top10 72%). Il filtro NON e' rotto, fa il suo lavoro. Il problema e' a MONTE: lo
+scout Grok non trova abbastanza token freschi e puliti (e spesso sbaglia l'eta' dichiarata: dice "8h" ma e'
+100 giorni -> non fidarsi mai dell'eta' di Grok, contano i dati on-chain).
+
+**Da implementare (loop):** migliorare lo scout perche' peschi piu' fresco/pulito; oppure accettare che le
+perle sono rare (1-5%) e imparare anche dai red (gia' facciamo: 34 trade, 4 runner, status READY).
+**Fatto subito:** calibrato l'alert watchdog (0 perle: ora su 48h e >=30 valutati, non spammare su varianza).
+**Stato:** siamo READY -> il prossimo loop improve fara' l'analisi critica e includera' questa osservazione.
