@@ -13,9 +13,11 @@ from email.mime.text import MIMEText
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 TRENDS = os.path.join(HERE, "data", "trends.jsonl")
+TRACK = os.path.join(HERE, "data", "track.jsonl")
+CANDS = os.path.join(HERE, "data", "candidates.jsonl")
 PIPE = os.path.join(HERE, "web", "pipeline.json")
 
-MAX_SCAN_GAP_H = 5.0    # lo scan dovrebbe girare ogni ~1-3h; oltre 5h = qualcosa e' fermo
+MAX_SCAN_GAP_H = 9.0    # scan ogni 4h; oltre 9h = fermo (margine per i cron saltati di GitHub)
 
 ALERT_TO = os.getenv("ALERT_EMAIL", "nicolostancato@gmail.com")
 
@@ -66,33 +68,102 @@ def alert(subject, body):
         print("[watchdog] NESSUN canale di alert configurato (manca GMAIL_APP_PASSWORD e Telegram) — alert solo nei log")
 
 
-def run():
-    problems = []
-    now = time.time()
+def _read(path):
+    if not os.path.exists(path):
+        return []
+    out = []
+    for l in open(path):
+        l = l.strip()
+        if l:
+            try:
+                out.append(json.loads(l))
+            except Exception:
+                pass
+    return out
 
-    # 1) lo scan di X sta girando?
-    if os.path.exists(TRENDS):
-        rows = [json.loads(l) for l in open(TRENDS) if l.strip()]
-        if rows:
-            gap = (now - rows[-1].get("ts", 0)) / 3600
-            if gap > MAX_SCAN_GAP_H:
-                problems.append("Scan X fermo da %.1fh (atteso < %.0fh). Il radar potrebbe essere bloccato." % (gap, MAX_SCAN_GAP_H))
-        else:
-            problems.append("trends.jsonl vuoto: nessuno scan registrato.")
+
+def _trigger(workflow):
+    """AUTO-RECOVERY: ri-lancia un workflow fermo via API GitHub (serve WORKFLOW_PAT con actions:write)."""
+    pat = os.getenv("WORKFLOW_PAT")
+    if not pat:
+        return False
+    url = "https://api.github.com/repos/nicolostancato-web/crypto-radar/actions/workflows/%s/dispatches" % workflow
+    data = json.dumps({"ref": "main"}).encode()
+    req = urllib.request.Request(url, data=data, method="POST")
+    req.add_header("Authorization", "token " + pat)
+    req.add_header("Accept", "application/vnd.github+json")
+    try:
+        urllib.request.urlopen(req, timeout=15)
+        print("[watchdog] AUTO-RECOVERY: ri-lanciato %s" % workflow)
+        return True
+    except Exception as e:
+        print("[watchdog] auto-recovery fallita su %s: %s" % (workflow, str(e)[:100]))
+        return False
+
+
+def _data_quality(now):
+    """Controlla che stiamo accumulando dati BUONI (non solo che il sistema e' acceso). Ritorna (problemi, fix_fatti)."""
+    problems, fixes = [], []
+
+    # 1) SCAN fresco e produttivo
+    trends = _read(TRENDS)
+    if not trends:
+        problems.append("trends.jsonl vuoto: nessuno scan.")
     else:
-        problems.append("trends.jsonl mancante.")
+        gap = (now - trends[-1].get("ts", 0)) / 3600
+        if gap > MAX_SCAN_GAP_H:
+            problems.append("Scan X fermo da %.1fh." % gap)
+            if _trigger("trends.yml"):
+                fixes.append("ri-lanciato lo scan")
+        recent = [t for t in trends if now - t.get("ts", 0) < 24 * 3600]
+        if recent and sum(t.get("n", 0) for t in recent) == 0:
+            problems.append("Gli scan delle ultime 24h non trovano NESSUN token (Grok a vuoto?).")
 
-    # 2) i file di stato ci sono?
+    # 2) TRACKING che cresce e con prezzi validi
+    track = _read(TRACK)
+    recent_obs = [o for o in track if now - o.get("obs_ts", 0) < 6 * 3600]
+    if len(recent_obs) < 3:
+        problems.append("Tracking quasi fermo: solo %d osservazioni in 6h." % len(recent_obs))
+        if _trigger("track.yml"):
+            fixes.append("ri-lanciato il tracking")
+    if recent_obs:
+        valid = [o for o in recent_obs if o.get("price")]
+        if len(valid) / len(recent_obs) < 0.6:
+            problems.append("Dati sporchi: %d%% delle osservazioni recenti senza prezzo valido." % round(100 * (1 - len(valid) / len(recent_obs))))
+
+    # 3) Stiamo costruendo SERIE (non punti singoli)?
+    by_ca = {}
+    for o in track:
+        by_ca.setdefault(o.get("ca"), 0)
+        by_ca[o.get("ca")] += 1
+    if by_ca and not any(c >= 3 for c in by_ca.values()):
+        problems.append("Nessun token ha una serie ≥3 punti: non stiamo costruendo storia, solo singoli scatti.")
+
+    # 4) Il filtro fa passare delle PERLE?
+    cands = _read(CANDS)
+    recent_c = [c for c in cands if now - c.get("ts", 0) < 24 * 3600]
+    if len(recent_c) >= 8 and not any(c.get("pass") for c in recent_c):
+        problems.append("0 perle in 24h su %d valutati: il filtro non fa passare nulla." % len(recent_c))
+
+    return problems, fixes
+
+
+def run():
+    now = time.time()
+    problems, fixes = _data_quality(now)
     if not os.path.exists(PIPE):
         problems.append("web/pipeline.json mancante: la dashboard non si aggiorna.")
 
     when = time.strftime("%Y-%m-%d %H:%M UTC", time.gmtime(now))
     if problems:
-        msg = "🛑 CRYPTO-RADAR WATCHDOG — %s\nProblemi rilevati:\n%s" % (when, "\n".join("• " + p for p in problems))
+        fix_txt = ("\n\n🔧 Auto-recovery: " + ", ".join(fixes) + ".") if fixes else ""
+        msg = ("🛑 CRYPTO-RADAR — controllo dati %s\nProblemi nella RACCOLTA:\n%s%s\n\n"
+               "(Se l'auto-recovery non basta, serve un occhio umano.)" %
+               (when, "\n".join("• " + p for p in problems), fix_txt))
         print(msg)
-        tg(msg)
+        alert("🛑 Crypto-radar: problema nella raccolta dati", msg)
         return 1
-    print("[watchdog] %s — tutto stabile, nessun problema." % when)
+    print("[watchdog] %s — raccolta dati sana." % when)
     return 0
 
 
