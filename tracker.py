@@ -21,12 +21,16 @@ except Exception:
     pass
 
 import requests
+import onchain
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CANDS = os.path.join(HERE, "data", "candidates.jsonl")
 OUT = os.path.join(HERE, "data", "track.jsonl")
 
-TRACK_WINDOW_H = 48   # seguiamo ogni token per 48h dal PRIMO segnale, poi lo consideriamo chiuso
+# Le GREEN (perle) si seguono a lungo per costruire la storia profonda ora-per-ora; le RED (scartate)
+# bastano poche ore per il confronto. E' qui che "popoliamo massivamente" solo le green.
+GREEN_WINDOW_H = 120   # perle: 5 giorni di tracking ricco
+RED_WINDOW_H = 48      # scartate: 48h per il confronto
 
 
 def _dex(ca):
@@ -42,9 +46,11 @@ def _dex(ca):
             price = float(p.get("priceUsd")) if p.get("priceUsd") else None
         except Exception:
             price = None
+        tx1 = (p.get("txns") or {}).get("h1") or {}
         return {
             "ticker": (p.get("baseToken") or {}).get("symbol"),
             "chain": p.get("chainId"),
+            "buys_1h": tx1.get("buys") or 0, "sells_1h": tx1.get("sells") or 0,
             "price": price,
             "fdv": p.get("fdv"),
             "liq": (p.get("liquidity") or {}).get("usd") or 0,
@@ -95,23 +101,33 @@ def run():
     n = skipped = 0
     for ca, meta in first.items():
         age_min = (now - meta["signal_ts"]) / 60
-        if age_min > TRACK_WINDOW_H * 60:
+        window = GREEN_WINDOW_H if meta.get("pass") else RED_WINDOW_H
+        if age_min > window * 60:
             skipped += 1
             continue
         d = _dex(ca)
         if not d:
             continue
+        chain = meta.get("chain") or d.get("chain")
+        bs1 = (d["buys_1h"] / d["sells_1h"]) if d["sells_1h"] else (d["buys_1h"] or 0)
         row = {"ca": ca, "ticker": meta.get("ticker") or d.get("ticker"), "pass": meta["pass"],
-               "arena": meta.get("arena") or "memecoin", "chain": meta.get("chain") or d.get("chain"),
+               "arena": meta.get("arena") or "memecoin", "chain": chain,
                "signal_ts": meta["signal_ts"], "obs_ts": now, "age_min": round(age_min),
                "price": d["price"], "fdv": d["fdv"], "liq": round(d["liq"]),
                "vol_1h": round(d["vol_1h"]), "vol_24h": round(d["vol_24h"]),
+               "buys_1h": d["buys_1h"], "sells_1h": d["sells_1h"], "bs_ratio_1h": round(bs1, 2),
                "pc_1h": d["pc_1h"], "pc_24h": d["pc_24h"]}
+        # WHALE nel tempo (solo Solana, via Helius): chi tiene il token ORA. Cuore dell'uscita su segnale.
+        if chain == "solana" and onchain.available():
+            s = onchain.token_safety(ca) or {}
+            row["top10_pct"] = s.get("top10_pct")
+            row["top1_pct"] = s.get("top1_pct")
+            row["holders"] = s.get("holders")
         f.write(json.dumps(row) + "\n")
         n += 1
         time.sleep(0.2)   # gentile con DexScreener
     f.close()
-    print(f"[tracker] osservazioni nuove: {n} (token in finestra {TRACK_WINDOW_H}h; {skipped} chiusi) "
+    print(f"[tracker] osservazioni nuove: {n} (green {GREEN_WINDOW_H}h / red {RED_WINDOW_H}h; {skipped} chiusi) "
           f"-> data/track.jsonl")
     return n
 
