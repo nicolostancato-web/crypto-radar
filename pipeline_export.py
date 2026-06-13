@@ -117,14 +117,16 @@ def build_outcomes():
 
 
 def _exit_strategies(pts):
-    """Date le coppie (age_min, price) dall'ENTRATA in poi, simula varie regole d'uscita.
-    Ritorna il ritorno % realizzato e i minuti tenuti per ogni strategia (paper, esecuzione ideale)."""
+    """pts = lista (age_min, price, vol_1h) dall'ENTRATA in poi. Simula regole d'uscita.
+    Le strategie SU SEGNALE (volume) sono quelle giuste per le memecoin: non stop fissi, ma
+    'tieni finche' l'hype/volume regge, esci quando svanisce'. Le fisse restano per CONFRONTO.
+    Ritorna (ritorno%, minuti tenuti) per ogni strategia (paper, esecuzione ideale)."""
     entry = pts[0][1]
     end_age, end_p = pts[-1][0], pts[-1][1]
 
     def run(tp=None, sl=None, trail=None, tmax=None):
         peak = entry
-        for age, p in pts[1:]:
+        for age, p, v in pts[1:]:
             peak = max(peak, p)
             r = p / entry - 1
             if tp is not None and r >= tp:
@@ -137,18 +139,30 @@ def _exit_strategies(pts):
                 return r, age
         return end_p / entry - 1, end_age
 
+    def vol_fade(frac):
+        """SEGNALE: tieni finche' il volume regge, esci quando vol_1h scende sotto frac del suo picco
+        (= l'hype si sta spegnendo). Niente stop fisso: si segue lo stato del mercato."""
+        peak_v = pts[0][2] or 0
+        for age, p, v in pts[1:]:
+            peak_v = max(peak_v, v or 0)
+            if peak_v > 0 and (v or 0) < peak_v * frac:
+                return p / entry - 1, age
+        return end_p / entry - 1, end_age
+
     return {
+        "vol_fade50": vol_fade(0.5),           # SEGNALE: esci quando il volume dimezza dal picco
+        "vol_fade30": vol_fade(0.3),           # SEGNALE: piu' paziente, esci quando volume -70%
         "hodl24": run(),                       # tieni fino a fine finestra
-        "tp50": run(tp=0.5),                   # vendi a +50%
-        "tp100_sl30": run(tp=1.0, sl=-0.3),    # +100% o stop -30%
-        "trail25": run(trail=0.25),            # trailing stop -25% dal picco
+        "trail25": run(trail=0.25),            # trailing stop -25% (fisso, per confronto)
+        "tp100_sl30": run(tp=1.0, sl=-0.3),    # +100% o stop -30% (fisso, per confronto)
         "time6h": run(tmax=360),               # esci dopo 6h
     }
 
 
 STRAT_LABEL = {
-    "hodl24": "Tieni fino a fine (24h)", "tp50": "Vendi a +50%",
-    "tp100_sl30": "+100% o stop −30%", "trail25": "Trailing stop −25%", "time6h": "Esci dopo 6h",
+    "vol_fade50": "🔊 Esci quando il volume dimezza", "vol_fade30": "🔊 Esci quando il volume cala −70%",
+    "hodl24": "Tieni fino a fine (24h)", "trail25": "Trailing stop −25% (fisso)",
+    "tp100_sl30": "+100% o stop −30% (fisso)", "time6h": "Esci dopo 6h",
 }
 
 
@@ -163,7 +177,7 @@ def build_simulation():
     n = 0
     for ca, series in obs.items():
         series = _clean_series(sorted(series, key=lambda x: x.get("obs_ts") or 0))
-        pts = [(s.get("age_min") or 0, s.get("price")) for s in series if s.get("price")]
+        pts = [(s.get("age_min") or 0, s.get("price"), s.get("vol_1h")) for s in series if s.get("price")]
         if len(pts) < 2:
             continue
         n += 1
