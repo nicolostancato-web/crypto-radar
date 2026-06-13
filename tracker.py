@@ -127,7 +127,7 @@ def run():
         n += 1
         time.sleep(0.2)   # gentile con DexScreener
     f.close()
-    print(f"[tracker] osservazioni nuove: {n} (token in finestra {TRACK_WINDOW_H}h; {skipped} chiusi) "
+    print(f"[tracker] osservazioni nuove: {n} (green {GREEN_WINDOW_H}h / red {RED_WINDOW_H}h; {skipped} chiusi) "
           f"-> data/track.jsonl")
     return n
 
