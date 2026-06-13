@@ -47,9 +47,20 @@ Noi NON facciamo scalping da secondi: lavoriamo sulla finestra di ORE/giorni —
 Voglio candidate da ENTRAMBE le arene. Preferisci token su SOLANA quando possibile (il mio filtro on-chain
 e' piu' completo li'), ma accetta anche Base se il segnale e' forte — segnami sempre la chain.
 
-# CIO' CHE CERCO: l'IGNIZIONE PRECOCE (la fase in cui l'attenzione ACCELERA, prima del pump grosso)
-Il momento d'oro e' quando un token fresco passa da "pochi lo nominano" a "se ne parla ovunque" nel giro
-di ore. Voglio beccarlo MENTRE accelera, non dopo. I segnali che DEVI cercare attivamente su X:
+# ⚠️ REGOLA DELL'ANTICIPO (la cosa piu' importante di tutte — leggila due volte)
+NON voglio le memecoin "piu' twittate / con piu' hype ADESSO": quelle sono GIA' AL PICCO = troppo tardi,
+le compreremmo sul massimo e poi crollano. Voglio l'OPPOSTO: quelle dove qualcosa STA APPENA INIZIANDO a
+muoversi, che si FIUTA ma non e' ancora esploso. Il pre-picco, non il picco. Esempi del segnale che cerco:
+- un caller IMPORTANTE/credibile ha appena fatto IL PRIMO post (e gli altri non l'hanno ancora ripreso),
+- le menzioni passano da 1-2 a qualche unita' nell'ultima ora (inizio di curva, non curva gia' alta),
+- il volume INIZIA appena a muoversi (non gia' esploso), primi reply/quote di account medi.
+Regola secca: **se "ne parlano gia' tutti" -> e' tardi -> SCARTALO.** Preferisco un token con heat BASSO-MEDIO
+ma in chiara ACCELERAZIONE iniziale, a uno con heat massimo (gia' pumpato). Anticipiamo, non rincorriamo.
+
+# CIO' CHE CERCO: l'IGNIZIONE PRECOCE (la fase in cui l'attenzione INIZIA, prima del pump grosso)
+Il momento d'oro e' l'attimo in cui un token fresco passa da "quasi nessuno lo nomina" a "i primi iniziano a
+nominarlo" — l'INIZIO della curva, non quando "se ne parla ovunque". Voglio beccarlo all'accensione, non
+sull'onda. I segnali che DEVI cercare attivamente su X:
 1. CASHTAG/$TICKER emergenti con menzioni in ACCELERAZIONE nelle ultime 6-72h (da pochi post a decine/ora).
 2. CONTRACT ADDRESS Solana (di solito finiscono in "pump" o sono base58 ~44 char) ri-postati in piu'
    thread/reply: segno che gira negli alpha group, non in un solo account.
@@ -59,6 +70,21 @@ di ore. Voglio beccarlo MENTRE accelera, non dopo. I segnali che DEVI cercare at
    (AI agent, politica, cultura, animale, in-joke del momento). La narrativa e' il carburante.
 5. REAZIONE che cresce: reply veloci, quote-post da account piu' grandi, screenshot di chart, engagement reale.
 6. Token nati su pump.fun o appena migrati a Raydium/Meteora, market cap ancora PICCOLA ($50k-$5M tipico).
+
+# I 7 SEGNALI DI ANTICIPO (la curva che SALE, non la curva gia' alta — valutali uno per uno)
+Per ogni candidato chiediti SE STA PARTENDO, guardando la DERIVATA (il cambiamento), non il livello:
+1. MENZIONI IN AUMENTO ora-su-ora: i post/ora stanno CRESCENDO (es. da 2 a 6 a 12 nelle ultime ore)? La
+   curva delle menzioni e' nella parte iniziale ripida, non gia' in cima/in calo? (questo conta piu' di tutto)
+2. FIRST MOVER credibile: un account con storia/follower veri ha appena fatto IL PRIMO call, e la massa NON
+   l'ha ancora ripreso. Sei in anticipo sulla folla.
+3. ALLARGAMENTO: si passa da 1 a 2-3 account INDIPENDENTI nell'ultima ora (il contagio inizia ora).
+4. NARRATIVA che sta per "cliccare": un meme/evento che inizia a girare ma non e' ancora mainstream sul CT.
+5. PRIMI segni on-X di interesse reale: qualcuno chiede "CA?", primi screenshot, prime reaction genuine
+   (non bot) — l'inizio della curiosita', non la mania conclamata.
+6. VOLUME che si STA muovendo (dalle tue ricerche/embed): inizia a salire, NON gia' esploso.
+7. ASSENZA di euforia di massa: se vedi gia' "100x easy", trending, tutti che postano -> sei in RITARDO.
+Piu' di questi segnali sono ATTIVI e in fase INIZIALE, piu' la candidata e' buona. Marca stage di conseguenza:
+pre_ignition (segnali appena nati) / early_ignition (curva che parte) / rising (gia' su) / peak (TARDI -> evita).
 
 # ANGOLI DI RICERCA (provali DAVVERO, piu' di uno, non fermarti al primo)
 - Cerca cashtag Solana emergenti delle ultime ore + parole come "solana", "pump.fun", "CA", "just launched",
@@ -82,9 +108,11 @@ Non scartare per forza il token: dammelo MA scrivi i red flag in chiaro cosi' io
 - Market cap gia' grande (>$10-20M) o token vecchi di settimane -> sei in ritardo, FUORI.
 - SOLO Solana o Base. Niente Ethereum mainnet, Tron, BSC, altre chain.
 
-# FINESTRA TEMPORALE GIUSTA
-Non l'ultra-micro "lanciato 4 minuti fa" (non ha ancora segnale leggibile su X) e non la mega-famosa gia'
-arci-pumpata. Il punto dolce: da ~poche ore a ~3 giorni di vita, con le PRIME ondate di attenzione ADESSO.
+# FINESTRA TEMPORALE GIUSTA (spostata in AVANTI: vogliamo anticipare)
+Non l'ultra-micro "lanciato 4 minuti fa" (nessun segnale leggibile) e non la gia' arci-pumpata/al-picco.
+Il punto dolce e' PRESTO: da ~1 ora a ~24-36h di vita, nel momento in cui l'attenzione sta APPENA partendo
+(la PRIMA ondata, non la seconda o la terza). Se vedi che il grosso del pump e dell'hype e' gia' avvenuto,
+e' troppo tardi: scartalo o marcalo stage="peak".
 Dammi quello che VEDI DAVVERO dalle ricerche live su X. Meglio 3-6 candidate vere e fresche che una lista
 lunga di spazzatura — ma NON tornare a mani vuote per eccesso di prudenza: se vedi roba che scalda, dammela
 e marcaci sopra la confidence. Lo scarto lo fa il mio filtro on-chain, non la tua paura di sbagliare.
@@ -113,6 +141,9 @@ Un CA inventato mi fa sprecare chiamate on-chain e inquina il dataset: preferisc
   "distinct_callers": 3,              // QUANTI account INDIPENDENTI ne parlano (1 = shill singolo, rischioso)
   "caller_tier": "micro|mid|big|mixed",
   "why_now": "string",               // perche' sta accelerando PROPRIO ORA
+  "stage": "pre_ignition|early_ignition|rising|peak",  // FONDAMENTALE: voglio pre/early, NON peak
+  "mentions_now_vs_prev": "string",  // come stanno cambiando le menzioni (es. "da 2/h a 8/h nell'ultima ora")
+  "first_mover": "string|null",      // il caller credibile che l'ha lanciato per PRIMO, se c'e'
   "momentum": "exploding|rising|steady|fading",
   "velocity": "rising|flat|falling",
   "sentiment": "hype|organic|mixed|suspicious",
@@ -155,12 +186,11 @@ def run():
            "n": len(tokens), "tokens": tokens}
     with open(OUT, "a") as f:
         f.write(json.dumps(row) + "\n")
-    hot = [t for t in tokens if str(t.get("momentum")) in ("exploding", "rising")]
-    print(f"[trend] Grok: {len(tokens)} token segnalati ({len(hot)} in salita) -> data/trends.jsonl")
+    early = [t for t in tokens if str(t.get("stage")) in ("pre_ignition", "early_ignition")]
+    print(f"[trend] Grok: {len(tokens)} token ({len(early)} in fase EARLY/pre-picco) -> data/trends.jsonl")
     for t in tokens[:8]:
-        print(f"   {str(t.get('ticker','?')):12} heat={t.get('heat','?')} "
-              f"mom={str(t.get('momentum','?')):9} callers={t.get('distinct_callers','?')} "
-              f"conf={t.get('confidence','?')} {str(t.get('why_now',''))[:50]}")
+        print(f"   {str(t.get('ticker','?')):12} stage={str(t.get('stage','?')):14} heat={t.get('heat','?')} "
+              f"menzioni={str(t.get('mentions_now_vs_prev',''))[:24]} conf={t.get('confidence','?')}")
     return tokens
 
 
