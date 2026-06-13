@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-06-13 18:53",
+  "updated_utc": "2026-06-13 20:49",
   "runner_pct": 50,
-  "settled": 34,
-  "runners": 4,
-  "deads": 30,
+  "settled": 37,
+  "runners": 5,
+  "deads": 32,
   "by_arena": {
     "memecoin": {
-      "trades": 28,
-      "runners": 4,
-      "runner_rate": 0.14
+      "trades": 31,
+      "runners": 5,
+      "runner_rate": 0.16
     },
     "ai_agent": {
       "trades": 6,
@@ -23,61 +23,68 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 3215.0,
+      "runner_median": 2488,
       "dead_median": 108.0,
-      "ratio": 29.77
+      "ratio": 23.04
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 5.47,
-      "dead_median": 1.0,
-      "ratio": 5.47
-    },
-    {
-      "feature": "bs_ratio_1h",
-      "label": "buy/sell 1h",
-      "runner_median": 1.195,
-      "dead_median": 0.55,
-      "ratio": 2.17
+      "runner_median": 10.32,
+      "dead_median": 1.41,
+      "ratio": 7.32
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 29053.5,
+      "runner_median": 38102,
       "dead_median": 15724.5,
-      "ratio": 1.85
+      "ratio": 2.42
+    },
+    {
+      "feature": "bs_ratio_1h",
+      "label": "buy/sell 1h",
+      "runner_median": 1.15,
+      "dead_median": 0.55,
+      "ratio": 2.09
+    },
+    {
+      "feature": "liq",
+      "label": "liquidità",
+      "runner_median": 5099,
+      "dead_median": 8266.0,
+      "ratio": 0.62
     },
     {
       "feature": "grok_heat",
       "label": "heat di Grok",
-      "runner_median": 5.0,
+      "runner_median": 5,
       "dead_median": 4.0,
       "ratio": 1.25
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.611,
+      "runner_median": 0.613,
       "dead_median": 0.792,
       "ratio": 0.77
     },
     {
       "feature": "age_h",
       "label": "età (h)",
-      "runner_median": 59.9,
-      "dead_median": 54.2,
-      "ratio": 1.11
-    },
-    {
-      "feature": "liq",
-      "label": "liquidità",
-      "runner_median": 7317.5,
-      "dead_median": 8266.0,
-      "ratio": 0.89
+      "runner_median": 42.6,
+      "dead_median": 41.35,
+      "ratio": 1.03
     }
   ],
   "best_runners": [
+    {
+      "ticker": "ELON",
+      "ret_max": 1.29,
+      "pass": false,
+      "vol_1h": 2488,
+      "voliq": 44.47
+    },
     {
       "ticker": "AgentFX",
       "ret_max": 1.22,
