@@ -37,6 +37,18 @@ entry timing, performance strategie, confronto arene, lezioni, config attuale) e
 (DeepSeek) con la domanda "cosa miglioreresti adesso?". Salva il feedback e lo manda via EMAIL a Nicolo.
 Poi l'umano (Nicolo + Claude) decide cosa implementare. Punto 2-3-4 restano umani-nel-loop, di proposito.
 
+## IL GATE — abbastanza dati E dati sensati? (le due paure di Nicolo)
+Prima di fare l'analisi critica ogni 24h, l'agente si chiede: "ho abbastanza dati, e sono SENSATI?".
+- **READY** (>= 30 trade conclusi E >= 3 runner) -> fa l'analisi critica (DeepSeek) e manda il feedback.
+- **SKIP** (dati insufficienti) -> NIENTE analisi (nessun costo): manda solo un'email "giorno di accumulo,
+  X/30 trade, Y runner", e aspetta.
+- **FORCE** -> se sono passati 4 giorni di SKIP consecutivi, forza COMUNQUE un'analisi (preliminare). Cosi'
+  non ci si blocca mai per perfezionismo (paura #1: loop di rinvio infinito).
+Contro l'accumulo di TRASH (paura #2), ad ogni giro il gate controlla la QUALITA': i trade conclusi
+crescono rispetto a ieri? ci sono vincitori? il filtro fa passare delle perle? Se la raccolta e' FERMA o
+SENZA VINCITORI, lo segnala subito nell'email — non si accumula spazzatura per giorni senza accorgersene.
+Soglie tarabili in improve_agent.py (MIN_TRADES, MIN_RUNNERS, MAX_SKIP_DAYS).
+
 ## I RUOLI
 - **Nicolo = amministratore / guida.** Porta la direzione, fa la domanda giusta al momento giusto.
 - **Claude = la mente / esecutore.** Capisce, struttura, costruisce, fa girare il loop.

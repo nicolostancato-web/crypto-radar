@@ -22,6 +22,57 @@ import watchdog
 HERE = os.path.dirname(os.path.abspath(__file__))
 PIPE = os.path.join(HERE, "web", "pipeline.json")
 OUTDIR = os.path.join(HERE, "data", "improvements")
+STATE = os.path.join(HERE, "data", "improve_state.json")
+
+# --- GATE: quando fare l'analisi critica vs quando solo accumulare ---
+MIN_TRADES = 30        # soglia PRELIMINARE ragionevole (non perfezionista: evita il loop di rinvio infinito)
+MIN_RUNNERS = 3        # servono dei vincitori, altrimenti non c'e' niente da cui imparare il pattern
+MAX_SKIP_DAYS = 4      # dopo 4 giorni di solo-accumulo, FORZA comunque un'analisi (paura #1: mai bloccarsi)
+
+
+def _load_state():
+    try:
+        return json.load(open(STATE))
+    except Exception:
+        return {"settled": 0, "skip_days": 0, "last_date": None}
+
+
+def _save_state(s):
+    os.makedirs(os.path.dirname(STATE), exist_ok=True)
+    json.dump(s, open(STATE, "w"), indent=2)
+
+
+def _readiness(d, prev):
+    """Decide se i dati bastano E sono sensati. Ritorna (decision, reasons, metrics).
+    decision: 'analyze' | 'skip' | 'force'. Protegge da: loop di rinvio (MAX_SKIP_DAYS) e trash (check qualita')."""
+    les = d.get("lessons", {}) or {}
+    L = d.get("learning", {}) or {}
+    settled = les.get("settled") or 0
+    runners = les.get("runners") or 0
+    green = d.get("passed_count") or 0
+    evaluated = d.get("evaluated") or 0
+    delta = settled - (prev.get("settled") or 0)
+    skip_days = prev.get("skip_days") or 0
+
+    # --- check QUALITA' dei dati (paura #2: non accumulare trash) ---
+    problems = []
+    if prev.get("last_date") and delta <= 0:
+        problems.append(f"RACCOLTA FERMA: i trade conclusi non crescono da ieri ({settled}, +{delta}). Problema nella pipeline?")
+    if settled >= 50 and runners == 0:
+        problems.append(f"DATASET SENZA VINCITORI: {settled} trade ma 0 runner. Filtro troppo severo o mercato morto — rivedere.")
+    if evaluated >= 40 and green == 0:
+        problems.append(f"ZERO PERLE su {evaluated} valutati: il filtro non fa passare nulla — troppo stretto.")
+
+    ready = settled >= MIN_TRADES and runners >= MIN_RUNNERS
+    if ready:
+        decision = "analyze"
+    elif skip_days >= MAX_SKIP_DAYS:
+        decision = "force"   # troppi giorni fermi: analizza coi dati che ci sono, ma dillo
+    else:
+        decision = "skip"
+    metrics = {"settled": settled, "runners": runners, "green": green, "evaluated": evaluated,
+               "delta": delta, "skip_days": skip_days, "min_trades": MIN_TRADES, "min_runners": MIN_RUNNERS}
+    return decision, problems, metrics
 
 
 def _state():
@@ -67,28 +118,51 @@ Chiudi con: la SINGOLA cosa piu' importante da fare adesso."""
 
 
 def run():
-    state = _state()
-    if not state:
+    if not os.path.exists(PIPE):
         print("[improve] pipeline.json assente — niente stato da analizzare."); return
-    prompt = _prompt(state)
-    print("[improve] chiedo a DeepSeek cosa migliorare...")
+    d = json.load(open(PIPE))
+    state_txt = _state()
+    prev = _load_state()
+    decision, problems, m = _readiness(d, prev)
+    day = time.strftime("%Y-%m-%d", time.gmtime())
+    prob_txt = ("\n⚠️ PROBLEMI DI RACCOLTA:\n" + "\n".join("• " + p for p in problems)) if problems else ""
+
+    # --- GATE: se i dati non bastano e non siamo bloccati da troppo, ACCUMULA (no analisi, no costo) ---
+    if decision == "skip":
+        new_state = {"settled": m["settled"], "skip_days": m["skip_days"] + 1, "last_date": day}
+        _save_state(new_state)
+        msg = (f"Giorno di ACCUMULO ({day}). Dati ancora insufficienti per un'analisi critica onesta.\n"
+               f"Trade conclusi: {m['settled']}/{m['min_trades']} (+{m['delta']} da ieri) · runner: {m['runners']}/{m['min_runners']} · "
+               f"perle: {m['green']}/{m['evaluated']}.\nSalto l'analisi (giorno {m['skip_days']+1}/{MAX_SKIP_DAYS} di attesa). "
+               f"Forzero' comunque un'analisi al giorno {MAX_SKIP_DAYS}.{prob_txt}\n\n"
+               f"(Gate del loop: niente ottimizzazione su pochi dati, ma niente attesa cieca: se la raccolta e' "
+               f"ferma o senza vincitori, lo vedi sopra.)")
+        print("[improve] SKIP — " + msg.replace("\n", " ")[:160])
+        watchdog._email(f"⏳ Crypto-radar — accumulo, {m['settled']}/{m['min_trades']} trade ({day})", msg)
+        return
+
+    # --- ANALYZE o FORCE: abbastanza dati (o troppi giorni fermi) -> chiedo a DeepSeek ---
+    note = ""
+    if decision == "force":
+        note = (f"\n[NB: forzo l'analisi dopo {m['skip_days']} giorni di attesa, anche se i dati sono ancora "
+                f"pochi ({m['settled']} trade). Pesa le conclusioni come PRELIMINARI.]")
+    print(f"[improve] {decision.upper()} — chiedo a DeepSeek ({m['settled']} trade, {m['runners']} runner)...")
     try:
-        fb = da.ask_deepseek(prompt, max_tokens=4000, timeout=300)
+        fb = da.ask_deepseek(_prompt(state_txt) + note, max_tokens=4000, timeout=300)
     except Exception as e:
         print(f"[improve] DeepSeek errore: {str(e)[:150]}"); return
     if not fb:
         print("[improve] nessuna risposta da DeepSeek"); return
     os.makedirs(OUTDIR, exist_ok=True)
-    day = time.strftime("%Y-%m-%d", time.gmtime())
     path = os.path.join(OUTDIR, f"improve_{day}.md")
     with open(path, "w") as f:
-        f.write(f"# Cosa migliorare — {day} (DeepSeek)\n\n## Stato di oggi\n{state}\n\n## Feedback\n{fb}\n")
+        f.write(f"# Cosa migliorare — {day} (DeepSeek, {decision})\n\n## Stato\n{state_txt}\n{prob_txt}\n\n## Feedback\n{fb}\n")
     print(f"[improve] feedback salvato -> data/improvements/improve_{day}.md")
-    # manda l'email col feedback (decide l'umano)
+    _save_state({"settled": m["settled"], "skip_days": 0, "last_date": day})   # reset contatore skip
     watchdog._email(
-        f"🔁 Crypto-radar — cosa migliorare oggi ({day})",
-        f"STATO DI OGGI:\n{state}\n\n--- FEEDBACK DEEPSEEK ---\n\n{fb}\n\n"
-        f"(Loop del miglioramento: leggi, decidi cosa implementare, poi accumula 24h e si ripete.)"
+        f"🔁 Crypto-radar — cosa migliorare ({day})",
+        f"STATO:\n{state_txt}{prob_txt}\n\n--- FEEDBACK DEEPSEEK ---\n\n{fb}\n\n"
+        f"(Loop: leggi, decidi cosa implementare, poi accumula 24h e si ripete.)"
     )
     return fb
 

@@ -36,7 +36,7 @@ jobs:
         run: |
           git config user.name "crypto-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add data/improvements/
+          git add data/improvements/ data/improve_state.json
           git commit -m "improve $(date -u +%Y-%m-%d)" || { echo "niente di nuovo"; exit 0; }
           for i in 1 2 3 4 5; do
             git pull --no-rebase --no-edit origin main || true
