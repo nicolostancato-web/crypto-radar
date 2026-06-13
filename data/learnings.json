@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-06-13 16:57",
+  "updated_utc": "2026-06-13 17:47",
   "runner_pct": 50,
   "settled": 34,
-  "runners": 3,
-  "deads": 31,
+  "runners": 4,
+  "deads": 30,
   "by_arena": {
     "memecoin": {
       "trades": 28,
-      "runners": 3,
-      "runner_rate": 0.11
+      "runners": 4,
+      "runner_rate": 0.14
     },
     "ai_agent": {
       "trades": 6,
@@ -23,58 +23,58 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 4553,
-      "dead_median": 142,
-      "ratio": 32.06
+      "runner_median": 3215.0,
+      "dead_median": 108.0,
+      "ratio": 29.77
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 10.32,
-      "dead_median": 0.88,
-      "ratio": 11.73
-    },
-    {
-      "feature": "vol_24h",
-      "label": "volume 24h",
-      "runner_median": 38102,
-      "dead_median": 12137,
-      "ratio": 3.14
+      "runner_median": 5.47,
+      "dead_median": 1.0,
+      "ratio": 5.47
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
-      "runner_median": 1.24,
-      "dead_median": 0.6,
-      "ratio": 2.07
+      "runner_median": 1.195,
+      "dead_median": 0.55,
+      "ratio": 2.17
+    },
+    {
+      "feature": "vol_24h",
+      "label": "volume 24h",
+      "runner_median": 29053.5,
+      "dead_median": 15724.5,
+      "ratio": 1.85
     },
     {
       "feature": "grok_heat",
       "label": "heat di Grok",
-      "runner_median": 5,
-      "dead_median": 4,
+      "runner_median": 5.0,
+      "dead_median": 4.0,
       "ratio": 1.25
-    },
-    {
-      "feature": "age_h",
-      "label": "età (h)",
-      "runner_median": 42.6,
-      "dead_median": 55.0,
-      "ratio": 0.77
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.609,
-      "dead_median": 0.754,
-      "ratio": 0.81
+      "runner_median": 0.611,
+      "dead_median": 0.792,
+      "ratio": 0.77
+    },
+    {
+      "feature": "age_h",
+      "label": "età (h)",
+      "runner_median": 59.9,
+      "dead_median": 54.2,
+      "ratio": 1.11
     },
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 0,
-      "dead_median": 9084,
-      "ratio": null
+      "runner_median": 7317.5,
+      "dead_median": 8266.0,
+      "ratio": 0.89
     }
   ],
   "best_runners": [
@@ -87,10 +87,17 @@
     },
     {
       "ticker": "JOTCHUA",
-      "ret_max": 0.57,
+      "ret_max": 0.72,
       "pass": false,
       "vol_1h": 39814,
       "voliq": 10.32
+    },
+    {
+      "ticker": "SOLANASTADIUM",
+      "ret_max": 0.61,
+      "pass": false,
+      "vol_1h": 1850,
+      "voliq": 0.62
     },
     {
       "ticker": "ARX",
