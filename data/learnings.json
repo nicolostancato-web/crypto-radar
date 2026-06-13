@@ -1,66 +1,66 @@
 {
-  "updated_utc": "2026-06-12 22:48",
+  "updated_utc": "2026-06-13 01:35",
   "runner_pct": 50,
-  "settled": 22,
+  "settled": 28,
   "runners": 2,
-  "deads": 20,
+  "deads": 26,
   "by_arena": {
     "memecoin": {
-      "trades": 20,
+      "trades": 23,
       "runners": 2,
-      "runner_rate": 0.1
+      "runner_rate": 0.09
     },
     "ai_agent": {
-      "trades": 2,
+      "trades": 5,
       "runners": 0,
       "runner_rate": 0.0
     }
   },
   "prelim_at": 8,
   "ready_at": 25,
-  "status": "prelim",
+  "status": "ready",
   "lessons": [
     {
       "feature": "vol_1h",
       "label": "volume 1h",
       "runner_median": 20845.5,
-      "dead_median": 248.0,
-      "ratio": 84.05
+      "dead_median": 195.5,
+      "ratio": 106.63
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
       "runner_median": 1052035.0,
-      "dead_median": 41377.0,
-      "ratio": 25.43
+      "dead_median": 31972.0,
+      "ratio": 32.9
     },
     {
       "feature": "liq",
       "label": "liquidità",
       "runner_median": 100960.0,
-      "dead_median": 8266.0,
-      "ratio": 12.21
+      "dead_median": 9369.5,
+      "ratio": 10.78
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
       "runner_median": 10.32,
-      "dead_median": 3.265,
-      "ratio": 3.16
-    },
-    {
-      "feature": "age_h",
-      "label": "età (h)",
-      "runner_median": 84.65,
-      "dead_median": 28.1,
-      "ratio": 3.01
+      "dead_median": 1.0,
+      "ratio": 10.32
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
       "runner_median": 1.825,
-      "dead_median": 0.955,
-      "ratio": 1.91
+      "dead_median": 0.87,
+      "ratio": 2.1
+    },
+    {
+      "feature": "age_h",
+      "label": "età (h)",
+      "runner_median": 84.65,
+      "dead_median": 41.35,
+      "ratio": 2.05
     },
     {
       "feature": "top10_pct",
@@ -73,8 +73,8 @@
       "feature": "grok_heat",
       "label": "heat di Grok",
       "runner_median": 5.5,
-      "dead_median": 5.0,
-      "ratio": 1.1
+      "dead_median": 4.5,
+      "ratio": 1.22
     }
   ],
   "best_runners": [
