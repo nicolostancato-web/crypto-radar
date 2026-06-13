@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Crypto Radar — dalla viralità su X alla perla on-chain</title>
-  <link rel="stylesheet" href="styles.css?v=28">
+  <link rel="stylesheet" href="styles.css?v=29">
 </head>
 <body>
   <main class="wrap">
@@ -53,6 +53,17 @@
           <tbody></tbody>
         </table>
       </div>
+    </section>
+
+    <section>
+      <h2>Stiamo entrando e uscendo bene? <span class="muted">— paper trading delle strategie</span></h2>
+      <p class="note" id="sim-note">Entriamo al segnale e proviamo diverse uscite (take-profit, stop, trailing, a tempo)
+      su ogni trade. Così capiamo se il problema è <i>quando entriamo</i> o <i>quando usciamo</i>. Zero soldi reali.</p>
+      <div class="tablewrap"><table id="simtable">
+        <thead><tr><th>strategia d'uscita</th><th>guadagno mediano</th><th>vince</th><th>quanto tieni</th></tr></thead>
+        <tbody></tbody>
+      </table></div>
+      <div id="sim-verdict"></div>
     </section>
 
     <section>
@@ -181,6 +192,6 @@
     </footer>
 
   </main>
-  <script src="app.js?v=28"></script>
+  <script src="app.js?v=29"></script>
 </body>
 </html>

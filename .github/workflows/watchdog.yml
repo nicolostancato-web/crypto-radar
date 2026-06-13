@@ -1,0 +1,27 @@
+name: crypto-radar-watchdog
+
+# IL GUARDIANO: gira ogni 4h, separato da tutto. Controlla che il radar sia vivo e stabile.
+# Se qualcosa e' fermo (scan X bloccato, file di stato mancanti) manda un alert Telegram al founder.
+# Se tutto va bene, sta zitto. Costo: zero (solo lettura + 1 messaggio Telegram in caso di allarme).
+on:
+  schedule:
+    - cron: "45 */4 * * *"     # ogni 4 ore
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  watchdog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Health check
+        env:
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python watchdog.py

@@ -116,6 +116,90 @@ def build_outcomes():
     return out
 
 
+def _exit_strategies(pts):
+    """Date le coppie (age_min, price) dall'ENTRATA in poi, simula varie regole d'uscita.
+    Ritorna il ritorno % realizzato e i minuti tenuti per ogni strategia (paper, esecuzione ideale)."""
+    entry = pts[0][1]
+    end_age, end_p = pts[-1][0], pts[-1][1]
+
+    def run(tp=None, sl=None, trail=None, tmax=None):
+        peak = entry
+        for age, p in pts[1:]:
+            peak = max(peak, p)
+            r = p / entry - 1
+            if tp is not None and r >= tp:
+                return tp, age
+            if sl is not None and r <= sl:
+                return r, age
+            if trail is not None and peak > entry and p <= peak * (1 - trail):
+                return r, age
+            if tmax is not None and age >= tmax:
+                return r, age
+        return end_p / entry - 1, end_age
+
+    return {
+        "hodl24": run(),                       # tieni fino a fine finestra
+        "tp50": run(tp=0.5),                   # vendi a +50%
+        "tp100_sl30": run(tp=1.0, sl=-0.3),    # +100% o stop -30%
+        "trail25": run(trail=0.25),            # trailing stop -25% dal picco
+        "time6h": run(tmax=360),               # esci dopo 6h
+    }
+
+
+STRAT_LABEL = {
+    "hodl24": "Tieni fino a fine (24h)", "tp50": "Vendi a +50%",
+    "tp100_sl30": "+100% o stop −30%", "trail25": "Trailing stop −25%", "time6h": "Esci dopo 6h",
+}
+
+
+def build_simulation():
+    """Paper trading: entra al segnale, prova diverse uscite, dice quale rende di più e quanto tenere."""
+    obs = {}
+    for o in _read_jsonl(TRACK):
+        obs.setdefault(o.get("ca"), []).append(o)
+    agg = {k: {"rets": [], "holds": []} for k in STRAT_LABEL}
+    arena_rets = {}
+    pass_rets, fail_rets = [], []      # per capire se entriamo tardi (perle vs scartati con la miglior uscita)
+    n = 0
+    for ca, series in obs.items():
+        series = _clean_series(sorted(series, key=lambda x: x.get("obs_ts") or 0))
+        pts = [(s.get("age_min") or 0, s.get("price")) for s in series if s.get("price")]
+        if len(pts) < 2:
+            continue
+        n += 1
+        res = _exit_strategies(pts)
+        for k, (r, hold) in res.items():
+            agg[k]["rets"].append(r)
+            agg[k]["holds"].append(hold)
+        a = (series[0].get("arena") or "memecoin")
+        arena_rets.setdefault(a, []).append(res["trail25"][0])
+        (pass_rets if series[0].get("pass") else fail_rets).append(res["trail25"][0])
+
+    def med(xs):
+        xs = sorted(xs)
+        return xs[len(xs) // 2] if xs else None
+
+    strategies = []
+    for k, v in agg.items():
+        if not v["rets"]:
+            continue
+        strategies.append({
+            "name": k, "label": STRAT_LABEL[k],
+            "median": round(med(v["rets"]), 3), "avg": round(sum(v["rets"]) / len(v["rets"]), 3),
+            "win_rate": round(sum(1 for r in v["rets"] if r > 0) / len(v["rets"]), 2),
+            "avg_hold_min": round(sum(v["holds"]) / len(v["holds"])),
+        })
+    strategies.sort(key=lambda s: s["median"], reverse=True)
+    return {
+        "n_trades": n,
+        "strategies": strategies,
+        "best": strategies[0]["name"] if strategies else None,
+        "by_arena": {a: round(med(rs), 3) for a, rs in arena_rets.items()},
+        "pass_median": round(med(pass_rets), 3) if pass_rets else None,
+        "fail_median": round(med(fail_rets), 3) if fail_rets else None,
+    }
+
+
 def build():
     trends = _read_jsonl(TRENDS)
     cands = _read_jsonl(CANDS)
@@ -230,6 +314,9 @@ def build():
         a = c.get("arena") or "memecoin"
         acount[a] = acount.get(a, 0) + 1
     data["arena_counts"] = acount
+
+    # --- simulazione entrate/uscite (paper trading) ---
+    data["simulation"] = build_simulation()
 
     # --- lezioni apprese (step 5: learner.py) ---
     if os.path.exists(LEARN):

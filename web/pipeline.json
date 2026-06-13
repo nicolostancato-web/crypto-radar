@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-13 06:48",
+  "updated_utc": "2026-06-13 07:08",
   "scans_total": 14,
   "last_scan": {
     "utc": "2026-06-13 06:33",
@@ -1612,6 +1612,58 @@
   "arena_counts": {
     "memecoin": 29,
     "ai_agent": 5
+  },
+  "simulation": {
+    "n_trades": 31,
+    "strategies": [
+      {
+        "name": "time6h",
+        "label": "Esci dopo 6h",
+        "median": 0.0,
+        "avg": -0.012,
+        "win_rate": 0.35,
+        "avg_hold_min": 542
+      },
+      {
+        "name": "hodl24",
+        "label": "Tieni fino a fine (24h)",
+        "median": -0.026,
+        "avg": -0.062,
+        "win_rate": 0.19,
+        "avg_hold_min": 1058
+      },
+      {
+        "name": "tp50",
+        "label": "Vendi a +50%",
+        "median": -0.026,
+        "avg": -0.077,
+        "win_rate": 0.19,
+        "avg_hold_min": 1014
+      },
+      {
+        "name": "tp100_sl30",
+        "label": "+100% o stop −30%",
+        "median": -0.026,
+        "avg": -0.058,
+        "win_rate": 0.19,
+        "avg_hold_min": 929
+      },
+      {
+        "name": "trail25",
+        "label": "Trailing stop −25%",
+        "median": -0.026,
+        "avg": -0.062,
+        "win_rate": 0.23,
+        "avg_hold_min": 961
+      }
+    ],
+    "best": "time6h",
+    "by_arena": {
+      "memecoin": -0.017,
+      "ai_agent": -0.033
+    },
+    "pass_median": -0.261,
+    "fail_median": -0.017
   },
   "lessons": {
     "updated_utc": "2026-06-13 06:48",

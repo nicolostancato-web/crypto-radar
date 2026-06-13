@@ -140,6 +140,34 @@ function renderOutcomes(d) {
   }).join("");
 }
 
+function renderSim(d) {
+  const tb = document.querySelector("#simtable tbody");
+  const s = d && d.simulation;
+  if (!s || !s.strategies || !s.strategies.length) {
+    tb.innerHTML = '<tr><td colspan="4" class="muted">Simulazione in avvio — servono token con più osservazioni.</td></tr>';
+    return;
+  }
+  const pp = (x) => (x == null ? "—" : (x >= 0 ? "+" : "") + Math.round(x * 100) + "%");
+  const hrs = (m) => (m >= 60 ? (m / 60).toFixed(1) + "h" : m + "min");
+  tb.innerHTML = s.strategies.map((st, i) => `
+    <tr class="${i === 0 ? "edge" : ""}">
+      <td>${st.label}${i === 0 ? ' <span class="pill y">migliore</span>' : ""}</td>
+      <td class="med ${cls(st.median)}">${pp(st.median)}</td>
+      <td>${Math.round(st.win_rate * 100)}%</td>
+      <td>${hrs(st.avg_hold_min)}</td>
+    </tr>`).join("");
+
+  const v = document.getElementById("sim-verdict");
+  const pm = s.pass_median, fm = s.fail_median;
+  const lateEntry = pm != null && fm != null && pm < fm;
+  v.innerHTML = `<div class="simverdict ${lateEntry ? "bad" : "ok"}">
+    <b>${lateEntry ? "⚠ Entriamo troppo tardi" : "Lettura entrata/uscita"}</b>
+    Con l'entrata al segnale, le <b>perle</b> rendono ${pp(pm)} mediano vs <b>${pp(fm)}</b> degli scartati.
+    ${lateEntry ? "Le perle le prendiamo a pump quasi finito → il problema è <b>quando entriamo</b>, non l'uscita. Va anticipata la cattura." : ""}
+    ${s.by_arena ? "<br>Per arena (trailing −25%): " + Object.entries(s.by_arena).map(([a, r]) => `${a} ${pp(r)}`).join(" · ") : ""}
+  </div>`;
+}
+
 function renderLessons(d) {
   const box = document.getElementById("lessons");
   const L = d && d.lessons;
@@ -203,6 +231,7 @@ function renderStats(d) {
   renderTrends(d);
   renderCandidates(d);
   renderOutcomes(d);
+  renderSim(d);
   renderLessons(d);
   renderStats(d);
 })();
