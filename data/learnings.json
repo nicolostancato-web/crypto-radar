@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-06-13 06:48",
+  "updated_utc": "2026-06-13 12:10",
   "runner_pct": 50,
-  "settled": 31,
-  "runners": 2,
+  "settled": 32,
+  "runners": 3,
   "deads": 29,
   "by_arena": {
     "memecoin": {
-      "trades": 26,
-      "runners": 2,
-      "runner_rate": 0.08
+      "trades": 27,
+      "runners": 3,
+      "runner_rate": 0.11
     },
     "ai_agent": {
       "trades": 5,
@@ -23,23 +23,9 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 20845.5,
-      "dead_median": 182,
-      "ratio": 114.54
-    },
-    {
-      "feature": "vol_24h",
-      "label": "volume 24h",
-      "runner_median": 1052035.0,
-      "dead_median": 25842,
-      "ratio": 40.71
-    },
-    {
-      "feature": "liq",
-      "label": "liquidità",
-      "runner_median": 100960.0,
-      "dead_median": 7448,
-      "ratio": 13.56
+      "runner_median": 4553,
+      "dead_median": 142,
+      "ratio": 32.06
     },
     {
       "feature": "voliq",
@@ -49,32 +35,46 @@
       "ratio": 7.32
     },
     {
-      "feature": "age_h",
-      "label": "età (h)",
-      "runner_median": 84.65,
-      "dead_median": 29.3,
-      "ratio": 2.89
-    },
-    {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
-      "runner_median": 1.825,
-      "dead_median": 0.78,
-      "ratio": 2.34
+      "runner_median": 1.24,
+      "dead_median": 0.6,
+      "ratio": 2.07
+    },
+    {
+      "feature": "vol_24h",
+      "label": "volume 24h",
+      "runner_median": 38102,
+      "dead_median": 19312,
+      "ratio": 1.97
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.447,
-      "dead_median": 0.754,
-      "ratio": 0.59
+      "runner_median": 0.609,
+      "dead_median": 0.809,
+      "ratio": 0.75
     },
     {
       "feature": "grok_heat",
       "label": "heat di Grok",
-      "runner_median": 5.5,
+      "runner_median": 5,
       "dead_median": 4,
-      "ratio": 1.38
+      "ratio": 1.25
+    },
+    {
+      "feature": "age_h",
+      "label": "età (h)",
+      "runner_median": 42.6,
+      "dead_median": 53.4,
+      "ratio": 0.8
+    },
+    {
+      "feature": "liq",
+      "label": "liquidità",
+      "runner_median": 0,
+      "dead_median": 7448,
+      "ratio": null
     }
   ],
   "best_runners": [
@@ -91,6 +91,13 @@
       "pass": false,
       "vol_1h": 39814,
       "voliq": 10.32
+    },
+    {
+      "ticker": "ARX",
+      "ret_max": 0.53,
+      "pass": false,
+      "vol_1h": 4553,
+      "voliq": null
     }
   ]
 }
