@@ -1,23 +1,22 @@
-name: crypto-radar-trends
+name: crypto-radar-track
 
-# L'AGENTE TREND: ogni 4h chiede a Grok (X live) cosa scalda sulle memecoin Solana e salva il
-# segnale nella serie storica (data/trends.jsonl). E' la nostra fonte social/virale a basso costo.
-# Il nostro edge non e' avere Grok (ce l'hanno tutti) ma la STRUTTURA: serie storica + cross-check
-# on-chain + backtest di quali segnali predicono il pump.
+# TRACKING ORARIO (gratis): ogni ora aggiorna prezzo/volume/whale di tutti i token seguiti, ri-apprende
+# e aggiorna la dashboard. NON chiama Grok (quello e' lo scan, ogni 4h in trends.yml). Solo DexScreener+Helius.
+# E' la granularita' oraria che serve per studiare il timing di entrata/uscita delle green.
 on:
   schedule:
-    - cron: "15 */4 * * *"     # SCAN ogni 4h (CFO: Grok costa; i token freschi non spariscono in 1h. ~$0.18/giorno). Il TRACKING prezzi/whale gira a parte ogni 1h (track.yml, gratis)
+    - cron: "35 * * * *"     # ogni 1 ora (gratis: DexScreener + Helius, dentro i free tier)
   workflow_dispatch: {}
 
 permissions:
   contents: write
 
 concurrency:
-  group: radar
+  group: radar               # stesso gruppo dello scan: niente run git sovrapposti
   cancel-in-progress: false
 
 jobs:
-  trends:
+  track:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,31 +26,27 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
 
-      - name: Cattura trend da Grok (X live) + FILTRO on-chain
+      - name: Traccia prezzi/whale + ri-apprendi
         env:
-          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
           HELIUS_API_KEY: ${{ secrets.HELIUS_API_KEY }}
         run: |
-          python trend_agent.py
-          python filter_tokens.py 3
           python tracker.py
           python learner.py
           python pipeline_export.py
 
-      - name: Salva trend + candidate filtrate + dashboard json
+      - name: Salva tracking + stato
         run: |
           git config user.name "crypto-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add data/trends.jsonl data/candidates.jsonl data/track.jsonl data/learnings.json web/pipeline.json
-          git commit -m "trend $(date -u +%Y-%m-%dT%H:%MZ)" || { echo "niente di nuovo"; exit 0; }
+          git add data/track.jsonl data/learnings.json web/pipeline.json
+          git commit -m "track $(date -u +%Y-%m-%dT%H:%MZ)" || { echo "niente di nuovo"; exit 0; }
           for i in 1 2 3 4 5; do
             git pull --no-rebase --no-edit origin main || true
-            git push origin main && exit 0
+            git push origin main && break
             sleep 5
           done
-          echo "push fallito"; exit 1
 
-      - name: Aggiorna dashboard pubblica (X-first)
+      - name: Aggiorna dashboard pubblica
         env:
           PAGES_PAT: ${{ secrets.PAGES_PAT }}
         run: |
@@ -67,4 +62,4 @@ jobs:
             git push origin main && exit 0
             sleep 4
           done
-          echo "dashboard push fallito (non blocca il radar)"; exit 0
+          echo "dashboard push fallito (non blocca)"; exit 0
