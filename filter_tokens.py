@@ -73,8 +73,13 @@ def evaluate(ca):
     if d["liq"] < f["min_liquidity"]: fails.append("liq_bassa")
     if d["liq"] > f["max_liquidity"]: fails.append("liq_troppo_alta")
     if voliq is not None and (voliq < f["voliq_min"] or voliq > f["voliq_max"]): fails.append("voliq_anomalo")
-    if d["vol_24h"] < f["min_vol_24h"]: fails.append("vol24_basso")
-    if d["vol_1h"] < f["min_vol_1h"]: fails.append("vol1h_basso")
+    # corsia EARLY: i token giovani (<early_age_hours) usano soglie volume permissive (non li bocciamo
+    # perche' "vol24h basso" e' naturale a poche ore di vita). Vedi review DeepSeek 13/06.
+    is_early = age_h is not None and age_h < f.get("early_age_hours", 8)
+    min_v24 = f["min_vol_24h_early"] if is_early else f["min_vol_24h"]
+    min_v1 = f["min_vol_1h_early"] if is_early else f["min_vol_1h"]
+    if d["vol_24h"] < min_v24: fails.append("vol24_basso")
+    if d["vol_1h"] < min_v1: fails.append("vol1h_basso")
     if age_h is not None and (age_h < f["age_min_hours"] or age_h > f["age_max_hours"]): fails.append("eta_fuori")
     if s.get("holders") is not None and s["holders"] < f["min_holders"]: fails.append("pochi_holder")
     if s.get("top10_pct") is not None and s["top10_pct"] > f["max_top10_pct"]: fails.append("top10_concentrato")

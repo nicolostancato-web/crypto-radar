@@ -350,7 +350,12 @@ FILTER = {
     "voliq_healthy_lo": 2, "voliq_healthy_hi": 15,  # range sano (bonus)
     "min_vol_24h": 50_000,
     "min_vol_1h": 3_000,          # momentum early (un filo sotto i $5k di DeepSeek per non perdere troppo)
-    "age_min_hours": 1,           # <1h = flash-rug
+    # CORSIA EARLY (review DeepSeek 13/06): un token <8h NON puo' avere vol24h alto — e' giovinezza, non difetto.
+    # Per i giovani usiamo soglie volume permissive: cosi' NON cancelliamo i segnali precoci col nostro filtro.
+    "early_age_hours": 8,         # sotto = "giovane": soglie volume morbide (catturiamo l'ignizione)
+    "min_vol_24h_early": 5_000,
+    "min_vol_1h_early": 800,
+    "age_min_hours": 0,           # accettiamo anche <1h ora: gli altri filtri (liq, concentrazione) reggono i flash-rug
     "age_max_hours": 72,          # >72h = non piu' early (DeepSeek diceva 48; teniamo un filo largo)
     "min_holders": 0,             # OFF: il conteggio via Helius e' limitato a 20 (top accounts), non affidabile
     "max_top10_pct": 0.50,        # CALIBRATO 12/06: il runner BrimfableAI aveva 25%, i rug 88-100% -> 50% separa pulito
