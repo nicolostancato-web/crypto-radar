@@ -98,3 +98,34 @@ manipolare prezzi / spennare altri trader, **rifiuta e spiega perché**.
 
 Lui dà l'idea grezza → **io metto in piedi e faccio girare tutto, da senior. Sempre.**
 Non "ti do un'idea e tu prendi appunti": "ti do un'idea e tu costruisci il sistema".
+
+---
+
+## 🧩 SKILL / REPO ESTERNI — quando consultarli (booster per ottimizzare)
+
+Regola: prima di costruire un blocco non-triviale, valuta se esiste una skill/repo che fa gia' bene
+quel pezzo, e prendine il KNOW-HOW (le tecniche), non i binari. Trigger task -> cosa consultare:
+
+| Quando costruisco... | Tecnica/skill da incorporare |
+|---|---|
+| Filtro green/red (DexScreener+Helius) | token-holder-analysis, liquidity-analysis, sybil/rug-detection |
+| Analisi del tracking (serie oraria) | ohlcv-processing, indicatori crypto-native (NVT, netflow), pandas-ta |
+| Whale / on-chain | whale-tracking, wallet-profiling (accumulo/distribuzione) |
+| EXTRA: copiare i wallet vincenti | copy-trading, wallet-profiling, leader-wallet discovery + follow-sizing |
+| Backtester storico (Blocco 2) | walk-forward validation, ANTI look-ahead/survivorship bias, costi transazione |
+| Derivati nel learner (Blocco 3) | feature-engineering: accelerazione volume, whale netflow, top10 delta |
+| Slippage nel P&L (Blocco 4) | slippage-modeling realistico |
+| Regressione (Blocco 5) | signal-classification (XGBoost/LightGBM) + walk-forward CV, gap IS/OOS |
+| Money management | position-sizing, Kelly frazionario, drawdown/risk limits |
+| Uscite | exit-strategies: take-profit a scaglioni, trailing, signal-based (NON stop fissi) |
+
+Reference sicure: anthropics/skills (ufficiale, standard di formato). Repo di terzi
+(agiprolabs/claude-trading-skills, wshobson/agents, gauss314/skills) = LEGGERE come reference, MAI
+eseguire a scatola chiusa nell'ambiente con le chiavi.
+
+### Guardrail (non negoziabili)
+1. **Skill esterne leggono, non riscrivono** i dati (resta l'invariante append-only su data/*.jsonl).
+2. **Niente esecuzione di plugin di terzi non verificati** nell'ambiente con le credenziali (rischio
+   supply-chain/furto chiavi). Si incorporano le TECNICHE in codice nostro, verificato.
+3. **Skill di ESECUZIONE trade = OFF** (dex-execution, raptor-dex): siamo paper-only finche' l'edge
+   non e' provato. API key solo da env, mai hardcoded.
