@@ -1,19 +1,19 @@
 {
-  "updated_utc": "2026-06-14 05:08",
+  "updated_utc": "2026-06-14 10:37",
   "runner_pct": 50,
-  "settled": 39,
-  "runners": 6,
-  "deads": 33,
+  "settled": 42,
+  "runners": 7,
+  "deads": 35,
   "by_arena": {
     "memecoin": {
-      "trades": 32,
+      "trades": 34,
       "runners": 6,
-      "runner_rate": 0.19
+      "runner_rate": 0.18
     },
     "ai_agent": {
-      "trades": 7,
-      "runners": 0,
-      "runner_rate": 0.0
+      "trades": 8,
+      "runners": 1,
+      "runner_rate": 0.12
     }
   },
   "prelim_at": 8,
@@ -23,58 +23,58 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 2182.5,
-      "dead_median": 74,
-      "ratio": 29.49
+      "runner_median": 2488,
+      "dead_median": 10,
+      "ratio": 248.8
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 8.115,
+      "runner_median": 5.91,
       "dead_median": 0.76,
-      "ratio": 10.68
+      "ratio": 7.78
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 47600.0,
-      "dead_median": 12137,
-      "ratio": 3.92
+      "runner_median": 57098,
+      "dead_median": 9867,
+      "ratio": 5.79
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
-      "runner_median": 1.195,
+      "runner_median": 1.24,
       "dead_median": 0.5,
-      "ratio": 2.39
-    },
-    {
-      "feature": "age_h",
-      "label": "età (h)",
-      "runner_median": 35.7,
-      "dead_median": 55.0,
-      "ratio": 0.65
-    },
-    {
-      "feature": "grok_heat",
-      "label": "heat di Grok",
-      "runner_median": 5.0,
-      "dead_median": 4,
-      "ratio": 1.25
-    },
-    {
-      "feature": "top10_pct",
-      "label": "top 10 wallet",
-      "runner_median": 0.611,
-      "dead_median": 0.792,
-      "ratio": 0.77
+      "ratio": 2.48
     },
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 7377.0,
-      "dead_median": 9084,
-      "ratio": 0.81
+      "runner_median": 9655,
+      "dead_median": 7448,
+      "ratio": 1.3
+    },
+    {
+      "feature": "top10_pct",
+      "label": "top 10 wallet",
+      "runner_median": 0.609,
+      "dead_median": 0.827,
+      "ratio": 0.74
+    },
+    {
+      "feature": "grok_heat",
+      "label": "heat di Grok",
+      "runner_median": 5,
+      "dead_median": 4,
+      "ratio": 1.25
+    },
+    {
+      "feature": "age_h",
+      "label": "età (h)",
+      "runner_median": 42.6,
+      "dead_median": 53.4,
+      "ratio": 0.8
     }
   ],
   "best_runners": [
@@ -93,6 +93,13 @@
       "voliq": null
     },
     {
+      "ticker": "three",
+      "ret_max": 0.84,
+      "pass": false,
+      "vol_1h": 5929,
+      "voliq": 3.54
+    },
+    {
       "ticker": "SOLANASTADIUM",
       "ret_max": 0.8,
       "pass": false,
@@ -108,7 +115,7 @@
     },
     {
       "ticker": "PVOXL",
-      "ret_max": 0.6,
+      "ret_max": 0.65,
       "pass": false,
       "vol_1h": 440,
       "voliq": 5.91
