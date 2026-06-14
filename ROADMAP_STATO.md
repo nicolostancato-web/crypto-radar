@@ -170,3 +170,9 @@ _(ogni run del loop autonomo appende qui: data, scenario, # trade accumulati, EV
 - **2026-06-13 14:33 UTC** · S2_smartexit it17 · n=28 EV_med=-31.35% · hold +127.33% aperti=23 · **CONTINUA**
 - **2026-06-13 19:57 UTC** · S3_cluster it18 · n=1 EV_med=+73.71% · hold +151.23% aperti=10 · **CONTINUA**
 - **2026-06-13 19:57 UTC** · S2_smartexit it18 · n=29 EV_med=-31.37% · hold +151.23% aperti=30 · **CONTINUA**
+- **2026-06-14 05:13 UTC** · S3_cluster it19 · n=1 EV_med=+73.71% · hold +151.23% aperti=17 · **CONTINUA**
+- **2026-06-14 05:13 UTC** · S2_smartexit it19 · n=32 EV_med=-35.79% · hold +94.47% aperti=31 · **PARK -> avanzo a S1_regime** · EV mediano -35.79% NON batte il hold (+94.47%) su 32 trade -> vicolo cieco
+  - 🤖 Double Agent:
+    **deepseek:** **(1) Lettura brutale:** S3_cluster: n=1 su 17 aperti è rumore puro, EV +73% è casuale. S2_smartexit: EV +138605% è un’anomalia (probabile errore di calcolo o outlier estremo), 31 aperti su 32 sono ancora in gioco → falso segnale.  
+    **(2) Aggiustamenti concreti:** S3: alza n a minimo 5 (cluster size) per filtrare singoli eventi. S2: inserisci un cap massimo sul take-profit (es. +50%) per evitare che un outlier distorca l’EV e blocchi il regime.  
+    **(3) Vicolo cieco:** S2_smartexit – un EV così irrealistico è insostenibile; il sistema si ferma (PARK) su un’illusione statistica. S3 ha più margine di miglioramento aumentando il sample.

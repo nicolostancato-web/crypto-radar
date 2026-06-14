@@ -1,17 +1,22 @@
 {
   "running": [
     "S3_cluster",
-    "S2_smartexit"
+    "S1_regime"
   ],
   "_state": {
     "S3_cluster": {
       "status": "active",
-      "iteration": 18,
+      "iteration": 19,
       "verdict": null
     },
     "S2_smartexit": {
+      "status": "parked",
+      "iteration": 19,
+      "verdict": "EV mediano -35.79% NON batte il hold (+94.47%) su 32 trade -> vicolo cieco"
+    },
+    "S1_regime": {
       "status": "active",
-      "iteration": 18,
+      "iteration": 0,
       "verdict": null
     }
   },
