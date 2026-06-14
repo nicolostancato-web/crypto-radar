@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-14 15:08",
+  "updated_utc": "2026-06-14 15:37",
   "scans_total": 21,
   "last_scan": {
     "utc": "2026-06-14 14:26",
@@ -2456,6 +2456,11 @@
         "median": -0.344,
         "n": 1
       }
+    },
+    "whale_confirmed": null,
+    "no_confirmation": {
+      "median": -0.011,
+      "n": 48
     }
   },
   "lessons": {

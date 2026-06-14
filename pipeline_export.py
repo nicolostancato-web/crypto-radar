@@ -191,6 +191,7 @@ def build_simulation():
     arena_rets = {}
     pass_rets, fail_rets = [], []      # per capire se entriamo tardi (perle vs scartati con la miglior uscita)
     entry_timing = {}                  # at_signal vs dip15 vs dip30 (solo perle, dove entriamo tardi)
+    whale_conf_rets, no_conf_rets = [], []   # test fix loop: la DOMANDA PRECOCE (whale/buy-pressure) predice?
     n = 0
     for ca, series in obs.items():
         series = _clean_series(sorted(series, key=lambda x: x.get("obs_ts") or 0))
@@ -198,6 +199,14 @@ def build_simulation():
         if len(pts) < 2:
             continue
         n += 1
+        # DOMANDA PRECOCE CONFERMATA: nelle prime ~3h i compratori dominano (buy/sell>1.3) e le whale
+        # non scappano (top10 non crolla). Proxy on-chain del "whale net buying" suggerito dal loop.
+        early = series[:3]
+        bs = [s.get("bs_ratio_1h") for s in early if s.get("bs_ratio_1h") is not None]
+        t10 = [s.get("top10_pct") for s in early if s.get("top10_pct") is not None]
+        confirmed = bool(bs and (sum(bs) / len(bs)) >= 1.3 and (len(t10) < 2 or t10[-1] >= t10[0] * 0.9))
+        ret_trail = _exit_strategies(pts)["trail25"][0]
+        (whale_conf_rets if confirmed else no_conf_rets).append(ret_trail)
         res = _exit_strategies(pts)
         for k, (r, hold) in res.items():
             agg[k]["rets"].append(r)
@@ -236,6 +245,8 @@ def build_simulation():
         "fail_median": round(med(fail_rets), 3) if fail_rets else None,
         "entry_timing": {lab: {"median": round(med(rs), 3), "n": len(rs)}
                          for lab, rs in entry_timing.items()},
+        "whale_confirmed": {"median": round(med(whale_conf_rets), 3), "n": len(whale_conf_rets)} if whale_conf_rets else None,
+        "no_confirmation": {"median": round(med(no_conf_rets), 3), "n": len(no_conf_rets)} if no_conf_rets else None,
     }
 
 
