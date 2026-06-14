@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-14 10:37",
+  "updated_utc": "2026-06-14 11:08",
   "runner_pct": 50,
   "settled": 42,
   "runners": 7,
@@ -93,6 +93,13 @@
       "voliq": null
     },
     {
+      "ticker": "PVOXL",
+      "ret_max": 0.91,
+      "pass": false,
+      "vol_1h": 440,
+      "voliq": 5.91
+    },
+    {
       "ticker": "three",
       "ret_max": 0.84,
       "pass": false,
@@ -114,15 +121,8 @@
       "voliq": 10.32
     },
     {
-      "ticker": "PVOXL",
-      "ret_max": 0.65,
-      "pass": false,
-      "vol_1h": 440,
-      "voliq": 5.91
-    },
-    {
       "ticker": "ARX",
-      "ret_max": 0.53,
+      "ret_max": 0.62,
       "pass": false,
       "vol_1h": 4553,
       "voliq": null
