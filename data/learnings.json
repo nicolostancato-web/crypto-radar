@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-14 11:08",
+  "updated_utc": "2026-06-14 12:58",
   "runner_pct": 50,
   "settled": 42,
   "runners": 7,
@@ -93,18 +93,18 @@
       "voliq": null
     },
     {
+      "ticker": "three",
+      "ret_max": 0.97,
+      "pass": false,
+      "vol_1h": 5929,
+      "voliq": 3.54
+    },
+    {
       "ticker": "PVOXL",
       "ret_max": 0.91,
       "pass": false,
       "vol_1h": 440,
       "voliq": 5.91
-    },
-    {
-      "ticker": "three",
-      "ret_max": 0.84,
-      "pass": false,
-      "vol_1h": 5929,
-      "voliq": 3.54
     },
     {
       "ticker": "SOLANASTADIUM",
