@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-06-14 15:08",
+  "updated_utc": "2026-06-14 16:53",
   "runner_pct": 50,
-  "settled": 46,
+  "settled": 48,
   "runners": 7,
-  "deads": 39,
+  "deads": 41,
   "by_arena": {
     "memecoin": {
-      "trades": 36,
+      "trades": 38,
       "runners": 6,
-      "runner_rate": 0.17
+      "runner_rate": 0.16
     },
     "ai_agent": {
       "trades": 10,
@@ -24,42 +24,49 @@
       "feature": "vol_1h",
       "label": "volume 1h",
       "runner_median": 2488,
-      "dead_median": 1,
-      "ratio": 2488.0
+      "dead_median": 5,
+      "ratio": 497.6
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
       "runner_median": 57098,
-      "dead_median": 2339,
-      "ratio": 24.41
+      "dead_median": 8422,
+      "ratio": 6.78
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
       "runner_median": 5.91,
-      "dead_median": 0.76,
-      "ratio": 7.78
+      "dead_median": 1.0,
+      "ratio": 5.91
+    },
+    {
+      "feature": "bs_ratio_1h",
+      "label": "buy/sell 1h",
+      "runner_median": 1.24,
+      "dead_median": 0.36,
+      "ratio": 3.44
     },
     {
       "feature": "age_h",
       "label": "età (h)",
       "runner_median": 42.6,
-      "dead_median": 26.9,
-      "ratio": 1.58
+      "dead_median": 24.3,
+      "ratio": 1.75
     },
     {
       "feature": "liq",
       "label": "liquidità",
       "runner_median": 9655,
-      "dead_median": 6340,
-      "ratio": 1.52
+      "dead_median": 6424,
+      "ratio": 1.5
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
       "runner_median": 0.609,
-      "dead_median": 0.887,
+      "dead_median": 0.886,
       "ratio": 0.69
     },
     {
@@ -68,16 +75,16 @@
       "runner_median": 5,
       "dead_median": 4,
       "ratio": 1.25
-    },
-    {
-      "feature": "bs_ratio_1h",
-      "label": "buy/sell 1h",
-      "runner_median": 1.24,
-      "dead_median": 0,
-      "ratio": null
     }
   ],
   "best_runners": [
+    {
+      "ticker": "three",
+      "ret_max": 1.38,
+      "pass": false,
+      "vol_1h": 5929,
+      "voliq": 3.54
+    },
     {
       "ticker": "ELON",
       "ret_max": 1.29,
@@ -91,13 +98,6 @@
       "pass": false,
       "vol_1h": 1877,
       "voliq": null
-    },
-    {
-      "ticker": "three",
-      "ret_max": 1.13,
-      "pass": false,
-      "vol_1h": 5929,
-      "voliq": 3.54
     },
     {
       "ticker": "PVOXL",
