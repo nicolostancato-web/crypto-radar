@@ -3,8 +3,7 @@ name: crypto-radar-dataset
 # L'AGENTE DATI AUTONOMO: ogni giorno accumula eventi storici nel dataset, li ANALIZZA, e
 # committa dataset.jsonl + analysis_report.md su GitHub. "Uno studia i dati e ti da' i report".
 on:
-  schedule:
-    - cron: "30 3 * * *"     # una volta al giorno (CFO: l'estrazione e' OHLCV-heavy su CoinGecko)
+  # cron DISATTIVATO (vecchio sistema copy-trading): gira solo a mano (workflow_dispatch)
   workflow_dispatch: {}
 
 permissions:

@@ -5,7 +5,7 @@ name: crypto-radar-track
 # E' la granularita' oraria che serve per studiare il timing di entrata/uscita delle green.
 on:
   schedule:
-    - cron: "35 * * * *"     # ogni 1 ora (gratis: DexScreener + Helius, dentro i free tier)
+    - cron: "*/30 * * * *"   # ogni 30 min (piu fitto: anche se GitHub salta meta dei cron, gira ~ogni ora) (gratis: DexScreener + Helius, dentro i free tier)
   workflow_dispatch: {}
 
 permissions:

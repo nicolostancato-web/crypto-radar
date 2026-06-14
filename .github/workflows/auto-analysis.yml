@@ -4,8 +4,7 @@ name: crypto-radar-auto-analysis
 # attivo, decide PARK/AVANZA/FUNZIONA da solo, consulta il Double Agent (GPT-5/DeepSeek),
 # e scrive scenario_overrides.json + ROADMAP_STATO.md. Si auto-migliora 24/7.
 on:
-  schedule:
-    - cron: "23 */6 * * *"   # ogni 6h, al minuto 23 (sfasato dal radar orario al :07)
+  # cron DISATTIVATO (vecchio sistema copy-trading): gira solo a mano (workflow_dispatch)
   workflow_dispatch: {}
 
 permissions:
