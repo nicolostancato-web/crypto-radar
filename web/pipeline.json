@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-15 05:35",
+  "updated_utc": "2026-06-15 12:40",
   "scans_total": 24,
   "last_scan": {
     "utc": "2026-06-15 05:25",
@@ -2890,5 +2890,118 @@
         "voliq": null
       }
     ]
+  },
+  "project": {
+    "name": "CRYPTO RADAR",
+    "mission": "Trovare un metodo ripetibile per fare profitto sulle memecoin — coi dati, non a fortuna.",
+    "method": "Non esiste un metodo già pronto: studiamo i dati, capiamo qualcosa, ci adattiamo. E si ricomincia.",
+    "day": 3,
+    "phase": "Analisi & adattamento",
+    "headline_finding": {
+      "icon": "whale",
+      "headline": "Le whale precoci predicono i runner",
+      "metric": "+278% vs -1%",
+      "detail": "I token dove le whale comprano presto (n=2) rendono molto più degli altri (n=52). È il segnale più forte: il filtro va spostato qui.",
+      "confidence": "preliminare"
+    },
+    "findings": [
+      {
+        "icon": "whale",
+        "headline": "Le whale precoci predicono i runner",
+        "metric": "+278% vs -1%",
+        "detail": "I token dove le whale comprano presto (n=2) rendono molto più degli altri (n=52). È il segnale più forte: il filtro va spostato qui.",
+        "confidence": "preliminare"
+      },
+      {
+        "icon": "timing",
+        "headline": "Aspettare il dip batte comprare il top",
+        "metric": "-8% → +8%",
+        "detail": "Entrare dopo una correzione −15% rende meglio che entrare al segnale.",
+        "confidence": "preliminare"
+      },
+      {
+        "icon": "warn",
+        "headline": "Il filtro attuale (a volume) è da rivedere",
+        "metric": "perle -2% vs scartati +0%",
+        "detail": "Le perle del filtro rendono peggio degli scartati: stiamo scegliendo i perdenti.",
+        "confidence": "in correzione"
+      }
+    ],
+    "discoveries": [
+      {
+        "day": "12 giu",
+        "title": "Il filtro becca i token TARDI",
+        "body": "Selezioniamo token già pompati → entriamo vicino al top → poi crollano."
+      },
+      {
+        "day": "13 giu",
+        "title": "Gli scartati battono le perle",
+        "body": "Le 'perle' rendono peggio degli scartati: il filtro a volume è contro-produttivo."
+      },
+      {
+        "day": "13 giu",
+        "title": "Il problema è la LATENZA",
+        "body": "Review esterna (DeepSeek): X anticipa il prezzo solo 1-3h; con scan a 4h arriviamo dopo."
+      },
+      {
+        "day": "13 giu",
+        "title": "Aspettare il dip rende",
+        "body": "Entrare dopo una correzione −15% batte comprare al segnale (−16% → +2% nel test)."
+      },
+      {
+        "day": "14 giu",
+        "title": "Lo scout pescava vecchi/rug",
+        "body": "Migliorato il prompt: ora Grok cerca il PRE-PICCO (la curva che sale), non l'hype al massimo."
+      },
+      {
+        "day": "15 giu",
+        "title": "Le WHALE precoci predicono i runner",
+        "body": "I token dove le whale comprano presto fanno x3+, gli altri muoiono. È il segnale più forte finora.",
+        "highlight": true
+      }
+    ],
+    "roadmap": [
+      {
+        "status": "done",
+        "title": "Filtro che cattura i giovani (early)"
+      },
+      {
+        "status": "done",
+        "title": "Prompt-anticipo: cerca il pre-picco su X"
+      },
+      {
+        "status": "done",
+        "title": "Tracking whale ora-per-ora"
+      },
+      {
+        "status": "done",
+        "title": "Loop di auto-miglioramento (AI esterna ogni 24h)"
+      },
+      {
+        "status": "done",
+        "title": "Watchdog: controlla la qualità dati + si auto-ripara"
+      },
+      {
+        "status": "doing",
+        "title": "Test: il filtro WHALE-based batte quello a volume?"
+      },
+      {
+        "status": "next",
+        "title": "Riscrivere il filtro sulle whale precoci (se confermato)"
+      },
+      {
+        "status": "next",
+        "title": "Backtest storico per più campione + regressione"
+      }
+    ],
+    "stats": {
+      "evaluated": 58,
+      "pearls": 2,
+      "tracked": 54,
+      "trades": 50,
+      "runners": 8,
+      "observations": 1077,
+      "scans": 24
+    }
   }
 }

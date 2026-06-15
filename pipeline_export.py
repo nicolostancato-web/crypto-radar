@@ -17,6 +17,38 @@ TRACK = os.path.join(HERE, "data", "track.jsonl")
 LEARN = os.path.join(HERE, "data", "learnings.json")
 OUT = os.path.join(HERE, "web", "pipeline.json")
 
+# inizio del progetto X-first (per calcolare "giorno N") — UTC
+START_TS = 1781222400  # 2026-06-12 circa; usato solo per il contatore giorni
+
+# TIMELINE DELLE SCOPERTE (cosa abbiamo capito, in ordine). Aggiornata quando emerge una lezione vera.
+DISCOVERIES = [
+    {"day": "12 giu", "title": "Il filtro becca i token TARDI",
+     "body": "Selezioniamo token già pompati → entriamo vicino al top → poi crollano."},
+    {"day": "13 giu", "title": "Gli scartati battono le perle",
+     "body": "Le 'perle' rendono peggio degli scartati: il filtro a volume è contro-produttivo."},
+    {"day": "13 giu", "title": "Il problema è la LATENZA",
+     "body": "Review esterna (DeepSeek): X anticipa il prezzo solo 1-3h; con scan a 4h arriviamo dopo."},
+    {"day": "13 giu", "title": "Aspettare il dip rende",
+     "body": "Entrare dopo una correzione −15% batte comprare al segnale (−16% → +2% nel test)."},
+    {"day": "14 giu", "title": "Lo scout pescava vecchi/rug",
+     "body": "Migliorato il prompt: ora Grok cerca il PRE-PICCO (la curva che sale), non l'hype al massimo."},
+    {"day": "15 giu", "title": "Le WHALE precoci predicono i runner",
+     "body": "I token dove le whale comprano presto fanno x3+, gli altri muoiono. È il segnale più forte finora.",
+     "highlight": True},
+]
+
+# ROADMAP — cosa è fatto, cosa stiamo provando, cosa viene. Aggiornata mano a mano.
+ROADMAP = [
+    {"status": "done", "title": "Filtro che cattura i giovani (early)"},
+    {"status": "done", "title": "Prompt-anticipo: cerca il pre-picco su X"},
+    {"status": "done", "title": "Tracking whale ora-per-ora"},
+    {"status": "done", "title": "Loop di auto-miglioramento (AI esterna ogni 24h)"},
+    {"status": "done", "title": "Watchdog: controlla la qualità dati + si auto-ripara"},
+    {"status": "doing", "title": "Test: il filtro WHALE-based batte quello a volume?"},
+    {"status": "next", "title": "Riscrivere il filtro sulle whale precoci (se confermato)"},
+    {"status": "next", "title": "Backtest storico per più campione + regressione"},
+]
+
 # etichette in italiano per i motivi di scarto del filtro
 FAIL_IT = {
     "no_pool": "nessun pool su DEX (token fantasma / non scambiabile)",
@@ -32,6 +64,12 @@ FAIL_IT = {
     "bs_ratio_basso": "più vendite che acquisti (già in distribuzione)",
     "authority_attiva": "il creatore può ancora coniare/congelare (non sicuro)",
 }
+
+
+def _pct(x):
+    if x is None:
+        return "—"
+    return ("+" if x >= 0 else "") + str(round(x * 100)) + "%"
 
 
 def _read_jsonl(path):
@@ -374,6 +412,63 @@ def build():
             data["lessons"] = json.load(open(LEARN))
         except Exception:
             data["lessons"] = None
+
+    # --- STATO DEL PROGETTO (per la dashboard narrativa, auto-aggiornato dai dati) ---
+    sim = data["simulation"]
+    les = data.get("lessons") or {}
+    day_n = int((time.time() - START_TS) / 86400)
+    settled_n = les.get("settled") or 0
+    runners_n = les.get("runners") or 0
+    # stato a parole, derivato dai dati
+    if settled_n < 30:
+        phase = "Accumulo dati"
+    elif runners_n < 3:
+        phase = "Accumulo (servono più runner)"
+    else:
+        phase = "Analisi & adattamento"
+
+    # FINDING DINAMICI: numeri LIVE, non scritti a mano
+    findings = []
+    wc, nc = sim.get("whale_confirmed"), sim.get("no_confirmation")
+    if wc and nc and wc.get("n"):
+        findings.append({
+            "icon": "whale", "headline": "Le whale precoci predicono i runner",
+            "metric": _pct(wc["median"]) + " vs " + _pct(nc["median"]),
+            "detail": f"I token dove le whale comprano presto (n={wc['n']}) rendono molto più degli altri "
+                      f"(n={nc['n']}). È il segnale più forte: il filtro va spostato qui.",
+            "confidence": "preliminare" if wc["n"] < 8 else "solido"})
+    et = sim.get("entry_timing") or {}
+    if et.get("at_signal") and et.get("dip15"):
+        findings.append({
+            "icon": "timing", "headline": "Aspettare il dip batte comprare il top",
+            "metric": _pct(et["at_signal"]["median"]) + " → " + _pct(et["dip15"]["median"]),
+            "detail": "Entrare dopo una correzione −15% rende meglio che entrare al segnale.",
+            "confidence": "preliminare"})
+    pm, fm = sim.get("pass_median"), sim.get("fail_median")
+    if pm is not None and fm is not None and pm < fm:
+        findings.append({
+            "icon": "warn", "headline": "Il filtro attuale (a volume) è da rivedere",
+            "metric": "perle " + _pct(pm) + " vs scartati " + _pct(fm),
+            "detail": "Le perle del filtro rendono peggio degli scartati: stiamo scegliendo i perdenti.",
+            "confidence": "in correzione"})
+
+    data["project"] = {
+        "name": "CRYPTO RADAR",
+        "mission": "Trovare un metodo ripetibile per fare profitto sulle memecoin — coi dati, non a fortuna.",
+        "method": "Non esiste un metodo già pronto: studiamo i dati, capiamo qualcosa, ci adattiamo. E si ricomincia.",
+        "day": day_n,
+        "phase": phase,
+        "headline_finding": findings[0] if findings else None,
+        "findings": findings,
+        "discoveries": DISCOVERIES,
+        "roadmap": ROADMAP,
+        "stats": {
+            "evaluated": evaluated, "pearls": len(passed),
+            "tracked": data["learning"].get("tracked_tokens"),
+            "trades": settled_n, "runners": runners_n,
+            "observations": len(_read_jsonl(TRACK)), "scans": scans,
+        },
+    }
     return data
 
 

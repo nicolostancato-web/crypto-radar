@@ -3,195 +3,116 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crypto Radar — dalla viralità su X alla perla on-chain</title>
-  <link rel="stylesheet" href="styles.css?v=33">
+  <title>Crypto Radar — centro di comando</title>
+  <link rel="stylesheet" href="styles.css?v=40">
 </head>
 <body>
   <main class="wrap">
 
+    <!-- HERO: chi siamo, che giorno è, in che fase -->
     <header class="hero">
-      <div class="brand">CRYPTO&nbsp;RADAR</div>
-      <h1>Partiamo da ciò che diventa virale su X. Poi i dati on-chain dicono se è una perla o una trappola.</h1>
-      <p class="sub">Sistema autonomo in cloud 24/7. Ogni 4h <b>Grok legge X dal vivo</b> e ci dice quali
-      <b>memecoin Solana</b> e <b>AI-agent token</b> stanno scaldando <i>adesso</i>. Su ognuna scarichiamo i
-      numeri veri (liquidità, volume, chi tiene i token, sicurezza) e <b>scartiamo i rug</b>: resta solo la perla.
-      Confrontiamo le due arene per capire quale rende di più. Nessun soldo reale. Costo: €0.</p>
-      <div class="updated" id="updated">—</div>
+      <div class="hrow">
+        <div class="brand">CRYPTO&nbsp;RADAR</div>
+        <div class="livebadge" id="livebadge">● in funzione</div>
+      </div>
+      <h1 id="mission">—</h1>
+      <p class="method" id="method">—</p>
+      <div class="herometa">
+        <span class="chip" id="day">Giorno —</span>
+        <span class="chip" id="phase">—</span>
+        <span class="chip ghost" id="updated">—</span>
+      </div>
     </header>
 
-    <section>
-      <h2>Come funziona, in 5 passi</h2>
-      <div class="flow" id="flow">
-        <div class="fstep"><div class="fn">1</div><div><b>Grok ascolta X</b><span>Ogni 4h chiede a X dal vivo: quali memecoin Solana e AI-agent fresche stanno scaldando ora?</span></div></div>
-        <div class="fstep"><div class="fn">2</div><div><b>Filtro on-chain</b><span>Su ogni token: liquidità, volume, età, chi detiene, authority. I numeri veri, non le chiacchiere.</span></div></div>
-        <div class="fstep"><div class="fn">3</div><div><b>Scartiamo i rug</b><span>Wallet concentrati, liquidità finta, creatore che può coniare ancora → fuori. Resta la perla.</span></div></div>
-        <div class="fstep"><div class="fn">4</div><div><b>Tracciamo</b><span>Le candidate che passano diventano "ingressi ipotetici": seguiamo cosa fanno davvero.</span></div></div>
-        <div class="fstep"><div class="fn">5</div><div><b>Calibriamo</b><span>Giorno dopo giorno impariamo quali segnali diventano runner e tariamo i filtri.</span></div></div>
-      </div>
+    <!-- LA SCOPERTA DEL MOMENTO -->
+    <section class="insight-wrap" id="insight-wrap">
+      <div class="seclabel">La scoperta del momento</div>
+      <div id="insight"></div>
     </section>
 
+    <!-- A CHE PUNTO SIAMO -->
     <section>
-      <h2>Cosa scalda su X adesso <span class="muted" id="scan-when"></span></h2>
-      <p class="note">L'ultimo ascolto di Grok su X. Sono solo <i>segnalazioni</i> — devono ancora passare il filtro on-chain qui sotto.</p>
+      <div class="seclabel">A che punto siamo</div>
+      <div class="bignums" id="bignums"></div>
+    </section>
+
+    <!-- COSA ABBIAMO CAPITO (timeline) -->
+    <section>
+      <div class="seclabel">Cosa abbiamo capito</div>
+      <p class="note">Le scoperte vere, in ordine. L'ultima è quella che sta guidando le prossime mosse.</p>
+      <div class="timeline" id="timeline"></div>
+    </section>
+
+    <!-- DOVE ANDIAMO (roadmap) -->
+    <section>
+      <div class="seclabel">Cosa stiamo facendo e dove andiamo</div>
+      <div class="roadmap" id="roadmap"></div>
+    </section>
+
+    <!-- IL METODO -->
+    <section>
+      <div class="seclabel">Come lavoriamo</div>
+      <div class="loopstrip">
+        <div class="loopstep"><b>Implementa</b><span>un'idea / un fix</span></div>
+        <div class="looparrow">→</div>
+        <div class="loopstep"><b>Accumula</b><span>dati, giorni</span></div>
+        <div class="looparrow">→</div>
+        <div class="loopstep"><b>Scopri</b><span>un'AI esterna ci critica ogni 24h</span></div>
+        <div class="looparrow">→</div>
+        <div class="loopstep"><b>Adatta</b><span>e si ricomincia</span></div>
+      </div>
+      <p class="note center">Non esiste un edge già pronto. Questo loop <b>è</b> il metodo per arrivarci.</p>
+    </section>
+
+    <!-- COSA SCALDA SU X -->
+    <section>
+      <div class="seclabel">Cosa scalda su X adesso <span class="muted" id="scan-when"></span></div>
+      <p class="note">L'ultimo ascolto di Grok — token in fase di accensione (pre-picco). Devono ancora passare il filtro.</p>
       <div class="cards3" id="trends"></div>
     </section>
 
+    <!-- IL FILTRO -->
     <section>
-      <h2>Il filtro al lavoro <span class="muted">— chi è perla, chi è trappola</span></h2>
+      <div class="seclabel">Il filtro al lavoro <span class="muted">— perla o trappola</span></div>
       <p class="note" id="filter-note"></p>
       <div id="candidates"></div>
     </section>
 
-    <section>
-      <h2>Entrate &amp; uscite simulate <span class="muted">— com'è andata dopo il segnale</span></h2>
-      <p class="note" id="out-note">Per ogni token chiamato ipotizziamo un'entrata al primo controllo dopo il segnale,
-      e seguiamo il prezzo. Entry onesta: mai prima del segnale. Nessun soldo reale — stiamo imparando le regole.</p>
-      <div id="learnbox"></div>
-      <div class="tablewrap">
-        <table id="outcomes">
-          <thead><tr><th>token</th><th>esito filtro</th><th>picco</th><th>ora</th><th>2x?</th><th>vol 1h al segnale</th><th>punti</th></tr></thead>
+    <!-- DETTAGLI (approfondimento) -->
+    <details class="more">
+      <summary>Dettagli tecnici — esiti simulati, strategie, regole apprese</summary>
+
+      <section>
+        <h3>Entrate &amp; uscite simulate</h3>
+        <div id="learnbox"></div>
+        <div class="tablewrap"><table id="outcomes">
+          <thead><tr><th>token</th><th>esito</th><th>picco</th><th>ora</th><th>2x?</th><th>vol 1h</th><th>punti</th></tr></thead>
           <tbody></tbody>
-        </table>
-      </div>
-    </section>
+        </table></div>
+      </section>
 
-    <section>
-      <h2>Stiamo entrando e uscendo bene? <span class="muted">— paper trading delle strategie</span></h2>
-      <p class="note" id="sim-note">Entriamo al segnale e proviamo diverse uscite (take-profit, stop, trailing, a tempo)
-      su ogni trade. Così capiamo se il problema è <i>quando entriamo</i> o <i>quando usciamo</i>. Zero soldi reali.</p>
-      <div class="tablewrap"><table id="simtable">
-        <thead><tr><th>strategia d'uscita</th><th>guadagno mediano</th><th>vince</th><th>quanto tieni</th></tr></thead>
-        <tbody></tbody>
-      </table></div>
-      <div id="sim-verdict"></div>
-    </section>
+      <section>
+        <h3>Strategie d'uscita (paper trading)</h3>
+        <div class="tablewrap"><table id="simtable">
+          <thead><tr><th>strategia</th><th>mediano</th><th>vince</th><th>tieni</th></tr></thead>
+          <tbody></tbody>
+        </table></div>
+        <div id="sim-verdict"></div>
+      </section>
 
-    <section>
-      <h2>Cosa abbiamo imparato <span class="muted">— le regole che emergono dai trade</span></h2>
-      <p class="note">Ogni ora il sistema confronta i token che hanno corso (≥+50%) con quelli morti, e guarda
-      <i>che numeri avevano al momento del segnale</i>. Così impariamo le condizioni d'ingresso vere — con onestà:
-      finché i trade sono pochi, non concludiamo.</p>
-      <div id="lessons"></div>
-    </section>
-
-    <section>
-      <h2>I numeri</h2>
-      <div class="stats" id="stats"></div>
-    </section>
-
-    <section>
-      <h2>Come gira il sistema <span class="muted">— il flusso completo, passo per passo</span></h2>
-      <p class="note">Questo è l'intero processo che gira da solo in cloud. Ogni stadio legge dei dati,
-      ne produce altri, e li passa al successivo. Guarda dove vuoi intervenire e dimmelo.</p>
-
-      <div class="pipe">
-
-        <div class="ptrigger">
-          <span class="pclock">⏱</span>
-          <div><b>SCAN ogni 4h · TRACKING ogni 1h</b><span>Lo scan di Grok (a pagamento) gira ogni 4h; il tracking di prezzo/whale (gratis) ogni ora, per la granularità sul timing. Cloud 24/7, Mac spento.</span></div>
-        </div>
-        <div class="parrow"><span>parte il ciclo</span></div>
-
-        <div class="pnode live">
-          <div class="pnum">1</div>
-          <div class="pbody">
-            <div class="ptitle">Grok ascolta X dal vivo</div>
-            <div class="pdesc">Riceve un brief mostruoso da "alpha scout": cerca su X da 5 angoli le memecoin Solana
-            <b>e gli AI-agent token</b> freschi che stanno accelerando ORA. Restituisce ticker, contract address,
-            arena, chain, narrativa, chi ne parla, red flag, tesi d'ingresso.</div>
-            <div class="pmeta">
-              <span class="ptech">Grok 4.3 · x_search live</span>
-              <span class="pin">legge: X / Twitter</span>
-              <span class="pout">scrive: trends.jsonl</span>
-              <span class="pcost">~$0.03</span>
-            </div>
-          </div>
-          <div class="pstatus y">LIVE</div>
-        </div>
-        <div class="parrow"><span>lista di token grezzi</span></div>
-
-        <div class="pnode live">
-          <div class="pnum">2</div>
-          <div class="pbody">
-            <div class="ptitle">Filtro on-chain — la verità dei numeri</div>
-            <div class="pdesc">Per ogni token scarica i dati reali della blockchain: liquidità, volume 1h/24h, età vera,
-            buy/sell, quanto tengono i primi 10 wallet, se il creatore può ancora coniare. Grok può sbagliare:
-            qui si verifica.</div>
-            <div class="pmeta">
-              <span class="ptech">DexScreener + Helius RPC</span>
-              <span class="pin">legge: trends.jsonl</span>
-              <span class="pout">scrive: candidates.jsonl</span>
-              <span class="pcost">gratis</span>
-            </div>
-          </div>
-          <div class="pstatus y">LIVE</div>
-        </div>
-        <div class="parrow"><span>scarta i rug, tiene le perle</span></div>
-
-        <div class="pnode live">
-          <div class="pnum">3</div>
-          <div class="pbody">
-            <div class="ptitle">Verdetto: perla o trappola</div>
-            <div class="pdesc">Chi passa TUTTI i controlli diventa "perla" = ingresso ipotetico da seguire.
-            Chi fallisce viene scartato col motivo scritto. Tutto resta salvato nella serie storica.</div>
-            <div class="pmeta">
-              <span class="ptech">config.FILTER (soglie tarabili)</span>
-              <span class="pin">legge: candidates.jsonl</span>
-              <span class="pout">scrive: pipeline.json → sito</span>
-              <span class="pcost">gratis</span>
-            </div>
-          </div>
-          <div class="pstatus y">LIVE</div>
-        </div>
-        <div class="parrow"><span>la perla va tracciata nel tempo</span></div>
-
-        <div class="pnode live">
-          <div class="pnum">4</div>
-          <div class="pbody">
-            <div class="ptitle">Tracciamento esiti + entrata/uscita simulata</div>
-            <div class="pdesc">Ogni ora seguiamo il prezzo di TUTTI i token — perle <b>e</b> scartati — registrando
-            entrata ipotetica, picco, ritorno a +1h/+6h/+24h. Gli scartati insegnano quanto le perle: se uno
-            scartato esplode, il filtro era troppo severo e impariamo. Niente si cancella mai: ogni token è una lezione.</div>
-            <div class="pmeta">
-              <span class="ptech">DexScreener prezzi nel tempo</span>
-              <span class="pin">legge: candidates.jsonl (tutti, pass e fail)</span>
-              <span class="pout">scrive: track.jsonl</span>
-              <span class="pcost">gratis</span>
-            </div>
-          </div>
-          <div class="pstatus y">LIVE</div>
-        </div>
-        <div class="parrow"><span>i risultati insegnano</span></div>
-
-        <div class="pnode live">
-          <div class="pnum">5</div>
-          <div class="pbody">
-            <div class="ptitle">Apprendimento costante</div>
-            <div class="pdesc">Ogni ora confronta i token che hanno corso con quelli morti e guarda che numeri avevano
-            al segnale (volume, voliq, età, heat). Impara le condizioni d'ingresso vere e suggerisce come tarare il
-            filtro. Onestà statistica: con pochi trade non conclude. Non tocca il filtro da solo — propone, decidi tu.</div>
-            <div class="pmeta">
-              <span class="ptech">statistica runner vs morti</span>
-              <span class="pin">legge: track.jsonl + candidates.jsonl</span>
-              <span class="pout">scrive: learnings.json</span>
-              <span class="pcost">gratis</span>
-            </div>
-          </div>
-          <div class="pstatus y">LIVE</div>
-        </div>
-        <div class="parrow"><span>e si ricomincia, ogni ora</span></div>
-
-        <div class="ploop">🔁 Il ciclo si ripete ogni ora. Ogni giro arricchisce la serie storica. Più dati = filtri più precisi.</div>
-
-      </div>
-    </section>
+      <section id="lessons-sec">
+        <h3>Le regole apprese dai trade</h3>
+        <div id="lessons"></div>
+      </section>
+    </details>
 
     <footer>
-      <p>Paper trading — nessun soldo reale è in gioco. Il filtro on-chain serve a tenerci <b>fuori</b>
-      dalle trappole, non a pompare nulla. Onestà brutale sui dati: se un metodo non rende, lo diciamo.</p>
+      <p>Paper trading — nessun soldo reale è in gioco. Il filtro on-chain serve a tenerci <b>fuori</b> dalle
+      trappole. Onestà brutale sui dati: se un metodo non rende, lo diciamo. Costo del sistema: sotto $1/giorno.</p>
+      <p class="muted" id="foot-updated"></p>
     </footer>
 
   </main>
-  <script src="app.js?v=33"></script>
+  <script src="app.js?v=40"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-/* CRYPTO RADAR dashboard — pipeline X-FIRST. Legge pipeline.json. */
+/* CRYPTO RADAR — centro di comando. Tutto da pipeline.json, auto-aggiornato ogni ciclo. */
 
 const $ = (id) => document.getElementById(id);
 const fmtUsd = (x) => {
@@ -7,232 +7,178 @@ const fmtUsd = (x) => {
   if (x >= 1e3) return "$" + (x / 1e3).toFixed(0) + "k";
   return "$" + Math.round(x);
 };
-const fmtPct = (x) => (x == null ? "—" : Math.round(x * 100) + "%");
+const pp = (x) => (x == null ? "—" : (x >= 0 ? "+" : "") + Math.round(x * 100) + "%");
+const cls = (x) => (x == null ? "" : x >= 0 ? "pos" : "neg");
+const arenaTag = (a) => a === "ai_agent"
+  ? '<span class="atag ai">AI agent</span>' : '<span class="atag meme">memecoin</span>';
 
 async function load(name) {
-  try {
-    const r = await fetch(name + "?t=" + Date.now());
-    if (r.ok) return await r.json();
-  } catch (e) {}
+  try { const r = await fetch(name + "?t=" + Date.now()); if (r.ok) return await r.json(); } catch (e) {}
   return null;
 }
+function heatDots(h) { h = Math.max(0, Math.min(10, h || 0)); const f = Math.round(h / 2); return "●".repeat(f) + "○".repeat(5 - f); }
 
-const arenaTag = (a) =>
-  a === "ai_agent"
-    ? '<span class="atag ai">AI agent</span>'
-    : '<span class="atag meme">memecoin</span>';
+const ICON = { whale: "🐋", timing: "⏱", warn: "⚠️" };
 
-function heatDots(h) {
-  h = Math.max(0, Math.min(10, h || 0));
-  const full = Math.round(h / 2); // 0..5
-  return "●".repeat(full) + "○".repeat(5 - full);
+/* ---------- HERO + PROGETTO ---------- */
+function renderProject(d) {
+  const p = d.project || {};
+  $("mission").textContent = p.mission || "";
+  $("method").textContent = p.method || "";
+  $("day").textContent = "Giorno " + (p.day ?? "—");
+  $("phase").textContent = p.phase || "—";
+  $("updated").textContent = "agg. " + (d.updated_utc || "") + " UTC";
+  $("foot-updated").textContent = "Dashboard auto-aggiornata ogni 30 min · ultimo: " + (d.updated_utc || "") + " UTC";
+
+  // scoperta del momento
+  const f = p.headline_finding;
+  const ins = $("insight");
+  if (f) {
+    ins.innerHTML = `<div class="insight">
+      <div class="ins-ico">${ICON[f.icon] || "💡"}</div>
+      <div class="ins-body">
+        <div class="ins-head">${f.headline} <span class="ins-conf ${f.confidence === "solido" ? "ok" : ""}">${f.confidence}</span></div>
+        <div class="ins-metric">${f.metric}</div>
+        <div class="ins-detail">${f.detail}</div>
+      </div></div>`;
+  } else {
+    ins.innerHTML = '<div class="insight"><div class="ins-body"><div class="ins-detail muted">Ancora nessuna scoperta forte — stiamo accumulando i primi dati.</div></div></div>';
+  }
+
+  // numeri
+  const s = p.stats || {};
+  const items = [
+    [s.trades ?? "—", "trade conclusi", "quante operazioni simulate complete"],
+    [s.runners ?? "—", "runner (≥+50%)", "quanti hanno corso davvero"],
+    [s.pearls ?? "—", "perle trovate", "token promossi dal filtro"],
+    [s.observations ?? "—", "osservazioni", "fotografie orarie accumulate"],
+    [s.evaluated ?? "—", "token valutati", "passati al filtro"],
+    [s.scans ?? "—", "ascolti di X", "scansioni di Grok"],
+  ];
+  $("bignums").innerHTML = items.map(([n, l, t]) =>
+    `<div class="bn"><div class="bn-n">${n}</div><div class="bn-l">${l}</div><div class="bn-t">${t}</div></div>`).join("");
+
+  // timeline scoperte
+  $("timeline").innerHTML = (p.discoveries || []).map((x) =>
+    `<div class="tl ${x.highlight ? "hot" : ""}">
+      <div class="tl-day">${x.day}</div>
+      <div class="tl-dot"></div>
+      <div class="tl-body"><b>${x.title}</b><span>${x.body}</span></div>
+    </div>`).join("");
+
+  // roadmap
+  const RST = { done: ["✓", "fatto"], doing: ["◐", "in corso"], next: ["○", "prossimo"] };
+  $("roadmap").innerHTML = (p.roadmap || []).map((r) => {
+    const [ic, lab] = RST[r.status] || ["○", ""];
+    return `<div class="rm ${r.status}"><span class="rm-ic">${ic}</span><span class="rm-t">${r.title}</span><span class="rm-s">${lab}</span></div>`;
+  }).join("");
 }
 
+/* ---------- COSA SCALDA SU X ---------- */
 function renderTrends(d) {
-  const box = $("trends");
-  const sc = (d && d.last_scan) || {};
+  const box = $("trends"); const sc = (d && d.last_scan) || {};
   $("scan-when").textContent = sc.utc ? `— ${sc.utc} UTC` : "";
   const toks = sc.tokens || [];
-  if (!toks.length) {
-    box.innerHTML = '<p class="muted">In attesa del prossimo ascolto di Grok…</p>';
-    return;
-  }
+  if (!toks.length) { box.innerHTML = '<p class="muted">In attesa del prossimo ascolto…</p>'; return; }
   box.innerHTML = toks.map((t) => {
-    const mom = t.momentum || t.velocity || "—";
-    const flags = t.red_flags
-      ? `<div class="row flag"><span>⚠ red flag</span><span>${t.red_flags}</span></div>` : "";
-    const thesis = t.entry_thesis
-      ? `<p class="thesis">“${t.entry_thesis}”</p>` : "";
-    const callers = t.distinct_callers != null
-      ? `${t.distinct_callers} account${t.distinct_callers == 1 ? "" : " indip."}` : (t.callers || "—");
-    return `
-    <div class="card sc">
-      <div class="ttop"><h3>${t.ticker || "?"} ${arenaTag(t.arena)}</h3><span class="heat" title="quanto scalda su X">${heatDots(t.heat)}</span></div>
-      <p class="muted" style="font-size:.86rem">${t.narrative || ""}</p>
-      ${thesis}
+    const flags = t.red_flags ? `<div class="row flag"><span>⚠ red flag</span><span>${t.red_flags}</span></div>` : "";
+    const thesis = t.entry_thesis ? `<p class="thesis">"${t.entry_thesis}"</p>` : "";
+    const callers = t.distinct_callers != null ? `${t.distinct_callers} account` : (t.callers || "—");
+    return `<div class="card sc">
+      <div class="ttop"><h3>${t.ticker || "?"} ${arenaTag(t.arena)}</h3><span class="heat">${heatDots(t.heat)}</span></div>
+      <p class="muted sm">${t.narrative || ""}</p>${thesis}
       <div class="row"><span>chi ne parla</span><span>${callers}</span></div>
-      <div class="row"><span>momentum</span><span>${mom}${t.confidence != null ? " · conf " + t.confidence + "/10" : ""}</span></div>
-      <div class="row"><span>età</span><span>${t.age_hours != null ? t.age_hours + "h" : "—"}</span></div>
-      ${flags}
-    </div>`;
+      <div class="row"><span>fase</span><span>${t.momentum || t.velocity || "—"}${t.confidence != null ? " · conf " + t.confidence + "/10" : ""}</span></div>
+      ${flags}</div>`;
   }).join("");
 }
 
-function metricChip(label, value, ok) {
-  const c = ok === true ? "ok" : ok === false ? "bad" : "";
-  return `<span class="chip ${c}"><i>${label}</i>${value}</span>`;
-}
-
+/* ---------- FILTRO ---------- */
 function renderCandidates(d) {
-  const box = $("candidates");
-  const list = (d && d.candidates) || [];
-  if (!list.length) {
-    box.innerHTML = '<p class="muted">Nessuna candidata valutata ancora.</p>';
-    $("filter-note").textContent = "";
-    return;
-  }
-  $("filter-note").innerHTML =
-    `Su <b>${d.evaluated}</b> token segnalati da X, il filtro ne ha promosso <b>${d.passed_count}</b> a perla. ` +
-    `Verde = passa tutti i controlli. Rosso = scartato (il perché è scritto). Niente euro in gioco.`;
-
-  box.innerHTML = list.map((c) => {
+  const box = $("candidates"); const list = (d && d.candidates) || [];
+  if (!list.length) { box.innerHTML = '<p class="muted">Nessuna candidata ancora.</p>'; $("filter-note").textContent = ""; return; }
+  $("filter-note").innerHTML = `Su <b>${d.evaluated}</b> token, il filtro ne ha promosso <b>${d.passed_count}</b> a perla. Verde = passa, rosso = scartato (col perché).`;
+  box.innerHTML = list.slice(0, 12).map((c) => {
     const safe = c.mint_revoked && c.freeze_revoked;
+    const chip = (l, v, ok) => `<span class="chip2 ${ok === true ? "ok" : ok === false ? "bad" : ""}"><i>${l}</i>${v}</span>`;
     const chips = [
-      metricChip("liquidità", fmtUsd(c.liq), c.liq != null ? c.liq >= 10000 && c.liq <= 2000000 : null),
-      metricChip("vol 24h", fmtUsd(c.vol_24h), c.vol_24h != null ? c.vol_24h >= 50000 : null),
-      metricChip("vol 1h", fmtUsd(c.vol_1h), c.vol_1h != null ? c.vol_1h >= 3000 : null),
-      metricChip("età", c.age_h != null ? c.age_h + "h" : "—", c.age_h != null ? c.age_h >= 1 && c.age_h <= 72 : null),
-      metricChip("top 10 wallet", fmtPct(c.top10_pct), c.top10_pct != null ? c.top10_pct <= 0.5 : null),
-      metricChip("wallet #1", fmtPct(c.top1_pct), c.top1_pct != null ? c.top1_pct <= 0.3 : null),
-      metricChip("buy/sell 1h", c.bs_ratio_1h != null ? c.bs_ratio_1h + "×" : "—", c.bs_ratio_1h != null ? c.bs_ratio_1h >= 1.2 : null),
-      metricChip("authority", safe ? "revocata" : "attiva", safe),
+      chip("liq", fmtUsd(c.liq), c.liq != null ? c.liq >= 10000 && c.liq <= 2000000 : null),
+      chip("vol 1h", fmtUsd(c.vol_1h), c.vol_1h != null ? c.vol_1h >= 3000 : null),
+      chip("età", c.age_h != null ? c.age_h + "h" : "—", c.age_h != null ? c.age_h <= 72 : null),
+      chip("top10", c.top10_pct != null ? Math.round(c.top10_pct * 100) + "%" : "—", c.top10_pct != null ? c.top10_pct <= 0.5 : null),
+      chip("buy/sell", c.bs_ratio_1h != null ? c.bs_ratio_1h + "×" : "—", c.bs_ratio_1h != null ? c.bs_ratio_1h >= 1.2 : null),
+      chip("authority", safe ? "ok" : "attiva", safe),
     ].join("");
-    const why = c.pass
-      ? '<span class="verdict-pearl">★ PERLA — passa tutti i controlli</span>'
-      : `<div class="reasons"><b>Scartato perché:</b> ${c.fails.join(" · ")}</div>`;
-    return `
-      <div class="cand ${c.pass ? "pass" : "fail"}">
-        <div class="chead">
-          <div class="cname">${c.ticker} ${arenaTag(c.arena)} ${c.pass ? '<span class="badge y">PERLA</span>' : '<span class="badge n">scartato</span>'}</div>
-          <a class="ca" href="https://dexscreener.com/solana/${c.ca}" target="_blank" rel="noopener">vedi su DexScreener →</a>
-        </div>
-        <div class="chips">${chips}</div>
-        ${why}
-      </div>`;
+    const why = c.pass ? '<span class="verdict-pearl">★ PERLA</span>'
+      : `<div class="reasons"><b>Scartato:</b> ${(c.fails || []).join(" · ")}</div>`;
+    return `<div class="cand ${c.pass ? "pass" : "fail"}">
+      <div class="chead"><div class="cname">${c.ticker} ${arenaTag(c.arena)} ${c.pass ? '<span class="badge y">PERLA</span>' : '<span class="badge n">scartato</span>'}</div>
+        <a class="ca" href="https://dexscreener.com/${c.chain || "solana"}/${c.ca}" target="_blank" rel="noopener">DexScreener →</a></div>
+      <div class="chips">${chips}</div>${why}</div>`;
   }).join("");
 }
 
-function renderOutcomes(d) {
+/* ---------- DETTAGLI (esiti, strategie, regole) ---------- */
+function renderDetails(d) {
+  // outcomes
   const tb = document.querySelector("#outcomes tbody");
-  const L = d && d.learning;
-  const list = (d && d.outcomes) || [];
-  if (!list.length) {
-    tb.innerHTML = '<tr><td colspan="7" class="muted">Tracciamento appena avviato — gli esiti compaiono dopo qualche ora di osservazioni.</td></tr>';
-    return;
-  }
-  // box apprendimento
-  const lb = document.getElementById("learnbox");
-  if (L) {
-    const pr = L.pearls_2x_rate, rr = L.rejects_2x_rate;
-    const f = (x) => (x == null ? "—" : Math.round(x * 100) + "%");
-    lb.innerHTML = `<div class="learn">
-      <div class="li"><div class="ln">${L.tracked_tokens}</div><div class="ll">token tracciati</div></div>
-      <div class="li"><div class="ln pos">${f(pr)}</div><div class="ll">perle che fanno ≥2x</div></div>
-      <div class="li"><div class="ln ${rr ? "neg" : ""}">${f(rr)}</div><div class="ll">scartati che fanno 2x<br><span class="muted">(se alto → filtro troppo severo)</span></div></div>
-    </div>`;
-    const ba = L.by_arena || {};
-    const arows = Object.entries(ba).map(([a, v]) =>
-      `<div class="arow"><span>${arenaTag(a)}</span><span>${v.tracked} tracciati${v.settled ? " · " + v.settled + " conclusi · " + Math.round((v.runner_rate || 0) * 100) + "% runner" : ""}</span></div>`).join("");
-    if (arows) lb.innerHTML += `<div class="arenacmp"><div class="acl">Confronto arene — chi rende di più per il nostro metodo</div>${arows}</div>`;
-  }
-  tb.innerHTML = list.map((o) => {
-    const rm = o.ret_max == null ? "—" : (o.ret_max >= 0 ? "+" : "") + Math.round(o.ret_max * 100) + "%";
-    const rn = o.ret_now == null ? "—" : (o.ret_now >= 0 ? "+" : "") + Math.round(o.ret_now * 100) + "%";
-    return `<tr class="${o.hit_2x ? "edge" : ""}">
+  const L = d.learning, list = d.outcomes || [];
+  if (list.length) {
+    const lb = $("learnbox");
+    if (L) {
+      const f = (x) => (x == null ? "—" : Math.round(x * 100) + "%");
+      lb.innerHTML = `<div class="learn">
+        <div class="li"><div class="ln">${L.tracked_tokens}</div><div class="ll">token tracciati</div></div>
+        <div class="li"><div class="ln pos">${f(L.pearls_2x_rate)}</div><div class="ll">perle ≥2x</div></div>
+        <div class="li"><div class="ln ${L.rejects_2x_rate ? "neg" : ""}">${f(L.rejects_2x_rate)}</div><div class="ll">scartati 2x</div></div>
+      </div>`;
+    }
+    tb.innerHTML = list.slice(0, 14).map((o) => `<tr class="${o.hit_2x ? "edge" : ""}">
       <td>${o.ticker || "?"}</td>
       <td><span class="pill ${o.pass ? "y" : "n"}">${o.pass ? "perla" : "scarto"}</span></td>
-      <td class="med ${cls(o.ret_max)}">${rm}</td>
-      <td class="${cls(o.ret_now)}">${rn}</td>
+      <td class="med ${cls(o.ret_max)}">${pp(o.ret_max)}</td>
+      <td class="${cls(o.ret_now)}">${pp(o.ret_now)}</td>
       <td>${o.hit_2x ? "✅" : o.rugged ? "💀" : "—"}</td>
-      <td>${fmtUsd(o.sig_vol_1h)}</td>
-      <td>${o.n_obs}</td>
-    </tr>`;
-  }).join("");
-}
+      <td>${fmtUsd(o.sig_vol_1h)}</td><td>${o.n_obs}</td></tr>`).join("");
+  } else { tb.innerHTML = '<tr><td colspan="7" class="muted">In accumulo…</td></tr>'; }
 
-function renderSim(d) {
-  const tb = document.querySelector("#simtable tbody");
-  const s = d && d.simulation;
-  if (!s || !s.strategies || !s.strategies.length) {
-    tb.innerHTML = '<tr><td colspan="4" class="muted">Simulazione in avvio — servono token con più osservazioni.</td></tr>';
-    return;
-  }
-  const pp = (x) => (x == null ? "—" : (x >= 0 ? "+" : "") + Math.round(x * 100) + "%");
-  const hrs = (m) => (m >= 60 ? (m / 60).toFixed(1) + "h" : m + "min");
-  tb.innerHTML = s.strategies.map((st, i) => `
-    <tr class="${i === 0 ? "edge" : ""}">
+  // strategie
+  const stb = document.querySelector("#simtable tbody");
+  const s = d.simulation;
+  if (s && s.strategies && s.strategies.length) {
+    const hrs = (m) => (m >= 60 ? (m / 60).toFixed(1) + "h" : m + "min");
+    stb.innerHTML = s.strategies.map((st, i) => `<tr class="${i === 0 ? "edge" : ""}">
       <td>${st.label}${i === 0 ? ' <span class="pill y">migliore</span>' : ""}</td>
-      <td class="med ${cls(st.median)}">${pp(st.median)}</td>
-      <td>${Math.round(st.win_rate * 100)}%</td>
-      <td>${hrs(st.avg_hold_min)}</td>
-    </tr>`).join("");
+      <td class="med ${cls(st.median)}">${pp(st.median)}</td><td>${Math.round(st.win_rate * 100)}%</td><td>${hrs(st.avg_hold_min)}</td></tr>`).join("");
+    const v = $("sim-verdict"); const pm = s.pass_median, fm = s.fail_median;
+    const late = pm != null && fm != null && pm < fm;
+    v.innerHTML = `<div class="simverdict ${late ? "bad" : "ok"}">
+      ${late ? "<b>⚠ Entriamo troppo tardi.</b> " : ""}Perle ${pp(pm)} vs scartati ${pp(fm)} (entry al segnale).
+      ${s.whale_confirmed ? `<br><b>Whale precoci:</b> ${pp(s.whale_confirmed.median)} (n=${s.whale_confirmed.n}) vs ${s.no_confirmation ? pp(s.no_confirmation.median) : "—"} senza → è il segnale da seguire.` : ""}
+      ${s.entry_timing && s.entry_timing.dip15 ? `<br><b>Timing:</b> al segnale ${pp(s.entry_timing.at_signal.median)} → dopo dip −15% ${pp(s.entry_timing.dip15.median)}.` : ""}</div>`;
+  } else { stb.innerHTML = '<tr><td colspan="4" class="muted">In accumulo…</td></tr>'; }
 
-  const v = document.getElementById("sim-verdict");
-  const pm = s.pass_median, fm = s.fail_median;
-  const lateEntry = pm != null && fm != null && pm < fm;
-  v.innerHTML = `<div class="simverdict ${lateEntry ? "bad" : "ok"}">
-    <b>${lateEntry ? "⚠ Entriamo troppo tardi" : "Lettura entrata/uscita"}</b>
-    Con l'entrata al segnale, le <b>perle</b> rendono ${pp(pm)} mediano vs <b>${pp(fm)}</b> degli scartati.
-    ${lateEntry ? "Le perle le prendiamo a pump quasi finito → il problema è <b>quando entriamo</b>, non l'uscita. Va anticipata la cattura." : ""}
-    ${s.by_arena ? "<br>Per arena (trailing −25%): " + Object.entries(s.by_arena).map(([a, r]) => `${a} ${pp(r)}`).join(" · ") : ""}
-    ${s.entry_timing && s.entry_timing.at_signal ? `<br><b>Timing d'ingresso (perle):</b> al segnale ${pp(s.entry_timing.at_signal.median)} · dopo correzione −15% ${s.entry_timing.dip15 ? pp(s.entry_timing.dip15.median) : "—"} → aspettare il dip rende di più` : ""}
-  </div>`;
-}
-
-function renderLessons(d) {
-  const box = document.getElementById("lessons");
-  const L = d && d.lessons;
-  if (!L) { box.innerHTML = '<p class="muted">Apprendimento in avvio…</p>'; return; }
-
-  if (L.status === "accumulo") {
-    const pct = Math.min(100, Math.round((L.settled / L.prelim_at) * 100));
-    box.innerHTML = `<div class="lacc">
-      <div class="lbar"><div class="lbarfill" style="width:${pct}%"></div></div>
-      <p><b>${L.settled}/${L.prelim_at}</b> trade conclusi. Le prime regole compaiono qui appena ci sono abbastanza
-      token seguiti per qualche ora. Il sistema impara da solo, ogni ora.</p>
-    </div>`;
-    return;
+  // regole apprese
+  const lessons = d.lessons;
+  const lb = $("lessons");
+  if (lessons && lessons.status !== "accumulo" && (lessons.lessons || []).length) {
+    const fmt = (lab, v) => v == null ? "—" : (["volume 1h", "volume 24h", "liquidità"].includes(lab) ? fmtUsd(v) : lab === "top 10 wallet" ? Math.round(v * 100) + "%" : Math.round(v * 100) / 100);
+    lb.innerHTML = `<p class="note">${lessons.settled} trade · ${lessons.runners} runner. Le righe evidenziate separano di più i vincenti dai morti.</p>
+      <div class="tablewrap"><table><thead><tr><th>condizione al segnale</th><th>runner</th><th>morti</th><th>divario</th></tr></thead><tbody>${(lessons.lessons || []).map((le) => {
+        const strong = le.ratio && (le.ratio >= 1.3 || le.ratio <= 0.77);
+        return `<tr class="${strong ? "edge" : ""}"><td>${le.label}</td><td class="med pos">${fmt(le.label, le.runner_median)}</td><td class="neg">${fmt(le.label, le.dead_median)}</td><td>${le.ratio == null ? "—" : le.ratio + "×"}</td></tr>`;
+      }).join("")}</tbody></table></div>`;
+  } else {
+    const n = lessons ? lessons.settled : 0, need = lessons ? lessons.prelim_at : 8;
+    lb.innerHTML = `<div class="lacc"><div class="lbar"><div class="lbarfill" style="width:${Math.min(100, Math.round((n / need) * 100))}%"></div></div><p><b>${n}/${need}</b> trade conclusi: le regole numeriche compaiono qui appena ce ne sono abbastanza.</p></div>`;
   }
-
-  const badge = L.status === "ready"
-    ? '<span class="lbadge ok">DATI SOLIDI</span>'
-    : '<span class="lbadge prelim">PRELIMINARE — pochi trade, indicativo</span>';
-  const fmt = (k, v) => {
-    if (v == null) return "—";
-    if (["volume 1h", "volume 24h", "liquidità"].includes(k)) return fmtUsd(v);
-    if (k === "top 10 wallet") return Math.round(v * 100) + "%";
-    return (typeof v === "number" ? (Math.round(v * 100) / 100) : v);
-  };
-  const rows = (L.lessons || []).map((le) => {
-    const stronger = le.ratio && (le.ratio >= 1.3 || le.ratio <= 0.77);
-    return `<tr class="${stronger ? "edge" : ""}">
-      <td>${le.label}</td>
-      <td class="med pos">${fmt(le.label, le.runner_median)}</td>
-      <td class="neg">${fmt(le.label, le.dead_median)}</td>
-      <td>${le.ratio == null ? "—" : le.ratio + "×"}</td>
-    </tr>`;
-  }).join("");
-
-  box.innerHTML = `
-    <p class="note">${badge} &nbsp; ${L.settled} trade conclusi · ${L.runners} hanno corso (≥+${L.runner_pct}%).
-    Le righe evidenziate sono le condizioni che separano di più i runner dai morti.</p>
-    <div class="tablewrap"><table>
-      <thead><tr><th>condizione al segnale</th><th>runner (mediana)</th><th>morti (mediana)</th><th>divario</th></tr></thead>
-      <tbody>${rows || '<tr><td colspan="4" class="muted">Calcolo in corso…</td></tr>'}</tbody>
-    </table></div>`;
-}
-
-function renderStats(d) {
-  const items = [
-    [d ? d.scans_total : "—", "ascolti di X fatti"],
-    [d ? d.evaluated : "—", "token passati al filtro"],
-    [d ? d.passed_count : "—", "perle trovate"],
-    ["€0", "speso finora"],
-  ];
-  $("stats").innerHTML = items
-    .map(([n, l]) => `<div class="stat"><div class="n">${n}</div><div class="l">${l}</div></div>`)
-    .join("");
 }
 
 (async function () {
   const d = await load("pipeline.json");
-  $("updated").textContent = d
-    ? `Aggiornato ${d.updated_utc} UTC · Grok ascolta X ogni 4h, il filtro gira subito dopo`
-    : "In avvio…";
+  if (!d) { $("mission").textContent = "In avvio…"; return; }
+  renderProject(d);
   renderTrends(d);
   renderCandidates(d);
-  renderOutcomes(d);
-  renderSim(d);
-  renderLessons(d);
-  renderStats(d);
+  renderDetails(d);
 })();
