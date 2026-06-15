@@ -120,3 +120,12 @@ scout Grok non trova abbastanza token freschi e puliti (e spesso sbaglia l'eta' 
 perle sono rare (1-5%) e imparare anche dai red (gia' facciamo: 34 trade, 4 runner, status READY).
 **Fatto subito:** calibrato l'alert watchdog (0 perle: ora su 48h e >=30 valutati, non spammare su varianza).
 **Stato:** siamo READY -> il prossimo loop improve fara' l'analisi critica e includera' questa osservazione.
+
+## GUARDRAIL — il proxy balene su X e' un INDIZIO, mai un criterio di decisione (2026-06-15)
+
+Cautela di Nicolo: attenti a fidarci del "whale_proxy" su X. Rischi reali: (1) account che MENTONO
+("whales buying" senza prova), (2) il post e' in RITARDO sull'acquisto reale, (3) wash-trade che sembra
+smart money. REGOLA FERREA: i campi whale_proxy/smart_money_on_x (dal prompt C) sono solo DATI RACCOLTI,
+NON devono MAI da soli far passare un token a "perla" ne' decidere un'entrata. La DECISIONE e' sempre
+on-chain (Helius/whale_flow: i dati reali della blockchain). X dice QUALE token guardare; la blockchain
+dice DAVVERO se le balene comprano. Mai spostare capitale su un segnale X non confermato on-chain.
