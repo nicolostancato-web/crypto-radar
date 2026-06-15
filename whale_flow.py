@@ -79,7 +79,13 @@ def analyze(mint):
     distributors = {w: v for w, v in flow.items() if v < 0}
     top_buyer = max(accumulators.items(), key=lambda x: x[1]) if accumulators else None
     early.sort(key=lambda x: x[0])
-    early_buyers = [w for ts, w, net in early if net > 0][:5]
+    # indirizzi COMPLETI dei primi accumulatori (servono allo smart-money discovery)
+    seen, early_buyers = set(), []
+    for ts, w, net in early:
+        if net > 0 and w not in seen:
+            seen.add(w); early_buyers.append(w)
+        if len(early_buyers) >= 5:
+            break
 
     return {
         "n_swaps": len(txs),
@@ -88,8 +94,8 @@ def analyze(mint):
         "bs_ratio_real": round(len(buyers) / len(sellers), 2) if sellers else float(len(buyers)),
         "accumulators": len(accumulators),     # wallet con netflow POSITIVO (stanno comprando)
         "distributors": len(distributors),     # wallet che scaricano
-        "top_buyer": top_buyer[0][:6] + ".." if top_buyer else None,
-        "early_buyers": [w[:6] + ".." for w in early_buyers],
+        "top_buyer": top_buyer[0] if top_buyer else None,   # indirizzo completo
+        "early_buyers": early_buyers,                       # indirizzi completi
         # segnale sintetico: piu' accumulatori che distributori = pressione d'acquisto whale
         "whale_pressure": round((len(accumulators) - len(distributors)) / max(1, len(flow)), 2),
     }

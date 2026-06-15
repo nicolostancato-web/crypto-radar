@@ -174,10 +174,28 @@ function renderDetails(d) {
   }
 }
 
+function renderWhales(d) {
+  const w = d.whales; const tb = document.querySelector("#whales tbody");
+  if (!w || !w.tokens || !w.tokens.length) { tb.innerHTML = '<tr><td colspan="5" class="muted">Lettura swap in avvio…</td></tr>'; return; }
+  const pcls = (p) => p == null ? "" : p > 0.1 ? "pos" : p < -0.1 ? "neg" : "";
+  tb.innerHTML = w.tokens.map((t) => `<tr>
+    <td>${t.ticker || "?"} ${t.pass ? '<span class="pill y">perla</span>' : ""}</td>
+    <td class="med ${pcls(t.pressure)}">${t.pressure == null ? "—" : (t.pressure > 0 ? "+" : "") + t.pressure}</td>
+    <td class="pos">${t.accumulators ?? "—"}</td><td class="neg">${t.distributors ?? "—"}</td><td>${t.n_swaps ?? "—"}</td></tr>`).join("");
+  const sm = $("smart");
+  if (w.smart && w.smart.length) {
+    sm.innerHTML = `<div class="smartbox"><div class="acl">Wallet "smart" da seguire <span class="muted">(${w.smart_qualified} qualificati)</span></div>${w.smart.map((s) =>
+      `<div class="srow"><a href="https://solscan.io/account/${s.wallet}" target="_blank" rel="noopener">${s.wallet.slice(0, 8)}…</a><span>winrate ${Math.round(s.winrate * 100)}% su ${s.plays} token</span></div>`).join("")}</div>`;
+  } else {
+    sm.innerHTML = `<p class="note">I <b>wallet vincenti</b> da copiare compaiono qui appena qualche balena ricorre sui token che corrono. ${w.smart_qualified ? w.smart_qualified + " in osservazione." : "In costruzione."}</p>`;
+  }
+}
+
 (async function () {
   const d = await load("pipeline.json");
   if (!d) { $("mission").textContent = "In avvio…"; return; }
   renderProject(d);
+  renderWhales(d);
   renderTrends(d);
   renderCandidates(d);
   renderDetails(d);

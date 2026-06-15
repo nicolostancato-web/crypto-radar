@@ -141,6 +141,13 @@ td.med{font-weight:700;font-variant-numeric:tabular-nums}
 .simverdict{margin-top:12px;border-radius:12px;padding:14px 16px;font-size:.9rem;line-height:1.5;border:1px solid var(--line);background:var(--panel)}
 .simverdict.bad{background:linear-gradient(180deg,#1c1620,#141b2b);border-color:#3a2a2a}
 
+.smartbox{margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.smartbox .acl{font-size:.82rem;font-weight:700;margin-bottom:10px}
+.srow{display:flex;justify-content:space-between;padding:7px 0;border-top:1px solid var(--line);font-size:.9rem}
+.srow:first-of-type{border-top:none}
+.srow a{color:var(--accent);text-decoration:none;font-family:monospace} .srow a:hover{text-decoration:underline}
+.srow span{color:var(--muted)}
+
 footer{margin-top:50px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:.84rem;max-width:760px}
 footer .muted{margin-top:8px;font-size:.78rem}
 

@@ -1,0 +1,40 @@
+{
+  "updated_utc": "2026-06-15 17:06",
+  "wallets_seen": 184,
+  "qualified": 3,
+  "min_plays": 2,
+  "smart": [
+    {
+      "wallet": "2tgUbS..",
+      "plays": 3,
+      "hits": 0,
+      "winrate": 0.0,
+      "tickers": [
+        "DINKY",
+        "GOBG",
+        "SCROLL"
+      ]
+    },
+    {
+      "wallet": "2tgUbS9UMoQD6GkDZBiqKYCURnGrSb6ocYwRABrSJUvY",
+      "plays": 3,
+      "hits": 0,
+      "winrate": 0.0,
+      "tickers": [
+        "DINKY",
+        "GOBG",
+        "SCROLL"
+      ]
+    },
+    {
+      "wallet": "HoWQjZsVsK9T3QfKMUFT4meFQ3VzBsVf9uc8x7RGZuST",
+      "plays": 2,
+      "hits": 0,
+      "winrate": 0.0,
+      "tickers": [
+        "INTERN",
+        "MR FROG"
+      ]
+    }
+  ]
+}

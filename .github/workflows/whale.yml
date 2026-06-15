@@ -25,16 +25,18 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
 
-      - name: Leggi gli swap + calcola pressione whale
+      - name: Leggi gli swap + calcola pressione whale + scopri i wallet vincenti
         env:
           HELIUS_API_KEY: ${{ secrets.HELIUS_API_KEY }}
-        run: python whale_flow.py
+        run: |
+          python whale_flow.py
+          python smart_money.py
 
-      - name: Salva serie whale-flow
+      - name: Salva serie whale-flow + smart wallets
         run: |
           git config user.name "crypto-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add data/whale_flow.jsonl
+          git add data/whale_flow.jsonl data/smart_wallets.json
           git commit -m "whale-flow $(date -u +%Y-%m-%dT%H:%MZ)" || { echo "niente di nuovo"; exit 0; }
           for i in 1 2 3 4 5; do
             git pull --no-rebase --no-edit origin main || true

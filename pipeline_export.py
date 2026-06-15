@@ -15,6 +15,8 @@ TRENDS = os.path.join(HERE, "data", "trends.jsonl")
 CANDS = os.path.join(HERE, "data", "candidates.jsonl")
 TRACK = os.path.join(HERE, "data", "track.jsonl")
 LEARN = os.path.join(HERE, "data", "learnings.json")
+WHALEFLOW = os.path.join(HERE, "data", "whale_flow.jsonl")
+SMART = os.path.join(HERE, "data", "smart_wallets.json")
 OUT = os.path.join(HERE, "web", "pipeline.json")
 
 # inizio del progetto X-first (per calcolare "giorno N") — UTC
@@ -451,6 +453,27 @@ def build():
             "metric": "perle " + _pct(pm) + " vs scartati " + _pct(fm),
             "detail": "Le perle del filtro rendono peggio degli scartati: stiamo scegliendo i perdenti.",
             "confidence": "in correzione"})
+
+    # --- COSA FANNO LE BALENE (whale_flow + smart money) ---
+    wf = _read_jsonl(WHALEFLOW)
+    latest = {}
+    for r in wf:
+        latest[r.get("ca")] = r           # ultima lettura per token
+    whales = sorted(latest.values(), key=lambda r: r.get("whale_pressure", -9), reverse=True)
+    smart = None
+    if os.path.exists(SMART):
+        try:
+            smart = json.load(open(SMART))
+        except Exception:
+            smart = None
+    data["whales"] = {
+        "tokens": [{"ticker": w.get("ticker"), "pass": w.get("pass"), "pressure": w.get("whale_pressure"),
+                    "accumulators": w.get("accumulators"), "distributors": w.get("distributors"),
+                    "buyers": w.get("buyers"), "sellers": w.get("sellers"), "n_swaps": w.get("n_swaps")}
+                   for w in whales[:12]],
+        "smart": (smart or {}).get("smart", [])[:8],
+        "smart_qualified": (smart or {}).get("qualified", 0),
+    }
 
     data["project"] = {
         "name": "CRYPTO RADAR",

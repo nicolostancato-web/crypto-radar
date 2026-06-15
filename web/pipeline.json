@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-15 16:59",
+  "updated_utc": "2026-06-15 17:08",
   "scans_total": 25,
   "last_scan": {
     "utc": "2026-06-15 14:33",
@@ -2932,6 +2932,165 @@
         "voliq": null
       }
     ]
+  },
+  "whales": {
+    "tokens": [
+      {
+        "ticker": "CKING",
+        "pass": false,
+        "pressure": 1.0,
+        "accumulators": 2,
+        "distributors": 0,
+        "buyers": 2,
+        "sellers": 1,
+        "n_swaps": 41
+      },
+      {
+        "ticker": "NOVAPUMP",
+        "pass": false,
+        "pressure": 1.0,
+        "accumulators": 1,
+        "distributors": 0,
+        "buyers": 1,
+        "sellers": 0,
+        "n_swaps": 48
+      },
+      {
+        "ticker": "INTERN",
+        "pass": false,
+        "pressure": 0.67,
+        "accumulators": 2,
+        "distributors": 0,
+        "buyers": 3,
+        "sellers": 1,
+        "n_swaps": 54
+      },
+      {
+        "ticker": "SMB",
+        "pass": false,
+        "pressure": 0.5,
+        "accumulators": 1,
+        "distributors": 0,
+        "buyers": 2,
+        "sellers": 1,
+        "n_swaps": 56
+      },
+      {
+        "ticker": "SOCCER",
+        "pass": false,
+        "pressure": 0.38,
+        "accumulators": 9,
+        "distributors": 4,
+        "buyers": 9,
+        "sellers": 6,
+        "n_swaps": 100
+      },
+      {
+        "ticker": "CRAZYTRUMP",
+        "pass": false,
+        "pressure": 0.33,
+        "accumulators": 2,
+        "distributors": 0,
+        "buyers": 6,
+        "sellers": 4,
+        "n_swaps": 15
+      },
+      {
+        "ticker": "Hedge",
+        "pass": false,
+        "pressure": 0.24,
+        "accumulators": 15,
+        "distributors": 7,
+        "buyers": 28,
+        "sellers": 19,
+        "n_swaps": 100
+      },
+      {
+        "ticker": "MR FROG",
+        "pass": false,
+        "pressure": 0.2,
+        "accumulators": 1,
+        "distributors": 0,
+        "buyers": 5,
+        "sellers": 5,
+        "n_swaps": 76
+      },
+      {
+        "ticker": "DRP",
+        "pass": false,
+        "pressure": 0.2,
+        "accumulators": 1,
+        "distributors": 0,
+        "buyers": 5,
+        "sellers": 4,
+        "n_swaps": 14
+      },
+      {
+        "ticker": "Lower",
+        "pass": false,
+        "pressure": 0.15,
+        "accumulators": 8,
+        "distributors": 5,
+        "buyers": 19,
+        "sellers": 17,
+        "n_swaps": 100
+      },
+      {
+        "ticker": "boi",
+        "pass": false,
+        "pressure": 0.0,
+        "accumulators": 0,
+        "distributors": 0,
+        "buyers": 8,
+        "sellers": 8,
+        "n_swaps": 99
+      },
+      {
+        "ticker": "ASTEROID",
+        "pass": false,
+        "pressure": -0.04,
+        "accumulators": 10,
+        "distributors": 11,
+        "buyers": 16,
+        "sellers": 17,
+        "n_swaps": 100
+      }
+    ],
+    "smart": [
+      {
+        "wallet": "2tgUbS..",
+        "plays": 3,
+        "hits": 0,
+        "winrate": 0.0,
+        "tickers": [
+          "DINKY",
+          "GOBG",
+          "SCROLL"
+        ]
+      },
+      {
+        "wallet": "2tgUbS9UMoQD6GkDZBiqKYCURnGrSb6ocYwRABrSJUvY",
+        "plays": 3,
+        "hits": 0,
+        "winrate": 0.0,
+        "tickers": [
+          "DINKY",
+          "GOBG",
+          "SCROLL"
+        ]
+      },
+      {
+        "wallet": "HoWQjZsVsK9T3QfKMUFT4meFQ3VzBsVf9uc8x7RGZuST",
+        "plays": 2,
+        "hits": 0,
+        "winrate": 0.0,
+        "tickers": [
+          "INTERN",
+          "MR FROG"
+        ]
+      }
+    ],
+    "smart_qualified": 3
   },
   "project": {
     "name": "CRYPTO RADAR",
