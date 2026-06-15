@@ -1,22 +1,23 @@
 {
-  "updated_utc": "2026-06-15 17:06",
-  "wallets_seen": 184,
+  "updated_utc": "2026-06-15 22:51",
+  "wallets_seen": 232,
   "qualified": 3,
   "min_plays": 2,
   "smart": [
     {
-      "wallet": "2tgUbS..",
-      "plays": 3,
+      "wallet": "2tgUbS9UMoQD6GkDZBiqKYCURnGrSb6ocYwRABrSJUvY",
+      "plays": 4,
       "hits": 0,
       "winrate": 0.0,
       "tickers": [
+        "AN1Jkje",
         "DINKY",
         "GOBG",
         "SCROLL"
       ]
     },
     {
-      "wallet": "2tgUbS9UMoQD6GkDZBiqKYCURnGrSb6ocYwRABrSJUvY",
+      "wallet": "2tgUbS..",
       "plays": 3,
       "hits": 0,
       "winrate": 0.0,
