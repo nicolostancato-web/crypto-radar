@@ -3,3 +3,4 @@ data/trends.jsonl merge=union
 data/candidates.jsonl merge=union
 data/track.jsonl merge=union
 data/green_social.jsonl merge=union
+data/whale_flow.jsonl merge=union

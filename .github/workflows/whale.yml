@@ -1,0 +1,44 @@
+name: crypto-radar-whale
+
+# IL FILM DELLE WHALE: ogni 4h legge le SINGOLE compravendite dei token attivi (Helius Enhanced) e calcola
+# chi accumula / chi scarica (whale_pressure). Da "foto top-20" a "chi compra adesso". Gratis (free tier).
+on:
+  schedule:
+    - cron: "50 */4 * * *"     # ogni 4h (CFO: ~101 crediti/token x 25 token = ~2500/ciclo, dentro 1M/mese Helius)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: radar
+  cancel-in-progress: false
+
+jobs:
+  whale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+
+      - name: Leggi gli swap + calcola pressione whale
+        env:
+          HELIUS_API_KEY: ${{ secrets.HELIUS_API_KEY }}
+        run: python whale_flow.py
+
+      - name: Salva serie whale-flow
+        run: |
+          git config user.name "crypto-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/whale_flow.jsonl
+          git commit -m "whale-flow $(date -u +%Y-%m-%dT%H:%MZ)" || { echo "niente di nuovo"; exit 0; }
+          for i in 1 2 3 4 5; do
+            git pull --no-rebase --no-edit origin main || true
+            git push origin main && exit 0
+            sleep 5
+          done
+          echo "push fallito"; exit 1
