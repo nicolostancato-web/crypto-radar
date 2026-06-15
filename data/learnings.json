@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-06-15 14:34",
+  "updated_utc": "2026-06-15 16:59",
   "runner_pct": 50,
-  "settled": 53,
+  "settled": 54,
   "runners": 8,
-  "deads": 45,
+  "deads": 46,
   "by_arena": {
     "memecoin": {
-      "trades": 42,
+      "trades": 43,
       "runners": 7,
-      "runner_rate": 0.17
+      "runner_rate": 0.16
     },
     "ai_agent": {
       "trades": 11,
@@ -24,63 +24,63 @@
       "feature": "vol_1h",
       "label": "volume 1h",
       "runner_median": 2182.5,
-      "dead_median": 5,
-      "ratio": 436.5
-    },
-    {
-      "feature": "bs_ratio_1h",
-      "label": "buy/sell 1h",
-      "runner_median": 1.475,
-      "dead_median": 0.19,
-      "ratio": 7.76
+      "dead_median": 7.5,
+      "ratio": 291.0
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
       "runner_median": 5.91,
-      "dead_median": 0.89,
-      "ratio": 6.64
+      "dead_median": 0.945,
+      "ratio": 6.25
+    },
+    {
+      "feature": "bs_ratio_1h",
+      "label": "buy/sell 1h",
+      "runner_median": 1.475,
+      "dead_median": 0.275,
+      "ratio": 5.36
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
       "runner_median": 47600.0,
-      "dead_median": 9867,
-      "ratio": 4.82
+      "dead_median": 11002.0,
+      "ratio": 4.33
     },
     {
       "feature": "age_h",
       "label": "età (h)",
       "runner_median": 35.7,
-      "dead_median": 24.3,
-      "ratio": 1.47
+      "dead_median": 22.5,
+      "ratio": 1.59
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
       "runner_median": 0.611,
-      "dead_median": 0.886,
-      "ratio": 0.69
+      "dead_median": 0.857,
+      "ratio": 0.71
     },
     {
       "feature": "grok_heat",
       "label": "heat di Grok",
       "runner_median": 5.0,
-      "dead_median": 4,
+      "dead_median": 4.0,
       "ratio": 1.25
     },
     {
       "feature": "liq",
       "label": "liquidità",
       "runner_median": 7377.0,
-      "dead_median": 6424,
-      "ratio": 1.15
+      "dead_median": 6524.0,
+      "ratio": 1.13
     }
   ],
   "best_runners": [
     {
       "ticker": "Hedge",
-      "ret_max": 3.57,
+      "ret_max": 3.59,
       "pass": false,
       "vol_1h": 191,
       "voliq": null
