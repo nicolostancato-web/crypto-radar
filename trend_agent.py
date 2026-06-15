@@ -56,6 +56,10 @@ muoversi, che si FIUTA ma non e' ancora esploso. Il pre-picco, non il picco. Ese
 - il volume INIZIA appena a muoversi (non gia' esploso), primi reply/quote di account medi.
 Regola secca: **se "ne parlano gia' tutti" -> e' tardi -> SCARTALO.** Preferisco un token con heat BASSO-MEDIO
 ma in chiara ACCELERAZIONE iniziale, a uno con heat massimo (gia' pumpato). Anticipiamo, non rincorriamo.
+**LA TRIPLETTA D'ORO:** il momento perfetto e' quando vedi insieme (a) menzioni che accelerano in modo
+ORGANICO (a gradini, account NUOVI che si aggiungono), (b) almeno UN proxy on-chain di smart money su X
+(un tracker che segnala un wallet serio che entra), (c) la massa retail NON ancora arrivata. Se manca (b)
+e' solo rumore social; se c'e' gia' (c) sei in ritardo. Cerca questa tripletta.
 
 # CIO' CHE CERCO: l'IGNIZIONE PRECOCE (la fase in cui l'attenzione INIZIA, prima del pump grosso)
 Il momento d'oro e' l'attimo in cui un token fresco passa da "quasi nessuno lo nomina" a "i primi iniziano a
@@ -85,6 +89,27 @@ Per ogni candidato chiediti SE STA PARTENDO, guardando la DERIVATA (il cambiamen
 7. ASSENZA di euforia di massa: se vedi gia' "100x easy", trending, tutti che postano -> sei in RITARDO.
 Piu' di questi segnali sono ATTIVI e in fase INIZIALE, piu' la candidata e' buona. Marca stage di conseguenza:
 pre_ignition (segnali appena nati) / early_ignition (curva che parte) / rising (gia' su) / peak (TARDI -> evita).
+
+# 🐋 SEGNALI-PROXY DELLE BALENE SU X (il ponte social->on-chain — cercali ATTIVAMENTE, sono ORO)
+Le balene non si vedono su X direttamente, MA i loro PROXY sì: bot/account che ri-postano in AUTOMATICO
+i movimenti on-chain. Anticipano il pump, e Grok li puo' leggere ORA:
+- Post di wallet-tracker: "smart money bought", "X SOL just bought", "N wallets aping", "Smart Money entered",
+  "Memecoin Expert just aped" (ecosistema GMGN, RayBot, SpyBot, Nansen labels, e simili tracker live su X).
+- Alpha account che annunciano un ACCUMULO ("accumulating", "loading", "size on") su un CA fresco.
+- Screenshot di terminali (GMGN/Photon/Birdeye) con wallet smart-money in verde su quel token.
+Se vedi UNO di questi proxy su un token early -> alza la confidence: capitale vero sta entrando PRIMA della folla.
+Distingui un VERO tracker (post automatico con dati di wallet) da un caller che DICE "whales are buying" senza
+prova (= marketing, non segnale). Riporta nei campi whale_proxy e smart_money_on_x.
+
+# 🚩 ANTI-RUG 2026 (il 98% dei lanci pump.fun e' scam — cerca questi red flag che TRAPELANO su X)
+- "bonding curve riempita in pochi minuti" / "0->100% in <30 min" = bot-driven, NON compratori reali.
+  La curva SANA si riempie in ORE (organico). Annota la velocita' in curve_fill_speed.
+- "bundled" / "mother wallet" / "stessi wallet finanziati da un'unica fonte" = un solo operatore che finge community.
+- "top 10 holder >40%" / "insiders X%" / concentrazione estrema. Mint/freeze authority non rinunciata.
+- stesso meme/nome clonato su 5+ CA nello stesso momento = caccia al fork.
+- FORMA della curva menzioni: spike verticale in 10 min dagli STESSI handle = coordinato/wash (riportalo
+  mention_curve_shape="spike"); crescita a gradini su ore con NUOVI account che si aggiungono = contagio
+  organico (mention_curve_shape="stairstep", BUONO). Questa e' la differenza tecnica tra runner e morto.
 
 # ANGOLI DI RICERCA (provali DAVVERO, piu' di uno, non fermarti al primo)
 - Cerca cashtag Solana emergenti delle ultime ore + parole come "solana", "pump.fun", "CA", "just launched",
@@ -144,6 +169,11 @@ Un CA inventato mi fa sprecare chiamate on-chain e inquina il dataset: preferisc
   "stage": "pre_ignition|early_ignition|rising|peak",  // FONDAMENTALE: voglio pre/early, NON peak
   "mentions_now_vs_prev": "string",  // come stanno cambiando le menzioni (es. "da 2/h a 8/h nell'ultima ora")
   "first_mover": "string|null",      // il caller credibile che l'ha lanciato per PRIMO, se c'e'
+  "whale_proxy": "string|null",      // proxy on-chain visto su X (es. "GMGN smart money +12 SOL", "tracker: 3 smart wallet entrati"), null se nessuno
+  "smart_money_on_x": 0,             // 0-3: quanti segnali-proxy DISTINTI di smart money/whale hai visto su X per questo token
+  "confluence_type": "independent|echo|single",  // 3 fonti SCOLLEGATE convergono (independent=forte) / si retwittano (echo) / un solo account (single)
+  "mention_curve_shape": "stairstep|spike|flat", // gradini su nuovi account (organico/BUONO) / spike stessi handle (coordinato) / piatta
+  "curve_fill_speed": "gradual|fast|unknown",    // bonding curve riempita in ore (gradual=sano) o in minuti (fast=bot/rug)
   "momentum": "exploding|rising|steady|fading",
   "velocity": "rising|flat|falling",
   "sentiment": "hype|organic|mixed|suspicious",
