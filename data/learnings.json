@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-15 11:47",
+  "updated_utc": "2026-06-15 14:34",
   "runner_pct": 50,
   "settled": 53,
   "runners": 8,
@@ -80,7 +80,7 @@
   "best_runners": [
     {
       "ticker": "Hedge",
-      "ret_max": 3.46,
+      "ret_max": 3.57,
       "pass": false,
       "vol_1h": 191,
       "voliq": null
