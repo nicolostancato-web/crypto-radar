@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-15 11:47",
+  "updated_utc": "2026-06-15 12:41",
   "scans_total": 24,
   "last_scan": {
     "utc": "2026-06-15 05:25",
@@ -2900,22 +2900,22 @@
     "headline_finding": {
       "icon": "whale",
       "headline": "Le whale precoci predicono i runner",
-      "metric": "+278% vs -1%",
-      "detail": "I token dove le whale comprano presto (n=2) rendono molto più degli altri (n=52). È il segnale più forte: il filtro va spostato qui.",
+      "metric": "-4% vs -1%",
+      "detail": "I token dove le whale comprano presto (n=3) rendono molto più degli altri (n=51). È il segnale più forte: il filtro va spostato qui.",
       "confidence": "preliminare"
     },
     "findings": [
       {
         "icon": "whale",
         "headline": "Le whale precoci predicono i runner",
-        "metric": "+278% vs -1%",
-        "detail": "I token dove le whale comprano presto (n=2) rendono molto più degli altri (n=52). È il segnale più forte: il filtro va spostato qui.",
+        "metric": "-4% vs -1%",
+        "detail": "I token dove le whale comprano presto (n=3) rendono molto più degli altri (n=51). È il segnale più forte: il filtro va spostato qui.",
         "confidence": "preliminare"
       },
       {
         "icon": "timing",
         "headline": "Aspettare il dip batte comprare il top",
-        "metric": "-8% → +8%",
+        "metric": "0% → +18%",
         "detail": "Entrare dopo una correzione −15% rende meglio che entrare al segnale.",
         "confidence": "preliminare"
       },
@@ -2998,9 +2998,9 @@
       "evaluated": 58,
       "pearls": 2,
       "tracked": 54,
-      "trades": 50,
+      "trades": 53,
       "runners": 8,
-      "observations": 1077,
+      "observations": 1096,
       "scans": 24
     }
   }
