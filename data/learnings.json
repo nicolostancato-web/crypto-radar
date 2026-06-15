@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-06-15 00:14",
+  "updated_utc": "2026-06-15 05:25",
   "runner_pct": 50,
   "settled": 50,
-  "runners": 7,
-  "deads": 43,
+  "runners": 8,
+  "deads": 42,
   "by_arena": {
     "memecoin": {
       "trades": 39,
-      "runners": 6,
-      "runner_rate": 0.15
+      "runners": 7,
+      "runner_rate": 0.18
     },
     "ai_agent": {
       "trades": 11,
@@ -23,16 +23,23 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 2488,
-      "dead_median": 5,
-      "ratio": 497.6
+      "runner_median": 2182.5,
+      "dead_median": 3.0,
+      "ratio": 727.5
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 57098,
-      "dead_median": 2339,
-      "ratio": 24.41
+      "runner_median": 47600.0,
+      "dead_median": 5380.5,
+      "ratio": 8.85
+    },
+    {
+      "feature": "bs_ratio_1h",
+      "label": "buy/sell 1h",
+      "runner_median": 1.475,
+      "dead_median": 0.18,
+      "ratio": 8.19
     },
     {
       "feature": "voliq",
@@ -42,45 +49,45 @@
       "ratio": 5.91
     },
     {
-      "feature": "bs_ratio_1h",
-      "label": "buy/sell 1h",
-      "runner_median": 1.24,
-      "dead_median": 0.36,
-      "ratio": 3.44
-    },
-    {
       "feature": "age_h",
       "label": "età (h)",
-      "runner_median": 42.6,
-      "dead_median": 24.3,
-      "ratio": 1.75
-    },
-    {
-      "feature": "liq",
-      "label": "liquidità",
-      "runner_median": 9655,
-      "dead_median": 6340,
-      "ratio": 1.52
+      "runner_median": 35.7,
+      "dead_median": 22.5,
+      "ratio": 1.59
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.609,
+      "runner_median": 0.611,
       "dead_median": 0.887,
       "ratio": 0.69
     },
     {
       "feature": "grok_heat",
       "label": "heat di Grok",
-      "runner_median": 5,
-      "dead_median": 4,
+      "runner_median": 5.0,
+      "dead_median": 4.0,
       "ratio": 1.25
+    },
+    {
+      "feature": "liq",
+      "label": "liquidità",
+      "runner_median": 7377.0,
+      "dead_median": 6382.0,
+      "ratio": 1.16
     }
   ],
   "best_runners": [
     {
+      "ticker": "Hedge",
+      "ret_max": 2.78,
+      "pass": false,
+      "vol_1h": 191,
+      "voliq": null
+    },
+    {
       "ticker": "three",
-      "ret_max": 1.38,
+      "ret_max": 1.71,
       "pass": false,
       "vol_1h": 5929,
       "voliq": 3.54
