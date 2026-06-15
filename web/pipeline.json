@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-15 17:08",
+  "updated_utc": "2026-06-15 17:32",
   "scans_total": 25,
   "last_scan": {
     "utc": "2026-06-15 14:33",
@@ -3164,35 +3164,31 @@
     "roadmap": [
       {
         "status": "done",
-        "title": "Filtro che cattura i giovani (early)"
+        "title": "Filtro che cattura i giovani + prompt-anticipo (pre-picco)"
       },
       {
         "status": "done",
-        "title": "Prompt-anticipo: cerca il pre-picco su X"
+        "title": "Film delle balene: leggiamo ogni compravendita (chi accumula/scarica)"
       },
       {
         "status": "done",
-        "title": "Tracking whale ora-per-ora"
+        "title": "Smart-money: scopriamo i wallet vincenti da copiare"
       },
       {
         "status": "done",
-        "title": "Loop di auto-miglioramento (AI esterna ogni 24h)"
-      },
-      {
-        "status": "done",
-        "title": "Watchdog: controlla la qualità dati + si auto-ripara"
+        "title": "Loop di auto-miglioramento + watchdog che si auto-ripara"
       },
       {
         "status": "doing",
-        "title": "Test: il filtro WHALE-based batte quello a volume?"
+        "title": "Test: la pressione delle balene predice i runner?"
       },
       {
         "status": "next",
-        "title": "Riscrivere il filtro sulle whale precoci (se confermato)"
+        "title": "Riscrivere il filtro sulle balene precoci (quando confermato)"
       },
       {
         "status": "next",
-        "title": "Backtest storico per più campione + regressione"
+        "title": "Webhook real-time: copiare le balene al secondo (pronto, si accende a $5/mese)"
       }
     ],
     "stats": {

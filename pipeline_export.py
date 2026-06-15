@@ -41,14 +41,13 @@ DISCOVERIES = [
 
 # ROADMAP — cosa è fatto, cosa stiamo provando, cosa viene. Aggiornata mano a mano.
 ROADMAP = [
-    {"status": "done", "title": "Filtro che cattura i giovani (early)"},
-    {"status": "done", "title": "Prompt-anticipo: cerca il pre-picco su X"},
-    {"status": "done", "title": "Tracking whale ora-per-ora"},
-    {"status": "done", "title": "Loop di auto-miglioramento (AI esterna ogni 24h)"},
-    {"status": "done", "title": "Watchdog: controlla la qualità dati + si auto-ripara"},
-    {"status": "doing", "title": "Test: il filtro WHALE-based batte quello a volume?"},
-    {"status": "next", "title": "Riscrivere il filtro sulle whale precoci (se confermato)"},
-    {"status": "next", "title": "Backtest storico per più campione + regressione"},
+    {"status": "done", "title": "Filtro che cattura i giovani + prompt-anticipo (pre-picco)"},
+    {"status": "done", "title": "Film delle balene: leggiamo ogni compravendita (chi accumula/scarica)"},
+    {"status": "done", "title": "Smart-money: scopriamo i wallet vincenti da copiare"},
+    {"status": "done", "title": "Loop di auto-miglioramento + watchdog che si auto-ripara"},
+    {"status": "doing", "title": "Test: la pressione delle balene predice i runner?"},
+    {"status": "next", "title": "Riscrivere il filtro sulle balene precoci (quando confermato)"},
+    {"status": "next", "title": "Webhook real-time: copiare le balene al secondo (pronto, si accende a $5/mese)"},
 ]
 
 # etichette in italiano per i motivi di scarto del filtro
