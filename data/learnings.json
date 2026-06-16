@@ -1,19 +1,19 @@
 {
-  "updated_utc": "2026-06-16 19:50",
+  "updated_utc": "2026-06-16 22:00",
   "runner_pct": 50,
-  "settled": 61,
-  "runners": 9,
-  "deads": 52,
+  "settled": 64,
+  "runners": 11,
+  "deads": 53,
   "by_arena": {
     "memecoin": {
-      "trades": 50,
-      "runners": 8,
-      "runner_rate": 0.16
+      "trades": 52,
+      "runners": 10,
+      "runner_rate": 0.19
     },
     "ai_agent": {
-      "trades": 11,
+      "trades": 12,
       "runners": 1,
-      "runner_rate": 0.09
+      "runner_rate": 0.08
     }
   },
   "prelim_at": 8,
@@ -23,61 +23,68 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 2488,
-      "dead_median": 42.0,
-      "ratio": 59.24
+      "runner_median": 1877,
+      "dead_median": 74,
+      "ratio": 25.36
+    },
+    {
+      "feature": "bs_ratio_1h",
+      "label": "buy/sell 1h",
+      "runner_median": 1.71,
+      "dead_median": 0.5,
+      "ratio": 3.42
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
       "runner_median": 38102,
-      "dead_median": 12784.0,
-      "ratio": 2.98
+      "dead_median": 13431,
+      "ratio": 2.84
     },
     {
-      "feature": "bs_ratio_1h",
-      "label": "buy/sell 1h",
-      "runner_median": 1.24,
-      "dead_median": 0.43,
-      "ratio": 2.88
+      "feature": "liq",
+      "label": "liquidità",
+      "runner_median": 14635,
+      "dead_median": 6624,
+      "ratio": 2.21
     },
     {
       "feature": "age_h",
       "label": "età (h)",
       "runner_median": 28.8,
-      "dead_median": 18.75,
-      "ratio": 1.54
-    },
-    {
-      "feature": "liq",
-      "label": "liquidità",
-      "runner_median": 9655,
-      "dead_median": 6524.0,
-      "ratio": 1.48
+      "dead_median": 16.0,
+      "ratio": 1.8
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 4.725,
-      "dead_median": 3.265,
-      "ratio": 1.45
+      "runner_median": 2.375,
+      "dead_median": 4.71,
+      "ratio": 0.5
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
       "runner_median": 0.609,
-      "dead_median": 0.836,
-      "ratio": 0.73
+      "dead_median": 0.827,
+      "ratio": 0.74
     },
     {
       "feature": "grok_heat",
       "label": "heat di Grok",
-      "runner_median": 5,
-      "dead_median": 4.0,
-      "ratio": 1.25
+      "runner_median": 4,
+      "dead_median": 4,
+      "ratio": 1.0
     }
   ],
   "best_runners": [
+    {
+      "ticker": "ANSEM LAB",
+      "ret_max": 20.09,
+      "pass": false,
+      "vol_1h": 82,
+      "voliq": 0.01
+    },
     {
       "ticker": "Hedge",
       "ret_max": 5.84,
@@ -126,13 +133,6 @@
       "pass": false,
       "vol_1h": 1850,
       "voliq": 0.62
-    },
-    {
-      "ticker": "JOTCHUA",
-      "ret_max": 0.72,
-      "pass": false,
-      "vol_1h": 39814,
-      "voliq": 10.32
     }
   ]
 }
