@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-16 13:19",
-  "wallets_seen": 318,
-  "qualified": 6,
+  "updated_utc": "2026-06-16 19:59",
+  "wallets_seen": 369,
+  "qualified": 7,
   "min_plays": 2,
   "smart": [
     {
@@ -45,6 +45,16 @@
         "DINKY",
         "GOBG",
         "SCROLL"
+      ]
+    },
+    {
+      "wallet": "4qgnvMuDhCB4jQEL9Wa5isQSqvzsRkjEWB5Gtn9Ai6iY",
+      "plays": 2,
+      "hits": 0,
+      "winrate": 0.0,
+      "tickers": [
+        "CHEEK",
+        "INTERN"
       ]
     },
     {
