@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-16 10:55",
+  "updated_utc": "2026-06-16 13:04",
   "runner_pct": 50,
   "settled": 59,
   "runners": 9,
@@ -80,7 +80,7 @@
   "best_runners": [
     {
       "ticker": "Hedge",
-      "ret_max": 5.46,
+      "ret_max": 5.55,
       "pass": false,
       "vol_1h": 191,
       "voliq": null
@@ -114,6 +114,13 @@
       "voliq": 5.91
     },
     {
+      "ticker": "SCROLL",
+      "ret_max": 0.82,
+      "pass": false,
+      "vol_1h": 19539,
+      "voliq": 1.21
+    },
+    {
       "ticker": "SOLANASTADIUM",
       "ret_max": 0.8,
       "pass": false,
@@ -126,13 +133,6 @@
       "pass": false,
       "vol_1h": 39814,
       "voliq": 10.32
-    },
-    {
-      "ticker": "SCROLL",
-      "ret_max": 0.71,
-      "pass": false,
-      "vol_1h": 19539,
-      "voliq": 1.21
     }
   ]
 }
