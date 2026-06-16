@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-06-16 19:59",
-  "wallets_seen": 369,
-  "qualified": 7,
+  "updated_utc": "2026-06-16 22:45",
+  "wallets_seen": 431,
+  "qualified": 8,
   "min_plays": 2,
   "smart": [
     {
       "wallet": "Fk3LqCC65NEsk2CvrKBBN8KChbcnZ1bXc7aGYH5geK4m",
       "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
+      "hits": 2,
+      "winrate": 1.0,
       "tickers": [
         "SCROLL",
         "USA250"
@@ -75,6 +75,16 @@
       "tickers": [
         "ASTEROID",
         "USBC"
+      ]
+    },
+    {
+      "wallet": "JD6rVaerbyz6wjQ433nrw6bFTgFrp46MiYmi8EtUAfsG",
+      "plays": 2,
+      "hits": 0,
+      "winrate": 0.0,
+      "tickers": [
+        "ASTEROID",
+        "FRAG"
       ]
     }
   ]
