@@ -118,8 +118,11 @@ con pazienza: e' normale che i dati siano ancora pochi. Struttura la risposta CO
    positivi anche piccoli). Parti SEMPRE da qui — riconosci i passi avanti.
 2. 🎯 LE 2-3 MOSSE PIU' UTILI ADESSO: modifiche concrete e a basso costo (cosa, perche', come), ordinate per
    impatto. Inquadrale come "il prossimo passo per crescere", non come "stai sbagliando".
-3. 📊 ONESTA' SUI DATI: se il campione e' ancora piccolo dillo con serenita' (e' parte del processo), e di'
-   quanti dati servono e cosa accumulare. Senza drammi: e' un cantiere, non un fallimento.
+3. 📊 LA VERITA' BRUTALE (NON ammorbidirla): di' CHIARO e DIRETTO cosa NON funziona, i numeri scomodi, le
+   ipotesi smentite dai dati. La verita' cruda e' il MOTORE del miglioramento — da li' si capisce. NON
+   nasconderla, NON addolcire i fatti. Cambia solo l'inquadramento: presenta ogni verita' scomoda con "ecco
+   cosa ci insegna / come la sfruttiamo", non come una condanna. Brutale sui FATTI, costruttivo nel COME.
+   Se il campione e' piccolo dillo netto + quanti dati servono. E' un cantiere, ma i difetti vanno detti tutti.
 4. 💪 CHIUSURA MOTIVANTE: la SINGOLA cosa piu' importante adesso + una frase che ricorda che siamo sulla
    strada giusta e che il metodo (implementa->accumula->impara) sta funzionando.
 
