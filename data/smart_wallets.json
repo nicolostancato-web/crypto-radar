@@ -1,27 +1,27 @@
 {
-  "updated_utc": "2026-06-15 22:51",
-  "wallets_seen": 232,
-  "qualified": 3,
+  "updated_utc": "2026-06-16 06:18",
+  "wallets_seen": 280,
+  "qualified": 4,
   "min_plays": 2,
   "smart": [
     {
-      "wallet": "2tgUbS9UMoQD6GkDZBiqKYCURnGrSb6ocYwRABrSJUvY",
-      "plays": 4,
-      "hits": 0,
-      "winrate": 0.0,
+      "wallet": "2tgUbS..",
+      "plays": 3,
+      "hits": 1,
+      "winrate": 0.33,
       "tickers": [
-        "AN1Jkje",
         "DINKY",
         "GOBG",
         "SCROLL"
       ]
     },
     {
-      "wallet": "2tgUbS..",
-      "plays": 3,
-      "hits": 0,
-      "winrate": 0.0,
+      "wallet": "2tgUbS9UMoQD6GkDZBiqKYCURnGrSb6ocYwRABrSJUvY",
+      "plays": 4,
+      "hits": 1,
+      "winrate": 0.25,
       "tickers": [
+        "AN1Jkje",
         "DINKY",
         "GOBG",
         "SCROLL"
@@ -35,6 +35,16 @@
       "tickers": [
         "INTERN",
         "MR FROG"
+      ]
+    },
+    {
+      "wallet": "dmuXAmcXJcdNuK264vsJQNBpVBPAx4JLujBzBMahJ6C",
+      "plays": 2,
+      "hits": 0,
+      "winrate": 0.0,
+      "tickers": [
+        "ASTEROID",
+        "USBC"
       ]
     }
   ]
