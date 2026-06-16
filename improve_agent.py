@@ -110,11 +110,20 @@ Gia' implementato dalle review precedenti: corsia 'early' nel filtro (token <8h 
 uscite su segnale-volume, test dip-entry (aspettare correzione invece del top), tracking whale ora-per-ora,
 engagement X per le green.
 
-LA DOMANDA: dato lo stato e i dati di OGGI, **cosa miglioreresti ADESSO?** Dammi 3-5 modifiche CONCRETE,
-implementabili coi miei vincoli (gratis/low-cost, retail lento), ordinate per impatto. Per ognuna: cosa,
-perche', come (passi concreti), e che dato mi aspetto migliori. Sii brutale e specifico, niente fuffa.
-Se i dati sono ancora troppo pochi per concludere qualcosa, DILLO chiaramente e di' solo cosa accumulare.
-Chiudi con: la SINGOLA cosa piu' importante da fare adesso."""
+LA RICHIESTA: aiutami a migliorare, da COACH che costruisce — non da giudice che demolisce. Sii onesto e
+concreto (niente fuffa, niente false promesse), ma anche INCORAGGIANTE e motivante. Stiamo costruendo a cicli,
+con pazienza: e' normale che i dati siano ancora pochi. Struttura la risposta COSI':
+
+1. ✅ COSA STA ANDANDO BENE: 2-3 progressi reali e concreti (cosa funziona, cosa e' migliorato, i segnali
+   positivi anche piccoli). Parti SEMPRE da qui — riconosci i passi avanti.
+2. 🎯 LE 2-3 MOSSE PIU' UTILI ADESSO: modifiche concrete e a basso costo (cosa, perche', come), ordinate per
+   impatto. Inquadrale come "il prossimo passo per crescere", non come "stai sbagliando".
+3. 📊 ONESTA' SUI DATI: se il campione e' ancora piccolo dillo con serenita' (e' parte del processo), e di'
+   quanti dati servono e cosa accumulare. Senza drammi: e' un cantiere, non un fallimento.
+4. 💪 CHIUSURA MOTIVANTE: la SINGOLA cosa piu' importante adesso + una frase che ricorda che siamo sulla
+   strada giusta e che il metodo (implementa->accumula->impara) sta funzionando.
+
+Tono: come un mentore che crede nel progetto e ti spinge a migliorare, non come un critico che ti scoraggia."""
 
 
 def run():
@@ -159,10 +168,16 @@ def run():
         f.write(f"# Cosa migliorare — {day} (DeepSeek, {decision})\n\n## Stato\n{state_txt}\n{prob_txt}\n\n## Feedback\n{fb}\n")
     print(f"[improve] feedback salvato -> data/improvements/improve_{day}.md")
     _save_state({"settled": m["settled"], "skip_days": 0, "last_date": day})   # reset contatore skip
+    grow = f" (+{m['delta']} da ieri)" if m.get("delta", 0) > 0 else ""
+    intro = (f"Ciao Nicolò 👋\n\nIl sistema sta crescendo e gira da solo: {m['settled']} trade conclusi{grow}, "
+             f"{m['runners']} runner, {m['green']} perle. Tutto funziona, non devi fare nulla.\n\n"
+             f"Qui sotto: i progressi di oggi e il prossimo passo per crescere. È un cantiere che avanza un "
+             f"mattone alla volta — non un voto. Stiamo costruendo l'edge col metodo giusto (implementa → "
+             f"accumula → impara), e sta funzionando.\n")
     watchdog._email(
-        f"🔁 Crypto-radar — cosa migliorare ({day})",
-        f"STATO:\n{state_txt}{prob_txt}\n\n--- FEEDBACK DEEPSEEK ---\n\n{fb}\n\n"
-        f"(Loop: leggi, decidi cosa implementare, poi accumula 24h e si ripete.)"
+        f"📈 Crypto-radar — progressi e prossimo passo ({day})",
+        f"{intro}\n--- ANALISI DI OGGI ---\n\n{fb}\n\n"
+        f"— Il tuo sistema. Domani si accumula ancora e si ripete. 🐋"
     )
     return fb
 
