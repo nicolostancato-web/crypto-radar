@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-17 12:41",
-  "wallets_seen": 528,
-  "qualified": 10,
+  "updated_utc": "2026-06-17 16:30",
+  "wallets_seen": 562,
+  "qualified": 11,
   "min_plays": 2,
   "smart": [
     {
@@ -22,6 +22,16 @@
       "tickers": [
         "AN1Jkje",
         "SCROLL"
+      ]
+    },
+    {
+      "wallet": "PcWgMSejFb1AVxtRh2AmRppQcvezi5ZyjgUtVAeRzft",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "PVT",
+        "SYZYGY"
       ]
     },
     {
