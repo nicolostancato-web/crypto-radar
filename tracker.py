@@ -30,7 +30,7 @@ OUT = os.path.join(HERE, "data", "track.jsonl")
 # Le GREEN (perle) si seguono a lungo per costruire la storia profonda ora-per-ora; le RED (scartate)
 # bastano poche ore per il confronto. E' qui che "popoliamo massivamente" solo le green.
 GREEN_WINDOW_H = 120   # perle: 5 giorni di tracking ricco
-RED_WINDOW_H = 48      # scartate: 48h per il confronto
+RED_WINDOW_H = 96      # scartate: 4 giorni (non perdiamo i runner tardivi — "TUTTI i dati possibili")
 
 
 def _dex(ca):
