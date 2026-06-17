@@ -1,19 +1,19 @@
 {
-  "updated_utc": "2026-06-17 05:12",
+  "updated_utc": "2026-06-17 07:16",
   "runner_pct": 50,
-  "settled": 65,
-  "runners": 10,
-  "deads": 55,
+  "settled": 67,
+  "runners": 11,
+  "deads": 56,
   "by_arena": {
     "memecoin": {
-      "trades": 53,
+      "trades": 55,
       "runners": 9,
-      "runner_rate": 0.17
+      "runner_rate": 0.16
     },
     "ai_agent": {
       "trades": 12,
-      "runners": 1,
-      "runner_rate": 0.08
+      "runners": 2,
+      "runner_rate": 0.17
     }
   },
   "prelim_at": 8,
@@ -23,37 +23,44 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 2182.5,
-      "dead_median": 82,
-      "ratio": 26.62
-    },
-    {
-      "feature": "vol_24h",
-      "label": "volume 24h",
-      "runner_median": 40645.5,
-      "dead_median": 13431,
-      "ratio": 3.03
+      "runner_median": 1877,
+      "dead_median": 78.0,
+      "ratio": 24.06
     },
     {
       "feature": "age_h",
       "label": "età (h)",
-      "runner_median": 35.7,
-      "dead_median": 12.1,
-      "ratio": 2.95
+      "runner_median": 42.6,
+      "dead_median": 11.5,
+      "ratio": 3.7
+    },
+    {
+      "feature": "vol_24h",
+      "label": "volume 24h",
+      "runner_median": 43189,
+      "dead_median": 12784.0,
+      "ratio": 3.38
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
-      "runner_median": 1.475,
-      "dead_median": 0.6,
-      "ratio": 2.46
+      "runner_median": 1.24,
+      "dead_median": 0.55,
+      "ratio": 2.25
     },
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 12145.0,
-      "dead_median": 7448,
-      "ratio": 1.63
+      "runner_median": 14635,
+      "dead_median": 7036.0,
+      "ratio": 2.08
+    },
+    {
+      "feature": "voliq",
+      "label": "volume/liquidità",
+      "runner_median": 2.375,
+      "dead_median": 6.09,
+      "ratio": 0.39
     },
     {
       "feature": "top10_pct",
@@ -63,27 +70,27 @@
       "ratio": 0.67
     },
     {
-      "feature": "voliq",
-      "label": "volume/liquidità",
-      "runner_median": 3.54,
-      "dead_median": 4.71,
-      "ratio": 0.75
-    },
-    {
       "feature": "grok_heat",
       "label": "heat di Grok",
-      "runner_median": 4.5,
-      "dead_median": 4,
-      "ratio": 1.12
+      "runner_median": 4,
+      "dead_median": 4.0,
+      "ratio": 1.0
     }
   ],
   "best_runners": [
     {
       "ticker": "Hedge",
-      "ret_max": 5.84,
+      "ret_max": 6.29,
       "pass": false,
       "vol_1h": 191,
       "voliq": null
+    },
+    {
+      "ticker": "SCROLL",
+      "ret_max": 2.15,
+      "pass": false,
+      "vol_1h": 19539,
+      "voliq": 1.21
     },
     {
       "ticker": "three",
@@ -112,13 +119,6 @@
       "pass": false,
       "vol_1h": 440,
       "voliq": 5.91
-    },
-    {
-      "ticker": "SCROLL",
-      "ret_max": 0.82,
-      "pass": false,
-      "vol_1h": 19539,
-      "voliq": 1.21
     },
     {
       "ticker": "SOLANASTADIUM",
