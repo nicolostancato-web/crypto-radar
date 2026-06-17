@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-17 22:11",
+  "updated_utc": "2026-06-17 22:47",
   "runner_pct": 50,
   "settled": 69,
   "runners": 13,
@@ -101,7 +101,7 @@
     },
     {
       "ticker": "VONTRA",
-      "ret_max": 1.66,
+      "ret_max": 1.69,
       "pass": false,
       "vol_1h": 50385,
       "voliq": null
