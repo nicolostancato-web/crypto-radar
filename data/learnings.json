@@ -1,12 +1,12 @@
 {
-  "updated_utc": "2026-06-17 12:25",
+  "updated_utc": "2026-06-17 16:10",
   "runner_pct": 50,
-  "settled": 67,
+  "settled": 68,
   "runners": 12,
-  "deads": 55,
+  "deads": 56,
   "by_arena": {
     "memecoin": {
-      "trades": 55,
+      "trades": 56,
       "runners": 10,
       "runner_rate": 0.18
     },
@@ -24,36 +24,36 @@
       "feature": "vol_1h",
       "label": "volume 1h",
       "runner_median": 1863.5,
-      "dead_median": 82,
-      "ratio": 22.73
+      "dead_median": 78.0,
+      "ratio": 23.89
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
       "runner_median": 40645.5,
-      "dead_median": 13431,
-      "ratio": 3.03
+      "dead_median": 12784.0,
+      "ratio": 3.18
     },
     {
       "feature": "age_h",
       "label": "età (h)",
       "runner_median": 35.7,
-      "dead_median": 11.8,
-      "ratio": 3.03
+      "dead_median": 11.95,
+      "ratio": 2.99
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
       "runner_median": 1.195,
-      "dead_median": 0.6,
-      "ratio": 1.99
+      "dead_median": 0.55,
+      "ratio": 2.17
     },
     {
       "feature": "liq",
       "label": "liquidità",
       "runner_median": 12145.0,
-      "dead_median": 7448,
-      "ratio": 1.63
+      "dead_median": 7036.0,
+      "ratio": 1.73
     },
     {
       "feature": "voliq",
@@ -73,7 +73,7 @@
       "feature": "grok_heat",
       "label": "heat di Grok",
       "runner_median": 4.0,
-      "dead_median": 4,
+      "dead_median": 4.0,
       "ratio": 1.0
     }
   ],
@@ -87,7 +87,7 @@
     },
     {
       "ticker": "SCROLL",
-      "ret_max": 2.15,
+      "ret_max": 2.76,
       "pass": false,
       "vol_1h": 19539,
       "voliq": 1.21
@@ -98,6 +98,13 @@
       "pass": false,
       "vol_1h": 5929,
       "voliq": 3.54
+    },
+    {
+      "ticker": "PVT",
+      "ret_max": 1.34,
+      "pass": false,
+      "vol_1h": 0,
+      "voliq": null
     },
     {
       "ticker": "ELON",
@@ -114,25 +121,18 @@
       "voliq": null
     },
     {
+      "ticker": "USA250",
+      "ret_max": 0.98,
+      "pass": false,
+      "vol_1h": 817,
+      "voliq": 0.89
+    },
+    {
       "ticker": "PVOXL",
       "ret_max": 0.91,
       "pass": false,
       "vol_1h": 440,
       "voliq": 5.91
-    },
-    {
-      "ticker": "SOLANASTADIUM",
-      "ret_max": 0.8,
-      "pass": false,
-      "vol_1h": 1850,
-      "voliq": 0.62
-    },
-    {
-      "ticker": "USA250",
-      "ret_max": 0.74,
-      "pass": false,
-      "vol_1h": 817,
-      "voliq": 0.89
     }
   ]
 }
