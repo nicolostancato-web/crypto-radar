@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-16 22:45",
-  "wallets_seen": 431,
-  "qualified": 8,
+  "updated_utc": "2026-06-17 05:32",
+  "wallets_seen": 475,
+  "qualified": 9,
   "min_plays": 2,
   "smart": [
     {
@@ -37,14 +37,26 @@
     },
     {
       "wallet": "2tgUbS9UMoQD6GkDZBiqKYCURnGrSb6ocYwRABrSJUvY",
-      "plays": 4,
+      "plays": 5,
       "hits": 1,
-      "winrate": 0.25,
+      "winrate": 0.2,
       "tickers": [
         "AN1Jkje",
         "DINKY",
         "GOBG",
-        "SCROLL"
+        "SCROLL",
+        "SUMMER"
+      ]
+    },
+    {
+      "wallet": "DZbgq3yE3r41EFszV3XastvyS8j8QnmNT37nsq7sxR66",
+      "plays": 3,
+      "hits": 0,
+      "winrate": 0.0,
+      "tickers": [
+        "Droolmao",
+        "SUMMER",
+        "TACTICS"
       ]
     },
     {
