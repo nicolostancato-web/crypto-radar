@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-17 05:32",
-  "wallets_seen": 475,
-  "qualified": 9,
+  "updated_utc": "2026-06-17 12:41",
+  "wallets_seen": 528,
+  "qualified": 10,
   "min_plays": 2,
   "smart": [
     {
@@ -97,6 +97,16 @@
       "tickers": [
         "ASTEROID",
         "FRAG"
+      ]
+    },
+    {
+      "wallet": "3bMMBTTJ7a58LmfCuoYgv3mkNSB1fhJEU2Pv1DcxH2yo",
+      "plays": 2,
+      "hits": 0,
+      "winrate": 0.0,
+      "tickers": [
+        "E6u1oEu",
+        "USBC"
       ]
     }
   ]
