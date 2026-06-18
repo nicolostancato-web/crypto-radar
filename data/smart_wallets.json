@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-18 05:25",
-  "wallets_seen": 668,
-  "qualified": 12,
+  "updated_utc": "2026-06-18 12:14",
+  "wallets_seen": 689,
+  "qualified": 13,
   "min_plays": 2,
   "smart": [
     {
@@ -12,6 +12,16 @@
       "tickers": [
         "SCROLL",
         "USA250"
+      ]
+    },
+    {
+      "wallet": "omegoMAe1AMY5MFKQQr3JwXVy8F4eCvmBAfcpo8XAfq",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "PVT",
+        "VONTRA"
       ]
     },
     {
