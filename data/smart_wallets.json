@@ -1,6 +1,6 @@
 {
-  "updated_utc": "2026-06-18 16:18",
-  "wallets_seen": 732,
+  "updated_utc": "2026-06-18 19:13",
+  "wallets_seen": 767,
   "qualified": 17,
   "min_plays": 2,
   "smart": [
@@ -35,6 +35,16 @@
       ]
     },
     {
+      "wallet": "2QfBNK2WDwSLoUQRb1zAnp3KM12N9hQ8q6ApwUMnWW2T",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "FRAG",
+        "SOCCER"
+      ]
+    },
+    {
       "wallet": "7rbxsXchaL1Jz46BXbF88k1hBYoWHLaKo8YbofMndW46",
       "plays": 2,
       "hits": 1,
@@ -52,6 +62,16 @@
       "tickers": [
         "PVT",
         "SYZYGY"
+      ]
+    },
+    {
+      "wallet": "JD6rVaerbyz6wjQ433nrw6bFTgFrp46MiYmi8EtUAfsG",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "ASTEROID",
+        "FRAG"
       ]
     },
     {
@@ -73,6 +93,17 @@
         "DINKY",
         "GOBG",
         "SCROLL"
+      ]
+    },
+    {
+      "wallet": "HoWQjZsVsK9T3QfKMUFT4meFQ3VzBsVf9uc8x7RGZuST",
+      "plays": 3,
+      "hits": 1,
+      "winrate": 0.33,
+      "tickers": [
+        "INTERN",
+        "MR FROG",
+        "PVT"
       ]
     },
     {
@@ -110,26 +141,6 @@
       ]
     },
     {
-      "wallet": "HoWQjZsVsK9T3QfKMUFT4meFQ3VzBsVf9uc8x7RGZuST",
-      "plays": 2,
-      "hits": 0,
-      "winrate": 0.0,
-      "tickers": [
-        "INTERN",
-        "MR FROG"
-      ]
-    },
-    {
-      "wallet": "2QfBNK2WDwSLoUQRb1zAnp3KM12N9hQ8q6ApwUMnWW2T",
-      "plays": 2,
-      "hits": 0,
-      "winrate": 0.0,
-      "tickers": [
-        "FRAG",
-        "SOCCER"
-      ]
-    },
-    {
       "wallet": "dmuXAmcXJcdNuK264vsJQNBpVBPAx4JLujBzBMahJ6C",
       "plays": 2,
       "hits": 0,
@@ -147,16 +158,6 @@
       "tickers": [
         "PUMPVERSE",
         "SYZYGY"
-      ]
-    },
-    {
-      "wallet": "JD6rVaerbyz6wjQ433nrw6bFTgFrp46MiYmi8EtUAfsG",
-      "plays": 2,
-      "hits": 0,
-      "winrate": 0.0,
-      "tickers": [
-        "ASTEROID",
-        "FRAG"
       ]
     },
     {
