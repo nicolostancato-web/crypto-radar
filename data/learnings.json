@@ -1,12 +1,12 @@
 {
-  "updated_utc": "2026-06-18 05:13",
+  "updated_utc": "2026-06-18 09:51",
   "runner_pct": 50,
-  "settled": 69,
+  "settled": 70,
   "runners": 13,
-  "deads": 56,
+  "deads": 57,
   "by_arena": {
     "memecoin": {
-      "trades": 56,
+      "trades": 57,
       "runners": 10,
       "runner_rate": 0.18
     },
@@ -24,29 +24,29 @@
       "feature": "vol_1h",
       "label": "volume 1h",
       "runner_median": 1877,
-      "dead_median": 78.0,
+      "dead_median": 78,
       "ratio": 24.06
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
       "runner_median": 43189,
-      "dead_median": 12784.0,
-      "ratio": 3.38
-    },
-    {
-      "feature": "age_h",
-      "label": "età (h)",
-      "runner_median": 28.8,
-      "dead_median": 11.95,
-      "ratio": 2.41
+      "dead_median": 12137,
+      "ratio": 3.56
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
       "runner_median": 1.24,
-      "dead_median": 0.55,
-      "ratio": 2.25
+      "dead_median": 0.5,
+      "ratio": 2.48
+    },
+    {
+      "feature": "age_h",
+      "label": "età (h)",
+      "runner_median": 28.8,
+      "dead_median": 11.8,
+      "ratio": 2.44
     },
     {
       "feature": "voliq",
@@ -59,21 +59,21 @@
       "feature": "liq",
       "label": "liquidità",
       "runner_median": 9655,
-      "dead_median": 7036.0,
-      "ratio": 1.37
+      "dead_median": 6624,
+      "ratio": 1.46
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
       "runner_median": 0.611,
-      "dead_median": 0.809,
-      "ratio": 0.75
+      "dead_median": 0.827,
+      "ratio": 0.74
     },
     {
       "feature": "grok_heat",
       "label": "heat di Grok",
       "runner_median": 4,
-      "dead_median": 4.0,
+      "dead_median": 4,
       "ratio": 1.0
     }
   ],
@@ -87,7 +87,7 @@
     },
     {
       "ticker": "SCROLL",
-      "ret_max": 4.21,
+      "ret_max": 4.41,
       "pass": false,
       "vol_1h": 19539,
       "voliq": 1.21
@@ -108,7 +108,7 @@
     },
     {
       "ticker": "PVT",
-      "ret_max": 1.4,
+      "ret_max": 1.46,
       "pass": false,
       "vol_1h": 0,
       "voliq": null
