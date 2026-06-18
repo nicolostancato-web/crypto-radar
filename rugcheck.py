@@ -57,10 +57,27 @@ def _extract(d):
     }
 
 
-def run():
-    toks = whale_flow._active_tokens()
+def _all_tokens():
+    """TUTTI i token storici (per il backfill una-tantum), non solo gli attivi."""
+    seen, out = set(), []
+    if not os.path.exists(os.path.join(HERE, "data", "candidates.jsonl")):
+        return []
+    for l in open(os.path.join(HERE, "data", "candidates.jsonl")):
+        try:
+            c = json.loads(l)
+        except Exception:
+            continue
+        ca = c.get("ca")
+        if ca and ca not in seen and c.get("chain") in (None, "solana"):
+            seen.add(ca)
+            out.append({"ca": ca, "ticker": c.get("ticker")})
+    return out
+
+
+def run(backfill=False):
+    toks = _all_tokens() if backfill else whale_flow._active_tokens()
     if not toks:
-        print("[rugcheck] nessun token attivo."); return 0
+        print("[rugcheck] nessun token."); return 0
     f = open(OUT, "a")
     n = 0
     for t in toks:
@@ -81,4 +98,4 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    run(backfill=(len(sys.argv) > 1 and sys.argv[1] == "all"))
