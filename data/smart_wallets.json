@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-18 12:14",
-  "wallets_seen": 689,
-  "qualified": 13,
+  "updated_utc": "2026-06-18 16:18",
+  "wallets_seen": 732,
+  "qualified": 17,
   "min_plays": 2,
   "smart": [
     {
@@ -55,6 +55,16 @@
       ]
     },
     {
+      "wallet": "Gfq5VJtapim2wVwAXDbpH2pVNdCL6p2kYTUrcWkmTRh7",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "PUMPVERSE",
+        "PVT"
+      ]
+    },
+    {
       "wallet": "2tgUbS..",
       "plays": 3,
       "hits": 1,
@@ -90,6 +100,16 @@
       ]
     },
     {
+      "wallet": "4qgnvMuDhCB4jQEL9Wa5isQSqvzsRkjEWB5Gtn9Ai6iY",
+      "plays": 2,
+      "hits": 0,
+      "winrate": 0.0,
+      "tickers": [
+        "CHEEK",
+        "INTERN"
+      ]
+    },
+    {
       "wallet": "HoWQjZsVsK9T3QfKMUFT4meFQ3VzBsVf9uc8x7RGZuST",
       "plays": 2,
       "hits": 0,
@@ -100,13 +120,13 @@
       ]
     },
     {
-      "wallet": "4qgnvMuDhCB4jQEL9Wa5isQSqvzsRkjEWB5Gtn9Ai6iY",
+      "wallet": "2QfBNK2WDwSLoUQRb1zAnp3KM12N9hQ8q6ApwUMnWW2T",
       "plays": 2,
       "hits": 0,
       "winrate": 0.0,
       "tickers": [
-        "CHEEK",
-        "INTERN"
+        "FRAG",
+        "SOCCER"
       ]
     },
     {
@@ -120,6 +140,16 @@
       ]
     },
     {
+      "wallet": "56S29mZ3wqvw8hATuUUFqKhGcSGYFASRRFNT38W8q7G3",
+      "plays": 2,
+      "hits": 0,
+      "winrate": 0.0,
+      "tickers": [
+        "PUMPVERSE",
+        "SYZYGY"
+      ]
+    },
+    {
       "wallet": "JD6rVaerbyz6wjQ433nrw6bFTgFrp46MiYmi8EtUAfsG",
       "plays": 2,
       "hits": 0,
@@ -127,6 +157,16 @@
       "tickers": [
         "ASTEROID",
         "FRAG"
+      ]
+    },
+    {
+      "wallet": "HQSjwdnjFryeT9djUrJpg3bSCG4BWfVzCT8rxvVR5tik",
+      "plays": 2,
+      "hits": 0,
+      "winrate": 0.0,
+      "tickers": [
+        "BEEMAN",
+        "Droolmao"
       ]
     },
     {
