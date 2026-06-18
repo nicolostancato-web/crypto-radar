@@ -129,3 +129,27 @@ smart money. REGOLA FERREA: i campi whale_proxy/smart_money_on_x (dal prompt C) 
 NON devono MAI da soli far passare un token a "perla" ne' decidere un'entrata. La DECISIONE e' sempre
 on-chain (Helius/whale_flow: i dati reali della blockchain). X dice QUALE token guardare; la blockchain
 dice DAVVERO se le balene comprano. Mai spostare capitale su un segnale X non confermato on-chain.
+
+## Lezione #6 — Analisi statistica rigorosa (livello peer-review, 2026-06-18)
+
+Analisi seria su 70 token / 14 runner / 18 attributi (Mann-Whitney U + Bonferroni + Cliff's delta + check look-ahead).
+
+**RISULTATO ONESTO: dopo correzione per confronti multipli, ZERO attributi significativi.** Con 14 runner non
+si prova nulla. Servono ~200-250 token tracciati per una conclusione robusta su effetti medio-grandi.
+
+**SCOPERTA #1 (look-ahead bias smascherato):** whale_pressure e vol_accel "prevedevano" i runner solo per
+CAUSALITA' INVERSA — le balene accumulano DURANTE la corsa, non prima; il volume accelera PERCHE' e' corso.
+Sono CONSEGUENZE, non cause. Vanno usati SOLO con la finestra <= segnale (point-in-time). Il nostro
+entusiasmo sulle balene era in parte un artefatto. Da testare pulito: balene SOLO pre-segnale.
+
+**SCOPERTA #2 (l'unico segnale robusto e point-in-time-safe):** bs_ratio_1h (buy/sell nell'ora del segnale).
+26/55 morti avevano bs_ratio_1h=0 (zero compratori) vs 1/14 runner. Robusto su ogni soglia di runner,
+sopravvive all'outlier, meccanismo causale plausibile. Sfiora la significativita' (p=0.0034 vs soglia 0.00278)
+ma e' l'UNICO che vale la pena inseguire. Gia' lo applichiamo (min_bs_ratio_1h=1.2) -> l'analisi lo conferma.
+
+**IPOTESI #1 da validare out-of-sample sui prossimi ~150 token:** "bs_ratio_1h >= 1.0 al segnale alza la
+probabilita' di runner; bs_ratio_1h = 0 -> scarta a priori". Filtro hard a basso rischio (toglie 26/55 morti,
+perde 1/14 runner). NON e' ancora provato: ipotesi forte, non risultato.
+
+**Rischio false scoperte:** testando 18 attributi su rumore ~0.9 falsi positivi attesi a p<0.05. La correzione
+e' obbligatoria. Lezione di metodo: mai fidarsi di un singolo pivot senza correzione + check look-ahead.
