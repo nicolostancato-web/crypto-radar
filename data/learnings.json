@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-18 00:08",
+  "updated_utc": "2026-06-18 04:59",
   "runner_pct": 50,
   "settled": 69,
   "runners": 13,
@@ -87,7 +87,7 @@
     },
     {
       "ticker": "SCROLL",
-      "ret_max": 4.17,
+      "ret_max": 4.21,
       "pass": false,
       "vol_1h": 19539,
       "voliq": 1.21
