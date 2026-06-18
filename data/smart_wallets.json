@@ -1,6 +1,6 @@
 {
-  "updated_utc": "2026-06-18 19:13",
-  "wallets_seen": 767,
+  "updated_utc": "2026-06-18 22:35",
+  "wallets_seen": 804,
   "qualified": 17,
   "min_plays": 2,
   "smart": [
@@ -16,10 +16,11 @@
     },
     {
       "wallet": "omegoMAe1AMY5MFKQQr3JwXVy8F4eCvmBAfcpo8XAfq",
-      "plays": 2,
+      "plays": 3,
       "hits": 2,
-      "winrate": 1.0,
+      "winrate": 0.67,
       "tickers": [
+        "PUMPVERSE",
         "PVT",
         "VONTRA"
       ]
