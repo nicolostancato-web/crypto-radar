@@ -46,18 +46,25 @@ def _dex(ca):
             price = float(p.get("priceUsd")) if p.get("priceUsd") else None
         except Exception:
             price = None
-        tx1 = (p.get("txns") or {}).get("h1") or {}
+        tx = p.get("txns") or {}
+        tx5, tx1, tx6 = tx.get("m5") or {}, tx.get("h1") or {}, tx.get("h6") or {}
+        vol, pc, liq = p.get("volume") or {}, p.get("priceChange") or {}, p.get("liquidity") or {}
+        info = p.get("info") or {}
         return {
             "ticker": (p.get("baseToken") or {}).get("symbol"),
             "chain": p.get("chainId"),
+            # finestre m5/h1/h6 (m5 e h6 sono mobili: persi se non li fotografiamo ORA)
+            "buys_m5": tx5.get("buys") or 0, "sells_m5": tx5.get("sells") or 0,
             "buys_1h": tx1.get("buys") or 0, "sells_1h": tx1.get("sells") or 0,
+            "buys_6h": tx6.get("buys") or 0, "sells_6h": tx6.get("sells") or 0,
             "price": price,
-            "fdv": p.get("fdv"),
-            "liq": (p.get("liquidity") or {}).get("usd") or 0,
-            "vol_1h": (p.get("volume") or {}).get("h1") or 0,
-            "vol_24h": (p.get("volume") or {}).get("h24") or 0,
-            "pc_1h": (p.get("priceChange") or {}).get("h1"),
-            "pc_24h": (p.get("priceChange") or {}).get("h24"),
+            "fdv": p.get("fdv"), "mcap": p.get("marketCap"),
+            "liq": liq.get("usd") or 0, "liq_base": liq.get("base"), "liq_quote": liq.get("quote"),
+            "vol_m5": vol.get("m5") or 0, "vol_1h": vol.get("h1") or 0,
+            "vol_6h": vol.get("h6") or 0, "vol_24h": vol.get("h24") or 0,
+            "pc_m5": pc.get("m5"), "pc_1h": pc.get("h1"), "pc_6h": pc.get("h6"), "pc_24h": pc.get("h24"),
+            "pair_created_ms": p.get("pairCreatedAt"),
+            "has_socials": bool(info.get("socials")), "has_website": bool(info.get("websites")),
         }
     except Exception:
         return None
@@ -113,16 +120,24 @@ def run():
         row = {"ca": ca, "ticker": meta.get("ticker") or d.get("ticker"), "pass": meta["pass"],
                "arena": meta.get("arena") or "memecoin", "chain": chain,
                "signal_ts": meta["signal_ts"], "obs_ts": now, "age_min": round(age_min),
-               "price": d["price"], "fdv": d["fdv"], "liq": round(d["liq"]),
-               "vol_1h": round(d["vol_1h"]), "vol_24h": round(d["vol_24h"]),
+               "price": d["price"], "fdv": d["fdv"], "mcap": d.get("mcap"), "liq": round(d["liq"]),
+               "liq_base": d.get("liq_base"), "liq_quote": d.get("liq_quote"),
+               "vol_m5": round(d.get("vol_m5") or 0), "vol_1h": round(d["vol_1h"]),
+               "vol_6h": round(d.get("vol_6h") or 0), "vol_24h": round(d["vol_24h"]),
+               "buys_m5": d.get("buys_m5"), "sells_m5": d.get("sells_m5"),
                "buys_1h": d["buys_1h"], "sells_1h": d["sells_1h"], "bs_ratio_1h": round(bs1, 2),
-               "pc_1h": d["pc_1h"], "pc_24h": d["pc_24h"]}
-        # WHALE nel tempo (solo Solana, via Helius): chi tiene il token ORA. Cuore dell'uscita su segnale.
+               "buys_6h": d.get("buys_6h"), "sells_6h": d.get("sells_6h"),
+               "pc_m5": d.get("pc_m5"), "pc_1h": d["pc_1h"], "pc_6h": d.get("pc_6h"), "pc_24h": d["pc_24h"],
+               "pair_created_ms": d.get("pair_created_ms"),
+               "has_socials": d.get("has_socials"), "has_website": d.get("has_website")}
+        # WHALE + sicurezza nel tempo (solo Solana, via Helius): chi tiene il token ORA + authority storicizzate.
         if chain == "solana" and onchain.available():
             s = onchain.token_safety(ca) or {}
             row["top10_pct"] = s.get("top10_pct")
             row["top1_pct"] = s.get("top1_pct")
             row["holders"] = s.get("holders")
+            row["mint_revoked"] = s.get("mint_revoked")     # storicizzato: il MOMENTO in cui revoca e' informazione
+            row["freeze_revoked"] = s.get("freeze_revoked")
         f.write(json.dumps(row) + "\n")
         n += 1
         time.sleep(0.2)   # gentile con DexScreener

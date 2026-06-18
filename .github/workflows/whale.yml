@@ -31,12 +31,13 @@ jobs:
         run: |
           python whale_flow.py
           python smart_money.py
+          python rugcheck.py
 
-      - name: Salva serie whale-flow + smart wallets
+      - name: Salva serie whale-flow + smart wallets + rugcheck
         run: |
           git config user.name "crypto-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add data/whale_flow.jsonl data/smart_wallets.json
+          git add data/whale_flow.jsonl data/smart_wallets.json data/rugcheck.jsonl
           git commit -m "whale-flow $(date -u +%Y-%m-%dT%H:%MZ)" || { echo "niente di nuovo"; exit 0; }
           for i in 1 2 3 4 5; do
             git pull --no-rebase --no-edit origin main || true

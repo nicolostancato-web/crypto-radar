@@ -51,6 +51,7 @@ def analyze(mint):
     flow = {}                      # wallet -> net token amount (ricevuto - mandato)
     buyers, sellers = set(), set()
     early = []                     # (timestamp, wallet) per i primi compratori
+    raw = []                       # GREZZO per-swap: irrecuperabile, sblocca ogni feature futura
     for tx in txs:
         fee = tx.get("feePayer")
         if not fee:
@@ -74,6 +75,8 @@ def analyze(mint):
         (buyers if net > 0 else sellers).add(fee)
         if tx.get("timestamp"):
             early.append((tx["timestamp"], fee, net))
+        # salva lo swap grezzo: ts, wallet, side (b/s), quantita' token mossa
+        raw.append({"ts": tx.get("timestamp"), "w": fee, "s": "b" if net > 0 else "s", "amt": round(abs(net))})
 
     accumulators = {w: v for w, v in flow.items() if v > 0}
     distributors = {w: v for w, v in flow.items() if v < 0}
@@ -98,6 +101,7 @@ def analyze(mint):
         "early_buyers": early_buyers,                       # indirizzi completi
         # segnale sintetico: piu' accumulatori che distributori = pressione d'acquisto whale
         "whale_pressure": round((len(accumulators) - len(distributors)) / max(1, len(flow)), 2),
+        "swaps": raw[:120],   # GREZZO per-swap: da qui si deriva OGNI feature futura (size, sniper, sequenza)
     }
 
 
