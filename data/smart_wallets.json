@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-17 22:27",
-  "wallets_seen": 639,
-  "qualified": 11,
+  "updated_utc": "2026-06-18 05:25",
+  "wallets_seen": 668,
+  "qualified": 12,
   "min_plays": 2,
   "smart": [
     {
@@ -12,6 +12,16 @@
       "tickers": [
         "SCROLL",
         "USA250"
+      ]
+    },
+    {
+      "wallet": "DeNwH63Xgj3a4bXXHw79BiL5iBUNBQVaRYeLHQTQxL7z",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "MR FROG",
+        "PVT"
       ]
     },
     {
@@ -70,16 +80,6 @@
       ]
     },
     {
-      "wallet": "4qgnvMuDhCB4jQEL9Wa5isQSqvzsRkjEWB5Gtn9Ai6iY",
-      "plays": 2,
-      "hits": 0,
-      "winrate": 0.0,
-      "tickers": [
-        "CHEEK",
-        "INTERN"
-      ]
-    },
-    {
       "wallet": "HoWQjZsVsK9T3QfKMUFT4meFQ3VzBsVf9uc8x7RGZuST",
       "plays": 2,
       "hits": 0,
@@ -87,6 +87,16 @@
       "tickers": [
         "INTERN",
         "MR FROG"
+      ]
+    },
+    {
+      "wallet": "4qgnvMuDhCB4jQEL9Wa5isQSqvzsRkjEWB5Gtn9Ai6iY",
+      "plays": 2,
+      "hits": 0,
+      "winrate": 0.0,
+      "tickers": [
+        "CHEEK",
+        "INTERN"
       ]
     },
     {
