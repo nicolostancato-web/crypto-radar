@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-19 18:26",
-  "wallets_seen": 1052,
-  "qualified": 38,
+  "updated_utc": "2026-06-19 21:52",
+  "wallets_seen": 1109,
+  "qualified": 42,
   "min_plays": 2,
   "smart": [
     {
@@ -10,6 +10,7 @@
       "hits": 3,
       "winrate": 1.0,
       "tickers": [
+        "$PUMPVERSE",
         "PUMPVERSE",
         "PVT",
         "VONTRA"
@@ -69,17 +70,6 @@
       ]
     },
     {
-      "wallet": "HFX2dqzyQeRAdkjp41D4qThfsPPSyBDkVoruBr93zhY9",
-      "plays": 3,
-      "hits": 2,
-      "winrate": 0.67,
-      "tickers": [
-        "GAME",
-        "Trenches",
-        "USA250"
-      ]
-    },
-    {
       "wallet": "DoZwiALhfF8VqGNwSaC4oNCzdkZz2YEpKD7WKZBuXmzU",
       "plays": 3,
       "hits": 2,
@@ -89,6 +79,18 @@
         "PUMPVERSE",
         "Trenches",
         "VONTRA"
+      ]
+    },
+    {
+      "wallet": "HFX2dqzyQeRAdkjp41D4qThfsPPSyBDkVoruBr93zhY9",
+      "plays": 4,
+      "hits": 2,
+      "winrate": 0.5,
+      "tickers": [
+        "GAME",
+        "TOES",
+        "Trenches",
+        "USA250"
       ]
     },
     {
@@ -102,22 +104,22 @@
       ]
     },
     {
-      "wallet": "2QfBNK2WDwSLoUQRb1zAnp3KM12N9hQ8q6ApwUMnWW2T",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "FRAG",
-        "SOCCER"
-      ]
-    },
-    {
       "wallet": "HvFdDWS3RqymRAVx1ZdoL2RjiC38r5dtt19Z8op5jqDK",
       "plays": 2,
       "hits": 1,
       "winrate": 0.5,
       "tickers": [
         "DOG",
+        "SOCCER"
+      ]
+    },
+    {
+      "wallet": "2QfBNK2WDwSLoUQRb1zAnp3KM12N9hQ8q6ApwUMnWW2T",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "FRAG",
         "SOCCER"
       ]
     },
@@ -172,6 +174,16 @@
       ]
     },
     {
+      "wallet": "B9D6JC5QB8nTmVQTa97BSV1soVE7VB8k7Q41our5y9FT",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "GAME",
+        "Trenches"
+      ]
+    },
+    {
       "wallet": "2tgUbS..",
       "plays": 3,
       "hits": 1,
@@ -202,17 +214,6 @@
         "AN1Jkje",
         "RAN",
         "SCROLL"
-      ]
-    },
-    {
-      "wallet": "CgDhwSizGoDz5PXR61ZaV7Ck1yEPiSXcw3FLpRj5NKc",
-      "plays": 3,
-      "hits": 1,
-      "winrate": 0.33,
-      "tickers": [
-        "AN1Jkje",
-        "GAME",
-        "RAN"
       ]
     }
   ]
