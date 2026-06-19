@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-19 06:00",
-  "wallets_seen": 844,
-  "qualified": 24,
+  "updated_utc": "2026-06-19 12:00",
+  "wallets_seen": 876,
+  "qualified": 26,
   "min_plays": 2,
   "smart": [
     {
@@ -13,16 +13,6 @@
         "PUMPVERSE",
         "PVT",
         "VONTRA"
-      ]
-    },
-    {
-      "wallet": "Fk3LqCC65NEsk2CvrKBBN8KChbcnZ1bXc7aGYH5geK4m",
-      "plays": 2,
-      "hits": 2,
-      "winrate": 1.0,
-      "tickers": [
-        "SCROLL",
-        "USA250"
       ]
     },
     {
@@ -53,6 +43,27 @@
       "tickers": [
         "PUMPVERSE",
         "PVT"
+      ]
+    },
+    {
+      "wallet": "DxPkmCEadZDBV59E8pAU1DAvzHJ8ad67zcXeVqGkQNjy",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "$PUMPVERSE",
+        "PVT"
+      ]
+    },
+    {
+      "wallet": "Fk3LqCC65NEsk2CvrKBBN8KChbcnZ1bXc7aGYH5geK4m",
+      "plays": 3,
+      "hits": 2,
+      "winrate": 0.67,
+      "tickers": [
+        "SCROLL",
+        "TOES",
+        "USA250"
       ]
     },
     {
@@ -97,6 +108,16 @@
       ]
     },
     {
+      "wallet": "HFX2dqzyQeRAdkjp41D4qThfsPPSyBDkVoruBr93zhY9",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "GAME",
+        "USA250"
+      ]
+    },
+    {
       "wallet": "JD6rVaerbyz6wjQ433nrw6bFTgFrp46MiYmi8EtUAfsG",
       "plays": 2,
       "hits": 1,
@@ -130,12 +151,13 @@
     },
     {
       "wallet": "2tgUbS9UMoQD6GkDZBiqKYCURnGrSb6ocYwRABrSJUvY",
-      "plays": 5,
+      "plays": 6,
       "hits": 1,
-      "winrate": 0.2,
+      "winrate": 0.17,
       "tickers": [
         "AN1Jkje",
         "DINKY",
+        "GAME",
         "GOBG",
         "SCROLL",
         "SUMMER"
@@ -190,26 +212,6 @@
       "tickers": [
         "AN1Jkje",
         "GAME"
-      ]
-    },
-    {
-      "wallet": "SUPErMoycPz71hmZXr78P7cXFYQhdpV39Roeoe2DxUC",
-      "plays": 2,
-      "hits": 0,
-      "winrate": 0.0,
-      "tickers": [
-        "AGENTS",
-        "TOES"
-      ]
-    },
-    {
-      "wallet": "HQSjwdnjFryeT9djUrJpg3bSCG4BWfVzCT8rxvVR5tik",
-      "plays": 2,
-      "hits": 0,
-      "winrate": 0.0,
-      "tickers": [
-        "BEEMAN",
-        "Droolmao"
       ]
     }
   ]
