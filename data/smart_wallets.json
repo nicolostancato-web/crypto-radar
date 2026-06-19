@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-19 12:00",
-  "wallets_seen": 876,
-  "qualified": 26,
+  "updated_utc": "2026-06-19 12:37",
+  "wallets_seen": 933,
+  "qualified": 29,
   "min_plays": 2,
   "smart": [
     {
@@ -72,6 +72,7 @@
       "hits": 2,
       "winrate": 0.67,
       "tickers": [
+        "$PUMPVERSE",
         "PUMPVERSE",
         "Trenches",
         "VONTRA"
@@ -98,16 +99,6 @@
       ]
     },
     {
-      "wallet": "7rbxsXchaL1Jz46BXbF88k1hBYoWHLaKo8YbofMndW46",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "AN1Jkje",
-        "SCROLL"
-      ]
-    },
-    {
       "wallet": "HFX2dqzyQeRAdkjp41D4qThfsPPSyBDkVoruBr93zhY9",
       "plays": 2,
       "hits": 1,
@@ -125,6 +116,26 @@
       "tickers": [
         "ASTEROID",
         "FRAG"
+      ]
+    },
+    {
+      "wallet": "Gsm1ExN2kswyUsy6TomaoNdR3iiGMjQnHhaVhDcU3fQR",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "ARENA",
+        "SYZYGY"
+      ]
+    },
+    {
+      "wallet": "HatjYt6MN1rqkW8NGwJqetPY1QC5kRtBHLoKy2siWNXL",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "ARENA",
+        "PVT"
       ]
     },
     {
@@ -150,28 +161,51 @@
       ]
     },
     {
-      "wallet": "2tgUbS9UMoQD6GkDZBiqKYCURnGrSb6ocYwRABrSJUvY",
-      "plays": 6,
+      "wallet": "7rbxsXchaL1Jz46BXbF88k1hBYoWHLaKo8YbofMndW46",
+      "plays": 3,
       "hits": 1,
-      "winrate": 0.17,
+      "winrate": 0.33,
+      "tickers": [
+        "AN1Jkje",
+        "RAN",
+        "SCROLL"
+      ]
+    },
+    {
+      "wallet": "2tgUbS9UMoQD6GkDZBiqKYCURnGrSb6ocYwRABrSJUvY",
+      "plays": 7,
+      "hits": 1,
+      "winrate": 0.14,
       "tickers": [
         "AN1Jkje",
         "DINKY",
         "GAME",
         "GOBG",
-        "SCROLL",
-        "SUMMER"
+        "RAN",
+        "SCROLL"
       ]
     },
     {
       "wallet": "DZbgq3yE3r41EFszV3XastvyS8j8QnmNT37nsq7sxR66",
-      "plays": 3,
+      "plays": 4,
       "hits": 0,
       "winrate": 0.0,
       "tickers": [
         "Droolmao",
+        "GAME",
         "SUMMER",
         "TACTICS"
+      ]
+    },
+    {
+      "wallet": "CgDhwSizGoDz5PXR61ZaV7Ck1yEPiSXcw3FLpRj5NKc",
+      "plays": 3,
+      "hits": 0,
+      "winrate": 0.0,
+      "tickers": [
+        "AN1Jkje",
+        "GAME",
+        "RAN"
       ]
     },
     {
@@ -182,36 +216,6 @@
       "tickers": [
         "CHEEK",
         "INTERN"
-      ]
-    },
-    {
-      "wallet": "ProCXqRcXJjoUd1RNoo28bSizAA6EEqt9wURZYPDc5u",
-      "plays": 2,
-      "hits": 0,
-      "winrate": 0.0,
-      "tickers": [
-        "AGENTS",
-        "MemesAI"
-      ]
-    },
-    {
-      "wallet": "dmuXAmcXJcdNuK264vsJQNBpVBPAx4JLujBzBMahJ6C",
-      "plays": 2,
-      "hits": 0,
-      "winrate": 0.0,
-      "tickers": [
-        "ASTEROID",
-        "USBC"
-      ]
-    },
-    {
-      "wallet": "CgDhwSizGoDz5PXR61ZaV7Ck1yEPiSXcw3FLpRj5NKc",
-      "plays": 2,
-      "hits": 0,
-      "winrate": 0.0,
-      "tickers": [
-        "AN1Jkje",
-        "GAME"
       ]
     }
   ]
