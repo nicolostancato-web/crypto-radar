@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-19 22:15",
+  "updated_utc": "2026-06-19 22:57",
   "scans_total": 47,
   "last_scan": {
     "utc": "2026-06-19 22:14",
@@ -2715,19 +2715,19 @@
       "arena": "memecoin",
       "chain": "solana",
       "entry_fdv": 120482,
-      "last_fdv": 195136,
+      "last_fdv": 232572,
       "sig_vol_1h": 6748,
       "sig_liq": 25311,
-      "ret_now": 0.62,
+      "ret_now": 0.932,
       "ret_max": 1.811,
-      "dd_from_peak": -0.424,
+      "dd_from_peak": -0.313,
       "ret_1h": -0.09,
       "ret_6h": -0.027,
       "ret_24h": 1.249,
       "hit_2x": true,
       "rugged": false,
-      "n_obs": 18,
-      "hours_tracked": 25.6
+      "n_obs": 19,
+      "hours_tracked": 26.3
     },
     {
       "ca": "8dhWaoyrB6G1NPWUsgYPFhDHxtjeF2sjL6e6fVmNpump",
@@ -2747,8 +2747,29 @@
       "ret_24h": -0.742,
       "hit_2x": true,
       "rugged": false,
-      "n_obs": 32,
-      "hours_tracked": 51.7
+      "n_obs": 33,
+      "hours_tracked": 52.4
+    },
+    {
+      "ca": "CKbEiYzGRxDe9Ecg1xxXhxNcAUY3BCmj2fyhA8qHpump",
+      "ticker": "zer0",
+      "pass": false,
+      "arena": "memecoin",
+      "chain": "solana",
+      "entry_fdv": 21017.73,
+      "last_fdv": 55470,
+      "sig_vol_1h": 54671,
+      "sig_liq": 0,
+      "ret_now": 1.64,
+      "ret_max": 1.64,
+      "dd_from_peak": 0.0,
+      "ret_1h": 1.64,
+      "ret_6h": null,
+      "ret_24h": null,
+      "hit_2x": true,
+      "rugged": false,
+      "n_obs": 2,
+      "hours_tracked": 0.7
     },
     {
       "ca": "AJVE7AxbuzStgv9S5cHaZQzwYGz8RLDA9xHe1ANuDtNc",
@@ -2768,8 +2789,29 @@
       "ret_24h": 1.274,
       "hit_2x": true,
       "rugged": false,
-      "n_obs": 37,
-      "hours_tracked": 65.0
+      "n_obs": 38,
+      "hours_tracked": 65.7
+    },
+    {
+      "ca": "EqG6cBksZ6qBG5dRdYqja1R8gCeXWsCpdmiK2RUdpump",
+      "ticker": "SYZYGY",
+      "pass": false,
+      "arena": "memecoin",
+      "chain": "solana",
+      "entry_fdv": 9180.68,
+      "last_fdv": 21240.18,
+      "sig_vol_1h": 0,
+      "sig_liq": 0,
+      "ret_now": 1.314,
+      "ret_max": 1.314,
+      "dd_from_peak": 0.0,
+      "ret_1h": 0.0,
+      "ret_6h": 0.002,
+      "ret_24h": 0.305,
+      "hit_2x": true,
+      "rugged": false,
+      "n_obs": 49,
+      "hours_tracked": 89.5
     },
     {
       "ca": "JD5sqUJ69NVWPHxzbFqHo8rbjfuif3KqdMfHZcoWQVNq",
@@ -2791,27 +2833,6 @@
       "rugged": false,
       "n_obs": 29,
       "hours_tracked": 94.4
-    },
-    {
-      "ca": "EqG6cBksZ6qBG5dRdYqja1R8gCeXWsCpdmiK2RUdpump",
-      "ticker": "SYZYGY",
-      "pass": false,
-      "arena": "memecoin",
-      "chain": "solana",
-      "entry_fdv": 9180.68,
-      "last_fdv": 20544.84,
-      "sig_vol_1h": 0,
-      "sig_liq": 0,
-      "ret_now": 1.237,
-      "ret_max": 1.286,
-      "dd_from_peak": -0.021,
-      "ret_1h": 0.0,
-      "ret_6h": 0.002,
-      "ret_24h": 0.305,
-      "hit_2x": true,
-      "rugged": false,
-      "n_obs": 48,
-      "hours_tracked": 88.8
     },
     {
       "ca": "BitL2G9vdUVJ4mEf2pGctJVVJECSF1u3jv11tXoBsauW",
@@ -2883,19 +2904,19 @@
       "arena": "memecoin",
       "chain": "solana",
       "entry_fdv": 177119,
-      "last_fdv": 302770,
+      "last_fdv": 172899,
       "sig_vol_1h": 475076,
       "sig_liq": 32833,
-      "ret_now": 0.709,
+      "ret_now": -0.024,
       "ret_max": 0.892,
-      "dd_from_peak": -0.096,
+      "dd_from_peak": -0.484,
       "ret_1h": 0.892,
       "ret_6h": null,
       "ret_24h": null,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 4,
-      "hours_tracked": 2.2
+      "n_obs": 5,
+      "hours_tracked": 2.9
     },
     {
       "ca": "ET8kG3dbefg7uwqY4d4GGhkwvNmBdvBqf5UcvVERpump",
@@ -2925,19 +2946,19 @@
       "arena": "memecoin",
       "chain": "solana",
       "entry_fdv": 844810,
-      "last_fdv": 769754,
+      "last_fdv": 688153,
       "sig_vol_1h": 20002,
       "sig_liq": 81929,
-      "ret_now": -0.088,
+      "ret_now": -0.185,
       "ret_max": 0.766,
-      "dd_from_peak": -0.484,
+      "dd_from_peak": -0.539,
       "ret_1h": -0.133,
       "ret_6h": -0.169,
       "ret_24h": -0.164,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 53,
-      "hours_tracked": 98.3
+      "n_obs": 54,
+      "hours_tracked": 99.0
     },
     {
       "ca": "BcHEaaTCvycPwwsJ9yQTXdHP9X2gCLkznDbZ8VySpump",
@@ -3009,19 +3030,40 @@
       "arena": "ai_agent",
       "chain": "solana",
       "entry_fdv": 7253,
-      "last_fdv": 7788.25,
+      "last_fdv": 7809.29,
       "sig_vol_1h": 0,
       "sig_liq": 18,
-      "ret_now": 0.074,
+      "ret_now": 0.077,
       "ret_max": 0.615,
-      "dd_from_peak": -0.335,
+      "dd_from_peak": -0.333,
       "ret_1h": 0.0,
       "ret_6h": 0.0,
       "ret_24h": 0.259,
       "hit_2x": false,
       "rugged": true,
-      "n_obs": 23,
-      "hours_tracked": 33.7
+      "n_obs": 24,
+      "hours_tracked": 34.4
+    },
+    {
+      "ca": "8EzagXspppz7uurbQGQ33R3dwqJL5y8e8Q3txxRNpump",
+      "ticker": "BILLY",
+      "pass": false,
+      "arena": "memecoin",
+      "chain": "solana",
+      "entry_fdv": 8428,
+      "last_fdv": 13185,
+      "sig_vol_1h": 301,
+      "sig_liq": 6421,
+      "ret_now": 0.564,
+      "ret_max": 0.564,
+      "dd_from_peak": 0.0,
+      "ret_1h": 0.159,
+      "ret_6h": 0.389,
+      "ret_24h": null,
+      "hit_2x": false,
+      "rugged": false,
+      "n_obs": 8,
+      "hours_tracked": 7.2
     },
     {
       "ca": "GwXvPgGQDEhy71yxjghTKDRsPSgUFwf2s4wkD4Xgpump",
@@ -3043,6 +3085,27 @@
       "rugged": false,
       "n_obs": 28,
       "hours_tracked": 47.0
+    },
+    {
+      "ca": "GABHHgioMnxWfnCSdubyLG4CJ4ZrHHH74Cq59XnRpump",
+      "ticker": "WARSHIE",
+      "pass": false,
+      "arena": "memecoin",
+      "chain": "solana",
+      "entry_fdv": 4679,
+      "last_fdv": 6766,
+      "sig_vol_1h": 233,
+      "sig_liq": 5073,
+      "ret_now": 0.446,
+      "ret_max": 0.446,
+      "dd_from_peak": 0.0,
+      "ret_1h": -0.046,
+      "ret_6h": 0.235,
+      "ret_24h": null,
+      "hit_2x": false,
+      "rugged": false,
+      "n_obs": 8,
+      "hours_tracked": 7.2
     },
     {
       "ca": "4Ez4apSNWHbiWsiq2keBG1FYm7iTJhKgMphzR6eApump",
@@ -3129,46 +3192,25 @@
       "hours_tracked": 46.4
     },
     {
-      "ca": "8EzagXspppz7uurbQGQ33R3dwqJL5y8e8Q3txxRNpump",
-      "ticker": "BILLY",
-      "pass": false,
-      "arena": "memecoin",
-      "chain": "solana",
-      "entry_fdv": 8428,
-      "last_fdv": 11636,
-      "sig_vol_1h": 301,
-      "sig_liq": 6421,
-      "ret_now": 0.38,
-      "ret_max": 0.389,
-      "dd_from_peak": -0.007,
-      "ret_1h": 0.159,
-      "ret_6h": 0.389,
-      "ret_24h": null,
-      "hit_2x": false,
-      "rugged": false,
-      "n_obs": 7,
-      "hours_tracked": 6.5
-    },
-    {
       "ca": "AN1JkjeZVRauM8RLSXZSLiAAXpNMyWzqDPWWdaBSpump",
       "ticker": "AN1Jkje",
       "pass": true,
       "arena": "memecoin",
       "chain": "solana",
       "entry_fdv": 42952,
-      "last_fdv": 39548,
+      "last_fdv": 38120,
       "sig_vol_1h": 35867,
       "sig_liq": 15178,
-      "ret_now": -0.079,
+      "ret_now": -0.112,
       "ret_max": 0.322,
-      "dd_from_peak": -0.304,
+      "dd_from_peak": -0.329,
       "ret_1h": -0.041,
       "ret_6h": -0.251,
       "ret_24h": -0.375,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 51,
-      "hours_tracked": 95.8
+      "n_obs": 52,
+      "hours_tracked": 96.5
     },
     {
       "ca": "BPyb9hLa62pv74SrTnB37pwAoonad3qbu3kDafNkpump",
@@ -3190,27 +3232,6 @@
       "rugged": false,
       "n_obs": 25,
       "hours_tracked": 47.8
-    },
-    {
-      "ca": "GABHHgioMnxWfnCSdubyLG4CJ4ZrHHH74Cq59XnRpump",
-      "ticker": "WARSHIE",
-      "pass": false,
-      "arena": "memecoin",
-      "chain": "solana",
-      "entry_fdv": 4679,
-      "last_fdv": 5821,
-      "sig_vol_1h": 233,
-      "sig_liq": 5073,
-      "ret_now": 0.244,
-      "ret_max": 0.244,
-      "dd_from_peak": 0.0,
-      "ret_1h": -0.046,
-      "ret_6h": 0.235,
-      "ret_24h": null,
-      "hit_2x": false,
-      "rugged": false,
-      "n_obs": 7,
-      "hours_tracked": 6.5
     },
     {
       "ca": "4UeLCRqARmfb6e6KQijtiktqqXUxbfk6jZng7DhuBAGS",
@@ -3272,8 +3293,8 @@
       "ret_24h": -0.903,
       "hit_2x": false,
       "rugged": true,
-      "n_obs": 37,
-      "hours_tracked": 71.9
+      "n_obs": 38,
+      "hours_tracked": 72.6
     },
     {
       "ca": "9h66V2NiHU3PpviwceSg4KZ7xqStLTDej58o5pdhpump",
@@ -3282,19 +3303,19 @@
       "arena": "ai_agent",
       "chain": "solana",
       "entry_fdv": 144695,
-      "last_fdv": 46706,
+      "last_fdv": 53996,
       "sig_vol_1h": 22171,
       "sig_liq": 30658,
-      "ret_now": -0.677,
+      "ret_now": -0.627,
       "ret_max": 0.142,
-      "dd_from_peak": -0.717,
+      "dd_from_peak": -0.673,
       "ret_1h": 0.142,
       "ret_6h": -0.631,
       "ret_24h": null,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 7,
-      "hours_tracked": 6.5
+      "n_obs": 8,
+      "hours_tracked": 7.2
     },
     {
       "ca": "8cHzQHUS2s2h8TzCmfqPKYiM4dSt4roa3n7MyRLApump",
@@ -3345,19 +3366,19 @@
       "arena": "memecoin",
       "chain": "solana",
       "entry_fdv": 1059395,
-      "last_fdv": 1170838,
+      "last_fdv": 1181900,
       "sig_vol_1h": 213,
       "sig_liq": 108519,
-      "ret_now": 0.105,
-      "ret_max": 0.105,
+      "ret_now": 0.116,
+      "ret_max": 0.116,
       "dd_from_peak": 0.0,
       "ret_1h": 0.006,
       "ret_6h": 0.037,
       "ret_24h": 0.077,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 23,
-      "hours_tracked": 33.7
+      "n_obs": 24,
+      "hours_tracked": 34.4
     },
     {
       "ca": "HobNf37NXMaCyQhVgKeuwEhE4ezvegDZJ7yBJ3jnpump",
@@ -3450,19 +3471,19 @@
       "arena": "memecoin",
       "chain": "solana",
       "entry_fdv": 198127,
-      "last_fdv": 119132,
+      "last_fdv": 114061,
       "sig_vol_1h": 23879,
       "sig_liq": 34442,
-      "ret_now": -0.399,
+      "ret_now": -0.425,
       "ret_max": 0.072,
-      "dd_from_peak": -0.439,
+      "dd_from_peak": -0.463,
       "ret_1h": -0.083,
       "ret_6h": 0.072,
       "ret_24h": -0.373,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 18,
-      "hours_tracked": 25.6
+      "n_obs": 19,
+      "hours_tracked": 26.3
     },
     {
       "ca": "8ADRGG347ncw7ohMwU6o3x7ZMhosWPytLDq3tFMJwExj",
@@ -3471,19 +3492,19 @@
       "arena": "memecoin",
       "chain": "solana",
       "entry_fdv": 3675,
-      "last_fdv": 1924,
+      "last_fdv": 2588,
       "sig_vol_1h": 1340,
       "sig_liq": 3296,
-      "ret_now": -0.476,
+      "ret_now": -0.296,
       "ret_max": 0.072,
-      "dd_from_peak": -0.512,
+      "dd_from_peak": -0.343,
       "ret_1h": -0.07,
       "ret_6h": 0.036,
       "ret_24h": null,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 10,
-      "hours_tracked": 11.3
+      "n_obs": 11,
+      "hours_tracked": 12.0
     },
     {
       "ca": "95ZQfXjjMht3GpieYqjLr7JmwqU3Fc8RfrkBuYrzpump",
@@ -3555,19 +3576,19 @@
       "arena": "ai_agent",
       "chain": "solana",
       "entry_fdv": 173803,
-      "last_fdv": 149974,
+      "last_fdv": 148511,
       "sig_vol_1h": 3042,
       "sig_liq": 41233,
-      "ret_now": -0.138,
+      "ret_now": -0.146,
       "ret_max": 0.051,
-      "dd_from_peak": -0.18,
+      "dd_from_peak": -0.187,
       "ret_1h": 0.0,
       "ret_6h": -0.149,
       "ret_24h": -0.255,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 42,
-      "hours_tracked": 74.4
+      "n_obs": 43,
+      "hours_tracked": 75.1
     },
     {
       "ca": "EraSTMYhcrHd7xHerf2u3SWTSxVopoGhTYcsFun6pump",
@@ -3713,8 +3734,8 @@
       "ret_24h": 0.015,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 20,
-      "hours_tracked": 28.0
+      "n_obs": 21,
+      "hours_tracked": 28.7
     },
     {
       "ca": "0x59d3A4Af5BfD03d15F56072E34F9f17bDA5F3859",
@@ -3734,8 +3755,8 @@
       "ret_24h": 0.018,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 20,
-      "hours_tracked": 28.0
+      "n_obs": 21,
+      "hours_tracked": 28.7
     },
     {
       "ca": "G4i3ba1BNwDGEvn5MJZFav1ivvo2kZgT16UWa7tMpump",
@@ -3818,8 +3839,8 @@
       "ret_24h": null,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 4,
-      "hours_tracked": 2.2
+      "n_obs": 5,
+      "hours_tracked": 2.9
     },
     {
       "ca": "DyMx8bQYFCw8Ng6qxT2zkNs9ijTm5W8wFoFj29v5pump",
@@ -3881,8 +3902,8 @@
       "ret_24h": -0.02,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 41,
-      "hours_tracked": 72.2
+      "n_obs": 42,
+      "hours_tracked": 72.9
     },
     {
       "ca": "GFDMUui36qvt3SwC2TsFDYj8UyXXPRC21zSuGWHLpump",
@@ -4248,19 +4269,19 @@
       "arena": "memecoin",
       "chain": "solana",
       "entry_fdv": 186794,
-      "last_fdv": 97287,
+      "last_fdv": 102056,
       "sig_vol_1h": 111763,
       "sig_liq": 43969,
-      "ret_now": -0.479,
+      "ret_now": -0.454,
       "ret_max": 0.0,
-      "dd_from_peak": -0.479,
+      "dd_from_peak": -0.454,
       "ret_1h": -0.088,
       "ret_6h": -0.424,
       "ret_24h": -0.793,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 51,
-      "hours_tracked": 95.8
+      "n_obs": 52,
+      "hours_tracked": 96.5
     },
     {
       "ca": "147YWDXsFnTCqdJqSa4zy28DzV3DajDTMJjYAKaipump",
@@ -4280,8 +4301,8 @@
       "ret_24h": -0.058,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 45,
-      "hours_tracked": 81.2
+      "n_obs": 46,
+      "hours_tracked": 81.9
     },
     {
       "ca": "CbVT4uoqjJpZRyTfv2PSyLQUGoxHAtigx5c8JmvBg6Cs",
@@ -4311,19 +4332,19 @@
       "arena": "memecoin",
       "chain": "solana",
       "entry_fdv": 170842,
-      "last_fdv": 40252,
+      "last_fdv": 41183,
       "sig_vol_1h": 13319,
       "sig_liq": 43064,
-      "ret_now": -0.764,
+      "ret_now": -0.759,
       "ret_max": 0.0,
-      "dd_from_peak": -0.764,
+      "dd_from_peak": -0.759,
       "ret_1h": 0.0,
       "ret_6h": -0.355,
       "ret_24h": -0.638,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 37,
-      "hours_tracked": 65.0
+      "n_obs": 38,
+      "hours_tracked": 65.7
     },
     {
       "ca": "6CywTzkvCHam9j96GFMvRCnqLPrVXsF69spw623gpump",
@@ -4385,8 +4406,8 @@
       "ret_24h": -0.046,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 21,
-      "hours_tracked": 29.9
+      "n_obs": 22,
+      "hours_tracked": 30.6
     },
     {
       "ca": "6ehEcTMCc85aNF4x9CWx8HuvWGhxQtvKdhKVf2HDpump",
@@ -4395,19 +4416,19 @@
       "arena": "memecoin",
       "chain": "solana",
       "entry_fdv": 15238033,
-      "last_fdv": 14086585,
+      "last_fdv": 14305982,
       "sig_vol_1h": 206725,
       "sig_liq": 372144,
-      "ret_now": -0.076,
+      "ret_now": -0.061,
       "ret_max": 0.0,
-      "dd_from_peak": -0.076,
+      "dd_from_peak": -0.061,
       "ret_1h": -0.04,
       "ret_6h": -0.098,
       "ret_24h": -0.1,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 23,
-      "hours_tracked": 33.7
+      "n_obs": 24,
+      "hours_tracked": 34.4
     },
     {
       "ca": "2ApFGawSCLvGpCVn5HWC7dV9RYt19PGq9SQMA3zxpump",
@@ -4427,8 +4448,8 @@
       "ret_24h": -0.056,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 18,
-      "hours_tracked": 25.6
+      "n_obs": 19,
+      "hours_tracked": 26.3
     },
     {
       "ca": "3NMQuwg7WGqzqjqwUnR3Ciwo3AoVE39yYQnTqK49pump",
@@ -4437,19 +4458,19 @@
       "arena": "memecoin",
       "chain": "solana",
       "entry_fdv": 340048,
-      "last_fdv": 90015,
+      "last_fdv": 86660,
       "sig_vol_1h": 222676,
       "sig_liq": 44354,
-      "ret_now": -0.735,
+      "ret_now": -0.745,
       "ret_max": 0.0,
-      "dd_from_peak": -0.735,
+      "dd_from_peak": -0.745,
       "ret_1h": -0.395,
       "ret_6h": -0.387,
-      "ret_24h": -0.735,
+      "ret_24h": -0.745,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 16,
-      "hours_tracked": 23.1
+      "n_obs": 17,
+      "hours_tracked": 23.8
     },
     {
       "ca": "4CCiNMmqfBNRrheZKFVVdnnr4u5c9VwK5iyHxDsspump",
@@ -4458,19 +4479,19 @@
       "arena": "memecoin",
       "chain": "solana",
       "entry_fdv": 26823,
-      "last_fdv": 4142,
+      "last_fdv": 4426,
       "sig_vol_1h": 54364,
       "sig_liq": 11490,
-      "ret_now": -0.846,
+      "ret_now": -0.835,
       "ret_max": 0.0,
-      "dd_from_peak": -0.846,
+      "dd_from_peak": -0.835,
       "ret_1h": -0.181,
       "ret_6h": -0.789,
       "ret_24h": null,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 10,
-      "hours_tracked": 11.3
+      "n_obs": 11,
+      "hours_tracked": 12.0
     },
     {
       "ca": "9pzAnN7HQcp3jSKwmAW7pT2YhMAhTzq2HRNukRAJpump",
@@ -4490,8 +4511,8 @@
       "ret_24h": null,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 10,
-      "hours_tracked": 11.3
+      "n_obs": 11,
+      "hours_tracked": 12.0
     },
     {
       "ca": "9qwxahBxcgKyn5X7kZvkN7qxKZg6pkVD8Lo4URtopump",
@@ -4500,19 +4521,19 @@
       "arena": "memecoin",
       "chain": "solana",
       "entry_fdv": 376145,
-      "last_fdv": 204857,
+      "last_fdv": 199729,
       "sig_vol_1h": 23359,
       "sig_liq": 47514,
-      "ret_now": -0.455,
+      "ret_now": -0.469,
       "ret_max": 0.0,
-      "dd_from_peak": -0.455,
+      "dd_from_peak": -0.469,
       "ret_1h": -0.127,
       "ret_6h": -0.287,
       "ret_24h": null,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 10,
-      "hours_tracked": 11.3
+      "n_obs": 11,
+      "hours_tracked": 12.0
     },
     {
       "ca": "2nFMpbJjiNKRk1wXFt6RGDz3YuKt7gTgGuN8FKjrpump",
@@ -4532,8 +4553,8 @@
       "ret_24h": null,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 7,
-      "hours_tracked": 6.5
+      "n_obs": 8,
+      "hours_tracked": 7.2
     },
     {
       "ca": "7qSrCNchoiFxtxikTJm8x892tGdrtNgsaghfcnDBpump",
@@ -4542,19 +4563,19 @@
       "arena": "memecoin",
       "chain": "solana",
       "entry_fdv": 39109,
-      "last_fdv": 39109,
+      "last_fdv": 29663,
       "sig_vol_1h": 26989,
       "sig_liq": 13811,
-      "ret_now": 0.0,
+      "ret_now": -0.241,
       "ret_max": 0.0,
-      "dd_from_peak": 0.0,
-      "ret_1h": 0.0,
+      "dd_from_peak": -0.241,
+      "ret_1h": -0.241,
       "ret_6h": null,
       "ret_24h": null,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 1,
-      "hours_tracked": 0.0
+      "n_obs": 2,
+      "hours_tracked": 0.7
     },
     {
       "ca": "CgkjNBriHjtogbrRQX5xbTaYaqvMHzk2VzczhJKBpump",
@@ -4574,29 +4595,8 @@
       "ret_24h": null,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 1,
-      "hours_tracked": 0.0
-    },
-    {
-      "ca": "CKbEiYzGRxDe9Ecg1xxXhxNcAUY3BCmj2fyhA8qHpump",
-      "ticker": "zer0",
-      "pass": false,
-      "arena": "memecoin",
-      "chain": "solana",
-      "entry_fdv": 21017.73,
-      "last_fdv": 21017.73,
-      "sig_vol_1h": 54671,
-      "sig_liq": 0,
-      "ret_now": 0.0,
-      "ret_max": 0.0,
-      "dd_from_peak": 0.0,
-      "ret_1h": 0.0,
-      "ret_6h": null,
-      "ret_24h": null,
-      "hit_2x": false,
-      "rugged": false,
-      "n_obs": 1,
-      "hours_tracked": 0.0
+      "n_obs": 2,
+      "hours_tracked": 0.7
     },
     {
       "ca": "Gj2n3Y7BUH55rRViCKSpNFmoQzZ173DSH6HbMtKSpump",
@@ -4605,19 +4605,19 @@
       "arena": "memecoin",
       "chain": "solana",
       "entry_fdv": 167574,
-      "last_fdv": 167574,
+      "last_fdv": 162115,
       "sig_vol_1h": 28686,
       "sig_liq": 32796,
-      "ret_now": 0.0,
+      "ret_now": -0.032,
       "ret_max": 0.0,
-      "dd_from_peak": 0.0,
-      "ret_1h": 0.0,
+      "dd_from_peak": -0.032,
+      "ret_1h": -0.032,
       "ret_6h": null,
       "ret_24h": null,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 1,
-      "hours_tracked": 0.0
+      "n_obs": 2,
+      "hours_tracked": 0.7
     },
     {
       "ca": "EXXZDh1CzomtLwixWvZ947frkwyMGDygw3CWkeRTpump",
@@ -4626,19 +4626,19 @@
       "arena": "memecoin",
       "chain": "solana",
       "entry_fdv": 288377,
-      "last_fdv": 288377,
+      "last_fdv": 213519,
       "sig_vol_1h": 9675,
       "sig_liq": 14787,
-      "ret_now": 0.0,
+      "ret_now": -0.26,
       "ret_max": 0.0,
-      "dd_from_peak": 0.0,
-      "ret_1h": 0.0,
+      "dd_from_peak": -0.26,
+      "ret_1h": -0.26,
       "ret_6h": null,
       "ret_24h": null,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 1,
-      "hours_tracked": 0.0
+      "n_obs": 2,
+      "hours_tracked": 0.7
     }
   ],
   "learning": {
@@ -4647,7 +4647,7 @@
     "pearls_tracked": 11,
     "rejects_tracked": 85,
     "pearls_2x_rate": 0.0,
-    "rejects_2x_rate": 0.13,
+    "rejects_2x_rate": 0.14,
     "best": {
       "ca": "5UUH9RTDiSpq6HKS6bp4NdU9PNJpXRXuiw6ShBTBhgH2",
       "ticker": "5UUH9RTD",
@@ -4673,9 +4673,9 @@
       "memecoin": {
         "tracked": 80,
         "settled": 80,
-        "runners": 9,
+        "runners": 10,
         "best_ret": 8.951,
-        "runner_rate": 0.11
+        "runner_rate": 0.12
       },
       "ai_agent": {
         "tracked": 16,
@@ -4691,71 +4691,71 @@
     "ai_agent": 18
   },
   "simulation": {
-    "n_trades": 91,
+    "n_trades": 96,
     "strategies": [
       {
         "name": "time6h",
         "label": "Esci dopo 6h",
-        "median": 0.0,
-        "avg": -0.037,
-        "win_rate": 0.31,
-        "avg_hold_min": 482
+        "median": -0.001,
+        "avg": -0.031,
+        "win_rate": 0.29,
+        "avg_hold_min": 460
       },
       {
         "name": "hodl24",
         "label": "Tieni fino a fine (24h)",
-        "median": -0.001,
-        "avg": -0.037,
-        "win_rate": 0.43,
-        "avg_hold_min": 3105
+        "median": -0.007,
+        "avg": -0.022,
+        "win_rate": 0.41,
+        "avg_hold_min": 2959
       },
       {
         "name": "tp100_sl30",
         "label": "+100% o stop −30% (fisso)",
-        "median": -0.001,
+        "median": -0.007,
         "avg": 0.013,
-        "win_rate": 0.43,
-        "avg_hold_min": 2085
+        "win_rate": 0.41,
+        "avg_hold_min": 1986
       },
       {
         "name": "vol_fade30",
         "label": "🔊 Esci quando il volume cala −70%",
-        "median": -0.007,
-        "avg": -0.028,
-        "win_rate": 0.36,
-        "avg_hold_min": 796
-      },
-      {
-        "name": "trail25",
-        "label": "Trailing stop −25% (fisso)",
-        "median": -0.011,
-        "avg": -0.037,
-        "win_rate": 0.4,
-        "avg_hold_min": 2224
+        "median": -0.01,
+        "avg": -0.022,
+        "win_rate": 0.34,
+        "avg_hold_min": 759
       },
       {
         "name": "vol_fade50",
         "label": "🔊 Esci quando il volume dimezza",
         "median": -0.012,
-        "avg": -0.028,
-        "win_rate": 0.34,
-        "avg_hold_min": 748
+        "avg": -0.015,
+        "win_rate": 0.33,
+        "avg_hold_min": 713
+      },
+      {
+        "name": "trail25",
+        "label": "Trailing stop −25% (fisso)",
+        "median": -0.015,
+        "avg": -0.026,
+        "win_rate": 0.38,
+        "avg_hold_min": 2120
       }
     ],
     "best": "time6h",
     "by_arena": {
-      "memecoin": -0.033,
+      "memecoin": -0.032,
       "ai_agent": 0.021
     },
     "pass_median": -0.409,
     "fail_median": 0.0,
     "entry_timing": {
       "at_signal": {
-        "median": -0.399,
+        "median": -0.425,
         "n": 11
       },
       "dip15": {
-        "median": -0.317,
+        "median": -0.284,
         "n": 9
       },
       "dip30": {
@@ -4764,25 +4764,25 @@
       }
     },
     "whale_confirmed": {
-      "median": -0.165,
-      "n": 16
+      "median": -0.164,
+      "n": 18
     },
     "no_confirmation": {
       "median": 0.0,
-      "n": 75
+      "n": 78
     }
   },
   "lessons": {
-    "updated_utc": "2026-06-19 22:15",
+    "updated_utc": "2026-06-19 22:57",
     "runner_pct": 50,
     "settled": 91,
-    "runners": 19,
-    "deads": 72,
+    "runners": 20,
+    "deads": 71,
     "by_arena": {
       "memecoin": {
         "trades": 75,
-        "runners": 15,
-        "runner_rate": 0.2
+        "runners": 16,
+        "runner_rate": 0.21
       },
       "ai_agent": {
         "trades": 16,
@@ -4797,57 +4797,57 @@
       {
         "feature": "vol_1h",
         "label": "volume 1h",
-        "runner_median": 2488,
-        "dead_median": 195.5,
-        "ratio": 12.73
-      },
-      {
-        "feature": "vol_24h",
-        "label": "volume 24h",
-        "runner_median": 50385,
-        "dead_median": 18960.0,
-        "ratio": 2.66
+        "runner_median": 2182.5,
+        "dead_median": 182,
+        "ratio": 11.99
       },
       {
         "feature": "age_h",
         "label": "età (h)",
-        "runner_median": 28.8,
-        "dead_median": 11.95,
-        "ratio": 2.41
+        "runner_median": 31.15,
+        "dead_median": 11.8,
+        "ratio": 2.64
+      },
+      {
+        "feature": "vol_24h",
+        "label": "volume 24h",
+        "runner_median": 46787.0,
+        "dead_median": 19312,
+        "ratio": 2.42
       },
       {
         "feature": "liq",
         "label": "liquidità",
-        "runner_median": 14635,
-        "dead_median": 6524.0,
-        "ratio": 2.24
+        "runner_median": 12145.0,
+        "dead_median": 6624,
+        "ratio": 1.83
       },
       {
         "feature": "voliq",
         "label": "volume/liquidità",
-        "runner_median": 3.54,
-        "dead_median": 6.305,
-        "ratio": 0.56
+        "runner_median": 2.375,
+        "dead_median": 6.52,
+        "ratio": 0.36
       },
       {
         "feature": "bs_ratio_1h",
         "label": "buy/sell 1h",
-        "runner_median": 1.24,
-        "dead_median": 0.87,
-        "ratio": 1.43
+        "runner_median": 1.195,
+        "dead_median": 0.94,
+        "ratio": 1.27
       },
       {
         "feature": "top10_pct",
         "label": "top 10 wallet",
-        "runner_median": 0.552,
-        "dead_median": 0.752,
-        "ratio": 0.73
+        "runner_median": 0.609,
+        "dead_median": 0.734,
+        "ratio": 0.83
       },
       {
         "feature": "grok_heat",
         "label": "heat di Grok",
-        "runner_median": 4,
-        "dead_median": 4.0,
+        "runner_median": 4.0,
+        "dead_median": 4,
         "ratio": 1.0
       }
     ],
@@ -4902,11 +4902,11 @@
         "voliq": null
       },
       {
-        "ticker": "ELON",
-        "ret_max": 1.29,
+        "ticker": "SYZYGY",
+        "ret_max": 1.31,
         "pass": false,
-        "vol_1h": 2488,
-        "voliq": 44.47
+        "vol_1h": 0,
+        "voliq": null
       }
     ]
   },
@@ -5136,7 +5136,7 @@
       "icon": "whale",
       "headline": "Le whale precoci predicono i runner",
       "metric": "-16% vs +0%",
-      "detail": "I token dove le whale comprano presto (n=16) rendono molto più degli altri (n=75). È il segnale più forte: il filtro va spostato qui.",
+      "detail": "I token dove le whale comprano presto (n=18) rendono molto più degli altri (n=78). È il segnale più forte: il filtro va spostato qui.",
       "confidence": "solido"
     },
     "findings": [
@@ -5144,13 +5144,13 @@
         "icon": "whale",
         "headline": "Le whale precoci predicono i runner",
         "metric": "-16% vs +0%",
-        "detail": "I token dove le whale comprano presto (n=16) rendono molto più degli altri (n=75). È il segnale più forte: il filtro va spostato qui.",
+        "detail": "I token dove le whale comprano presto (n=18) rendono molto più degli altri (n=78). È il segnale più forte: il filtro va spostato qui.",
         "confidence": "solido"
       },
       {
         "icon": "timing",
         "headline": "Aspettare il dip batte comprare il top",
-        "metric": "-40% → -32%",
+        "metric": "-42% → -28%",
         "detail": "Entrare dopo una correzione −15% rende meglio che entrare al segnale.",
         "confidence": "preliminare"
       },
@@ -5230,8 +5230,8 @@
       "pearls": 10,
       "tracked": 96,
       "trades": 91,
-      "runners": 19,
-      "observations": 2375,
+      "runners": 20,
+      "observations": 2412,
       "scans": 47
     }
   }
