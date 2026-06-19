@@ -34,6 +34,11 @@ jobs:
           python learner.py
           python pipeline_export.py
 
+      - name: Sveglia gli scan in ritardo (cron-job.org interno)
+        env:
+          WORKFLOW_PAT: ${{ secrets.WORKFLOW_PAT }}
+        run: python wake.py
+
       - name: Salva tracking + stato
         run: |
           git config user.name "crypto-radar-bot"
