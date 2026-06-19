@@ -1,19 +1,19 @@
 {
-  "updated_utc": "2026-06-19 17:29",
+  "updated_utc": "2026-06-19 19:15",
   "runner_pct": 50,
-  "settled": 85,
+  "settled": 89,
   "runners": 18,
-  "deads": 67,
+  "deads": 71,
   "by_arena": {
     "memecoin": {
-      "trades": 70,
+      "trades": 73,
       "runners": 14,
-      "runner_rate": 0.2
+      "runner_rate": 0.19
     },
     "ai_agent": {
-      "trades": 15,
+      "trades": 16,
       "runners": 4,
-      "runner_rate": 0.27
+      "runner_rate": 0.25
     }
   },
   "prelim_at": 8,
@@ -24,15 +24,15 @@
       "feature": "vol_1h",
       "label": "volume 1h",
       "runner_median": 2182.5,
-      "dead_median": 182,
-      "ratio": 11.99
+      "dead_median": 209,
+      "ratio": 10.44
     },
     {
       "feature": "age_h",
       "label": "età (h)",
       "runner_median": 31.15,
-      "dead_median": 11.8,
-      "ratio": 2.64
+      "dead_median": 12.1,
+      "ratio": 2.57
     },
     {
       "feature": "vol_24h",
@@ -42,18 +42,18 @@
       "ratio": 2.42
     },
     {
-      "feature": "voliq",
-      "label": "volume/liquidità",
-      "runner_median": 2.375,
-      "dead_median": 6.52,
-      "ratio": 0.36
-    },
-    {
       "feature": "liq",
       "label": "liquidità",
       "runner_median": 12145.0,
-      "dead_median": 7448,
-      "ratio": 1.63
+      "dead_median": 6624,
+      "ratio": 1.83
+    },
+    {
+      "feature": "voliq",
+      "label": "volume/liquidità",
+      "runner_median": 2.375,
+      "dead_median": 6.305,
+      "ratio": 0.38
     },
     {
       "feature": "bs_ratio_1h",
@@ -66,8 +66,8 @@
       "feature": "top10_pct",
       "label": "top 10 wallet",
       "runner_median": 0.609,
-      "dead_median": 0.708,
-      "ratio": 0.86
+      "dead_median": 0.734,
+      "ratio": 0.83
     },
     {
       "feature": "grok_heat",
@@ -107,18 +107,18 @@
       "voliq": 3.54
     },
     {
+      "ticker": "GAME",
+      "ret_max": 1.81,
+      "pass": false,
+      "vol_1h": 6748,
+      "voliq": 6.86
+    },
+    {
       "ticker": "VONTRA",
       "ret_max": 1.69,
       "pass": false,
       "vol_1h": 50385,
       "voliq": null
-    },
-    {
-      "ticker": "GAME",
-      "ret_max": 1.56,
-      "pass": false,
-      "vol_1h": 6748,
-      "voliq": 6.86
     },
     {
       "ticker": "PVT",
