@@ -46,10 +46,10 @@ def _trigger(wf):
 def run():
     now = time.time()
     # SCAN trends ogni ~3h: se l'ultimo e' piu' vecchio di 2.5h, svglialo
-    if now - _last_ts("data/trends.jsonl") > 2.5 * 3600:
+    if now - _last_ts("data/trends.jsonl") > 3.2 * 3600:
         _trigger("trends.yml")
     # WHALE ogni ~4h: se piu' vecchio di 3.5h, svglialo
-    if now - _last_ts("data/whale_flow.jsonl") > 3.5 * 3600:
+    if now - _last_ts("data/whale_flow.jsonl") > 4.2 * 3600:
         _trigger("whale.yml")
 
 
