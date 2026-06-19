@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-19 15:44",
+  "updated_utc": "2026-06-19 17:29",
   "runner_pct": 50,
   "settled": 85,
   "runners": 18,
@@ -114,6 +114,13 @@
       "voliq": null
     },
     {
+      "ticker": "GAME",
+      "ret_max": 1.56,
+      "pass": false,
+      "vol_1h": 6748,
+      "voliq": 6.86
+    },
+    {
       "ticker": "PVT",
       "ret_max": 1.46,
       "pass": false,
@@ -126,13 +133,6 @@
       "pass": false,
       "vol_1h": 2488,
       "voliq": 44.47
-    },
-    {
-      "ticker": "AgentFX",
-      "ret_max": 1.22,
-      "pass": false,
-      "vol_1h": 1877,
-      "voliq": null
     }
   ]
 }
