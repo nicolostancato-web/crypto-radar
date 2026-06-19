@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-19 12:37",
-  "wallets_seen": 933,
-  "qualified": 29,
+  "updated_utc": "2026-06-19 15:54",
+  "wallets_seen": 981,
+  "qualified": 35,
   "min_plays": 2,
   "smart": [
     {
@@ -13,16 +13,6 @@
         "PUMPVERSE",
         "PVT",
         "VONTRA"
-      ]
-    },
-    {
-      "wallet": "PcWgMSejFb1AVxtRh2AmRppQcvezi5ZyjgUtVAeRzft",
-      "plays": 2,
-      "hits": 2,
-      "winrate": 1.0,
-      "tickers": [
-        "PVT",
-        "SYZYGY"
       ]
     },
     {
@@ -56,6 +46,18 @@
       ]
     },
     {
+      "wallet": "PcWgMSejFb1AVxtRh2AmRppQcvezi5ZyjgUtVAeRzft",
+      "plays": 4,
+      "hits": 3,
+      "winrate": 0.75,
+      "tickers": [
+        "$PUMPVERSE",
+        "ARENA",
+        "PVT",
+        "SYZYGY"
+      ]
+    },
+    {
       "wallet": "Fk3LqCC65NEsk2CvrKBBN8KChbcnZ1bXc7aGYH5geK4m",
       "plays": 3,
       "hits": 2,
@@ -63,6 +65,17 @@
       "tickers": [
         "SCROLL",
         "TOES",
+        "USA250"
+      ]
+    },
+    {
+      "wallet": "HFX2dqzyQeRAdkjp41D4qThfsPPSyBDkVoruBr93zhY9",
+      "plays": 3,
+      "hits": 2,
+      "winrate": 0.67,
+      "tickers": [
+        "GAME",
+        "Trenches",
         "USA250"
       ]
     },
@@ -89,6 +102,16 @@
       ]
     },
     {
+      "wallet": "HvFdDWS3RqymRAVx1ZdoL2RjiC38r5dtt19Z8op5jqDK",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "DOG",
+        "SOCCER"
+      ]
+    },
+    {
       "wallet": "2QfBNK2WDwSLoUQRb1zAnp3KM12N9hQ8q6ApwUMnWW2T",
       "plays": 2,
       "hits": 1,
@@ -99,16 +122,6 @@
       ]
     },
     {
-      "wallet": "HFX2dqzyQeRAdkjp41D4qThfsPPSyBDkVoruBr93zhY9",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "GAME",
-        "USA250"
-      ]
-    },
-    {
       "wallet": "JD6rVaerbyz6wjQ433nrw6bFTgFrp46MiYmi8EtUAfsG",
       "plays": 2,
       "hits": 1,
@@ -116,6 +129,16 @@
       "tickers": [
         "ASTEROID",
         "FRAG"
+      ]
+    },
+    {
+      "wallet": "5YVokYbMCwxLA37XBfK3WueqbcnXMst3ZWUWFzQScyKp",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "GAME",
+        "SUMMER"
       ]
     },
     {
@@ -136,6 +159,26 @@
       "tickers": [
         "ARENA",
         "PVT"
+      ]
+    },
+    {
+      "wallet": "HcV3BhmKQN5hhFWiKWoRfzuYM2C6ftPjqQC67wo27DDo",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "GAME",
+        "JOE"
+      ]
+    },
+    {
+      "wallet": "BnriGgFksuDAmFpz4vzxrxJchSGM1U73f3KZxBh6KbYJ",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "ESCOLAND",
+        "GAME"
       ]
     },
     {
@@ -169,53 +212,6 @@
         "AN1Jkje",
         "RAN",
         "SCROLL"
-      ]
-    },
-    {
-      "wallet": "2tgUbS9UMoQD6GkDZBiqKYCURnGrSb6ocYwRABrSJUvY",
-      "plays": 7,
-      "hits": 1,
-      "winrate": 0.14,
-      "tickers": [
-        "AN1Jkje",
-        "DINKY",
-        "GAME",
-        "GOBG",
-        "RAN",
-        "SCROLL"
-      ]
-    },
-    {
-      "wallet": "DZbgq3yE3r41EFszV3XastvyS8j8QnmNT37nsq7sxR66",
-      "plays": 4,
-      "hits": 0,
-      "winrate": 0.0,
-      "tickers": [
-        "Droolmao",
-        "GAME",
-        "SUMMER",
-        "TACTICS"
-      ]
-    },
-    {
-      "wallet": "CgDhwSizGoDz5PXR61ZaV7Ck1yEPiSXcw3FLpRj5NKc",
-      "plays": 3,
-      "hits": 0,
-      "winrate": 0.0,
-      "tickers": [
-        "AN1Jkje",
-        "GAME",
-        "RAN"
-      ]
-    },
-    {
-      "wallet": "4qgnvMuDhCB4jQEL9Wa5isQSqvzsRkjEWB5Gtn9Ai6iY",
-      "plays": 2,
-      "hits": 0,
-      "winrate": 0.0,
-      "tickers": [
-        "CHEEK",
-        "INTERN"
       ]
     }
   ]
