@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-20 14:38",
+  "updated_utc": "2026-06-20 16:12",
   "runner_pct": 50,
   "settled": 97,
   "runners": 22,
@@ -100,18 +100,18 @@
       "voliq": 1.21
     },
     {
+      "ticker": "ESCOLAND",
+      "ret_max": 2.29,
+      "pass": false,
+      "vol_1h": 1340,
+      "voliq": 21.24
+    },
+    {
       "ticker": "three",
       "ret_max": 2.19,
       "pass": false,
       "vol_1h": 5929,
       "voliq": 3.54
-    },
-    {
-      "ticker": "ESCOLAND",
-      "ret_max": 1.88,
-      "pass": false,
-      "vol_1h": 1340,
-      "voliq": 21.24
     },
     {
       "ticker": "GAME",
