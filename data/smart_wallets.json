@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-20 11:04",
-  "wallets_seen": 1326,
-  "qualified": 60,
+  "updated_utc": "2026-06-20 14:57",
+  "wallets_seen": 1394,
+  "qualified": 63,
   "min_plays": 2,
   "smart": [
     {
@@ -44,6 +44,16 @@
       "tickers": [
         "$PUMPVERSE",
         "PVT"
+      ]
+    },
+    {
+      "wallet": "BnriGgFksuDAmFpz4vzxrxJchSGM1U73f3KZxBh6KbYJ",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "ESCOLAND",
+        "GAME"
       ]
     },
     {
@@ -203,16 +213,6 @@
       "tickers": [
         "5UUH9RTD",
         "USBC"
-      ]
-    },
-    {
-      "wallet": "Gsm1ExN2kswyUsy6TomaoNdR3iiGMjQnHhaVhDcU3fQR",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "ARENA",
-        "SYZYGY"
       ]
     }
   ]
