@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-20 18:02",
-  "wallets_seen": 1442,
-  "qualified": 66,
+  "updated_utc": "2026-06-20 21:56",
+  "wallets_seen": 1491,
+  "qualified": 71,
   "min_plays": 2,
   "smart": [
     {
@@ -157,16 +157,6 @@
       ]
     },
     {
-      "wallet": "2QfBNK2WDwSLoUQRb1zAnp3KM12N9hQ8q6ApwUMnWW2T",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "FRAG",
-        "SOCCER"
-      ]
-    },
-    {
       "wallet": "HvFdDWS3RqymRAVx1ZdoL2RjiC38r5dtt19Z8op5jqDK",
       "plays": 2,
       "hits": 1,
@@ -177,12 +167,32 @@
       ]
     },
     {
+      "wallet": "2QfBNK2WDwSLoUQRb1zAnp3KM12N9hQ8q6ApwUMnWW2T",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "FRAG",
+        "SOCCER"
+      ]
+    },
+    {
       "wallet": "4G1dvBrEfMsJwJiMMLAdAgzyZM2TyS8GhH2E7FoL473c",
       "plays": 2,
       "hits": 1,
       "winrate": 0.5,
       "tickers": [
         "AN1Jkje"
+      ]
+    },
+    {
+      "wallet": "8MU1W4UuqqXQ16Ui7sPerk13Dbtixx9E5jiRCwQGTiNf",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "CS",
+        "FRAG"
       ]
     },
     {
@@ -203,16 +213,6 @@
       "tickers": [
         "Droolmao",
         "zer0"
-      ]
-    },
-    {
-      "wallet": "Hw9EKGJCJYkHXUGGrMYJ72FGfiWgkbURGjpJXTCfrdMT",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "5UUH9RTD",
-        "USBC"
       ]
     }
   ]
