@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-20 04:49",
-  "wallets_seen": 1179,
-  "qualified": 46,
+  "updated_utc": "2026-06-20 05:01",
+  "wallets_seen": 1229,
+  "qualified": 51,
   "min_plays": 2,
   "smart": [
     {
@@ -134,16 +134,6 @@
       ]
     },
     {
-      "wallet": "ESuvjvsQtjuxC4XGsDeMhx8Wp5yjQcCFGncGhupcJbg8",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "GAYLON",
-        "zer0"
-      ]
-    },
-    {
       "wallet": "Gsm1ExN2kswyUsy6TomaoNdR3iiGMjQnHhaVhDcU3fQR",
       "plays": 2,
       "hits": 1,
@@ -184,16 +174,6 @@
       ]
     },
     {
-      "wallet": "4jkL4dNkY2UbpYrTgLA3u5FqKwKs1LM46RcE6FQU3qXi",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "BILLY",
-        "MCAT"
-      ]
-    },
-    {
       "wallet": "B9D6JC5QB8nTmVQTa97BSV1soVE7VB8k7Q41our5y9FT",
       "plays": 2,
       "hits": 1,
@@ -201,6 +181,16 @@
       "tickers": [
         "GAME",
         "Trenches"
+      ]
+    },
+    {
+      "wallet": "EKGj79Vzs4dG8zVbLwrLhZYH4wtCyTtyPpGLTjNB6rUV",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "BULLIEVE",
+        "CS"
       ]
     },
     {
@@ -212,6 +202,17 @@
         "DINKY",
         "GOBG",
         "SCROLL"
+      ]
+    },
+    {
+      "wallet": "HoWQjZsVsK9T3QfKMUFT4meFQ3VzBsVf9uc8x7RGZuST",
+      "plays": 3,
+      "hits": 1,
+      "winrate": 0.33,
+      "tickers": [
+        "INTERN",
+        "MR FROG",
+        "PVT"
       ]
     }
   ]
