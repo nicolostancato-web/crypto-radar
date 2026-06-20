@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-19 21:52",
-  "wallets_seen": 1109,
-  "qualified": 42,
+  "updated_utc": "2026-06-20 04:49",
+  "wallets_seen": 1179,
+  "qualified": 46,
   "min_plays": 2,
   "smart": [
     {
@@ -104,22 +104,22 @@
       ]
     },
     {
-      "wallet": "HvFdDWS3RqymRAVx1ZdoL2RjiC38r5dtt19Z8op5jqDK",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "DOG",
-        "SOCCER"
-      ]
-    },
-    {
       "wallet": "2QfBNK2WDwSLoUQRb1zAnp3KM12N9hQ8q6ApwUMnWW2T",
       "plays": 2,
       "hits": 1,
       "winrate": 0.5,
       "tickers": [
         "FRAG",
+        "SOCCER"
+      ]
+    },
+    {
+      "wallet": "HvFdDWS3RqymRAVx1ZdoL2RjiC38r5dtt19Z8op5jqDK",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "DOG",
         "SOCCER"
       ]
     },
@@ -131,6 +131,16 @@
       "tickers": [
         "GAME",
         "SUMMER"
+      ]
+    },
+    {
+      "wallet": "ESuvjvsQtjuxC4XGsDeMhx8Wp5yjQcCFGncGhupcJbg8",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "GAYLON",
+        "zer0"
       ]
     },
     {
@@ -174,6 +184,16 @@
       ]
     },
     {
+      "wallet": "4jkL4dNkY2UbpYrTgLA3u5FqKwKs1LM46RcE6FQU3qXi",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "BILLY",
+        "MCAT"
+      ]
+    },
+    {
       "wallet": "B9D6JC5QB8nTmVQTa97BSV1soVE7VB8k7Q41our5y9FT",
       "plays": 2,
       "hits": 1,
@@ -191,28 +211,6 @@
       "tickers": [
         "DINKY",
         "GOBG",
-        "SCROLL"
-      ]
-    },
-    {
-      "wallet": "HoWQjZsVsK9T3QfKMUFT4meFQ3VzBsVf9uc8x7RGZuST",
-      "plays": 3,
-      "hits": 1,
-      "winrate": 0.33,
-      "tickers": [
-        "INTERN",
-        "MR FROG",
-        "PVT"
-      ]
-    },
-    {
-      "wallet": "7rbxsXchaL1Jz46BXbF88k1hBYoWHLaKo8YbofMndW46",
-      "plays": 3,
-      "hits": 1,
-      "winrate": 0.33,
-      "tickers": [
-        "AN1Jkje",
-        "RAN",
         "SCROLL"
       ]
     }
