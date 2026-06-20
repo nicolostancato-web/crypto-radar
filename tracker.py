@@ -117,6 +117,9 @@ def run():
             continue
         chain = meta.get("chain") or d.get("chain")
         bs1 = (d["buys_1h"] / d["sells_1h"]) if d["sells_1h"] else (d["buys_1h"] or 0)
+        bs5 = (d["buys_m5"] / d["sells_m5"]) if d.get("sells_m5") else (d.get("buys_m5") or 0)
+        bs6 = (d["buys_6h"] / d["sells_6h"]) if d.get("sells_6h") else (d.get("buys_6h") or 0)
+        bs_accel = round(bs5 / bs1, 2) if bs1 else None
         row = {"ca": ca, "ticker": meta.get("ticker") or d.get("ticker"), "pass": meta["pass"],
                "arena": meta.get("arena") or "memecoin", "chain": chain,
                "signal_ts": meta["signal_ts"], "obs_ts": now, "age_min": round(age_min),
@@ -126,6 +129,7 @@ def run():
                "vol_6h": round(d.get("vol_6h") or 0), "vol_24h": round(d["vol_24h"]),
                "buys_m5": d.get("buys_m5"), "sells_m5": d.get("sells_m5"),
                "buys_1h": d["buys_1h"], "sells_1h": d["sells_1h"], "bs_ratio_1h": round(bs1, 2),
+               "bs_ratio_m5": round(bs5, 2), "bs_ratio_6h": round(bs6, 2), "bs_accel": bs_accel,
                "buys_6h": d.get("buys_6h"), "sells_6h": d.get("sells_6h"),
                "pc_m5": d.get("pc_m5"), "pc_1h": d["pc_1h"], "pc_6h": d.get("pc_6h"), "pc_24h": d["pc_24h"],
                "pair_created_ms": d.get("pair_created_ms"),
