@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-19 22:57",
+  "updated_utc": "2026-06-20 00:06",
   "runner_pct": 50,
   "settled": 91,
   "runners": 20,
@@ -129,7 +129,7 @@
     },
     {
       "ticker": "SYZYGY",
-      "ret_max": 1.31,
+      "ret_max": 1.32,
       "pass": false,
       "vol_1h": 0,
       "voliq": null
