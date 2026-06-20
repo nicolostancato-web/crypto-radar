@@ -35,7 +35,7 @@ def _dex(ca):
             return None
         p = max(pairs, key=lambda x: (x.get("liquidity") or {}).get("usd") or 0)
         txns = p.get("txns") or {}
-        tx5 = txns.get("m5") or {}; tx1 = txns.get("h1") or {}; tx6 = txns.get("h6") or {}
+        tx5 = txns.get("m5") or {}; tx1 = txns.get("h1") or {}; tx6 = txns.get("h6") or {}; tx24 = txns.get("h24") or {}
         vol = p.get("volume") or {}; pc = p.get("priceChange") or {}
         return {
             "name": (p.get("baseToken") or {}).get("symbol"),
@@ -47,6 +47,7 @@ def _dex(ca):
             "buys_m5": tx5.get("buys") or 0, "sells_m5": tx5.get("sells") or 0,
             "buys_1h": tx1.get("buys") or 0, "sells_1h": tx1.get("sells") or 0,
             "buys_6h": tx6.get("buys") or 0, "sells_6h": tx6.get("sells") or 0,
+            "buys_24h": tx24.get("buys") or 0, "sells_24h": tx24.get("sells") or 0,
             "fdv": p.get("fdv"), "venue": p.get("dexId"),
             "created_ms": p.get("pairCreatedAt"),
         }
@@ -64,9 +65,10 @@ def evaluate(ca):
     now = time.time()
     age_h = ((now - d["created_ms"] / 1000) / 3600) if d.get("created_ms") else None
     voliq = (d["vol_24h"] / d["liq"]) if d["liq"] else None
-    bs1 = (d["buys_1h"] / d["sells_1h"]) if d["sells_1h"] else (d["buys_1h"] or 0)
-    bs5 = (d["buys_m5"] / d["sells_m5"]) if d["sells_m5"] else (d["buys_m5"] or 0)
-    bs6 = (d["buys_6h"] / d["sells_6h"]) if d["sells_6h"] else (d["buys_6h"] or 0)
+    def _bs(b, s): return (b / s) if s else (b or 0)            # rapporto buy/sell
+    def _np(b, s): return round((b - s) / (b + s), 3) if (b + s) else None  # pressione netta -1..+1
+    bs5 = _bs(d["buys_m5"], d["sells_m5"]); bs1 = _bs(d["buys_1h"], d["sells_1h"])
+    bs6 = _bs(d["buys_6h"], d["sells_6h"]); bs24 = _bs(d["buys_24h"], d["sells_24h"])
     # ACCELERAZIONE pressione: bs a 5min / bs a 1h. >1 = compratori in arrivo ADESSO (onda che parte);
     # <1 = onda gia' passata (entriamo tardi). E' il segnale-anticipo individuato dal KPI a 97 token.
     bs_accel = round(bs5 / bs1, 2) if bs1 else None
@@ -74,9 +76,11 @@ def evaluate(ca):
          "vol_6h": round(d["vol_6h"]), "vol_1h": round(d["vol_1h"]), "vol_m5": round(d["vol_m5"]),
          "voliq": round(voliq, 2) if voliq else None,
          "age_h": round(age_h, 1) if age_h is not None else None, "bs_ratio_1h": round(bs1, 2),
-         "bs_ratio_m5": round(bs5, 2), "bs_ratio_6h": round(bs6, 2), "bs_accel": bs_accel,
+         "bs_ratio_m5": round(bs5, 2), "bs_ratio_6h": round(bs6, 2), "bs_ratio_24h": round(bs24, 2), "bs_accel": bs_accel,
+         "np_m5": _np(d["buys_m5"], d["sells_m5"]), "np_1h": _np(d["buys_1h"], d["sells_1h"]),
+         "np_6h": _np(d["buys_6h"], d["sells_6h"]), "np_24h": _np(d["buys_24h"], d["sells_24h"]),
          "buys_m5": d["buys_m5"], "sells_m5": d["sells_m5"], "buys_1h": d["buys_1h"], "sells_1h": d["sells_1h"],
-         "buys_6h": d["buys_6h"], "sells_6h": d["sells_6h"],
+         "buys_6h": d["buys_6h"], "sells_6h": d["sells_6h"], "buys_24h": d["buys_24h"], "sells_24h": d["sells_24h"],
          "holders": s.get("holders"), "top10_pct": s.get("top10_pct"), "top1_pct": s.get("top1_pct"),
          "mint_revoked": s.get("mint_revoked"), "freeze_revoked": s.get("freeze_revoked"),
          "fdv": d.get("fdv"), "venue": d.get("venue"), "pc_24h": d.get("pc_24h"),
