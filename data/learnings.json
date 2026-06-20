@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-06-20 16:12",
+  "updated_utc": "2026-06-20 16:53",
   "runner_pct": 50,
-  "settled": 97,
+  "settled": 100,
   "runners": 22,
-  "deads": 75,
+  "deads": 78,
   "by_arena": {
     "memecoin": {
-      "trades": 81,
+      "trades": 84,
       "runners": 18,
-      "runner_rate": 0.22
+      "runner_rate": 0.21
     },
     "ai_agent": {
       "trades": 16,
@@ -24,56 +24,56 @@
       "feature": "vol_1h",
       "label": "volume 1h",
       "runner_median": 2182.5,
-      "dead_median": 209,
-      "ratio": 10.44
+      "dead_median": 211.0,
+      "ratio": 10.34
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
       "runner_median": 53741.5,
-      "dead_median": 19312,
-      "ratio": 2.78
+      "dead_median": 21807.0,
+      "ratio": 2.46
     },
     {
       "feature": "age_h",
       "label": "età (h)",
       "runner_median": 27.3,
-      "dead_median": 11.8,
-      "ratio": 2.31
+      "dead_median": 11.95,
+      "ratio": 2.28
     },
     {
       "feature": "liq",
       "label": "liquidità",
       "runner_median": 12145.0,
-      "dead_median": 6624,
-      "ratio": 1.83
+      "dead_median": 8266.0,
+      "ratio": 1.47
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
       "runner_median": 1.29,
-      "dead_median": 0.91,
-      "ratio": 1.42
+      "dead_median": 0.925,
+      "ratio": 1.39
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
       "runner_median": 4.725,
-      "dead_median": 6.09,
-      "ratio": 0.78
+      "dead_median": 5.75,
+      "ratio": 0.82
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
       "runner_median": 0.609,
-      "dead_median": 0.734,
-      "ratio": 0.83
+      "dead_median": 0.677,
+      "ratio": 0.9
     },
     {
       "feature": "grok_heat",
       "label": "heat di Grok",
       "runner_median": 4.0,
-      "dead_median": 4,
+      "dead_median": 4.0,
       "ratio": 1.0
     }
   ],
@@ -101,7 +101,7 @@
     },
     {
       "ticker": "ESCOLAND",
-      "ret_max": 2.29,
+      "ret_max": 2.97,
       "pass": false,
       "vol_1h": 1340,
       "voliq": 21.24
