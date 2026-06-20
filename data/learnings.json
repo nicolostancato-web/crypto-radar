@@ -1,13 +1,13 @@
 {
-  "updated_utc": "2026-06-20 00:06",
+  "updated_utc": "2026-06-20 04:42",
   "runner_pct": 50,
-  "settled": 91,
-  "runners": 20,
-  "deads": 71,
+  "settled": 96,
+  "runners": 21,
+  "deads": 75,
   "by_arena": {
     "memecoin": {
-      "trades": 75,
-      "runners": 16,
+      "trades": 80,
+      "runners": 17,
       "runner_rate": 0.21
     },
     "ai_agent": {
@@ -23,56 +23,56 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 2182.5,
-      "dead_median": 182,
-      "ratio": 11.99
+      "runner_median": 2488,
+      "dead_median": 213,
+      "ratio": 11.68
     },
     {
       "feature": "age_h",
       "label": "età (h)",
-      "runner_median": 31.15,
+      "runner_median": 28.8,
       "dead_median": 11.8,
-      "ratio": 2.64
+      "ratio": 2.44
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 46787.0,
-      "dead_median": 19312,
-      "ratio": 2.42
-    },
-    {
-      "feature": "liq",
-      "label": "liquidità",
-      "runner_median": 12145.0,
-      "dead_median": 6624,
-      "ratio": 1.83
+      "runner_median": 50385,
+      "dead_median": 24302,
+      "ratio": 2.07
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
       "runner_median": 2.375,
-      "dead_median": 6.52,
-      "ratio": 0.36
+      "dead_median": 7.87,
+      "ratio": 0.3
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
-      "runner_median": 1.195,
+      "runner_median": 1.24,
       "dead_median": 0.94,
-      "ratio": 1.27
+      "ratio": 1.32
+    },
+    {
+      "feature": "liq",
+      "label": "liquidità",
+      "runner_median": 9655,
+      "dead_median": 7448,
+      "ratio": 1.3
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.609,
-      "dead_median": 0.734,
-      "ratio": 0.83
+      "runner_median": 0.552,
+      "dead_median": 0.708,
+      "ratio": 0.78
     },
     {
       "feature": "grok_heat",
       "label": "heat di Grok",
-      "runner_median": 4.0,
+      "runner_median": 4,
       "dead_median": 4,
       "ratio": 1.0
     }
@@ -121,15 +121,15 @@
       "voliq": null
     },
     {
-      "ticker": "PVT",
-      "ret_max": 1.46,
+      "ticker": "zer0",
+      "ret_max": 1.64,
       "pass": false,
-      "vol_1h": 0,
+      "vol_1h": 54127,
       "voliq": null
     },
     {
-      "ticker": "SYZYGY",
-      "ret_max": 1.32,
+      "ticker": "PVT",
+      "ret_max": 1.46,
       "pass": false,
       "vol_1h": 0,
       "voliq": null
