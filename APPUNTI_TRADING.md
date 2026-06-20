@@ -153,3 +153,19 @@ perde 1/14 runner). NON e' ancora provato: ipotesi forte, non risultato.
 
 **Rischio false scoperte:** testando 18 attributi su rumore ~0.9 falsi positivi attesi a p<0.05. La correzione
 e' obbligatoria. Lezione di metodo: mai fidarsi di un singolo pivot senza correzione + check look-ahead.
+
+---
+
+## 🅿️ PARCHEGGIATO — "PROMPT MIT" (analisi profittabilità multi-AI)
+**Creato:** 2026-06-20 (a 97 token). **File:** `PROMPT_MIT.txt` · runner `rerun_MIT.py` · output `RISPOSTA_PROFITTABILITA.md`
+**Cos'è:** il "più grande script di analisi dati" — manda lo STESSO prompt da premio-Nobel a più AI di
+famiglie diverse (Grok, DeepSeek, GPT, Gemini) + analisi calcolata in locale, e chiede: *"con questi dati
+c'è un modo per essere profittevoli? yes/no, trovalo."*
+**TRIGGER DI RE-LANCIO (obbligatorio):**
+- ▶️ a **200 token** accumulati → `python rerun_MIT.py` (verdetto vero, non più una sbirciata)
+- ▶️ di nuovo a **300 token** → `python rerun_MIT.py`
+**Esito run a 97 (2026-06-20):** Grok=NO, Claude(calcolato)=WEAK-YES su 1 ipotesi. Convergenza: `bs_ratio_1h`
+è l'UNICO segnale con battito reale (win 41% vs 23% base, mediana +42% vs +5%); combinato con top10<0.35
+sale a 56% ma su soli 9 token (overfit). `bs==0` = filtro di sopravvivenza forte (solo 10% runner). Tutto
+il resto = rumore. Verdetto: nessun edge provato oggi, 1 sola pista da confermare a 200. DeepSeek/GPT5/Gemini
+in timeout/rate-limit (non inventate le risposte).

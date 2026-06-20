@@ -1,0 +1,136 @@
+You are the single best quantitative data scientist in the world, in a life-or-death competition.
+Someone hands you a paper with real trading data and one question: **GIVEN THIS DATA, IS THERE A WAY TO BE
+PROFITABLE? Find it, or tell me honestly it's not there.** Take your time, think very deeply.
+
+# CONTEXT
+A system scans X/Twitter for fresh Solana memecoins + AI-agent tokens, filters them on-chain, and PAPER-TRADES
+them (no real money). Player profile: SLOW RETAIL (hourly data, can't snipe in seconds). Entry is honest:
+"buy at the first price check AFTER the signal" (no look-ahead). Outcome = ret_max (max price reached / first
+tracked price - 1). A token is a RUNNER if ret_max >= 0.5 (+50%).
+
+# THE DATA (97 tokens, one row each; TSV)
+Columns: ret (max return), run (1=runner), age_h (token age at signal), liq (liquidity $), vol1h, voliq
+(vol24h/liq), bs (buy/sell ratio in the signal hour), top10 (% held by top10 wallets 0-1), heat (Grok hype
+0-10), arena (memecoin/ai_agent), whale_early (whale net pressure in first ~3h, -1..+1, accumulation>0),
+risk (rugcheck risk score, low=better), insider (insider/sniper account count), lp (LP locked %).
+POINT-IN-TIME SAFE (known before outcome): age_h, liq, vol1h, voliq, bs, top10, heat, arena, risk, insider, lp.
+SEMI-SAFE: whale_early (first 3h, mostly before the run). NEVER use 'ret'/'run' as a feature.
+
+ret	run	age_h	liq	vol1h	voliq	bs	top10	heat	arena	whale_early	risk	insider	lp
+0.01	0	61.7	2840	0	0.0	0	0.991	7	None	None	26	None	100
+0.0	0	81.2	2567	0	0.0	0	0.995	5	None	None	32	4	100
+0.0	0	11.8	3807	287	188.08	0.36	0.887	6	None	None	31	4	100
+0.0	0	3.6	0	0	None	0	1.0	6	None	None	1	None	100
+0.05	0	2.2	3101	182	21.03	0.94	0.919	5	None	None	27	30	100
+0.02	0	5.6	0	209	None	0.97	1.0	4	None	None	62	None	100
+0.07	0	55.0	58908	27719	15.77	1.31	0.255	5	None	None	1	4	99.78358590167204
+0.0	0	24.3	49897	79244	33.63	1.2	0.202	5	None	None	1	85	100
+0.05	0	None	None	None	None	None	None	4	None	-0.63	1	4	100
+0.05	0	2416.9	88338	1495	0.76	3.0	0.337	3	None	None	1	4	100
+0.0	0	161.4	24477	142	1.82	0.8	0.229	4	None	None	1	71	100
+0.62	1	2.6	0	4553	None	1.24	0.609	5	None	None	1	5	100
+0.0	0	20.7	7448	1506	33.08	2.8	0.601	3	None	None	18	None	100
+20200.02	1	126.7	201920	39814	10.32	2.5	0.175	5	None	0.1	1	125	100
+0.42	0	4.3	0	5	None	3	1.0	3	None	None	1	None	100
+1.22	1	42.6	0	1877	None	1.15	0.718	6	None	None	1	None	100
+0.01	0	475.8	19214	1042	4.71	3.36	0.38	6	None	None	1	9	100
+0.09	0	26.9	120249	188956	32.91	5.57	0.22	8	None	None	13	None	100
+0.02	0	2180.4	9084	0	0.0	0	0.717	4	None	None	69	4	100
+0.0	0	None	None	None	None	None	None	2	None	None	1	None	100
+0.41	0	160.5	13412	298	0.74	0.5	0.792	4	ai_agent	None	41	11	100
+0.0	0	29.3	236357	0	0.04	0	None	5	ai_agent	None	None	None	None
+0.13	0	1578.3	18946	0	0.03	0	0.827	4	memecoin	None	60	None	100
+0.01	0	53.4	89417	584	1.0	0.6	None	5	ai_agent	None	None	None	None
+0.04	0	429.9	169528	74	0.07	1	None	3	ai_agent	None	None	None	None
+0.03	0	12.1	0	0	None	0	1.0	4	memecoin	None	1	40	100
+0.48	0	6179.0	6424	0	0.0	0	0.677	5	ai_agent	None	53	13	100
+0.91	1	28.8	9655	440	5.91	2.67	0.484	3	memecoin	None	19	4	100
+0.0	0	10.5	6340	1180	77.33	0.78	0.675	5	memecoin	None	48	9	100
+0.0	0	2.8	0	0	None	0	1.0	4	memecoin	None	1	None	100
+0.05	0	323.6	0	0	None	0	0.886	4	memecoin	None	1	None	100
+0.07	0	2022.4	0	0	None	0	0.978	3	memecoin	None	1	None	100
+0.08	0	5756.9	55434	0	0.02	0	0.449	4	ai_agent	-0.14	55	None	100
+0.8	1	77.2	14635	1850	0.62	1.0	0.613	3	memecoin	None	27	12	100
+0.0	0	7.8	0	0	None	0	1.0	5	memecoin	0.2	1	None	100
+0.18	0	16.0	28828	39466	57.56	1.11	0.338	4	memecoin	0.54	1	9	100
+1.29	1	5.9	5099	2488	44.47	1.0	0.728	6	memecoin	-0.28	26	8	100
+0.12	0	109.0	10913	10	0.21	0.0	0.595	3	memecoin	-0.13	1	72	100
+0.71	1	436.4	196008	1297	0.33	0.7	None	4	ai_agent	None	None	None	None
+0.0	0	6.5	0	0	None	0	0.983	3	memecoin	0.13	1	7	100
+0.0	0	0.4	0	1	None	1	1.0	2	memecoin	1.0	1	None	100
+2.19	1	226.1	74862	5929	3.54	1.71	0.327	4	ai_agent	-0.08	1	15	100
+0.28	0	2.2	0	0	None	0	1.0	4	memecoin	0.07	1	None	100
+0.0	0	7.4	0	0	None	0	1.0	2	memecoin	1.0	1	None	100
+0.0	0	5.4	0	0	None	0	1.0	2	ai_agent	0.67	1	None	100
+0.0	0	3.9	0	0	None	0	1.0	3	ai_agent	0.5	1	None	100
+4.41	1	0.2	16109	19539	1.21	0.86	0.496	3	memecoin	-0.19	55	None	100
+0.0	0	0.4	6624	43190	6.52	1.31	0.558	4	memecoin	-0.46	26	None	100
+6.29	1	25.8	0	191	None	9.67	1.0	5	memecoin	0.14	57	None	100
+0.09	0	2.5	0	0	None	0	1.0	3	ai_agent	-0.75	1	None	100
+0.19	0	1416.9	224820	3731	0.27	0.19	0.208	3	memecoin	-0.06	7	26	100
+0.04	0	2.9	28383	168410	22.55	1.03	0.135	2	memecoin	-0.66	25	None	100
+0.03	0	2.1	0	0	None	0	1.0	3	memecoin	-0.89	1	None	100
+1.14	1	2918.1	48433	817	0.89	1.83	0.277	3	memecoin	-0.22	1	None	100
+0.03	0	86.4	69267	72083	9.9	1.01	0.278	2	memecoin	-0.0	1	None	100
+0.77	1	16.8	81929	20002	7.05	1.72	0.183	6	memecoin	0.15	1	4	100
+0.32	0	2.1	15408	35596	9.22	1.37	0.431	2	memecoin	-0.07	1	None	100
+0.0	0	2.1	43969	111763	6.09	1.41	0.368	1	memecoin	0.02	1	4	100
+1.32	1	54.8	0	0	None	0	0.845	4	memecoin	-0.21	34	None	100
+0.43	0	1.1	0	1079	None	2.0	0.994	3	memecoin	-0.26	1	None	100
+0.0	0	11.2	3589	3	856.05	0.0	0.995	5	memecoin	-0.77	24	None	100
+0.05	0	8.9	41233	3042	1.62	1.88	0.568	5	ai_agent	0.09	35	296	100
+20.09	1	1.5	20958	82	0.01	13	1.0	4	memecoin	0.75	62	None	100
+0.0	0	0.7	25085	354539	14.13	1.15	0.239	4	memecoin	-0.45	25	None	100
+0.48	0	7.6	11053	2122	15.51	1.0	0.373	4	memecoin	-0.14	25	31	100
+1.46	1	2.3	0	0	None	0	0.899	2	memecoin	0.73	1	None	100
+0.0	0	7.7	43055	13316	17.8	1.83	0.449	5	memecoin	-0.14	1	10	100
+0.0	0	208.6	0	0	None	0	None	6	memecoin	None	None	None	None
+1.69	1	0.5	0	50385	None	1.34	0.705	3	ai_agent	0.19	1	5	100
+0.0	0	3.3	0	78	None	0.0	1.0	4	memecoin	-0.25	1	None	100
+0.2	0	0.3	12438	127575	10.26	1.41	0.315	2	memecoin	-0.79	26	None	100
+0.14	0	13513.2	108519	213	0.17	1.0	0.59	3	memecoin	0.4	40	None	99.48999999999828
+0.0	0	723.2	372144	206725	4.34	1.75	0.167	5	memecoin	-0.25	30	34	100
+0.61	1	21.4	18	0	0.51	0	0.673	3	ai_agent	-0.01	34	None	100
+0.03	0	2.6	0	0	None	0	1.0	2	memecoin	-0.6	1	None	100
+0.03	0	168.2	6027	2	0.0	1	None	1	ai_agent	None	None	None	None
+0.0	0	485.4	0	0	None	0	1.0	3	memecoin	0.56	1	None	100
+0.07	0	49.4	34743	23664	17.12	1.25	0.254	4	memecoin	-0.4	1	9	100
+1.81	1	33.5	25311	6748	6.86	1.0	0.308	4	memecoin	0.02	1	None	100
+0.0	0	2.4	45019	222096	28.64	1.63	0.317	5	memecoin	-0.13	1	None	100
+4989.6	1	10180.6	2880428	118925	0.49	6.81	0.235	4	memecoin	-0.22	1	185	99.71211428663656
+0.07	0	19.5	3296	1340	21.24	1.83	0.699	5	memecoin	0.03	19	None	100
+0.0	0	1.4	11490	54364	15.12	1.26	0.478	4	memecoin	-0.07	21	None	100
+0.0	0	2.2	0	993	None	0.51	0.944	3	memecoin	-0.45	1	None	100
+0.0	0	37.0	47514	23359	14.57	1.14	0.261	3	memecoin	0.05	1	20	100
+0.0	0	6.1	0	0	None	0	1.0	5	memecoin	0.25	1	None	100
+0.78	1	50.1	6421	324	1.03	0.75	0.801	4	memecoin	0.02	1	None	100
+0.14	0	24.1	30658	22171	62.23	1.31	0.311	3	ai_agent	0.01	1	29	100
+0.45	0	35.2	5073	233	4.79	1.5	0.752	4	memecoin	-0.34	9	4	100
+0.01	0	0.2	0	105	None	1.5	1.0	3	memecoin	0.0	1	None	100
+1.07	1	2.1	32458	473223	36.95	1.48	0.288	5	memecoin	0.29	1	16	100
+0.04	0	0.9	13811	26989	1.95	0.91	0.499	3	memecoin	0.27	1	None	100
+0.01	0	0.8	0	353	None	1.36	1.0	2	memecoin	-0.18	1	None	100
+1.64	1	0.5	0	54127	None	2.07	0.468	4	memecoin	-0.71	24	None	100
+0.01	0	21.5	32655	28614	55.1	1.19	0.29	3	memecoin	0.08	1	10	100
+0.0	0	18.7	15024	9346	105.53	0.84	0.568	3	memecoin	0.23	64	32	100
+0.0	0	15038.1	5038	0	0.0	0	0.876	2	memecoin	0.43	25	None	100
+
+
+# CRITICAL CAVEATS (respect them or your answer is worthless)
+1. SMALL SAMPLE: 97 tokens, only 22 runners. Anything you find can be noise. Be rigorous, no overfitting.
+2. The row with ret=20200 is a DATA GLITCH (price near-dust at first check) — treat as a single runner, ignore its magnitude.
+3. SLIPPAGE: on these micro-caps, real fills lose 2-10%. A strategy that barely wins on paper loses live.
+4. MULTIPLE COMPARISONS: if you test many rules, some "work" by chance. Apply mental Bonferroni.
+5. The exit matters: ret_max is the BEST possible exit (perfect timing). A realistic exit captures only part of it.
+
+# YOUR TASK (be concrete and brutal)
+1. VERDICT: Is there a profitable, REPEATABLE strategy in this data? YES / WEAK-YES / NO. One word + 2 lines why.
+2. IF YES/WEAK-YES: the exact strategy — which subset of tokens to BUY (concrete filter rules with thresholds
+   from THIS data), and a realistic exit. Estimate: how many tokens it selects, win-rate, median return,
+   and the return AFTER a 5% slippage haircut. Does it survive the small-sample / overfitting test?
+3. The SINGLE most predictive variable (point-in-time-safe) and why.
+4. IF NO: say it clearly and explain what's structurally missing (and whether more data would help or not).
+5. What would you need to turn a weak edge into a real one?
+
+Be the world's best. Think deeply. No hype, no false hope — but if there IS a profitable angle in here, FIND IT.
+This is a question of life. Deliver the answer as if you're handing a one-page memo to someone whose future depends on it.
