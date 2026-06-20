@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-20 09:44",
+  "updated_utc": "2026-06-20 10:45",
   "runner_pct": 50,
   "settled": 97,
   "runners": 21,
@@ -121,15 +121,15 @@
       "voliq": null
     },
     {
-      "ticker": "PVT",
-      "ret_max": 1.46,
-      "pass": false,
-      "vol_1h": 0,
-      "voliq": null
+      "ticker": "bullieve",
+      "ret_max": 1.53,
+      "pass": true,
+      "vol_1h": 473223,
+      "voliq": 36.95
     },
     {
-      "ticker": "SYZYGY",
-      "ret_max": 1.32,
+      "ticker": "PVT",
+      "ret_max": 1.46,
       "pass": false,
       "vol_1h": 0,
       "voliq": null
