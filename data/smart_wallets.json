@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-21 15:04",
-  "wallets_seen": 1699,
-  "qualified": 88,
+  "updated_utc": "2026-06-21 18:11",
+  "wallets_seen": 1771,
+  "qualified": 94,
   "min_plays": 2,
   "smart": [
     {
@@ -124,20 +124,6 @@
       ]
     },
     {
-      "wallet": "7rbxsXchaL1Jz46BXbF88k1hBYoWHLaKo8YbofMndW46",
-      "plays": 6,
-      "hits": 3,
-      "winrate": 0.5,
-      "tickers": [
-        "AN1Jkje",
-        "BRAIN",
-        "CS",
-        "GLIPPY",
-        "RAN",
-        "SCROLL"
-      ]
-    },
-    {
       "wallet": "Fk3LqCC65NEsk2CvrKBBN8KChbcnZ1bXc7aGYH5geK4m",
       "plays": 4,
       "hits": 2,
@@ -173,18 +159,6 @@
       ]
     },
     {
-      "wallet": "CgDhwSizGoDz5PXR61ZaV7Ck1yEPiSXcw3FLpRj5NKc",
-      "plays": 4,
-      "hits": 2,
-      "winrate": 0.5,
-      "tickers": [
-        "AN1Jkje",
-        "CS",
-        "GAME",
-        "RAN"
-      ]
-    },
-    {
       "wallet": "DeNwH63Xgj3a4bXXHw79BiL5iBUNBQVaRYeLHQTQxL7z",
       "plays": 2,
       "hits": 1,
@@ -215,12 +189,32 @@
       ]
     },
     {
+      "wallet": "Gtw5QKLnYazyApkzmCXo9GvXa5sCjwvx2bdRLaid8FHu",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "$SS",
+        "SCROLL"
+      ]
+    },
+    {
       "wallet": "4G1dvBrEfMsJwJiMMLAdAgzyZM2TyS8GhH2E7FoL473c",
       "plays": 2,
       "hits": 1,
       "winrate": 0.5,
       "tickers": [
         "AN1Jkje"
+      ]
+    },
+    {
+      "wallet": "8MU1W4UuqqXQ16Ui7sPerk13Dbtixx9E5jiRCwQGTiNf",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "CS",
+        "FRAG"
       ]
     }
   ]
