@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-06-21 16:26",
+  "updated_utc": "2026-06-21 16:56",
   "runner_pct": 50,
-  "settled": 115,
+  "settled": 117,
   "runners": 24,
-  "deads": 91,
+  "deads": 93,
   "by_arena": {
     "memecoin": {
-      "trades": 96,
+      "trades": 98,
       "runners": 20,
-      "runner_rate": 0.21
+      "runner_rate": 0.2
     },
     "ai_agent": {
       "trades": 19,
@@ -38,8 +38,8 @@
       "feature": "age_h",
       "label": "età (h)",
       "runner_median": 27.3,
-      "dead_median": 14.05,
-      "ratio": 1.94
+      "dead_median": 16.95,
+      "ratio": 1.61
     },
     {
       "feature": "bs_ratio_1h",
@@ -66,8 +66,8 @@
       "feature": "voliq",
       "label": "volume/liquidità",
       "runner_median": 4.725,
-      "dead_median": 5.26,
-      "ratio": 0.9
+      "dead_median": 5.025,
+      "ratio": 0.94
     },
     {
       "feature": "grok_heat",
@@ -84,6 +84,13 @@
       "pass": false,
       "vol_1h": 118925,
       "voliq": 0.49
+    },
+    {
+      "ticker": "ESCOLAND",
+      "ret_max": 6.75,
+      "pass": false,
+      "vol_1h": 1340,
+      "voliq": 21.24
     },
     {
       "ticker": "Hedge",
@@ -105,13 +112,6 @@
       "pass": false,
       "vol_1h": 26989,
       "voliq": 1.95
-    },
-    {
-      "ticker": "ESCOLAND",
-      "ret_max": 2.97,
-      "pass": false,
-      "vol_1h": 1340,
-      "voliq": 21.24
     },
     {
       "ticker": "three",
