@@ -1,19 +1,19 @@
 {
-  "updated_utc": "2026-06-20 23:13",
+  "updated_utc": "2026-06-21 01:45",
   "runner_pct": 50,
-  "settled": 103,
+  "settled": 109,
   "runners": 22,
-  "deads": 81,
+  "deads": 87,
   "by_arena": {
     "memecoin": {
-      "trades": 86,
+      "trades": 91,
       "runners": 18,
-      "runner_rate": 0.21
+      "runner_rate": 0.2
     },
     "ai_agent": {
-      "trades": 17,
+      "trades": 18,
       "runners": 4,
-      "runner_rate": 0.24
+      "runner_rate": 0.22
     }
   },
   "prelim_at": 8,
@@ -24,50 +24,50 @@
       "feature": "vol_1h",
       "label": "volume 1h",
       "runner_median": 2182.5,
-      "dead_median": 213,
-      "ratio": 10.25
-    },
-    {
-      "feature": "age_h",
-      "label": "età (h)",
-      "runner_median": 27.3,
-      "dead_median": 11.8,
-      "ratio": 2.31
+      "dead_median": 223.0,
+      "ratio": 9.79
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
       "runner_median": 53741.5,
-      "dead_median": 24302,
-      "ratio": 2.21
+      "dead_median": 25072.0,
+      "ratio": 2.14
+    },
+    {
+      "feature": "age_h",
+      "label": "età (h)",
+      "runner_median": 27.3,
+      "dead_median": 16.95,
+      "ratio": 1.61
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
       "runner_median": 1.29,
-      "dead_median": 0.94,
-      "ratio": 1.37
+      "dead_median": 0.875,
+      "ratio": 1.47
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
       "runner_median": 4.725,
-      "dead_median": 5.41,
-      "ratio": 0.87
+      "dead_median": 5.26,
+      "ratio": 0.9
     },
     {
       "feature": "liq",
       "label": "liquidità",
       "runner_median": 12145.0,
-      "dead_median": 10913,
-      "ratio": 1.11
+      "dead_median": 11271.5,
+      "ratio": 1.08
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
       "runner_median": 0.609,
-      "dead_median": 0.641,
-      "ratio": 0.95
+      "dead_median": 0.607,
+      "ratio": 1.0
     },
     {
       "feature": "grok_heat",
