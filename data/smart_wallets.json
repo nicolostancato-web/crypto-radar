@@ -1,21 +1,9 @@
 {
-  "updated_utc": "2026-06-21 10:27",
-  "wallets_seen": 1585,
-  "qualified": 79,
+  "updated_utc": "2026-06-21 11:36",
+  "wallets_seen": 1640,
+  "qualified": 83,
   "min_plays": 2,
   "smart": [
-    {
-      "wallet": "omegoMAe1AMY5MFKQQr3JwXVy8F4eCvmBAfcpo8XAfq",
-      "plays": 3,
-      "hits": 3,
-      "winrate": 1.0,
-      "tickers": [
-        "$PUMPVERSE",
-        "PUMPVERSE",
-        "PVT",
-        "VONTRA"
-      ]
-    },
     {
       "wallet": "56S29mZ3wqvw8hATuUUFqKhGcSGYFASRRFNT38W8q7G3",
       "plays": 2,
@@ -79,6 +67,19 @@
       ]
     },
     {
+      "wallet": "omegoMAe1AMY5MFKQQr3JwXVy8F4eCvmBAfcpo8XAfq",
+      "plays": 4,
+      "hits": 3,
+      "winrate": 0.75,
+      "tickers": [
+        "$PUMPVERSE",
+        "NOOT",
+        "PUMPVERSE",
+        "PVT",
+        "VONTRA"
+      ]
+    },
+    {
       "wallet": "8zkgFGVZrDLieViwqiXFCydSX6WL5hsxmUu55yBdsNsZ",
       "plays": 3,
       "hits": 2,
@@ -113,13 +114,14 @@
     },
     {
       "wallet": "7rbxsXchaL1Jz46BXbF88k1hBYoWHLaKo8YbofMndW46",
-      "plays": 5,
+      "plays": 6,
       "hits": 3,
-      "winrate": 0.6,
+      "winrate": 0.5,
       "tickers": [
         "AN1Jkje",
         "BRAIN",
         "CS",
+        "GLIPPY",
         "RAN",
         "SCROLL"
       ]
@@ -172,16 +174,6 @@
       ]
     },
     {
-      "wallet": "3WrPRi9LKKfgMuEeNYuWxZRMNhJscu2M96utmWUPmmvb",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "ASTEROID",
-        "DOG"
-      ]
-    },
-    {
       "wallet": "DeNwH63Xgj3a4bXXHw79BiL5iBUNBQVaRYeLHQTQxL7z",
       "plays": 2,
       "hits": 1,
@@ -189,16 +181,6 @@
       "tickers": [
         "MR FROG",
         "PVT"
-      ]
-    },
-    {
-      "wallet": "HvFdDWS3RqymRAVx1ZdoL2RjiC38r5dtt19Z8op5jqDK",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "DOG",
-        "SOCCER"
       ]
     },
     {
@@ -212,12 +194,32 @@
       ]
     },
     {
+      "wallet": "HvFdDWS3RqymRAVx1ZdoL2RjiC38r5dtt19Z8op5jqDK",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "DOG",
+        "SOCCER"
+      ]
+    },
+    {
       "wallet": "4G1dvBrEfMsJwJiMMLAdAgzyZM2TyS8GhH2E7FoL473c",
       "plays": 2,
       "hits": 1,
       "winrate": 0.5,
       "tickers": [
         "AN1Jkje"
+      ]
+    },
+    {
+      "wallet": "8MU1W4UuqqXQ16Ui7sPerk13Dbtixx9E5jiRCwQGTiNf",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "CS",
+        "FRAG"
       ]
     }
   ]
