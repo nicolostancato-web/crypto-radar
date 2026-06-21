@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-21 05:20",
+  "updated_utc": "2026-06-21 06:44",
   "runner_pct": 50,
   "settled": 109,
   "runners": 23,
@@ -100,6 +100,13 @@
       "voliq": 1.21
     },
     {
+      "ticker": "BRAIN",
+      "ret_max": 3.2,
+      "pass": false,
+      "vol_1h": 26989,
+      "voliq": 1.95
+    },
+    {
       "ticker": "ESCOLAND",
       "ret_max": 2.97,
       "pass": false,
@@ -126,13 +133,6 @@
       "pass": false,
       "vol_1h": 50385,
       "voliq": null
-    },
-    {
-      "ticker": "bullieve",
-      "ret_max": 1.53,
-      "pass": true,
-      "vol_1h": 473223,
-      "voliq": 36.95
     }
   ]
 }
