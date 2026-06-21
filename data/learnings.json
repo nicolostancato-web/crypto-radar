@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-06-21 10:26",
+  "updated_utc": "2026-06-21 12:24",
   "runner_pct": 50,
-  "settled": 111,
+  "settled": 115,
   "runners": 23,
-  "deads": 88,
+  "deads": 92,
   "by_arena": {
     "memecoin": {
-      "trades": 92,
+      "trades": 96,
       "runners": 19,
-      "runner_rate": 0.21
+      "runner_rate": 0.2
     },
     "ai_agent": {
       "trades": 19,
@@ -24,15 +24,15 @@
       "feature": "vol_1h",
       "label": "volume 1h",
       "runner_median": 2488,
-      "dead_median": 209,
-      "ratio": 11.9
+      "dead_median": 213,
+      "ratio": 11.68
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
       "runner_median": 50385,
-      "dead_median": 19312,
-      "ratio": 2.61
+      "dead_median": 18608,
+      "ratio": 2.71
     },
     {
       "feature": "age_h",
@@ -45,8 +45,8 @@
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
       "runner_median": 1.24,
-      "dead_median": 0.83,
-      "ratio": 1.49
+      "dead_median": 0.84,
+      "ratio": 1.48
     },
     {
       "feature": "voliq",
