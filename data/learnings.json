@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-06-21 01:45",
+  "updated_utc": "2026-06-21 05:20",
   "runner_pct": 50,
   "settled": 109,
-  "runners": 22,
-  "deads": 87,
+  "runners": 23,
+  "deads": 86,
   "by_arena": {
     "memecoin": {
       "trades": 91,
-      "runners": 18,
-      "runner_rate": 0.2
+      "runners": 19,
+      "runner_rate": 0.21
     },
     "ai_agent": {
       "trades": 18,
@@ -23,57 +23,57 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 2182.5,
-      "dead_median": 223.0,
-      "ratio": 9.79
+      "runner_median": 2488,
+      "dead_median": 213,
+      "ratio": 11.68
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 53741.5,
-      "dead_median": 25072.0,
-      "ratio": 2.14
-    },
-    {
-      "feature": "age_h",
-      "label": "età (h)",
-      "runner_median": 27.3,
-      "dead_median": 16.95,
-      "ratio": 1.61
+      "runner_median": 50385,
+      "dead_median": 24302,
+      "ratio": 2.07
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
-      "runner_median": 1.29,
-      "dead_median": 0.875,
-      "ratio": 1.47
+      "runner_median": 1.24,
+      "dead_median": 0.84,
+      "ratio": 1.48
+    },
+    {
+      "feature": "age_h",
+      "label": "età (h)",
+      "runner_median": 25.8,
+      "dead_median": 17.9,
+      "ratio": 1.44
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 4.725,
-      "dead_median": 5.26,
-      "ratio": 0.9
+      "runner_median": 3.54,
+      "dead_median": 5.335,
+      "ratio": 0.66
     },
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 12145.0,
-      "dead_median": 11271.5,
-      "ratio": 1.08
+      "runner_median": 13811,
+      "dead_median": 11053,
+      "ratio": 1.25
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.609,
-      "dead_median": 0.607,
-      "ratio": 1.0
+      "runner_median": 0.554,
+      "dead_median": 0.641,
+      "ratio": 0.86
     },
     {
       "feature": "grok_heat",
       "label": "heat di Grok",
-      "runner_median": 4.0,
-      "dead_median": 4,
+      "runner_median": 4,
+      "dead_median": 4.0,
       "ratio": 1.0
     }
   ],
