@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-21 18:11",
-  "wallets_seen": 1771,
-  "qualified": 94,
+  "updated_utc": "2026-06-21 22:03",
+  "wallets_seen": 1841,
+  "qualified": 99,
   "min_plays": 2,
   "smart": [
     {
@@ -169,6 +169,16 @@
       ]
     },
     {
+      "wallet": "HvFdDWS3RqymRAVx1ZdoL2RjiC38r5dtt19Z8op5jqDK",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "DOG",
+        "SOCCER"
+      ]
+    },
+    {
       "wallet": "2QfBNK2WDwSLoUQRb1zAnp3KM12N9hQ8q6ApwUMnWW2T",
       "plays": 2,
       "hits": 1,
@@ -179,13 +189,13 @@
       ]
     },
     {
-      "wallet": "HvFdDWS3RqymRAVx1ZdoL2RjiC38r5dtt19Z8op5jqDK",
+      "wallet": "9YAoJsRFfTCUrjUWxd2NworTsuyAu5w1msgBFcRE6BEo",
       "plays": 2,
       "hits": 1,
       "winrate": 0.5,
       "tickers": [
-        "DOG",
-        "SOCCER"
+        "$AMED",
+        "SYZYGY"
       ]
     },
     {
@@ -205,16 +215,6 @@
       "winrate": 0.5,
       "tickers": [
         "AN1Jkje"
-      ]
-    },
-    {
-      "wallet": "8MU1W4UuqqXQ16Ui7sPerk13Dbtixx9E5jiRCwQGTiNf",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "CS",
-        "FRAG"
       ]
     }
   ]
