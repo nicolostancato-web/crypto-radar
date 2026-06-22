@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-22 19:58",
-  "wallets_seen": 2224,
-  "qualified": 122,
+  "updated_utc": "2026-06-22 22:27",
+  "wallets_seen": 2343,
+  "qualified": 135,
   "min_plays": 2,
   "smart": [
     {
@@ -12,6 +12,16 @@
       "tickers": [
         "PUMPVERSE",
         "SYZYGY"
+      ]
+    },
+    {
+      "wallet": "222mGpXPbjktz227sUJoc68cmADKAJEBoMhJysyZbPVC",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "AN1Jkje",
+        "Official Solan"
       ]
     },
     {
@@ -56,17 +66,6 @@
         "PUMPVERSE",
         "PVT",
         "VONTRA"
-      ]
-    },
-    {
-      "wallet": "8zkgFGVZrDLieViwqiXFCydSX6WL5hsxmUu55yBdsNsZ",
-      "plays": 3,
-      "hits": 2,
-      "winrate": 0.67,
-      "tickers": [
-        "AN1Jkje",
-        "BRAIN",
-        "CS"
       ]
     },
     {
@@ -140,6 +139,18 @@
       ]
     },
     {
+      "wallet": "8zkgFGVZrDLieViwqiXFCydSX6WL5hsxmUu55yBdsNsZ",
+      "plays": 4,
+      "hits": 2,
+      "winrate": 0.5,
+      "tickers": [
+        "AN1Jkje",
+        "BRAIN",
+        "CS",
+        "join the flock"
+      ]
+    },
+    {
       "wallet": "HFX2dqzyQeRAdkjp41D4qThfsPPSyBDkVoruBr93zhY9",
       "plays": 4,
       "hits": 2,
@@ -162,22 +173,22 @@
       ]
     },
     {
-      "wallet": "HvFdDWS3RqymRAVx1ZdoL2RjiC38r5dtt19Z8op5jqDK",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "DOG",
-        "SOCCER"
-      ]
-    },
-    {
       "wallet": "2QfBNK2WDwSLoUQRb1zAnp3KM12N9hQ8q6ApwUMnWW2T",
       "plays": 2,
       "hits": 1,
       "winrate": 0.5,
       "tickers": [
         "FRAG",
+        "SOCCER"
+      ]
+    },
+    {
+      "wallet": "HvFdDWS3RqymRAVx1ZdoL2RjiC38r5dtt19Z8op5jqDK",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "DOG",
         "SOCCER"
       ]
     },
@@ -209,16 +220,6 @@
       "tickers": [
         "$DOGTRAIN",
         "LION"
-      ]
-    },
-    {
-      "wallet": "7yigAVXvnSomGxk5oZKsnFaRDcmFjpgAWiYkrPjNqa1R",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "AN1Jkje",
-        "OG $KEUR Sturm"
       ]
     }
   ]
