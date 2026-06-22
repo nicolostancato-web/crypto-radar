@@ -74,7 +74,22 @@ def ask_grok(prompt, max_tokens=3000, timeout=240, live_x=True):
     return None
 
 
-MODELS = {"gpt5": ask_gpt5, "deepseek": ask_deepseek, "gemini": ask_gemini, "grok": ask_grok}
+def ask_glm(prompt, max_tokens=6000, timeout=300):
+    """GLM (Zhipu AI, modello cinese) — molto forte e a basso costo. OpenAI-compatibile.
+    Key da GLM_API_KEY. Model ed endpoint configurabili (GLM_MODEL, GLM_BASE_URL) cosi' si setta
+    l'ID esatto senza toccare il codice. None se manca la key."""
+    key = os.getenv("GLM_API_KEY") or os.getenv("COMETAPI_API_KEY")
+    if not key:
+        return None
+    base = os.getenv("GLM_BASE_URL", "https://api.cometapi.com/v1/chat/completions")
+    r = _post(base,
+              {"Authorization": f"Bearer {key}"},
+              {"model": os.getenv("GLM_MODEL", "glm-5.2"), "messages": [{"role": "user", "content": prompt}],
+               "max_tokens": max_tokens}, timeout=timeout)
+    return r["choices"][0]["message"]["content"]
+
+
+MODELS = {"gpt5": ask_gpt5, "deepseek": ask_deepseek, "gemini": ask_gemini, "grok": ask_grok, "glm": ask_glm}
 
 
 def consult(prompt, models=("gpt5", "deepseek")):

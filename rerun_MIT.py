@@ -60,6 +60,7 @@ def run(force=False):
     open('PROMPT_MIT_filled.txt','w').write(prompt)
     for name,fn,kw in [("grok",da.ask_grok,{"max_tokens":5000,"timeout":300,"live_x":False}),
                        ("deepseek",da.ask_deepseek,{"max_tokens":5000,"timeout":480}),
+                       ("glm",da.ask_glm,{"max_tokens":5000,"timeout":300}),
                        ("gpt5",da.ask_gpt5,{"max_tokens":5000,"timeout":300}),
                        ("gemini",da.ask_gemini,{})]:
         print(f"\n=== {name.upper()} ===")
