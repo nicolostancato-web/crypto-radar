@@ -138,7 +138,7 @@ Non l'ultra-micro "lanciato 4 minuti fa" (nessun segnale leggibile) e non la gia
 Il punto dolce e' PRESTO: da ~1 ora a ~24-36h di vita, nel momento in cui l'attenzione sta APPENA partendo
 (la PRIMA ondata, non la seconda o la terza). Se vedi che il grosso del pump e dell'hype e' gia' avvenuto,
 e' troppo tardi: scartalo o marcalo stage="peak".
-Dammi quello che VEDI DAVVERO dalle ricerche live su X. Voglio TANTE candidate: punta a **8-15 token**
+Dammi quello che VEDI DAVVERO dalle ricerche live su X. Voglio TANTE candidate: punta a **25-35 token**
 freschi per ogni scan (ci servono volumi di dati per l'analisi statistica). Cerca a fondo, da piu' angoli,
 non fermarti alle prime: piu' candidate fresche mi dai, meglio e' — lo scarto lo fa il mio filtro on-chain,
 non la tua paura di sbagliare. NON tornare quasi mai a mani vuote: se c'e' roba che si muove, dammela tutta
@@ -208,7 +208,7 @@ def run():
         print("[trend] XAI_API_KEY assente — crea la key su console.x.ai. No-op.")
         return []
     try:
-        txt = da.ask_grok(PROMPT, max_tokens=4500, timeout=240, live_x=True)
+        txt = da.ask_grok(PROMPT, max_tokens=6500, timeout=240, live_x=True)
     except Exception as e:
         print(f"[trend] Grok errore: {str(e)[:150]}")
         return []

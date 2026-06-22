@@ -6,7 +6,7 @@ name: crypto-radar-trends
 # on-chain + backtest di quali segnali predicono il pump.
 on:
   schedule:
-    - cron: "15 */3 * * *"     # SCAN ogni 4h (CFO: Grok costa; i token freschi non spariscono in 1h. ~$0.18/giorno). Il TRACKING prezzi/whale gira a parte ogni 1h (track.yml, gratis)
+    - cron: "15 */2 * * *"     # SCAN ogni 2h (PUSH MODE 2026-06-22: focus accumulo dati verso 200+. ~$0.28/scan x12/giorno ~$3/giorno, time-boxed: rivaluta a 200). Il TRACKING gira a parte ogni 30min (track.yml, gratis)
   workflow_dispatch: {}
 
 permissions:
