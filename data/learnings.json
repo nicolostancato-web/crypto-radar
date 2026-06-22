@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-22 01:46",
+  "updated_utc": "2026-06-22 05:33",
   "runner_pct": 50,
   "settled": 128,
   "runners": 28,
@@ -108,7 +108,7 @@
     },
     {
       "ticker": "BRAIN",
-      "ret_max": 3.2,
+      "ret_max": 3.43,
       "pass": false,
       "vol_1h": 26989,
       "voliq": 1.95
