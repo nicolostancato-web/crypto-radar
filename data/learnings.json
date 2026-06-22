@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-06-22 18:19",
+  "updated_utc": "2026-06-22 20:54",
   "runner_pct": 50,
-  "settled": 154,
-  "runners": 31,
-  "deads": 123,
+  "settled": 181,
+  "runners": 35,
+  "deads": 146,
   "by_arena": {
     "memecoin": {
-      "trades": 134,
-      "runners": 27,
-      "runner_rate": 0.2
+      "trades": 161,
+      "runners": 31,
+      "runner_rate": 0.19
     },
     "ai_agent": {
       "trades": 20,
@@ -24,50 +24,50 @@
       "feature": "vol_1h",
       "label": "volume 1h",
       "runner_median": 4553,
-      "dead_median": 584,
-      "ratio": 7.8
+      "dead_median": 1017.5,
+      "ratio": 4.47
+    },
+    {
+      "feature": "age_h",
+      "label": "età (h)",
+      "runner_median": 25.8,
+      "dead_median": 10.95,
+      "ratio": 2.36
+    },
+    {
+      "feature": "bs_ratio_1h",
+      "label": "buy/sell 1h",
+      "runner_median": 1.34,
+      "dead_median": 1.0,
+      "ratio": 1.34
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
       "runner_median": 57098,
-      "dead_median": 25842,
-      "ratio": 2.21
-    },
-    {
-      "feature": "age_h",
-      "label": "età (h)",
-      "runner_median": 23.1,
-      "dead_median": 12.1,
-      "ratio": 1.91
-    },
-    {
-      "feature": "bs_ratio_1h",
-      "label": "buy/sell 1h",
-      "runner_median": 1.25,
-      "dead_median": 1,
-      "ratio": 1.25
+      "dead_median": 43921.0,
+      "ratio": 1.3
     },
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 10093,
-      "dead_median": 11053,
-      "ratio": 0.91
+      "runner_median": 13811,
+      "dead_median": 10908.0,
+      "ratio": 1.27
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
       "runner_median": 0.534,
-      "dead_median": 0.579,
-      "ratio": 0.92
+      "dead_median": 0.59,
+      "ratio": 0.9
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 6.385,
-      "dead_median": 6.01,
-      "ratio": 1.06
+      "runner_median": 5.965,
+      "dead_median": 6.0,
+      "ratio": 0.99
     },
     {
       "feature": "grok_heat",
@@ -128,11 +128,11 @@
       "voliq": 6.86
     },
     {
-      "ticker": "VONTRA",
-      "ret_max": 1.69,
+      "ticker": "Official Solan",
+      "ret_max": 1.74,
       "pass": false,
-      "vol_1h": 50385,
-      "voliq": null
+      "vol_1h": 2107,
+      "voliq": 1.96
     }
   ]
 }
