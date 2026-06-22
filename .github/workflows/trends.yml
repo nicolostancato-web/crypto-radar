@@ -33,6 +33,7 @@ jobs:
           HELIUS_API_KEY: ${{ secrets.HELIUS_API_KEY }}
         run: |
           python trend_agent.py
+          python discovery_dex.py
           python filter_tokens.py 3
           python tracker.py
           python learner.py
