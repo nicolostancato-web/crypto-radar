@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-22 13:11",
-  "wallets_seen": 1909,
-  "qualified": 106,
+  "updated_utc": "2026-06-22 14:21",
+  "wallets_seen": 2124,
+  "qualified": 117,
   "min_plays": 2,
   "smart": [
     {
@@ -12,16 +12,6 @@
       "tickers": [
         "PUMPVERSE",
         "SYZYGY"
-      ]
-    },
-    {
-      "wallet": "Gfq5VJtapim2wVwAXDbpH2pVNdCL6p2kYTUrcWkmTRh7",
-      "plays": 2,
-      "hits": 2,
-      "winrate": 1.0,
-      "tickers": [
-        "PUMPVERSE",
-        "PVT"
       ]
     },
     {
@@ -45,16 +35,6 @@
       ]
     },
     {
-      "wallet": "EL3Zjzj27bNQLGJk1jQKtBKrD7syFDxBY2VrQaQaiueQ",
-      "plays": 2,
-      "hits": 2,
-      "winrate": 1.0,
-      "tickers": [
-        "BRAIN",
-        "zer0"
-      ]
-    },
-    {
       "wallet": "3gubYnreSffR5qRqmkoCTketmCXj3jMQu4UdiqRGy13t",
       "plays": 4,
       "hits": 3,
@@ -63,18 +43,6 @@
         "AN1Jkje",
         "BILLY",
         "discover"
-      ]
-    },
-    {
-      "wallet": "PcWgMSejFb1AVxtRh2AmRppQcvezi5ZyjgUtVAeRzft",
-      "plays": 4,
-      "hits": 3,
-      "winrate": 0.75,
-      "tickers": [
-        "$PUMPVERSE",
-        "ARENA",
-        "PVT",
-        "SYZYGY"
       ]
     },
     {
@@ -114,6 +82,17 @@
       ]
     },
     {
+      "wallet": "Gfq5VJtapim2wVwAXDbpH2pVNdCL6p2kYTUrcWkmTRh7",
+      "plays": 3,
+      "hits": 2,
+      "winrate": 0.67,
+      "tickers": [
+        "PUMPVERSE",
+        "PVT",
+        "TokenPeek is a"
+      ]
+    },
+    {
       "wallet": "DxPkmCEadZDBV59E8pAU1DAvzHJ8ad67zcXeVqGkQNjy",
       "plays": 3,
       "hits": 2,
@@ -122,6 +101,30 @@
         "$PUMPVERSE",
         "NOOT",
         "PVT"
+      ]
+    },
+    {
+      "wallet": "EL3Zjzj27bNQLGJk1jQKtBKrD7syFDxBY2VrQaQaiueQ",
+      "plays": 3,
+      "hits": 2,
+      "winrate": 0.67,
+      "tickers": [
+        "BRAIN",
+        "FomoTower, whe",
+        "zer0"
+      ]
+    },
+    {
+      "wallet": "PcWgMSejFb1AVxtRh2AmRppQcvezi5ZyjgUtVAeRzft",
+      "plays": 5,
+      "hits": 3,
+      "winrate": 0.6,
+      "tickers": [
+        "$PUMPVERSE",
+        "ARENA",
+        "PVT",
+        "SYZYGY",
+        "TokenPeek is a"
       ]
     },
     {
@@ -159,22 +162,22 @@
       ]
     },
     {
-      "wallet": "HvFdDWS3RqymRAVx1ZdoL2RjiC38r5dtt19Z8op5jqDK",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "DOG",
-        "SOCCER"
-      ]
-    },
-    {
       "wallet": "2QfBNK2WDwSLoUQRb1zAnp3KM12N9hQ8q6ApwUMnWW2T",
       "plays": 2,
       "hits": 1,
       "winrate": 0.5,
       "tickers": [
         "FRAG",
+        "SOCCER"
+      ]
+    },
+    {
+      "wallet": "HvFdDWS3RqymRAVx1ZdoL2RjiC38r5dtt19Z8op5jqDK",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "DOG",
         "SOCCER"
       ]
     },
@@ -186,15 +189,6 @@
       "tickers": [
         "$AMED",
         "SYZYGY"
-      ]
-    },
-    {
-      "wallet": "4G1dvBrEfMsJwJiMMLAdAgzyZM2TyS8GhH2E7FoL473c",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "AN1Jkje"
       ]
     },
     {
@@ -215,6 +209,16 @@
       "tickers": [
         "$DOGTRAIN",
         "LION"
+      ]
+    },
+    {
+      "wallet": "7yigAVXvnSomGxk5oZKsnFaRDcmFjpgAWiYkrPjNqa1R",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "AN1Jkje",
+        "OG $KEUR Sturm"
       ]
     }
   ]
