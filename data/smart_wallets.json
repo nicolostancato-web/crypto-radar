@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-23 18:34",
-  "wallets_seen": 3081,
-  "qualified": 222,
+  "updated_utc": "2026-06-23 22:06",
+  "wallets_seen": 3170,
+  "qualified": 240,
   "min_plays": 2,
   "smart": [
     {
@@ -35,6 +35,16 @@
       ]
     },
     {
+      "wallet": "2FGTD3g4XTDvX9wgLvjAnXxvjQai5kFn2eFtcyoU8Zg9",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "Sakana AI",
+        "The Envious Do"
+      ]
+    },
+    {
       "wallet": "2nGi5a8WA3A9dsZG88cxYnmQpmnEvf5wppFMNsCWQcaA",
       "plays": 2,
       "hits": 2,
@@ -62,6 +72,18 @@
       "tickers": [
         "One survivor",
         "Photo of an Ad"
+      ]
+    },
+    {
+      "wallet": "52oc72vjNbpUhF7jNE1pPAvc17JwBTyxybFp3u7PvetG",
+      "plays": 4,
+      "hits": 3,
+      "winrate": 0.75,
+      "tickers": [
+        "Every Nation. ",
+        "MESSI THE GOAT",
+        "PXM is a digit",
+        "The Envious Do"
       ]
     },
     {
@@ -107,6 +129,28 @@
         "BRAIN",
         "FomoTower, whe",
         "zer0"
+      ]
+    },
+    {
+      "wallet": "CkUZV387xnoGpF7wC2moMa6mPmAgCvTT4pWgzq4M9fCD",
+      "plays": 3,
+      "hits": 2,
+      "winrate": 0.67,
+      "tickers": [
+        "MCAT",
+        "Sakana AI",
+        "The Envious Do"
+      ]
+    },
+    {
+      "wallet": "434qiWpapr9puryQRwJcfFoTvQPeSMexg88uQ2HeiGGC",
+      "plays": 3,
+      "hits": 2,
+      "winrate": 0.67,
+      "tickers": [
+        "$CHEEZYRL",
+        "Lolis doing fe",
+        "Throw the chum"
       ]
     },
     {
@@ -157,14 +201,14 @@
       ]
     },
     {
-      "wallet": "52oc72vjNbpUhF7jNE1pPAvc17JwBTyxybFp3u7PvetG",
+      "wallet": "A89vGputSuAjbfcKEbVVAtLiSnA159YePyuKHGNMsscX",
       "plays": 4,
       "hits": 2,
       "winrate": 0.5,
       "tickers": [
-        "Every Nation. ",
-        "MESSI THE GOAT",
-        "PXM is a digit",
+        "$SS",
+        "A mirror dashb",
+        "BRAIN",
         "The Envious Do"
       ]
     },
@@ -175,46 +219,6 @@
       "winrate": 0.5,
       "tickers": [
         "SCROLL"
-      ]
-    },
-    {
-      "wallet": "HvFdDWS3RqymRAVx1ZdoL2RjiC38r5dtt19Z8op5jqDK",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "DOG",
-        "SOCCER"
-      ]
-    },
-    {
-      "wallet": "2QfBNK2WDwSLoUQRb1zAnp3KM12N9hQ8q6ApwUMnWW2T",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "FRAG",
-        "SOCCER"
-      ]
-    },
-    {
-      "wallet": "9YAoJsRFfTCUrjUWxd2NworTsuyAu5w1msgBFcRE6BEo",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "$AMED",
-        "SYZYGY"
-      ]
-    },
-    {
-      "wallet": "8MU1W4UuqqXQ16Ui7sPerk13Dbtixx9E5jiRCwQGTiNf",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "CS",
-        "FRAG"
       ]
     }
   ]
