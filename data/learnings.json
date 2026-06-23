@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-06-23 11:38",
+  "updated_utc": "2026-06-23 13:00",
   "runner_pct": 50,
-  "settled": 241,
-  "runners": 51,
-  "deads": 190,
+  "settled": 265,
+  "runners": 52,
+  "deads": 213,
   "by_arena": {
     "memecoin": {
-      "trades": 215,
-      "runners": 45,
-      "runner_rate": 0.21
+      "trades": 239,
+      "runners": 46,
+      "runner_rate": 0.19
     },
     "ai_agent": {
       "trades": 26,
@@ -23,51 +23,51 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 7359,
-      "dead_median": 1487.0,
-      "ratio": 4.95
-    },
-    {
-      "feature": "vol_24h",
-      "label": "volume 24h",
-      "runner_median": 67780,
-      "dead_median": 46138.5,
-      "ratio": 1.47
+      "runner_median": 7053.5,
+      "dead_median": 1506,
+      "ratio": 4.68
     },
     {
       "feature": "age_h",
       "label": "età (h)",
-      "runner_median": 16.8,
-      "dead_median": 11.95,
-      "ratio": 1.41
+      "runner_median": 18.15,
+      "dead_median": 7.8,
+      "ratio": 2.33
     },
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 15020,
-      "dead_median": 10721.0,
-      "ratio": 1.4
+      "runner_median": 14827.5,
+      "dead_median": 9084,
+      "ratio": 1.63
+    },
+    {
+      "feature": "vol_24h",
+      "label": "volume 24h",
+      "runner_median": 66716.0,
+      "dead_median": 43915,
+      "ratio": 1.52
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
-      "runner_median": 1.29,
-      "dead_median": 1.025,
-      "ratio": 1.26
+      "runner_median": 1.315,
+      "dead_median": 1.03,
+      "ratio": 1.28
+    },
+    {
+      "feature": "top10_pct",
+      "label": "top 10 wallet",
+      "runner_median": 0.512,
+      "dead_median": 0.607,
+      "ratio": 0.84
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
       "runner_median": 6.28,
-      "dead_median": 5.41,
-      "ratio": 1.16
-    },
-    {
-      "feature": "top10_pct",
-      "label": "top 10 wallet",
-      "runner_median": 0.506,
-      "dead_median": 0.597,
-      "ratio": 0.85
+      "dead_median": 5.455,
+      "ratio": 1.15
     },
     {
       "feature": "grok_heat",
@@ -107,6 +107,13 @@
       "voliq": null
     },
     {
+      "ticker": "Miu the pfp ca",
+      "ret_max": 5.33,
+      "pass": false,
+      "vol_1h": 0,
+      "voliq": 1.2
+    },
+    {
       "ticker": "SCROLL",
       "ret_max": 4.41,
       "pass": false,
@@ -119,13 +126,6 @@
       "pass": false,
       "vol_1h": 26989,
       "voliq": 1.95
-    },
-    {
-      "ticker": "Miu the pfp ca",
-      "ret_max": 3.01,
-      "pass": false,
-      "vol_1h": 0,
-      "voliq": 1.2
     },
     {
       "ticker": "Official Solan",
