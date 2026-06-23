@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-23 11:39",
-  "wallets_seen": 2700,
-  "qualified": 179,
+  "updated_utc": "2026-06-23 11:46",
+  "wallets_seen": 2860,
+  "qualified": 195,
   "min_plays": 2,
   "smart": [
     {
@@ -45,13 +45,13 @@
       ]
     },
     {
-      "wallet": "56S29mZ3wqvw8hATuUUFqKhGcSGYFASRRFNT38W8q7G3",
-      "plays": 3,
+      "wallet": "8FJ3DCvWMv5Aw14BD2GYFsf5Q9DPscSm8N2RQvFv6TFY",
+      "plays": 2,
       "hits": 2,
-      "winrate": 0.67,
+      "winrate": 1.0,
       "tickers": [
-        "PUMPVERSE",
-        "SYZYGY"
+        "A dog named Jo",
+        "I hand drew an"
       ]
     },
     {
@@ -101,9 +101,9 @@
     },
     {
       "wallet": "PcWgMSejFb1AVxtRh2AmRppQcvezi5ZyjgUtVAeRzft",
-      "plays": 7,
+      "plays": 8,
       "hits": 4,
-      "winrate": 0.57,
+      "winrate": 0.5,
       "tickers": [
         "$PUMPVERSE",
         "A dog named Jo",
@@ -111,19 +111,6 @@
         "Larry is the w",
         "PVT",
         "SYZYGY"
-      ]
-    },
-    {
-      "wallet": "3gubYnreSffR5qRqmkoCTketmCXj3jMQu4UdiqRGy13t",
-      "plays": 6,
-      "hits": 3,
-      "winrate": 0.5,
-      "tickers": [
-        "AN1Jkje",
-        "BILLY",
-        "Lumumba DR Con",
-        "Wildfrontier i",
-        "discover"
       ]
     },
     {
@@ -177,22 +164,23 @@
       ]
     },
     {
+      "wallet": "56S29mZ3wqvw8hATuUUFqKhGcSGYFASRRFNT38W8q7G3",
+      "plays": 4,
+      "hits": 2,
+      "winrate": 0.5,
+      "tickers": [
+        ".",
+        "PUMPVERSE",
+        "SYZYGY"
+      ]
+    },
+    {
       "wallet": "GFynjwFTQ734vP745QdxcNn6z3qQL3uJWEpw3q1byNjv",
       "plays": 2,
       "hits": 1,
       "winrate": 0.5,
       "tickers": [
         "SCROLL"
-      ]
-    },
-    {
-      "wallet": "DeNwH63Xgj3a4bXXHw79BiL5iBUNBQVaRYeLHQTQxL7z",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "MR FROG",
-        "PVT"
       ]
     },
     {
@@ -223,6 +211,16 @@
       "tickers": [
         "$AMED",
         "SYZYGY"
+      ]
+    },
+    {
+      "wallet": "8MU1W4UuqqXQ16Ui7sPerk13Dbtixx9E5jiRCwQGTiNf",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "CS",
+        "FRAG"
       ]
     }
   ]
