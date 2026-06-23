@@ -163,3 +163,16 @@ footer .muted{margin-top:8px;font-size:.78rem}
   .loopstrip{flex-direction:column}.looparrow{transform:rotate(90deg);justify-content:center}
   .herometa{gap:7px}
 }
+
+/* --- PORTAFOGLIO PAPER --- */
+#portfolio-sec .port-head { display:flex; align-items:center; gap:24px; flex-wrap:wrap; margin:10px 0 6px; }
+.port-big { font-size:46px; font-weight:800; letter-spacing:-1px; }
+.port-big.pos { color:#34d399; } .port-big.neg { color:#f87171; }
+.port-meta { display:flex; flex-direction:column; gap:3px; font-size:14px; color:#9aa4b2; }
+.port-meta .pos { color:#34d399; } .port-meta .neg { color:#f87171; }
+.port-curve { margin:8px 0; }
+.spark { width:100%; height:70px; }
+.spark-base { stroke:#3a4150; stroke-width:1; stroke-dasharray:4 4; }
+.spark-up { fill:none; stroke:#34d399; stroke-width:2; }
+.spark-down { fill:none; stroke:#f87171; stroke-width:2; }
+#port-trades td.pos { color:#34d399; } #port-trades td.neg { color:#f87171; }

@@ -191,10 +191,47 @@ function renderWhales(d) {
   }
 }
 
+function sparkline(eq) {
+  if (!eq || eq.length < 2) return "";
+  const ys = eq.map(p => p[1]), min = Math.min(...ys), max = Math.max(...ys), W = 600, H = 70;
+  const span = (max - min) || 1;
+  const pts = eq.map((p, i) => [i / (eq.length - 1) * W, H - (p[1] - min) / span * (H - 6) - 3]);
+  const dd = pts.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ");
+  const base = H - (100 - min) / span * (H - 6) - 3; // linea dei €100 di partenza
+  const up = eq[eq.length - 1][1] >= 100;
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" class="spark">
+    <line x1="0" y1="${base.toFixed(1)}" x2="${W}" y2="${base.toFixed(1)}" class="spark-base"/>
+    <path d="${dd}" class="${up ? 'spark-up' : 'spark-down'}"/></svg>`;
+}
+
+function renderPortfolio(p) {
+  if (!p) { document.getElementById("portfolio-sec").style.display = "none"; return; }
+  const up = p.final >= p.start, cls = up ? "pos" : "neg";
+  $("port-head").innerHTML =
+    `<div class="port-big ${cls}">€${p.final.toFixed(2)}</div>
+     <div class="port-meta">
+       <span>da €${p.start}</span>
+       <span class="${cls}">${up ? "+" : ""}${(p.final - p.start).toFixed(2)}€ (${((p.final / p.start - 1) * 100).toFixed(0)}%)</span>
+       <span>${p.n_trades} trade · ${p.win_rate}% vincenti</span>
+       <span class="muted">strategia ${p.strategy}</span>
+     </div>`;
+  $("port-curve").innerHTML = sparkline(p.equity);
+  $("port-rules").textContent = "Regole: " + p.rules + " · candele 5-min su " + p.n_5m + "/" + p.n_trades + " trade (resto orario).";
+  const tb = document.querySelector("#port-trades tbody");
+  tb.innerHTML = (p.trades || []).slice(0, 40).map(t => {
+    const w = t.ret_pct > 0;
+    return `<tr><td>${t.ticker || "?"}</td><td>${t.bs == null ? "—" : t.bs}</td>
+      <td class="${w ? 'pos' : 'neg'}">${w ? "+" : ""}${t.ret_pct}%</td>
+      <td class="${t.pnl_eur >= 0 ? 'pos' : 'neg'}">${t.pnl_eur >= 0 ? "+" : ""}${t.pnl_eur}</td>
+      <td>€${t.balance}</td><td class="muted">${t.src}</td></tr>`;
+  }).join("");
+}
+
 (async function () {
   const d = await load("pipeline.json");
   if (!d) { $("mission").textContent = "In avvio…"; return; }
   renderProject(d);
+  renderPortfolio(await load("portfolio.json"));
   renderWhales(d);
   renderTrends(d);
   renderCandidates(d);
