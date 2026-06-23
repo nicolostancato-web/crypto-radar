@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-23 13:00",
+  "updated_utc": "2026-06-23 14:30",
   "runner_pct": 50,
   "settled": 265,
   "runners": 52,
@@ -128,11 +128,11 @@
       "voliq": 1.95
     },
     {
-      "ticker": "Official Solan",
-      "ret_max": 2.27,
-      "pass": false,
-      "vol_1h": 2107,
-      "voliq": 1.96
+      "ticker": "Catch Pokémon ",
+      "ret_max": 2.65,
+      "pass": true,
+      "vol_1h": 213074,
+      "voliq": 17.38
     }
   ]
 }
