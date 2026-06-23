@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-23 19:41",
+  "updated_utc": "2026-06-23 19:26",
   "runner_pct": 50,
   "settled": 326,
   "runners": 60,
@@ -78,6 +78,13 @@
     }
   ],
   "best_runners": [
+    {
+      "ticker": "Photo of an Ad",
+      "ret_max": 8.97,
+      "pass": false,
+      "vol_1h": 0,
+      "voliq": 0.5
+    },
     {
       "ticker": "5UUH9RTD",
       "ret_max": 8.95,
