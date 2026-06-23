@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-23 15:40",
-  "wallets_seen": 2860,
-  "qualified": 195,
+  "updated_utc": "2026-06-23 18:34",
+  "wallets_seen": 3081,
+  "qualified": 222,
   "min_plays": 2,
   "smart": [
     {
@@ -55,6 +55,16 @@
       ]
     },
     {
+      "wallet": "phA9aCQHW3CfrzLG58px3RdE5dT8ZxxHJ8jLYxNCKH5",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "One survivor",
+        "Photo of an Ad"
+      ]
+    },
+    {
       "wallet": "DoZwiALhfF8VqGNwSaC4oNCzdkZz2YEpKD7WKZBuXmzU",
       "plays": 3,
       "hits": 2,
@@ -97,34 +107,6 @@
         "BRAIN",
         "FomoTower, whe",
         "zer0"
-      ]
-    },
-    {
-      "wallet": "PcWgMSejFb1AVxtRh2AmRppQcvezi5ZyjgUtVAeRzft",
-      "plays": 8,
-      "hits": 4,
-      "winrate": 0.5,
-      "tickers": [
-        "$PUMPVERSE",
-        "A dog named Jo",
-        "ARENA",
-        "Larry is the w",
-        "PVT",
-        "SYZYGY"
-      ]
-    },
-    {
-      "wallet": "omegoMAe1AMY5MFKQQr3JwXVy8F4eCvmBAfcpo8XAfq",
-      "plays": 6,
-      "hits": 3,
-      "winrate": 0.5,
-      "tickers": [
-        "$PUMPVERSE",
-        "Larry is the w",
-        "NOOT",
-        "PUMPVERSE",
-        "PVT",
-        "VONTRA"
       ]
     },
     {
@@ -172,6 +154,18 @@
         ".",
         "PUMPVERSE",
         "SYZYGY"
+      ]
+    },
+    {
+      "wallet": "52oc72vjNbpUhF7jNE1pPAvc17JwBTyxybFp3u7PvetG",
+      "plays": 4,
+      "hits": 2,
+      "winrate": 0.5,
+      "tickers": [
+        "Every Nation. ",
+        "MESSI THE GOAT",
+        "PXM is a digit",
+        "The Envious Do"
       ]
     },
     {
