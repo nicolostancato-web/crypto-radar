@@ -176,3 +176,15 @@ footer .muted{margin-top:8px;font-size:.78rem}
 .spark-up { fill:none; stroke:#34d399; stroke-width:2; }
 .spark-down { fill:none; stroke:#f87171; stroke-width:2; }
 #port-trades td.pos { color:#34d399; } #port-trades td.neg { color:#f87171; }
+
+/* --- SQUADRA (3 agenti) --- */
+.team-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin:10px 0; }
+.team-card { background:#161b24; border:1px solid #232b38; border-radius:12px; padding:14px 16px; }
+.team-h { font-weight:700; font-size:14px; margin-bottom:8px; color:#cdd6e2; }
+.team-l { font-size:13px; color:#9aa4b2; margin:4px 0; }
+.team-l b { color:#e6edf5; } .team-l b.pos { color:#34d399; } .team-l b.neg { color:#f87171; }
+.tr { font-size:12px; font-weight:600; }
+.tr.up { color:#34d399; } .tr.down { color:#f87171; } .tr.flat { color:#9aa4b2; }
+.cto-note { background:#13202b; border-left:3px solid #38bdf8; border-radius:8px; padding:12px 16px;
+  font-size:14px; color:#cdd6e2; margin-top:6px; line-height:1.5; }
+@media(max-width:720px){ .team-grid{ grid-template-columns:1fr; } }

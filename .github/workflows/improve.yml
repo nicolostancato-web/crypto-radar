@@ -26,18 +26,21 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
 
-      - name: Chiedi cosa migliorare + email
+      - name: Standup squadra (KPI + Trader + Accumulo) + email
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-        run: python improve_agent.py
+        run: |
+          python team_standup.py
+          python portfolio_sim.py
+          python improve_agent.py
 
-      - name: Salva il feedback
+      - name: Salva il feedback + KPI/trade del giorno
         run: |
           git config user.name "crypto-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add data/improvements/ data/improve_state.json
-          git commit -m "improve $(date -u +%Y-%m-%d)" || { echo "niente di nuovo"; exit 0; }
+          git add data/improvements/ data/improve_state.json data/kpi_history.jsonl data/trade_learnings.jsonl data/trade_config.json web/team.json web/kpi.json web/portfolio.json
+          git commit -m "standup $(date -u +%Y-%m-%d)" || { echo "niente di nuovo"; exit 0; }
           for i in 1 2 3 4 5; do
             git pull --no-rebase --no-edit origin main || true
             git push origin main && exit 0

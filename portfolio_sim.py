@@ -73,7 +73,17 @@ def _trade_return(ca, signal_ts, candles, hourly):
     return max(min(seq[-1][2] * (1 - SLIP) / entry - 1, 10.0), -0.95), src, seq[-1][0]
 
 
-def run(strategy="bs>=1.5"):
+def run(strategy=None):
+    global TRAIL, BET_FRAC
+    # usa la config IMPARATA dal Trader (trade_learner.py) se presente
+    cfg_p = os.path.join(HERE, "data", "trade_config.json")
+    if os.path.exists(cfg_p):
+        cfg = json.load(open(cfg_p))
+        if strategy is None:
+            strategy = cfg.get("filter", "bs>=2.0")
+        TRAIL = cfg.get("trail", TRAIL)
+        BET_FRAC = cfg.get("bet_frac", BET_FRAC)
+    strategy = strategy or "bs>=2.0"
     candles = _load_candles()
     hourly = _hourly_series()
     # segnali con bs e signal_ts

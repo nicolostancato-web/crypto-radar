@@ -45,7 +45,7 @@ jobs:
         run: |
           git config user.name "crypto-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add data/trends.jsonl data/candidates.jsonl data/track.jsonl data/learnings.json data/ohlcv.jsonl web/pipeline.json web/portfolio.json
+          git add data/trends.jsonl data/candidates.jsonl data/track.jsonl data/learnings.json data/ohlcv.jsonl web/pipeline.json web/portfolio.json web/team.json web/kpi.json
           git commit -m "trend $(date -u +%Y-%m-%dT%H:%MZ)" || { echo "niente di nuovo"; exit 0; }
           for i in 1 2 3 4 5; do
             git pull --no-rebase --no-edit origin main || true
@@ -59,7 +59,7 @@ jobs:
           PAGES_PAT: ${{ secrets.PAGES_PAT }}
         run: |
           git clone --depth 1 "https://x-access-token:${PAGES_PAT}@github.com/nicolostancato-web/crypto-radar-dashboard.git" /tmp/dash
-          cp web/index.html web/styles.css web/app.js web/pipeline.json web/portfolio.json /tmp/dash/
+          cp web/index.html web/styles.css web/app.js web/pipeline.json web/portfolio.json web/team.json web/kpi.json /tmp/dash/
           cd /tmp/dash
           git config user.name "crypto-radar-bot"
           git config user.email "bot@users.noreply.github.com"

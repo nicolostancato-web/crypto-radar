@@ -1,0 +1,1 @@
+{"date_ts": 1782188411, "n_tokens": 241, "n_runners": 40, "base_win": 20, "bs15_n": 42, "bs15_win": 29, "lift_pt": 9, "oos_win": 22, "survives": true}

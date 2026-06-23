@@ -204,6 +204,34 @@ function sparkline(eq) {
     <path d="${dd}" class="${up ? 'spark-up' : 'spark-down'}"/></svg>`;
 }
 
+function trendIcon(t) {
+  if (!t) return "";
+  if (t.includes("miglior") || t.includes("cresc")) return "<span class='tr up'>▲ " + t + "</span>";
+  if (t.includes("calo")) return "<span class='tr down'>▼ " + t + "</span>";
+  return "<span class='tr flat'>● " + t + "</span>";
+}
+
+function renderTeam(tm) {
+  if (!tm) { document.getElementById("team-sec").style.display = "none"; return; }
+  const a = tm.tab1_accumulo, k = tm.tab2_kpi, t = tm.tab3_trading;
+  const cards = [
+    { n: "1 · Accumulo", icon: "📡", lines: [
+      `<b>${a.token}</b> token · <b>${a.runner}</b> runner`,
+      `${a.candele_5m} candele 5m`, trendIcon(a.trend) ] },
+    { n: "2 · Analista (KPI)", icon: "🔬", lines: [
+      `base <b>${k.base_win}%</b> → bs≥1.5 <b>${k.bs15_win}%</b>`,
+      `lift +${k.lift_pt}pt · OOS ${k.oos_win}%`,
+      (k.survives ? "<span class='tr up'>segnale vivo</span>" : "<span class='tr down'>nessun edge</span>") + " " + trendIcon(k.trend) ] },
+    { n: "3 · Trading", icon: "💰", lines: [
+      `${t.strategy}`,
+      `P&L mediano <b class='${t.median_pnl >= 0 ? "pos" : "neg"}'>${t.median_pnl}%</b> · €100→€${t.portfolio_final}`,
+      (t.profitable ? "<span class='tr up'>profittevole</span>" : "<span class='tr down'>perde (meno peggio)</span>") + " " + trendIcon(t.trend) ] },
+  ];
+  $("team-grid").innerHTML = cards.map(c =>
+    `<div class="team-card"><div class="team-h">${c.icon} ${c.n}</div>${c.lines.map(l => `<div class="team-l">${l}</div>`).join("")}</div>`).join("");
+  $("cto-note").innerHTML = "<b>🧠 Il CTO:</b> " + tm.cto_note;
+}
+
 function renderPortfolio(p) {
   if (!p) { document.getElementById("portfolio-sec").style.display = "none"; return; }
   const up = p.final >= p.start, cls = up ? "pos" : "neg";
@@ -231,6 +259,7 @@ function renderPortfolio(p) {
   const d = await load("pipeline.json");
   if (!d) { $("mission").textContent = "In avvio…"; return; }
   renderProject(d);
+  renderTeam(await load("team.json"));
   renderPortfolio(await load("portfolio.json"));
   renderWhales(d);
   renderTrends(d);
