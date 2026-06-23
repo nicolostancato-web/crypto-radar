@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-22 22:27",
-  "wallets_seen": 2343,
-  "qualified": 135,
+  "updated_utc": "2026-06-23 04:40",
+  "wallets_seen": 2453,
+  "qualified": 148,
   "min_plays": 2,
   "smart": [
     {
@@ -45,27 +45,13 @@
       ]
     },
     {
-      "wallet": "3gubYnreSffR5qRqmkoCTketmCXj3jMQu4UdiqRGy13t",
-      "plays": 4,
-      "hits": 3,
-      "winrate": 0.75,
+      "wallet": "2nGi5a8WA3A9dsZG88cxYnmQpmnEvf5wppFMNsCWQcaA",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
       "tickers": [
-        "AN1Jkje",
-        "BILLY",
-        "discover"
-      ]
-    },
-    {
-      "wallet": "omegoMAe1AMY5MFKQQr3JwXVy8F4eCvmBAfcpo8XAfq",
-      "plays": 4,
-      "hits": 3,
-      "winrate": 0.75,
-      "tickers": [
-        "$PUMPVERSE",
-        "NOOT",
-        "PUMPVERSE",
-        "PVT",
-        "VONTRA"
+        "Strong CTO lea",
+        "The Vibes Are "
       ]
     },
     {
@@ -114,13 +100,40 @@
       ]
     },
     {
-      "wallet": "PcWgMSejFb1AVxtRh2AmRppQcvezi5ZyjgUtVAeRzft",
+      "wallet": "3gubYnreSffR5qRqmkoCTketmCXj3jMQu4UdiqRGy13t",
+      "plays": 5,
+      "hits": 3,
+      "winrate": 0.6,
+      "tickers": [
+        "AN1Jkje",
+        "BILLY",
+        "Lumumba DR Con",
+        "discover"
+      ]
+    },
+    {
+      "wallet": "omegoMAe1AMY5MFKQQr3JwXVy8F4eCvmBAfcpo8XAfq",
       "plays": 5,
       "hits": 3,
       "winrate": 0.6,
       "tickers": [
         "$PUMPVERSE",
+        "Larry is the w",
+        "NOOT",
+        "PUMPVERSE",
+        "PVT",
+        "VONTRA"
+      ]
+    },
+    {
+      "wallet": "PcWgMSejFb1AVxtRh2AmRppQcvezi5ZyjgUtVAeRzft",
+      "plays": 6,
+      "hits": 3,
+      "winrate": 0.5,
+      "tickers": [
+        "$PUMPVERSE",
         "ARENA",
+        "Larry is the w",
         "PVT",
         "SYZYGY",
         "TokenPeek is a"
@@ -210,16 +223,6 @@
       "tickers": [
         "CS",
         "FRAG"
-      ]
-    },
-    {
-      "wallet": "qmN7GGhWjVRrbj75Gib5mq4stD6oi4fxXPU8fXWHe7P",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "$DOGTRAIN",
-        "LION"
       ]
     }
   ]
