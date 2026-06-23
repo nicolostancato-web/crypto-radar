@@ -1,19 +1,9 @@
 {
-  "updated_utc": "2026-06-23 04:40",
-  "wallets_seen": 2453,
-  "qualified": 148,
+  "updated_utc": "2026-06-23 04:47",
+  "wallets_seen": 2622,
+  "qualified": 164,
   "min_plays": 2,
   "smart": [
-    {
-      "wallet": "56S29mZ3wqvw8hATuUUFqKhGcSGYFASRRFNT38W8q7G3",
-      "plays": 2,
-      "hits": 2,
-      "winrate": 1.0,
-      "tickers": [
-        "PUMPVERSE",
-        "SYZYGY"
-      ]
-    },
     {
       "wallet": "222mGpXPbjktz227sUJoc68cmADKAJEBoMhJysyZbPVC",
       "plays": 2,
@@ -52,6 +42,16 @@
       "tickers": [
         "Strong CTO lea",
         "The Vibes Are "
+      ]
+    },
+    {
+      "wallet": "56S29mZ3wqvw8hATuUUFqKhGcSGYFASRRFNT38W8q7G3",
+      "plays": 3,
+      "hits": 2,
+      "winrate": 0.67,
+      "tickers": [
+        "PUMPVERSE",
+        "SYZYGY"
       ]
     },
     {
@@ -101,21 +101,22 @@
     },
     {
       "wallet": "3gubYnreSffR5qRqmkoCTketmCXj3jMQu4UdiqRGy13t",
-      "plays": 5,
+      "plays": 6,
       "hits": 3,
-      "winrate": 0.6,
+      "winrate": 0.5,
       "tickers": [
         "AN1Jkje",
         "BILLY",
         "Lumumba DR Con",
+        "Wildfrontier i",
         "discover"
       ]
     },
     {
       "wallet": "omegoMAe1AMY5MFKQQr3JwXVy8F4eCvmBAfcpo8XAfq",
-      "plays": 5,
+      "plays": 6,
       "hits": 3,
-      "winrate": 0.6,
+      "winrate": 0.5,
       "tickers": [
         "$PUMPVERSE",
         "Larry is the w",
@@ -123,20 +124,6 @@
         "PUMPVERSE",
         "PVT",
         "VONTRA"
-      ]
-    },
-    {
-      "wallet": "PcWgMSejFb1AVxtRh2AmRppQcvezi5ZyjgUtVAeRzft",
-      "plays": 6,
-      "hits": 3,
-      "winrate": 0.5,
-      "tickers": [
-        "$PUMPVERSE",
-        "ARENA",
-        "Larry is the w",
-        "PVT",
-        "SYZYGY",
-        "TokenPeek is a"
       ]
     },
     {
@@ -186,22 +173,22 @@
       ]
     },
     {
-      "wallet": "2QfBNK2WDwSLoUQRb1zAnp3KM12N9hQ8q6ApwUMnWW2T",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "FRAG",
-        "SOCCER"
-      ]
-    },
-    {
       "wallet": "HvFdDWS3RqymRAVx1ZdoL2RjiC38r5dtt19Z8op5jqDK",
       "plays": 2,
       "hits": 1,
       "winrate": 0.5,
       "tickers": [
         "DOG",
+        "SOCCER"
+      ]
+    },
+    {
+      "wallet": "2QfBNK2WDwSLoUQRb1zAnp3KM12N9hQ8q6ApwUMnWW2T",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "FRAG",
         "SOCCER"
       ]
     },
@@ -223,6 +210,16 @@
       "tickers": [
         "CS",
         "FRAG"
+      ]
+    },
+    {
+      "wallet": "qmN7GGhWjVRrbj75Gib5mq4stD6oi4fxXPU8fXWHe7P",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "$DOGTRAIN",
+        "LION"
       ]
     }
   ]
