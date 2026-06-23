@@ -1,19 +1,19 @@
 {
-  "updated_utc": "2026-06-23 17:03",
+  "updated_utc": "2026-06-23 19:26",
   "runner_pct": 50,
-  "settled": 266,
-  "runners": 52,
-  "deads": 214,
+  "settled": 326,
+  "runners": 60,
+  "deads": 266,
   "by_arena": {
     "memecoin": {
-      "trades": 240,
-      "runners": 46,
-      "runner_rate": 0.19
+      "trades": 299,
+      "runners": 54,
+      "runner_rate": 0.18
     },
     "ai_agent": {
-      "trades": 26,
+      "trades": 27,
       "runners": 6,
-      "runner_rate": 0.23
+      "runner_rate": 0.22
     }
   },
   "prelim_at": 8,
@@ -23,50 +23,50 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 7053.5,
-      "dead_median": 1553.5,
-      "ratio": 4.54
+      "runner_median": 8930.0,
+      "dead_median": 2048.5,
+      "ratio": 4.36
     },
     {
       "feature": "age_h",
       "label": "età (h)",
-      "runner_median": 20.45,
-      "dead_median": 7.7,
-      "ratio": 2.66
-    },
-    {
-      "feature": "liq",
-      "label": "liquidità",
-      "runner_median": 14827.5,
-      "dead_median": 9312.0,
-      "ratio": 1.59
+      "runner_median": 11.95,
+      "dead_median": 5.6,
+      "ratio": 2.13
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 65275.0,
-      "dead_median": 45009.0,
-      "ratio": 1.45
+      "runner_median": 66716.0,
+      "dead_median": 44283.5,
+      "ratio": 1.51
+    },
+    {
+      "feature": "liq",
+      "label": "liquidità",
+      "runner_median": 11451.5,
+      "dead_median": 8503.0,
+      "ratio": 1.35
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
       "runner_median": 1.315,
-      "dead_median": 1.03,
-      "ratio": 1.28
+      "dead_median": 1.085,
+      "ratio": 1.21
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.512,
+      "runner_median": 0.518,
       "dead_median": 0.606,
-      "ratio": 0.84
+      "ratio": 0.85
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 6.02,
-      "dead_median": 5.8,
+      "runner_median": 6.15,
+      "dead_median": 5.895,
       "ratio": 1.04
     },
     {
@@ -78,6 +78,13 @@
     }
   ],
   "best_runners": [
+    {
+      "ticker": "Photo of an Ad",
+      "ret_max": 8.97,
+      "pass": false,
+      "vol_1h": 0,
+      "voliq": 0.5
+    },
     {
       "ticker": "5UUH9RTD",
       "ret_max": 8.95,
@@ -126,13 +133,6 @@
       "pass": false,
       "vol_1h": 26989,
       "voliq": 1.95
-    },
-    {
-      "ticker": "CatWifHat on U",
-      "ret_max": 3.34,
-      "pass": false,
-      "vol_1h": 41621,
-      "voliq": 6.7
     }
   ]
 }
