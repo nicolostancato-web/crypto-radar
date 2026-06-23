@@ -1,0 +1,154 @@
+================================================================================
+CRYPTO-RADAR — RECAP COMPLETO (aggiornato 2026-06-14)
+Sistema autonomo per trovare un edge sulle memecoin Solana / AI-agent via segnali X
+================================================================================
+
+--------------------------------------------------------------------------------
+1) LA VISIONE (perche' lo facciamo)
+--------------------------------------------------------------------------------
+Obiettivo: trovare un metodo RIPETIBILE per fare soldi sulle memecoin Solana (e AI-agent
+token), partendo da dati gratis/quasi-gratis, in paper trading, finche' l'edge non e'
+provato statisticamente. Solo allora si mettono soldi veri.
+
+Il "perche'" del founder: ho visto con i miei occhi gente (un amico) con portafogli Solana
+da 20.000+ euro che fa soldi entrando su memecoin. Ragazzini con 40-100k. Loro sanno qualcosa
+che noi non sappiamo, e NON usano l'AI. La tesi: se loro fanno soldi senza AI, noi con Claude
++ dati + disciplina possiamo arrivare al loro livello e superarli. C'e' un metodo, va trovato.
+
+Il realismo (onesto): l'edge di quella gente molto spesso NON e' un algoritmo, e' INFORMAZIONE
+(stare nei gruppi giusti, vedere le call prima, a volte essere loro a pompare). Il "vedere prima"
+vero accade ON-CHAIN (i wallet che comprano prima dell'hype pubblico), non su X (che e' gia'
+in ritardo). Il nostro edge difendibile in piu': MONEY MANAGEMENT disciplinato (i ragazzini
+vincono e poi ridanno tutto indietro; noi no: 2x -> salva capitale -> reinvesti una parte -> 2x).
+
+--------------------------------------------------------------------------------
+2) LA STRATEGIA (X-FIRST) E IL SUO LIMITE
+--------------------------------------------------------------------------------
+Pipeline: X (via Grok, dal vivo) trova cosa scalda -> filtro on-chain scarta i rug -> teniamo
+le "perle" (green) -> tracciamo prezzo/whale/volume ora per ora -> simuliamo entrate/uscite ->
+impariamo le regole -> ogni 24h ci facciamo criticare da un'AI esterna -> miglioriamo. Loop.
+
+LIMITE NOTO (review esterna DeepSeek): "strutturalmente perdente con la config attuale" per via
+della LATENZA. La viralita' su X anticipa il prezzo solo nelle prime 1-3 ore; noi con scan ogni
+4h la vediamo in ritardo -> compriamo spesso vicino al top. Due risposte: (A) backtest STORICO
+per ricostruire il pre-pump a posteriori (gratis), (B) ridurre la latenza (streaming, costa infra),
+(C) seguire i WALLET on-chain che comprano PRIMA (la cosa piu' vicina a "copiare" l'amico).
+
+--------------------------------------------------------------------------------
+3) ARCHITETTURA (cosa gira, ogni quanto, gratis o a pagamento)
+--------------------------------------------------------------------------------
+Tutto in cloud su GitHub Actions (Mac spento), file append-only su GitHub, dashboard pubblica.
+
+- SCAN (trends.yml) ogni 4h        -> Grok legge X live, trova memecoin Solana + AI-agent FRESCHI
+                                      in fase PRE-PICCO (prompt-anticipo: cerca la curva che SALE,
+                                      non quella gia' alta). A pagamento ~$0.18/giorno.
+- FILTRO (filter_tokens.py)        -> DexScreener + Helius: liquidita', volume, eta', buy/sell,
+                                      whale (top10/top1), authority. Decide GREEN (perla) o RED.
+                                      Corsia EARLY: i token <8h passano con soglie volume morbide
+                                      (non scartiamo i giovani). Gratis.
+- TRACKING (track.yml) ogni 30 min -> per ogni token seguito (green 5 giorni, red 48h) una
+                                      fotografia: prezzo, fdv, liq, volume 1h/24h, buys/sells,
+                                      buy/sell ratio, top10/top1/holders (whale). Gratis.
+- SOCIAL green (green_social.yml) ogni 4h -> per le sole green: posts/ora su X, trend, KOL,
+                                      sentiment (l'hype nel tempo). A pagamento ~$0.5/giorno, cap 5 green.
+- LEARNER (learner.py) ogni ciclo  -> confronta i token che corrono (>=+50%) vs morti, guarda i
+                                      numeri al segnale. Gratis.
+- SIMULATORE (in pipeline_export)  -> entra al segnale, prova uscite (su segnale-volume vs stop
+                                      fissi) + testa il TIMING d'ingresso (al segnale vs dopo
+                                      correzione -15%/-30%). Gratis.
+- WATCHDOG (watchdog.yml) ogni 4h  -> NON solo "e' acceso?" ma "stiamo accumulando dati BUONI?":
+                                      scan freschi, tracking che cresce, prezzi validi, serie >=3
+                                      punti, perle presenti. Se qualcosa e' fermo SI AUTO-RIPARA
+                                      (ri-lancia i workflow via API), altrimenti ti manda EMAIL. Gratis.
+- LOOP MIGLIORAMENTO (improve.yml) ogni 24h -> chiede a un'AI esterna (DeepSeek) "cosa miglioreresti
+                                      dato lo stato e i dati di oggi?" e ti manda il feedback via
+                                      email. GATE: lo fa solo con dati sufficienti+sensati (>=30
+                                      trade, >=3 runner); altrimenti accumula; forza dopo 4 giorni. ~$0.01/giorno.
+
+--------------------------------------------------------------------------------
+4) COSA ACCUMULIAMO (i dataset che crescono)
+--------------------------------------------------------------------------------
+- data/trends.jsonl      -> ogni scan Grok: i token trovati su X (ticker, CA, arena, narrativa,
+                            caller, stage pre/early ignition, menzioni in aumento, heat, red flag).
+- data/candidates.jsonl  -> ogni token valutato: green/red + i numeri al segnale + i motivi di scarto.
+- data/track.jsonl       -> IL CUORE: la "cartella clinica" oraria di ogni token (prezzo, volume,
+                            buy/sell, whale) dal segnale in poi. E' da qui che si impara il timing.
+- data/green_social.jsonl-> l'hype X delle perle nel tempo.
+- data/improvements/     -> i feedback del loop ogni 24h.
+
+--------------------------------------------------------------------------------
+5) STATO ATTUALE (2026-06-14 mattina)
+--------------------------------------------------------------------------------
+- ~19 scan, ~680 osservazioni di tracking, 46 token valutati, 2 perle.
+- 39 trade conclusi, 6 runner, status: READY (sopra le soglie per l'analisi).
+- Tutti i workflow girano (12/12 ok stanotte). Watchdog e auto-recovery attivi.
+- Prompt-anticipo attivo: ultimi scan 8/8 token in fase pre-picco.
+
+--------------------------------------------------------------------------------
+6) COSA ABBIAMO GIA' IMPARATO (lezioni, in APPUNTI_TRADING.md)
+--------------------------------------------------------------------------------
+#1 Il filtro becca i buoni ma TARDI: prendiamo i token vicino al top, poi ritracciano.
+#2 Gli SCARTATI battono le PERLE: con l'entry al segnale il filtro sta selezionando i perdenti.
+#3 Review DeepSeek: il problema e' la LATENZA, non il filtro. E il filtro escludeva i giovani.
+#4 Aspettare la correzione (-15%) rende meglio del comprare il top (-16% -> +2% nel test).
+#5 Lo SCOUT pescava vecchi/rug -> migliorato il prompt per cercare il PRE-PICCO (curva che sale).
+
+--------------------------------------------------------------------------------
+7) IL METODO ENTRATA/USCITA (soglie di partenza, da tarare coi dati)
+--------------------------------------------------------------------------------
+INGRESSO (idealmente): token giovane, volume in ACCELERAZIONE (non livello assoluto), whale che
+ENTRANO, hype X che inizia (non al picco), buy/sell forte. Non comprare quando "ne parlano gia' tutti".
+USCITA (su segnale, NON stop fissi): esci quando il volume svanisce (sotto ~35% del picco), quando
+le whale distribuiscono (top10 sale), quando il buy/sell si inverte. Niente "-30% e mollo".
+MONEY MANAGEMENT (il vero edge difendibile): 2x -> salva il capitale iniziale, reinvesti solo una
+parte, ripeti. La disciplina batte chi ha buon segnale ma scommette tutto.
+
+--------------------------------------------------------------------------------
+8) IL PRINCIPIO GUIDA (LOOP_MIGLIORAMENTO.md)
+--------------------------------------------------------------------------------
+Non esiste un edge perfetto gia' pronto. Si costruisce a CICLI:
+  implementa -> accumula 24h -> chiedi a un'AI esterna "cosa miglioreresti?" -> reimplementa -> accumula...
+Ruoli: Nicolo = guida/amministratore, fa la domanda giusta. Claude = mente/esecutore, costruisce e fa girare.
+Due paure gestite: (1) loop di rinvio infinito -> soglia ragionevole + forza dopo 4 giorni; (2) accumulare
+trash -> il watchdog controlla la qualita' ogni 4h e allerta se la raccolta e' ferma o senza vincitori.
+
+--------------------------------------------------------------------------------
+9) COSTI (CFO)
+--------------------------------------------------------------------------------
+~$0.7/giorno totali (scan Grok ~$0.18 + social green ~$0.5 + improve DeepSeek ~$0.01).
+Tutto il resto gratis (DexScreener, Helius, GitHub, Gmail, dashboard).
+Saldo xAI ~$8-9, auto top-up OFF (tetto fisico, mai addebiti a sorpresa).
+
+--------------------------------------------------------------------------------
+10) PIANO A BLOCCHI (review DeepSeek) — dove siamo
+--------------------------------------------------------------------------------
+[x] Blocco 1 - Filtro EARLY (non scartare i giovani) + dip-entry test.  FATTO.
+[ ] Blocco 2 - Backtester STORICO su 500-1000 token (sample size vero, ricostruisce il pre-pump). PROSSIMO.
+[ ] Blocco 3 - Derivati nel learner (accelerazione volume, whale netflow, top10 delta).
+[ ] Blocco 4 - Pulizia rumore + slippage 2% nel P&L + feature (deployer, buyers unici).
+[ ] Blocco 5 - Regressione (sklearn): quali feature al segnale predicono +50%/6h.
+[ ] Blocco 6 - Ridurre latenza scan (streaming) — serve infrastruttura, da decidere.
+[ ] EXTRA  - Tracking WALLET smart on-chain (chi compra PRIMA dell'hype = "copiare" i vincenti).
+
+--------------------------------------------------------------------------------
+11) GIUDIZIO IMPRENDITORIALE (CEO, onesto)
+--------------------------------------------------------------------------------
+Metodo: 9/10 (low-cost, paper, iterativo, disciplinato = come si costruisce un asset).
+Mercato scelto: 4/10 (memecoin retail-lento e' l'arena piu' dura; somma negativa).
+Mossa da CEO: tenerlo come SIDE BET automatizzato (gira da solo, ~€0 di attenzione), con un
+kill-criteria (es. se dopo 3-4 settimane / 300+ trade il backtest non mostra edge netto -> si
+archivia e si riusa l'infrastruttura). Non deve rubare ore ai progetti che fanno cassa.
+
+--------------------------------------------------------------------------------
+12) LINK E RISORSE
+--------------------------------------------------------------------------------
+Dashboard:  https://nicolostancato-web.github.io/crypto-radar-dashboard/
+Repo:       github.com/nicolostancato-web/crypto-radar (privato)
+Documenti:  METODO_ENTRATA_USCITA.md, APPUNTI_TRADING.md, LOOP_MIGLIORAMENTO.md, RECOVERY_crypto_radar.md
+Alert:      email a nicolostancato@gmail.com (watchdog + loop giornaliero)
+
+================================================================================
+IN UNA FRASE: abbiamo costruito in 2 giorni un sistema autonomo che caccia memecoin in pre-picco,
+le filtra, ne traccia la vita ora per ora, simula entrate/uscite, impara, si auto-critica ogni 24h
+e si auto-ripara. Ora si ACCUMULA. L'edge — se esiste — emergera' dai dati. Costo: sotto $1/giorno.
+================================================================================
