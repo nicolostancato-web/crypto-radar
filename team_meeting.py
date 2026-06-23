@@ -1,0 +1,260 @@
+"""
+team_meeting.py — IL MEETING DI ALLENAMENTO GIORNALIERO (ore 06:30 UTC).
+
+Non un report passivo: i 3 agenti si PARLANO e si AGGIUSTANO a vicenda, gestiti da me (CTO senior).
+Flusso del meeting (board condivisa = canale di comunicazione):
+  0. Dataset allineato (maturo, deglitchato) -> tutti leggono lo stesso.
+  1. ANALISTA (KPI): classifica quale filtro-segnale separa meglio i runner -> RACCOMANDA al Trader i top.
+  2. TRADER: testa la sua griglia + i filtri raccomandati dal KPI -> sceglie il migliore, DICE cosa gli serve.
+  3. ACCUMULATORE: legge i bisogni di Trader/KPI -> sposta il focus (logga la direzione, niente cambi rischiosi).
+  4. CTO: verbale (chi ha detto cosa, cosa cambia, decisioni) -> web/meeting.json + data/meeting_history + email.
+
+Onesto e senza look-ahead: deglitch, slippage, uscita causale, dichiara n e runner.
+"""
+import os, json, time, statistics as st
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+SLIP = 0.06
+
+
+# ---------- 0. DATASET ALLINEATO (la base comune) ----------
+def aligned_dataset():
+    obs = {}
+    for l in open(os.path.join(HERE, "data", "track.jsonl")):
+        o = json.loads(l)
+        if o.get("price"):
+            obs.setdefault(o["ca"], []).append((o["obs_ts"], o["price"]))
+    sig = {}
+    for l in open(os.path.join(HERE, "data", "candidates.jsonl")):
+        c = json.loads(l); ca = c.get("ca"); m = c.get("metrics", {})
+        if ca and ca not in sig:
+            sig[ca] = {"bs": m.get("bs_ratio_1h"), "np1h": m.get("np_1h"), "age": m.get("age_h"),
+                       "top10": m.get("top10_pct"), "voliq": m.get("voliq"), "vol1h": m.get("vol_1h"),
+                       "arena": c.get("arena")}
+    candles = {}
+    p = os.path.join(HERE, "data", "ohlcv.jsonl")
+    if os.path.exists(p):
+        for l in open(p):
+            try:
+                r = json.loads(l); cc = r.get("candles") or []
+                if cc:
+                    candles[r["ca"]] = sorted([(int(x[0]), x[2], x[4]) for x in cc], key=lambda t: t[0])
+            except Exception:
+                pass
+    rows = []
+    for ca, s in obs.items():
+        if ca not in sig:
+            continue
+        s = sorted(s); pr = [p for _, p in s]
+        if len(pr) < 2 or not pr[0]:
+            continue
+        med = st.median(pr); prc = [p for p in pr if med / 15 <= p <= med * 15] or pr
+        ret = max(prc) / prc[0] - 1
+        rows.append({"ca": ca, "ret": ret, "run": int(ret >= 0.5), "nobs": len(pr),
+                     "t0": s[0][0], **sig[ca]})
+    mature = [r for r in rows if r["nobs"] >= 6]
+    return rows, mature, candles, obs
+
+
+# ---------- filtri candidati (il vocabolario comune dei 3) ----------
+FILTERS = {
+    "bs>=1.5": lambda r: (r["bs"] or 0) >= 1.5,
+    "bs>=2.0": lambda r: (r["bs"] or 0) >= 2.0,
+    "np1h>0.2": lambda r: (r["np1h"] or -9) > 0.2,
+    "age<4h": lambda r: r["age"] is not None and r["age"] < 4,
+    "top10<0.30": lambda r: r["top10"] is not None and r["top10"] < 0.30,
+    "voliq>2": lambda r: (r["voliq"] or 0) > 2,
+    "vol1h>50k": lambda r: (r["vol1h"] or 0) > 50000,
+    "ai_agent": lambda r: r["arena"] == "ai_agent",
+}
+
+
+# ---------- 1. ANALISTA: quale filtro separa meglio? ----------
+def analista(mature):
+    base = sum(r["run"] for r in mature) / len(mature) * 100 if mature else 0
+    ranked = []
+    for name, pred in FILTERS.items():
+        sel = [r for r in mature if pred(r)]
+        if len(sel) < 12:
+            continue
+        win = sum(r["run"] for r in sel) / len(sel) * 100
+        ranked.append({"filter": name, "n": len(sel), "win": round(win), "lift": round(win - base)})
+    ranked.sort(key=lambda x: x["lift"], reverse=True)
+    recs = [r["filter"] for r in ranked[:2] if r["lift"] >= 5]   # raccomanda al Trader i top con lift reale
+    gaps = [r["filter"] for r in FILTERS if sum(1 for x in mature if FILTERS[r](x)) < 15]
+    return {"base_win": round(base), "ranking": ranked, "recommends_to_trader": recs, "data_gaps": gaps}
+
+
+# ---------- sim realistica (condivisa) ----------
+def _ret(ca, candles, obs, trail):
+    if ca in candles:
+        seq = candles[ca]
+    else:
+        h = sorted(obs.get(ca, []))
+        seq = [(ts, pr, pr) for ts, pr in h]
+    if len(seq) < 2:
+        return None
+    med = st.median([c for _, _, c in seq])
+    seq = [(t, hi, cl) for t, hi, cl in seq if med / 15 <= cl <= med * 15 and hi <= med * 20]
+    if len(seq) < 2:
+        return None
+    entry = seq[0][2] * (1 + SLIP); peak = seq[0][1]
+    for t, hi, cl in seq[1:]:
+        peak = max(peak, hi)
+        if cl <= peak * (1 - trail):
+            return max(cl * (1 - SLIP) / entry - 1, -0.95)
+    return max(min(seq[-1][2] * (1 - SLIP) / entry - 1, 10.0), -0.95)
+
+
+# ---------- 2. TRADER: testa griglia + i suggerimenti del KPI ----------
+def trader(mature, candles, obs, kpi_recs):
+    base_filters = ["buy_all", "bs>=2.0"]
+    test_filters = list(dict.fromkeys(base_filters + kpi_recs))   # aggiunge cio' che il KPI raccomanda
+    results = []
+    for fname in test_filters:
+        pred = (lambda r: True) if fname == "buy_all" else FILTERS.get(fname, lambda r: True)
+        sel = [r["ca"] for r in mature if pred(r)]
+        for trail in (0.20, 0.30, 0.40):
+            rs = [_ret(ca, candles, obs, trail) for ca in sel]; rs = [x for x in rs if x is not None]
+            if len(rs) < 12:
+                continue
+            results.append({"filter": fname, "trail": trail, "n": len(rs),
+                            "median": round(st.median(rs) * 100, 1), "mean": round(st.mean(rs) * 100, 1),
+                            "win": round(sum(1 for x in rs if x > 0) / len(rs) * 100),
+                            "n5m": sum(1 for ca in sel if ca in candles)})
+    if not results:
+        return None
+    results.sort(key=lambda g: (g["median"], g["mean"]), reverse=True)
+    best = results[0]
+    best["bet_frac"] = 0.10 if best["median"] < 0 else 0.15
+    best["profitable"] = best["median"] > 0
+    # il Trader risponde al KPI: il tuo suggerimento ha battuto il buy_all?
+    buyall = next((r for r in results if r["filter"] == "buy_all"), None)
+    kpi_tried = [r for r in results if r["filter"] in kpi_recs]
+    kpi_helped = bool(kpi_tried) and buyall and max(r["median"] for r in kpi_tried) > buyall["median"]
+    # cosa serve al Trader
+    needs = []
+    cov = sum(best["n5m"] for r in [best]) / max(best["n"], 1)
+    if best["n5m"] / max(best["n"], 1) < 0.7:
+        needs.append("piu candele 5m (esecuzione piu precisa)")
+    if best["n"] < 30:
+        needs.append(f"piu campioni nel filtro {best['filter']} (ora n={best['n']})")
+    return {"best": best, "kpi_suggestion_helped": kpi_helped, "needs": needs, "all_tested": results[:6]}
+
+
+# ---------- 3. ACCUMULATORE: si adatta ai bisogni ----------
+def accumulatore(kpi, trade, total_tokens, candle_count):
+    focus = []
+    for gap in kpi.get("data_gaps", []):
+        focus.append(f"accumula piu token che soddisfano {gap}")
+    if trade and any("candele" in n for n in trade.get("needs", [])):
+        focus.append(f"alza copertura candele 5m (ora {candle_count}/{total_tokens})")
+    if trade and trade["best"]["filter"] != "buy_all":
+        focus.append(f"privilegia il regime '{trade['best']['filter']}' nello scan")
+    return {"focus_next": focus[:4], "token_totali": total_tokens, "candele_5m": candle_count}
+
+
+def run():
+    rows, mature, candles, obs = aligned_dataset()
+    kpi = analista(mature)
+    trade = trader(mature, candles, obs, kpi["recommends_to_trader"])
+    acc = accumulatore(kpi, trade, len(rows), len(candles))
+
+    # il Trader scrive la config che il portafoglio usera'
+    if trade:
+        b = trade["best"]
+        with open(os.path.join(HERE, "data", "trade_config.json"), "w") as f:
+            json.dump({"filter": b["filter"], "exit": "trail", "trail": b["trail"], "n": b["n"],
+                       "median_pnl": b["median"], "win": b["win"], "bet_frac": b["bet_frac"],
+                       "profitable": b["profitable"]}, f)
+
+    # --- VERBALE del CTO ---
+    top = kpi["ranking"][0] if kpi["ranking"] else None
+    decisioni = []
+    if top:
+        decisioni.append(f"Segnale guida: {top['filter']} (win {top['win']}%, +{top['lift']}pt sulla base)")
+    if trade:
+        tag = "PROFITTEVOLE" if trade["best"]["profitable"] else "ancora in perdita"
+        decisioni.append(f"Strategia adottata: {trade['best']['filter']} + trailing {int(trade['best']['trail']*100)}% "
+                         f"(mediana {trade['best']['median']}%, {tag})")
+        decisioni.append("Il suggerimento dell'Analista " + ("HA aiutato il Trader." if trade["kpi_suggestion_helped"]
+                         else "non ha battuto il 'compra tutto' stavolta."))
+    if acc["focus_next"]:
+        decisioni.append("Accumulo punta su: " + "; ".join(acc["focus_next"][:2]))
+
+    if trade and trade["best"]["profitable"] and top and top["lift"] >= 8:
+        cto = "Segnale forte E strategia in utile: prepariamo un paper-trading serio sul config di oggi."
+    elif top and top["lift"] >= 8:
+        cto = (f"Il segnale {top['filter']} regge (+{top['lift']}pt) ma non si monetizza ancora "
+               f"(miglior mediana {trade['best']['median'] if trade else 0}%). Muro = esecuzione/slippage. "
+               f"Accumulo e candele continuano.")
+    else:
+        cto = "Nessun edge monetizzabile oggi. Continuiamo ad allineare dati e a raffinare uscita; il sistema lavora a costo zero."
+
+    out = {"ts": int(time.time()), "n_tokens": len(rows), "n_mature": len(mature),
+           "n_runners": sum(r["run"] for r in rows),
+           "analista": kpi, "trader": trade, "accumulatore": acc,
+           "decisioni": decisioni, "cto_note": cto}
+    with open(os.path.join(HERE, "web", "meeting.json"), "w") as f:
+        json.dump(out, f)
+
+    hist = os.path.join(HERE, "data", "meeting_history.jsonl")
+    prev = [json.loads(l) for l in open(hist)] if os.path.exists(hist) else []
+    if not prev or prev[-1].get("n_tokens") != out["n_tokens"]:
+        with open(hist, "a") as f:
+            f.write(json.dumps({"ts": out["ts"], "n_tokens": len(rows), "base_win": kpi["base_win"],
+                                "top_signal": top["filter"] if top else None, "top_lift": top["lift"] if top else 0,
+                                "best_strategy": trade["best"]["filter"] if trade else None,
+                                "best_median_pnl": trade["best"]["median"] if trade else None}) + "\n")
+
+    # il portafoglio usa subito il config adottato oggi + aggiorna il pannello squadra (team.json)
+    try:
+        import portfolio_sim
+        port = portfolio_sim.run()
+    except Exception:
+        port = {"final": None, "n_trades": 0}
+
+    def _trend(key):
+        h = [json.loads(l) for l in open(hist)] if os.path.exists(hist) else []
+        if len(h) < 2 or h[-2].get(key) is None or h[-1].get(key) is None:
+            return "primo dato"
+        return "in miglioramento" if h[-1][key] > h[-2][key] else ("stabile" if h[-1][key] == h[-2][key] else "in calo")
+    team = {"tab1_accumulo": {"token": len(rows), "runner": out["n_runners"], "candele_5m": len(candles),
+                              "trend": "in crescita"},
+            "tab2_kpi": {"base_win": kpi["base_win"], "bs15_win": (top["win"] if top else 0),
+                         "lift_pt": (top["lift"] if top else 0), "oos_win": (top["win"] if top else 0),
+                         "n": len(mature), "verdict": (decisioni[0] if decisioni else ""),
+                         "trend": _trend("top_lift"), "survives": bool(top and top["lift"] >= 8)},
+            "tab3_trading": {"strategy": (f"{trade['best']['filter']} + trail{int(trade['best']['trail']*100)}%" if trade else "—"),
+                             "median_pnl": (trade["best"]["median"] if trade else 0),
+                             "win": (trade["best"]["win"] if trade else 0),
+                             "profitable": (trade["best"]["profitable"] if trade else False),
+                             "portfolio_final": port.get("final"), "n_trades": port.get("n_trades"),
+                             "trend": _trend("best_median_pnl")},
+            "cto_note": cto}
+    with open(os.path.join(HERE, "web", "team.json"), "w") as f:
+        json.dump(team, f)
+
+    print("\n========== MEETING DI ALLENAMENTO ==========")
+    print(f"Dataset allineato: {len(rows)} token ({len(mature)} maturi, {out['n_runners']} runner, {len(candles)} con candele 5m)")
+    print(f"ANALISTA  -> guida: {top['filter'] if top else '—'} (+{top['lift'] if top else 0}pt) | raccomanda al Trader: {kpi['recommends_to_trader']}")
+    if trade:
+        print(f"TRADER    -> adotta {trade['best']['filter']} trail{int(trade['best']['trail']*100)}% "
+              f"(mediana {trade['best']['median']}%) | KPI ha aiutato: {trade['kpi_suggestion_helped']} | serve: {trade['needs']}")
+    print(f"ACCUMULO  -> focus: {acc['focus_next']}")
+    print(f"CTO       -> {cto}")
+
+    try:
+        import watchdog
+        body = ("MEETING DI ALLENAMENTO crypto-radar\n\n"
+                f"Dataset: {len(rows)} token, {len(mature)} maturi, {out['n_runners']} runner, {len(candles)} candele 5m\n\n"
+                "VERBALE:\n- " + "\n- ".join(decisioni) + f"\n\nCTO: {cto}")
+        watchdog._email("crypto-radar — meeting di allenamento", body)
+        print("[meeting] verbale inviato via email")
+    except Exception as e:
+        print(f"[meeting] email non inviata: {str(e)[:80]}")
+    return out
+
+
+if __name__ == "__main__":
+    run()

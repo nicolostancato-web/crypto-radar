@@ -232,6 +232,29 @@ function renderTeam(tm) {
   $("cto-note").innerHTML = "<b>🧠 Il CTO:</b> " + tm.cto_note;
 }
 
+function renderMeeting(m) {
+  if (!m) { document.getElementById("meeting-sec").style.display = "none"; return; }
+  if (m.ts) $("meeting-when").textContent = "— " + new Date(m.ts * 1000).toLocaleString("it-IT", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" });
+  const an = m.analista || {}, tr = m.trader || {}, ac = m.accumulatore || {};
+  const top = (an.ranking || [])[0];
+  const speakers = [
+    { who: "🔬 Analista", say: top
+        ? `Segnale guida: <b>${top.filter}</b> (win ${top.win}%, +${top.lift}pt). Trader, prova: ${(an.recommends_to_trader || []).join(", ") || "—"}`
+        : "Campione ancora magro, continuo a misurare." },
+    { who: "💰 Trader", say: tr.best
+        ? `Adotto <b>${tr.best.filter} trail${Math.round(tr.best.trail * 100)}%</b> (mediana <b class="${tr.best.median >= 0 ? "pos" : "neg"}">${tr.best.median}%</b>). Il suggerimento dell'Analista ${tr.kpi_suggestion_helped ? "<span class='tr up'>ha aiutato</span>" : "stavolta non ha battuto il compra-tutto"}. Mi serve: ${(tr.needs || []).join("; ") || "nulla"}`
+        : "Dati insufficienti per testare." },
+    { who: "📡 Accumulo", say: (ac.focus_next && ac.focus_next.length)
+        ? "Ricevuto. Sposto il focus su: " + ac.focus_next.join("; ")
+        : "Continuo l'accumulo standard." },
+  ];
+  $("meeting-flow").innerHTML = speakers.map(s =>
+    `<div class="speak"><div class="speak-who">${s.who}</div><div class="speak-say">${s.say}</div></div>`).join("");
+  $("meeting-decisions").innerHTML =
+    `<div class="dec-h">Decisioni del CTO</div><ul>${(m.decisioni || []).map(d => `<li>${d}</li>`).join("")}</ul>` +
+    `<div class="cto-note">🧠 ${m.cto_note || ""}</div>`;
+}
+
 function renderPortfolio(p) {
   if (!p) { document.getElementById("portfolio-sec").style.display = "none"; return; }
   const up = p.final >= p.start, cls = up ? "pos" : "neg";
@@ -260,6 +283,7 @@ function renderPortfolio(p) {
   if (!d) { $("mission").textContent = "In avvio…"; return; }
   renderProject(d);
   renderTeam(await load("team.json"));
+  renderMeeting(await load("meeting.json"));
   renderPortfolio(await load("portfolio.json"));
   renderWhales(d);
   renderTrends(d);

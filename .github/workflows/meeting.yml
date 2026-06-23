@@ -1,0 +1,62 @@
+name: crypto-radar-meeting
+
+# IL MEETING DI ALLENAMENTO GIORNALIERO: 1x al giorno i 3 agenti si allineano sul dataset, si parlano
+# (l'Analista raccomanda al Trader, il Trader dice cosa serve, l'Accumulatore sposta il focus) e si
+# aggiustano. Il CTO scrive il verbale -> email + dashboard. Costo: ~zero (tutto in casa + 1 email).
+on:
+  schedule:
+    - cron: "30 6 * * *"     # ogni giorno 06:30 UTC (08:30 Italia) — l'orario fisso del meeting
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: radar
+  cancel-in-progress: false
+
+jobs:
+  meeting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+
+      - name: Meeting di allenamento (3 agenti si allineano e si aggiustano) + email verbale
+        env:
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python team_meeting.py
+
+      - name: Salva verbale + config adottato
+        run: |
+          git config user.name "crypto-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/trade_config.json data/meeting_history.jsonl web/meeting.json web/team.json web/portfolio.json
+          git commit -m "meeting $(date -u +%Y-%m-%d)" || { echo "niente di nuovo"; exit 0; }
+          for i in 1 2 3 4 5; do
+            git pull --no-rebase --no-edit -X theirs origin main || true
+            git push origin main && break
+            sleep 5
+          done
+
+      - name: Aggiorna dashboard pubblica
+        env:
+          PAGES_PAT: ${{ secrets.PAGES_PAT }}
+        run: |
+          git clone --depth 1 "https://x-access-token:${PAGES_PAT}@github.com/nicolostancato-web/crypto-radar-dashboard.git" /tmp/dash
+          cp web/index.html web/styles.css web/app.js web/pipeline.json web/portfolio.json web/team.json web/kpi.json web/meeting.json /tmp/dash/
+          cd /tmp/dash
+          git config user.name "crypto-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add -A
+          git commit -m "dashboard meeting $(date -u +%Y-%m-%d)" || { echo "nessun cambiamento"; exit 0; }
+          for i in 1 2 3; do
+            git pull --no-rebase --no-edit -X theirs origin main || true
+            git push origin main && exit 0
+            sleep 4
+          done
+          echo "dashboard push non riuscito (non blocca)"; exit 0

@@ -188,3 +188,14 @@ footer .muted{margin-top:8px;font-size:.78rem}
 .cto-note { background:#13202b; border-left:3px solid #38bdf8; border-radius:8px; padding:12px 16px;
   font-size:14px; color:#cdd6e2; margin-top:6px; line-height:1.5; }
 @media(max-width:720px){ .team-grid{ grid-template-columns:1fr; } }
+
+/* --- MEETING DI ALLENAMENTO --- */
+.meeting-flow { display:flex; flex-direction:column; gap:8px; margin:10px 0; }
+.speak { display:flex; gap:12px; background:#161b24; border:1px solid #232b38; border-radius:10px; padding:11px 14px; }
+.speak-who { font-weight:700; font-size:13px; color:#cdd6e2; min-width:110px; }
+.speak-say { font-size:13px; color:#9aa4b2; line-height:1.45; }
+.speak-say b { color:#e6edf5; } .speak-say b.pos { color:#34d399; } .speak-say b.neg { color:#f87171; }
+.meeting-decisions { margin-top:10px; }
+.dec-h { font-weight:700; font-size:13px; color:#cdd6e2; margin-bottom:4px; }
+.meeting-decisions ul { margin:0 0 8px; padding-left:18px; }
+.meeting-decisions li { font-size:13px; color:#9aa4b2; margin:3px 0; }
