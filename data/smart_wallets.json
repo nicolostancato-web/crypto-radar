@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-23 04:47",
-  "wallets_seen": 2622,
-  "qualified": 164,
+  "updated_utc": "2026-06-23 08:22",
+  "wallets_seen": 2700,
+  "qualified": 179,
   "min_plays": 2,
   "smart": [
     {
@@ -163,6 +163,15 @@
       ]
     },
     {
+      "wallet": "GFynjwFTQ734vP745QdxcNn6z3qQL3uJWEpw3q1byNjv",
+      "plays": 2,
+      "hits": 1,
+      "winrate": 0.5,
+      "tickers": [
+        "SCROLL"
+      ]
+    },
+    {
       "wallet": "DeNwH63Xgj3a4bXXHw79BiL5iBUNBQVaRYeLHQTQxL7z",
       "plays": 2,
       "hits": 1,
@@ -210,16 +219,6 @@
       "tickers": [
         "CS",
         "FRAG"
-      ]
-    },
-    {
-      "wallet": "qmN7GGhWjVRrbj75Gib5mq4stD6oi4fxXPU8fXWHe7P",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "$DOGTRAIN",
-        "LION"
       ]
     }
   ]
