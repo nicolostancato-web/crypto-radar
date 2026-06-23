@@ -1,13 +1,13 @@
 {
-  "updated_utc": "2026-06-23 22:47",
+  "updated_utc": "2026-06-23 23:36",
   "runner_pct": 50,
   "settled": 370,
-  "runners": 71,
-  "deads": 299,
+  "runners": 70,
+  "deads": 300,
   "by_arena": {
     "memecoin": {
       "trades": 342,
-      "runners": 65,
+      "runners": 64,
       "runner_rate": 0.19
     },
     "ai_agent": {
@@ -23,50 +23,50 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 9988,
-      "dead_median": 2765.0,
-      "ratio": 3.61
+      "runner_median": 8673.5,
+      "dead_median": 2807,
+      "ratio": 3.09
     },
     {
       "feature": "age_h",
       "label": "età (h)",
-      "runner_median": 11.5,
-      "dead_median": 4.4,
-      "ratio": 2.61
+      "runner_median": 11.95,
+      "dead_median": 4.35,
+      "ratio": 2.75
     },
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 12338,
-      "dead_median": 6934.5,
-      "ratio": 1.78
+      "runner_median": 12294.5,
+      "dead_median": 7141,
+      "ratio": 1.72
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 65652,
-      "dead_median": 42961.5,
-      "ratio": 1.53
+      "runner_median": 65275.0,
+      "dead_median": 43190,
+      "ratio": 1.51
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
-      "runner_median": 1.35,
-      "dead_median": 1.115,
-      "ratio": 1.21
+      "runner_median": 1.36,
+      "dead_median": 1.11,
+      "ratio": 1.23
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.513,
-      "dead_median": 0.632,
-      "ratio": 0.81
+      "runner_median": 0.514,
+      "dead_median": 0.627,
+      "ratio": 0.82
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
       "runner_median": 6.02,
-      "dead_median": 5.97,
+      "dead_median": 5.98,
       "ratio": 1.01
     },
     {
@@ -115,7 +115,7 @@
     },
     {
       "ticker": "CatWifHat on U",
-      "ret_max": 4.48,
+      "ret_max": 4.53,
       "pass": false,
       "vol_1h": 41621,
       "voliq": 6.7
@@ -126,13 +126,6 @@
       "pass": false,
       "vol_1h": 19539,
       "voliq": 1.21
-    },
-    {
-      "ticker": "CatWifHat on U",
-      "ret_max": 4.35,
-      "pass": false,
-      "vol_1h": 41621,
-      "voliq": 6.7
     },
     {
       "ticker": "Miu the pfp ca",
