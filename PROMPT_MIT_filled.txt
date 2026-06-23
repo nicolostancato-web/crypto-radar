@@ -1,0 +1,276 @@
+You are the single best quantitative data scientist in the world, in a life-or-death competition.
+Someone hands you a paper with real trading data and one question: **GIVEN THIS DATA, IS THERE A WAY TO BE
+PROFITABLE? Find it, or tell me honestly it's not there.** Take your time, think very deeply.
+
+# CONTEXT
+A system scans X/Twitter for fresh Solana memecoins + AI-agent tokens, filters them on-chain, and PAPER-TRADES
+them (no real money). Player profile: SLOW RETAIL (hourly data, can't snipe in seconds). Entry is honest:
+"buy at the first price check AFTER the signal" (no look-ahead). Outcome = ret_max (max price reached / first
+tracked price - 1). A token is a RUNNER if ret_max >= 0.5 (+50%).
+
+# THE DATA (241 tokens, one row each; TSV)
+Columns: ret(max return),run(1=runner>=+50%),nobs(n osservazioni=MATURITA: <6 = immaturo,ignora),age_h,liq,vol1h,voliq,bs(buy/sell 1h),np1h(pressione netta 1h -1..+1),np6h,accel(bs 5min/1h: >1=onda parte),bsm5,top10,heat,arena,whale_early,risk,insider,lp
+
+ret	run	nobs	age_h	liq	vol1h	voliq	bs	np1h	np6h	accel	bsm5	top10	heat	arena	whale_early	risk	insider	lp
+0.01	0	19	61.7	2840	0	0.0	0	None	None	None	None	0.991	7	None	None	26	None	100
+0.0	0	19	81.2	2567	0	0.0	0	None	None	None	None	0.995	5	None	None	32	4	100
+0.0	0	19	11.8	3807	287	188.08	0.36	None	None	None	None	0.887	6	None	None	31	4	100
+0.0	0	21	3.6	0	0	None	0	None	None	None	None	1.0	6	None	None	1	None	100
+0.05	0	22	2.2	3101	182	21.03	0.94	None	None	None	None	0.919	5	None	None	27	30	100
+0.02	0	22	5.6	0	209	None	0.97	None	None	None	None	1.0	4	None	None	62	None	100
+0.07	0	57	55.0	58908	27719	15.77	1.31	None	None	None	None	0.255	5	None	None	1	4	99.78358590167204
+0.0	0	23	24.3	49897	79244	33.63	1.2	None	None	None	None	0.202	5	None	None	1	85	100
+0.05	0	23	None	None	None	None	None	None	None	None	None	None	4	None	-0.63	1	4	100
+0.05	0	23	2416.9	88338	1495	0.76	3.0	None	None	None	None	0.337	3	None	None	1	4	100
+0.0	0	23	161.4	24477	142	1.82	0.8	None	None	None	None	0.229	4	None	None	1	71	100
+0.62	1	25	2.6	0	4553	None	1.24	None	None	None	None	0.609	5	None	None	1	5	100
+0.0	0	25	20.7	7448	1506	33.08	2.8	None	None	None	None	0.601	3	None	None	18	None	100
+20200.02	1	25	126.7	201920	39814	10.32	2.5	None	None	None	None	0.175	5	None	0.1	1	126	100
+0.42	0	25	4.3	0	5	None	3	None	None	None	None	1.0	3	None	None	1	None	100
+1.22	1	25	42.6	0	1877	None	1.15	None	None	None	None	0.718	6	None	None	1	None	100
+0.01	0	25	475.8	19214	1042	4.71	3.36	None	None	None	None	0.38	6	None	None	1	9	100
+0.09	0	59	26.9	120249	188956	32.91	5.57	None	None	None	None	0.22	8	None	None	13	None	100
+0.02	0	25	2180.4	9084	0	0.0	0	None	None	None	None	0.717	4	None	None	69	4	100
+0.0	0	14	None	None	None	None	None	None	None	None	None	None	2	None	None	1	None	100
+0.41	0	25	160.5	13412	298	0.74	0.5	None	None	None	None	0.792	4	ai_agent	None	41	11	100
+0.0	0	27	29.3	236357	0	0.04	0	None	None	None	None	None	5	ai_agent	None	None	None	None
+0.13	0	27	1578.3	18946	0	0.03	0	None	None	None	None	0.827	4	memecoin	-0.28	60	None	100
+0.01	0	27	53.4	89417	584	1.0	0.6	None	None	None	None	None	5	ai_agent	None	None	None	None
+0.04	0	27	429.9	169528	74	0.07	1	None	None	None	None	None	3	ai_agent	None	None	None	None
+0.03	0	20	12.1	0	0	None	0	None	None	None	None	1.0	4	memecoin	None	1	40	100
+0.48	0	28	6179.0	6424	0	0.0	0	None	None	None	None	0.677	5	ai_agent	None	53	13	100
+0.91	1	28	28.8	9655	440	5.91	2.67	None	None	None	None	0.484	3	memecoin	None	19	4	100
+0.0	0	29	10.5	6340	1180	77.33	0.78	None	None	None	None	0.675	5	memecoin	None	48	9	100
+0.0	0	25	2.8	0	0	None	0	None	None	None	None	1.0	4	memecoin	None	1	None	100
+0.05	0	29	323.6	0	0	None	0	None	None	None	None	0.886	4	memecoin	None	1	None	100
+0.07	0	16	2022.4	0	0	None	0	None	None	None	None	0.978	3	memecoin	None	1	None	100
+0.08	0	29	5756.9	55434	0	0.02	0	None	None	None	None	0.449	4	ai_agent	-0.14	55	None	100
+0.8	1	29	77.2	14635	1850	0.62	1.0	None	None	None	None	0.613	3	memecoin	None	27	12	100
+0.0	0	9	7.8	0	0	None	0	None	None	None	None	1.0	5	memecoin	0.2	1	None	100
+0.18	0	29	16.0	28828	39466	57.56	1.11	None	None	None	None	0.338	4	memecoin	0.54	1	9	100
+1.29	1	29	5.9	5099	2488	44.47	1.0	None	None	None	None	0.728	6	memecoin	-0.28	26	8	100
+0.12	0	31	109.0	10913	10	0.21	0.0	None	None	None	None	0.595	3	memecoin	-0.13	1	72	100
+0.71	1	31	436.4	196008	1297	0.33	0.7	None	None	None	None	None	4	ai_agent	None	None	None	None
+0.0	0	22	6.5	0	0	None	0	None	None	None	None	0.983	3	memecoin	0.13	1	7	100
+0.0	0	14	0.4	0	1	None	1	None	None	None	None	1.0	2	memecoin	1.0	1	None	100
+2.19	1	35	226.1	74862	5929	3.54	1.71	None	None	None	None	0.327	4	ai_agent	-0.08	1	15	100
+0.28	0	25	2.2	0	0	None	0	None	None	None	None	1.0	4	memecoin	0.07	1	None	100
+0.0	0	14	7.4	0	0	None	0	None	None	None	None	1.0	2	memecoin	1.0	1	None	100
+0.0	0	14	5.4	0	0	None	0	None	None	None	None	1.0	2	ai_agent	0.67	1	None	100
+0.0	0	14	3.9	0	0	None	0	None	None	None	None	1.0	3	ai_agent	0.5	1	None	100
+4.41	1	39	0.2	16109	19539	1.21	0.86	None	None	None	None	0.496	3	memecoin	-0.19	55	None	100
+0.0	0	39	0.4	6624	43190	6.52	1.31	None	None	None	None	0.558	4	memecoin	-0.46	26	None	100
+6.29	1	38	25.8	0	191	None	9.67	None	None	None	None	1.0	5	memecoin	0.14	57	None	100
+0.09	0	17	2.5	0	0	None	0	None	None	None	None	1.0	3	ai_agent	-0.75	1	None	100
+0.19	0	45	1416.9	224820	3731	0.27	0.19	None	None	None	None	0.208	3	memecoin	-0.06	7	26	100
+0.04	0	45	2.9	28383	168410	22.55	1.03	None	None	None	None	0.135	2	memecoin	-0.66	25	None	100
+0.03	0	35	2.1	0	0	None	0	None	None	None	None	1.0	3	memecoin	-0.89	1	None	100
+1.14	1	45	2918.1	48433	817	0.89	1.83	None	None	None	None	0.277	3	memecoin	-0.22	1	None	100
+0.03	0	49	86.4	69267	72083	9.9	1.01	None	None	None	None	0.278	2	memecoin	-0.0	1	None	100
+0.77	1	67	16.8	81929	20002	7.05	1.72	None	None	None	None	0.183	6	memecoin	0.15	1	4	100
+0.68	1	68	2.1	15408	35596	9.22	1.37	None	None	None	None	0.431	2	memecoin	-0.07	1	None	100
+0.0	0	68	2.1	43969	111763	6.09	1.41	None	None	None	None	0.368	1	memecoin	0.02	1	4	100
+1.32	1	52	54.8	0	0	None	0	None	None	None	None	0.845	4	memecoin	-0.21	34	None	100
+0.43	0	37	1.1	0	1079	None	2.0	None	None	None	None	0.994	3	memecoin	-0.26	1	None	100
+0.0	0	53	11.2	3589	3	856.05	0.0	None	None	None	None	0.995	5	memecoin	-0.77	24	None	100
+0.05	0	56	8.9	41233	3042	1.62	1.88	None	None	None	None	0.568	5	ai_agent	0.09	35	297	100
+20.09	1	26	1.5	20958	82	0.01	13	None	None	None	None	1.0	4	memecoin	0.75	62	None	100
+0.0	0	56	0.7	25085	354539	14.13	1.15	None	None	None	None	0.239	4	memecoin	-0.45	25	None	100
+0.48	0	44	7.6	11053	2122	15.51	1.0	None	None	None	None	0.373	4	memecoin	-0.14	25	31	100
+1.46	1	57	2.3	0	0	None	0	None	None	None	None	0.899	2	memecoin	0.73	1	None	100
+0.0	0	73	7.7	43055	13316	17.8	1.83	None	None	None	None	0.449	5	memecoin	-0.14	1	10	100
+0.0	0	15	208.6	0	0	None	0	None	None	None	None	None	6	memecoin	None	None	None	None
+1.69	1	55	0.5	0	50385	None	1.34	None	None	None	None	0.705	3	ai_agent	0.19	1	5	100
+0.0	0	17	3.3	0	78	None	0.0	None	None	None	None	1.0	4	memecoin	-0.25	1	None	100
+0.2	0	62	0.3	12438	127575	10.26	1.41	None	None	None	None	0.315	2	memecoin	-0.79	26	None	100
+0.36	0	61	13513.2	108519	213	0.17	1.0	None	None	None	None	0.59	3	memecoin	0.4	40	None	99.48999999999828
+0.09	0	61	723.2	372144	206725	4.34	1.75	None	None	None	None	0.167	5	memecoin	-0.25	30	34	100
+0.61	1	61	21.4	18	0	0.51	0	None	None	None	None	0.673	3	ai_agent	-0.01	34	None	100
+0.12	0	55	2.6	0	0	None	0	None	None	None	None	1.0	2	memecoin	-0.6	1	None	100
+0.05	0	62	168.2	6027	2	0.0	1	None	None	None	None	None	1	ai_agent	None	None	None	None
+0.0	0	59	485.4	0	0	None	0	None	None	None	None	1.0	3	memecoin	0.56	1	None	100
+1.02	1	67	49.4	34743	23664	17.12	1.25	None	None	None	None	0.254	4	memecoin	-0.4	1	9	100
+1.81	1	61	33.5	25311	6748	6.86	1.0	None	None	None	None	0.308	4	memecoin	0.02	1	None	100
+0.0	0	65	2.4	45019	222096	28.64	1.63	None	None	None	None	0.317	5	memecoin	-0.13	1	None	100
+5599.76	1	62	10180.6	2880428	118925	0.49	6.81	None	None	None	None	0.235	4	memecoin	-0.22	1	185	99.71211428663656
+6.75	1	59	19.5	3296	1340	21.24	1.83	None	None	None	None	0.699	5	memecoin	0.03	1	None	100
+0.0	0	59	1.4	11490	54364	15.12	1.26	None	None	None	None	0.478	4	memecoin	-0.07	24	None	100
+0.0	0	59	2.2	0	993	None	0.51	None	None	None	None	0.944	3	memecoin	-0.45	1	None	100
+0.44	0	59	37.0	47514	23359	14.57	1.14	None	None	None	None	0.261	3	memecoin	0.05	1	21	100
+0.0	0	15	6.1	0	0	None	0	None	None	None	None	1.0	5	memecoin	0.25	1	None	100
+0.78	1	56	50.1	6421	324	1.03	0.75	None	None	None	None	0.801	4	memecoin	0.02	1	None	100
+0.14	0	56	24.1	30658	22171	62.23	1.31	None	None	None	None	0.311	3	ai_agent	0.01	1	29	100
+0.45	0	56	35.2	5073	233	4.79	1.5	None	None	None	None	0.752	4	memecoin	-0.34	13	4	100
+0.01	0	20	0.2	0	105	None	1.5	None	None	None	None	1.0	3	memecoin	0.0	1	None	100
+1.53	1	53	2.1	32458	473223	36.95	1.48	None	None	None	None	0.288	5	memecoin	0.29	1	42	100
+3.43	1	50	0.9	13811	26989	1.95	0.91	None	None	None	None	0.499	3	memecoin	0.07	1	None	100
+0.05	0	35	0.8	0	353	None	1.36	None	None	None	None	1.0	2	memecoin	-0.12	1	None	100
+1.64	1	50	0.5	0	54127	None	2.07	None	None	None	None	0.468	4	memecoin	-0.67	25	None	100
+0.01	0	50	21.5	32655	28614	55.1	1.19	None	None	None	None	0.29	3	memecoin	0.02	1	10	100
+0.0	0	50	18.7	15024	9346	105.53	0.84	None	None	None	None	0.568	3	memecoin	0.11	64	31	100
+0.02	0	7	15038.1	5038	0	0.0	0	None	None	None	None	0.876	2	memecoin	0.43	25	None	100
+0.0	0	41	0.4	14817	200503	13.53	1.33	0.141	0.141	0.86	1.14	0.295	7	memecoin	-0.17	22	4	100
+0.21	0	41	0.3	32479	271013	8.34	4.22	0.617	0.617	1.37	5.76	0.142	3	memecoin	-0.26	24	None	100
+0.06	0	41	544.2	44831	0	0.01	0	None	0.2	None	0	0.607	3	memecoin	-0.29	34	5	100
+0.31	0	41	1120.0	90493	31269	5.41	1.4	0.166	0.197	0.6	0.83	0.301	4	memecoin	-0.1	1	33	100
+0.41	0	38	5405.8	25854	0	0.08	0	None	0.231	None	0	0.402	2	ai_agent	0.11	1	None	100
+0.0	0	35	0.2	15437	57140	3.7	1.48	0.195	0.195	1.27	1.89	0.317	4	memecoin	0.05	34	4	100
+0.0	0	13	990.7	0	0	None	0	None	0.333	None	0	1.0	3	ai_agent	-0.71	1	None	100
+4738.94	1	32	11671.4	24325	184	0.04	0.0	-1.0	-0.6	None	0.0	0.982	6	memecoin	0.74	61	None	0
+0.03	0	32	834.5	1071833	34814	2.62	0.58	-0.27	-0.052	1.04	0.6	0.092	7	memecoin	-0.04	1	93	50.19477994708625
+0.12	0	32	17.9	35520	20978	41.21	1.58	0.223	0.066	1.1	1.74	0.339	2	memecoin	0.08	1	13	100
+0.13	0	32	168.7	120649	112936	5.26	0.83	-0.091	-0.063	1.53	1.27	0.234	4	memecoin	0.22	1	26	100
+0.0	0	16	None	None	None	None	None	None	None	None	None	None	2	memecoin	1.0	1	None	100
+0.0	0	16	2.0	0	0	None	0	None	0.0	None	0	1.0	3	memecoin	0.0	1	None	100
+0.0	0	16	2.7	0	0	None	0	None	0.0	None	0	1.0	2	ai_agent	0.0	1	None	100
+0.0	0	27	25.5	51777	109461	43.82	1.05	0.024	0.007	2.37	2.49	0.289	4	memecoin	-0.11	1	45	100
+0.02	0	21	6.0	0	0	None	0	None	0.111	None	0	0.996	3	memecoin	0.09	1	4	100
+0.02	0	27	2.1	0	652	None	2.38	0.409	0.256	0.0	0	0.946	3	memecoin	-0.27	1	None	100
+0.3	0	27	124.1	11162	552	0.62	1.29	0.125	0.053	0.0	0	0.477	5	memecoin	-0.16	1	None	100
+1.38	1	24	196.7	0	0	None	0	None	None	None	0	0.88	3	memecoin	0.34	61	None	100
+0.11	0	24	1367.0	379752	5866	0.43	1.36	0.152	-0.214	1.47	2.0	0.213	3	memecoin	0.0	1	8	100
+0.55	1	21	0.3	8723	65652	7.53	1.4	0.168	0.168	0.98	1.37	0.512	3	memecoin	0.13	1	4	100
+0.51	1	21	1.3	38867	396181	14.42	2.37	0.407	0.428	0.7	1.66	0.08	3	memecoin	0.15	24	None	100
+0.0	0	21	0.4	18148	108905	6.0	1.69	0.257	0.257	1.86	3.15	0.449	4	memecoin	-0.42	1	None	100
+0.0	0	21	0.6	23880	106570	4.46	1.75	0.274	0.274	0.76	1.33	0.39	3	memecoin	0.12	1	None	100
+0.0	0	21	1.9	8449	13520	6.99	1.21	0.095	0.111	2.13	2.58	0.525	4	ai_agent	-0.28	24	None	100
+0.87	1	21	0.8	22394	34453	1.54	1.44	0.182	0.182	1.56	2.25	0.441	3	memecoin	0.17	1	8	100
+0.04	0	21	274.2	0	0	None	0	None	None	None	0	0.564	4	memecoin	-0.26	1	None	100
+0.13	0	19	1.1	0	58	None	5.0	0.667	0.75	0.0	0	1.0	1	memecoin	0.83	1	None	100
+0.0	0	16	4.4	0	0	None	0	None	0.015	None	0	0.999	4	memecoin	-0.55	1	None	100
+1.16	1	16	23.1	10093	2645	103.59	0.74	-0.152	0.049	0.14	0.1	0.555	5	memecoin	0.08	1	22	100
+0.01	0	16	18.9	0	0	None	0	None	None	None	0	1.0	4	memecoin	0.33	1	None	100
+0.01	0	13	None	None	None	None	None	None	None	None	None	None	2	memecoin	0.33	1	None	100
+0.0	0	13	4.5	0	0	None	0	None	0.04	None	0	1.0	2	memecoin	-0.5	1	None	100
+0.12	0	11	38.9	0	987	None	1.18	0.083	0.344	0.85	1	0.381	4	memecoin	None	None	None	None
+0.03	0	10	4035.9	14870	3446	0.27	1.73	0.268	0.307	4.04	7.0	0.541	None	memecoin	0.18	34	3	100
+0.22	0	10	41.2	1447	4385	7.32	1.51	0.204	0.276	2.65	4.0	0.755	None	memecoin	0.06	35	None	100
+0.45	0	10	1.1	20179	36110	4.0	6.68	0.739	0.661	0.31	2.07	0.282	None	memecoin	0.02	1	321	100
+0.0	0	10	17157.4	11129	1710	1.18	0.73	-0.158	0.181	1.38	1.0	0.773	None	memecoin	0.69	1	None	100
+70115687.49	1	10	2.4	7239	115436	36.14	0.95	-0.027	0.103	0.55	0.52	0.996	None	memecoin	-0.96	73	None	100
+0.0	0	10	1337.7	19939	1934	0.22	1.0	0.0	0.649	0.0	0	0.999	None	memecoin	0.06	70	None	100
+0.0	0	10	171.6	10903	2100	9.97	0.81	-0.107	0.093	1.42	1.14	0.49	None	memecoin	0.18	14	16	100
+0.0	0	10	2.3	1	0	9.94	0	None	-1.0	None	0	0.943	None	memecoin	-0.22	34	None	100
+0.0	0	10	2.9	24572	39840	18.78	1.29	0.128	0.182	1.22	1.57	0.303	None	memecoin	-1.0	1	None	100
+0.23	0	10	80.5	0	543	None	1.71	0.263	0.192	0.58	1.0	0.565	None	memecoin	0.13	1	4	100
+0.78	1	10	1.5	18524	75811	6.02	1.55	0.216	0.228	1.31	2.03	0.306	None	memecoin	-0.02	1	None	100
+0.0	0	10	7.7	106642	157546	9.62	3.0	0.5	0.46	0.81	2.42	0.061	None	memecoin	0.37	1	None	100
+0.0	0	10	4.1	3516	200	16.13	0.7	-0.176	0.076	0.0	0	0.945	None	memecoin	-0.46	24	None	100
+0.68	1	10	433.7	20766	1253	1.09	1.25	0.111	0.054	0.0	0	0.558	None	memecoin	-0.19	1	14	100
+0.0	0	10	5.6	40657	41621	6.7	1.11	0.054	0.159	0.8	0.89	0.299	None	memecoin	0.33	1	None	100
+0.12	0	10	17.1	13569	2011	7.6	1.07	0.034	0.005	1.4	1.5	0.5	None	memecoin	-0.08	1	8	100
+0.34	0	10	254.7	14846	1479	3.28	0.48	-0.353	0.128	0.0	0	0.469	None	memecoin	-0.1	1	None	100
+1.56	1	10	5.7	6687	14814	158.41	1.91	0.313	0.224	1.21	2.32	0.766	None	memecoin	-0.79	1	648	100
+0.45	0	10	6.2	66569	212658	20.94	1.26	0.117	0.105	0.97	1.23	0.255	None	memecoin	0.05	1	4	100
+0.0	0	10	6.0	0	6	None	0.0	-1.0	0.15	None	0	0.998	None	memecoin	-0.73	1	11	100
+0.27	0	10	580.7	94687	13041	7.89	0.9	-0.051	-0.001	3.32	3.0	0.225	None	memecoin	-0.12	1	15	100
+0.02	0	10	8.2	9861	3512	58.57	1.09	0.045	0.08	0.26	0.29	0.489	None	memecoin	-0.23	1	None	100
+0.0	0	10	238.6	191233	40516	5.8	3.22	0.527	0.676	0.95	3.07	0.084	None	memecoin	0.34	1	94	100
+0.0	0	10	8.0	73983	326924	37.92	1.28	0.125	0.202	1.03	1.32	0.173	None	memecoin	-0.02	1	20	100
+1.79	1	10	33.7	4720	903	5.12	0.79	-0.12	-0.15	1.27	1.0	0.806	None	memecoin	-0.09	1	None	100
+0.0	0	7	0.1	0	48655	None	1.82	0.291	0.291	0.99	1.8	0.609	None	memecoin	-0.61	16	None	100
+0.0	0	7	3.5	0	4108	None	1.25	0.111	0.323	2.4	3.0	0.608	None	memecoin	0.08	1	14	100
+0.0	0	7	0.7	0	99240	None	1.24	0.106	0.106	1.46	1.8	0.544	None	memecoin	-0.16	42	6	100
+0.0	0	7	1.0	12498	15724	1.36	0.75	-0.14	-0.086	0.93	0.7	0.753	None	memecoin	-0.54	29	None	100
+0.1	0	7	1.4	15020	29558	6.75	1.29	0.127	0.133	0.86	1.11	0.604	None	memecoin	0.09	1	31	100
+0.0	0	7	72.8	3917	27092	18.69	0.88	-0.063	-0.007	0.0	0.0	0.865	None	memecoin	-0.87	25	596	100
+0.64	1	7	1.8	5166	18336	30.3	1.13	0.059	0.164	0.3	0.33	0.745	None	memecoin	-0.36	15	42	100
+2.27	1	7	27.8	12338	2107	1.96	1.54	0.212	0.27	0.0	0	0.626	None	memecoin	0.47	1	None	100
+0.34	0	7	2.2	0	5187	None	1.18	0.083	0.149	0.28	0.33	0.559	None	memecoin	0.34	1	4	100
+0.0	0	7	2.7	19589	5	12.76	0.33	-0.5	0.058	0.0	0	0.999	None	memecoin	-0.11	96	None	99.99999999909663
+0.0	0	7	2.8	207	0	0.02	1.0	0.0	-0.2	0.0	0	0.579	None	memecoin	-0.35	34	4	100
+0.02	0	7	5945.3	77446	258	0.28	1.33	0.143	-0.049	0.0	0	0.372	None	memecoin	1.0	1	5	100
+0.14	0	7	10.7	16	0	1.2	0	None	0.0	None	0	0.576	None	memecoin	0.08	79	4	100
+0.0	0	7	3.6	32908	76694	9.15	1.24	0.107	0.157	0.95	1.18	0.195	None	memecoin	-0.47	57	None	100
+0.0	0	7	27.1	12126	2971	42.11	1.16	0.074	0.083	0.69	0.8	0.473	None	memecoin	-0.21	1	8	100
+0.06	0	7	776.9	14250	0	0.07	0	None	0.0	None	0	0.982	None	memecoin	-0.47	57	637	75.11744662108403
+0.0	0	7	371.1	0	10	None	0.0	-1.0	0.1	None	0	0.993	None	memecoin	-0.03	1	None	100
+0.01	0	7	1360.4	9540	0	0.3	0	None	0.176	None	0	0.682	None	memecoin	0.0	52	130	100
+0.83	1	7	70.4	39808	23936	12.63	1.79	0.284	0.23	0.85	1.53	0.417	None	memecoin	0.36	1	2854	100
+0.18	0	7	2.9	10565	2279	3.25	0.7	-0.175	0.09	0.0	0.0	0.518	None	memecoin	-0.03	1	4	100
+0.15	0	7	186.7	27120	4738	4.43	1.07	0.034	0.025	0.93	1	0.342	None	memecoin	0.18	1	None	100
+0.2	0	7	136.7	142023	24915	5.5	0.88	-0.062	-0.005	0.32	0.29	0.203	None	memecoin	0.17	58	116	95.01925362186837
+0.0	0	7	5.1	0	6	None	0.0	-1.0	0.228	None	0	1.0	None	memecoin	-0.29	63	None	100
+0.03	0	7	3823.8	149313	1650	0.32	4.5	0.636	-0.158	0.0	0	0.27	None	memecoin	-0.41	1	6	100
+0.0	0	7	20.9	36165	300482	129.55	2.06	0.346	0.022	1.68	3.46	0.146	None	memecoin	0.05	1	112	100
+0.0	0	5	341.5	8977	0	0.08	0	None	0.579	None	0	0.902	3	memecoin	None	None	None	None
+0.06	0	5	3.8	0	0	None	0	None	0.571	None	0	1.0	4	memecoin	None	None	None	None
+0.0	0	5	3.7	0	2733	None	2.28	0.39	0.211	2.19	5.0	0.681	3	ai_agent	None	None	None	None
+0.35	0	5	4.2	14949	11947	12.42	1.03	0.016	0.152	1.55	1.6	0.404	5	memecoin	None	None	None	None
+0.42	0	5	4.7	6690	10530	25.83	0.96	-0.022	0.116	2.09	2.0	0.622	4	ai_agent	None	None	None	None
+0.6	1	5	160.4	22620	1984	3.0	0.47	-0.357	0.03	2.11	1	0.391	3	ai_agent	-0.33	1	4	100
+0.02	0	5	27.4	20850	69	0.94	1.29	0.125	-0.061	0.0	0	0.953	None	memecoin	-0.06	1	4	100
+0.12	0	5	45.6	0	99	None	2.5	0.429	0.0	0.4	1.0	0.66	None	memecoin	0.16	34	None	None
+0.06	0	5	1.3	21891	1310	0.14	1.67	0.25	0.209	0.0	0	0.867	None	memecoin	-0.24	36	None	100
+0.07	0	5	48.0	27622	80923	3.22	1.68	0.253	0.249	0.72	1.22	0.238	None	memecoin	-0.57	1	None	100
+0.0	0	5	1.6	4894	28254	44.06	2.06	0.346	0.147	0.82	1.69	0.77	None	memecoin	-0.11	19	4	100
+0.5	0	5	4.6	13233	45714	118.12	1.34	0.144	0.125	1.39	1.85	0.453	None	memecoin	-0.06	1	11	100
+0.27	0	5	0.9	41402	160122	3.87	1.6	0.232	0.232	1.08	1.73	0.605	None	memecoin	-0.92	96	None	99.99999999898999
+0.0	0	5	1.1	0	2086	None	1.24	0.106	0.1	0.0	0	1.0	None	memecoin	0.13	63	None	100
+0.03	0	5	732.5	131504	1074	0.44	0.5	-0.333	0.357	2.0	1.0	0.637	None	memecoin	0.26	51	15	99.95403816216236
+0.3	0	5	1.1	20372	101091	6.78	5.47	0.691	0.631	0.22	1.22	0.48	None	memecoin	0.23	80	None	100
+0.0	0	5	1.3	0	4576	None	1.25	0.111	0.185	1.6	2.0	0.747	None	memecoin	-0.05	1	None	100
+0.0	0	5	24.1	0	79	None	1.75	0.273	0.05	0.57	1	0.564	None	memecoin	0.19	1	5	100
+0.56	1	5	136.9	25812	21929	6.28	3.68	0.573	0.23	0.62	2.3	0.365	None	memecoin	0.21	29	430	100
+1.48	1	5	4.2	45001	155849	20.58	0.91	-0.045	0.171	0.9	0.82	0.069	None	memecoin	-0.09	1	None	100
+0.0	0	5	2.1	8952	22363	20.32	1.28	0.123	0.177	1.56	2.0	0.503	None	memecoin	0.33	1	None	100
+0.0	0	5	126.0	12251	850	0.82	2.3	0.394	0.129	0.0	0	0.46	None	memecoin	-0.29	80	None	100
+0.03	0	5	129.5	0	2438	None	0.47	-0.36	0.206	0.0	0.0	0.855	None	memecoin	-0.07	1	None	100
+0.0	0	5	6.3	35330	36429	7.43	1.86	0.301	0.251	0.91	1.69	0.328	None	memecoin	-0.06	1	None	100
+0.06	0	5	155.6	24075	21173	3.53	0.92	-0.041	0.066	0.81	0.75	0.273	None	memecoin	-0.38	1	17	100
+0.14	0	5	4.2	31699	131208	27.35	2.03	0.341	0.491	1.01	2.06	0.106	None	memecoin	0.15	1	None	100
+0.75	1	5	4.1	36931	98658	22.89	3.13	0.515	0.521	1.29	4.05	0.122	None	memecoin	0.64	1	None	100
+0.0	0	5	4.0	14591	59	19.09	0.0	-1.0	0.132	None	0	1.0	None	memecoin	-1.0	96	None	99.99999999896376
+0.0	0	5	7.8	0	5659	None	2.56	0.439	0.363	1.17	3	0.543	None	memecoin	0.26	1	None	100
+0.15	0	5	6.0	0	443	None	0.36	-0.467	0.088	0.0	0.0	0.984	None	memecoin	-0.62	1	5	100
+0.02	0	2	3.3	0	2943	None	0.65	-0.211	0.035	0.0	0.0	0.957	3	memecoin	None	None	None	None
+0.0	0	2	2.2	8991	7359	4.23	1.5	0.2	0.067	1.5	2.25	0.529	4	memecoin	None	None	None	None
+0.0	0	2	1953.2	29218	187	0.27	0.5	-0.333	0.0	0.0	0	0.456	5	ai_agent	None	None	None	None
+0.0	0	2	1523.8	10731	0	3.98	0	None	0.333	None	0	0.56	3	ai_agent	None	None	None	None
+0.0	0	2	492.6	46960	0	0.08	0	None	-0.4	None	0	None	3	ai_agent	None	None	None	None
+0.0	0	2	0.7	4	0	0.08	4	1.0	1.0	0.0	0	0.522	None	memecoin	0.13	64	None	100
+0.25	0	2	1.5	8477	15340	5.06	1.44	0.179	0.142	0.96	1.38	0.526	None	memecoin	0.08	1	4	100
+0.33	0	2	55.7	30315	213074	17.38	1.41	0.172	0.163	1.33	1.88	0.298	None	memecoin	-0.5	63	8	100
+0.0	0	2	74.1	17822	3801	2.44	1.67	0.25	0.227	0.3	0.5	0.549	None	memecoin	-0.13	79	18	100
+0.11	0	2	2.4	6728	8278	15.11	1.08	0.039	0.204	0.92	1.0	0.64	None	memecoin	0.12	1	12	100
+0.0	0	2	151.2	56838	4881	4.24	0.51	-0.327	0.14	3.45	1.75	0.836	None	memecoin	-0.08	55	None	99.74255144740884
+0.0	0	2	4.0	3656	1258	148.74	0.7	-0.179	0.142	0.0	0.0	0.876	None	memecoin	-0.51	23	None	100
+0.0	0	2	1317.2	317926	132662	4.21	1.62	0.235	0.126	1.17	1.89	0.172	None	memecoin	0.39	1	65	100
+0.0	0	2	930.4	10711	463	0.88	0.67	-0.2	0.2	0.0	0	0.451	None	memecoin	0.21	1	6	100
+0.0	0	2	104.5	35920	30596	6.63	2.43	0.417	0.476	0.64	1.54	0.788	None	memecoin	0.33	62	36	0
+0.0	0	2	1035.9	24017	3508	1.16	1.59	0.227	0.127	0.0	0.0	0.399	None	memecoin	0.35	1	17	100
+0.0	0	2	12.5	7619	726	26.2	1.53	0.211	0.022	0.0	0	0.598	None	memecoin	0.01	80	4	100
+0.01	0	2	12.4	10298	5416	35.21	1.72	0.265	-0.845	0.29	0.5	0.486	None	memecoin	0.17	22	24	100
+0.04	0	2	159.8	63103	3834	1.94	0.85	-0.08	0.123	0.0	0	0.26	None	memecoin	0.01	1	None	100
+0.13	0	2	6.5	11632	5252	76.68	1.17	0.078	0.148	1.6	1.88	0.461	None	memecoin	0.03	1	16	100
+0.0	0	2	95.7	5983	275	2.02	0.75	-0.143	0.205	0.0	0	0.756	None	memecoin	0.12	6	None	100
+0.0	0	2	11.5	19436	10501	38.58	1.49	0.197	0.101	0.67	1.0	0.362	None	memecoin	0.14	1	14	100
+0.02	0	2	5.1	6656	2451	21.05	1.43	0.177	0.175	0.0	0.0	0.591	None	memecoin	-0.23	53	None	100
+0.0	0	2	673.0	8733	273	0.23	7.0	0.75	0.444	0.0	0	0.663	None	memecoin	0.28	1	25	100
+0.0	0	2	111.2	117455	24362	8.12	1.02	0.009	0.201	0.7	0.71	0.225	None	memecoin	-0.42	1	101	100
+0.0	0	2	0.2	22	1	0.05	0.0	-1.0	-1.0	None	0	0.48	None	memecoin	0.14	1	None	100
+0.0	0	2	0.5	0	37918	None	1.15	0.071	0.071	0.87	1.0	0.998	None	memecoin	-0.84	1	None	100
+0.0	0	2	271.6	38209	13249	0.35	19.0	0.9	0.9	0.11	2	0.271	None	memecoin	0.78	33	62	100
+0.0	0	2	0.7	0	45366	None	1.07	0.033	0.033	0.0	0.0	0.99	None	memecoin	-0.58	1	5	100
+0.0	0	2	9.3	0	13852	None	1.04	0.02	0.026	0.0	0	0.997	None	memecoin	-0.62	1	None	100
+
+# CRITICAL CAVEATS (respect them or your answer is worthless)
+1. SMALL SAMPLE: 241 tokens, only 44 runners. Anything you find can be noise. Be rigorous, no overfitting.
+2. The row with ret=20200 is a DATA GLITCH (price near-dust at first check) — treat as a single runner, ignore its magnitude.
+3. SLIPPAGE: on these micro-caps, real fills lose 2-10%. A strategy that barely wins on paper loses live.
+4. MULTIPLE COMPARISONS: if you test many rules, some "work" by chance. Apply mental Bonferroni.
+5. The exit matters: ret_max is the BEST possible exit (perfect timing). A realistic exit captures only part of it.
+
+# YOUR TASK (be concrete and brutal)
+1. VERDICT: Is there a profitable, REPEATABLE strategy in this data? YES / WEAK-YES / NO. One word + 2 lines why.
+2. IF YES/WEAK-YES: the exact strategy — which subset of tokens to BUY (concrete filter rules with thresholds
+   from THIS data), and a realistic exit. Estimate: how many tokens it selects, win-rate, median return,
+   and the return AFTER a 5% slippage haircut. Does it survive the small-sample / overfitting test?
+3. The SINGLE most predictive variable (point-in-time-safe) and why.
+4. IF NO: say it clearly and explain what's structurally missing (and whether more data would help or not).
+5. What would you need to turn a weak edge into a real one?
+
+Be the world's best. Think deeply. No hype, no false hope — but if there IS a profitable angle in here, FIND IT.
+This is a question of life. Deliver the answer as if you're handing a one-page memo to someone whose future depends on it.
+
+# NOTA CAMPIONE (REALE, conta le righe): 241 token totali, 44 runner (+50%), ~181 con nobs>=6 (maturi). NON e' piu' il vecchio campione da 97: ora e' >2x piu' grande. Conta TU le righe, non fidarti di numeri citati altrove.
