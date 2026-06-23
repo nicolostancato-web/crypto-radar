@@ -1,19 +1,19 @@
 {
-  "updated_utc": "2026-06-23 21:13",
+  "updated_utc": "2026-06-23 22:47",
   "runner_pct": 50,
-  "settled": 326,
-  "runners": 63,
-  "deads": 263,
+  "settled": 370,
+  "runners": 71,
+  "deads": 299,
   "by_arena": {
     "memecoin": {
-      "trades": 299,
-      "runners": 57,
+      "trades": 342,
+      "runners": 65,
       "runner_rate": 0.19
     },
     "ai_agent": {
-      "trades": 27,
+      "trades": 28,
       "runners": 6,
-      "runner_rate": 0.22
+      "runner_rate": 0.21
     }
   },
   "prelim_at": 8,
@@ -23,57 +23,57 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 10501,
-      "dead_median": 2011,
-      "ratio": 5.22
+      "runner_median": 9988,
+      "dead_median": 2765.0,
+      "ratio": 3.61
     },
     {
       "feature": "age_h",
       "label": "età (h)",
       "runner_median": 11.5,
-      "dead_median": 5.8,
-      "ratio": 1.98
-    },
-    {
-      "feature": "vol_24h",
-      "label": "volume 24h",
-      "runner_median": 65652,
-      "dead_median": 44652,
-      "ratio": 1.47
+      "dead_median": 4.4,
+      "ratio": 2.61
     },
     {
       "feature": "liq",
       "label": "liquidità",
       "runner_median": 12338,
-      "dead_median": 8453,
-      "ratio": 1.46
+      "dead_median": 6934.5,
+      "ratio": 1.78
+    },
+    {
+      "feature": "vol_24h",
+      "label": "volume 24h",
+      "runner_median": 65652,
+      "dead_median": 42961.5,
+      "ratio": 1.53
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
-      "runner_median": 1.34,
-      "dead_median": 1.07,
-      "ratio": 1.25
+      "runner_median": 1.35,
+      "dead_median": 1.115,
+      "ratio": 1.21
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.519,
-      "dead_median": 0.607,
-      "ratio": 0.86
+      "runner_median": 0.513,
+      "dead_median": 0.632,
+      "ratio": 0.81
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
       "runner_median": 6.02,
-      "dead_median": 5.99,
+      "dead_median": 5.97,
       "ratio": 1.01
     },
     {
       "feature": "grok_heat",
       "label": "heat di Grok",
-      "runner_median": 4,
-      "dead_median": 4,
+      "runner_median": 4.0,
+      "dead_median": 4.0,
       "ratio": 1.0
     }
   ],
@@ -121,18 +121,18 @@
       "voliq": 1.21
     },
     {
+      "ticker": "CatWifHat on U",
+      "ret_max": 4.35,
+      "pass": false,
+      "vol_1h": 41621,
+      "voliq": 6.7
+    },
+    {
       "ticker": "Miu the pfp ca",
       "ret_max": 4.15,
       "pass": false,
       "vol_1h": 0,
       "voliq": 1.2
-    },
-    {
-      "ticker": "BRAIN",
-      "ret_max": 3.68,
-      "pass": false,
-      "vol_1h": 26989,
-      "voliq": 1.95
     }
   ]
 }
