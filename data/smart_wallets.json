@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-23 08:22",
+  "updated_utc": "2026-06-23 11:39",
   "wallets_seen": 2700,
   "qualified": 179,
   "min_plays": 2,
@@ -97,6 +97,20 @@
         "BRAIN",
         "FomoTower, whe",
         "zer0"
+      ]
+    },
+    {
+      "wallet": "PcWgMSejFb1AVxtRh2AmRppQcvezi5ZyjgUtVAeRzft",
+      "plays": 7,
+      "hits": 4,
+      "winrate": 0.57,
+      "tickers": [
+        "$PUMPVERSE",
+        "A dog named Jo",
+        "ARENA",
+        "Larry is the w",
+        "PVT",
+        "SYZYGY"
       ]
     },
     {
@@ -209,16 +223,6 @@
       "tickers": [
         "$AMED",
         "SYZYGY"
-      ]
-    },
-    {
-      "wallet": "8MU1W4UuqqXQ16Ui7sPerk13Dbtixx9E5jiRCwQGTiNf",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "CS",
-        "FRAG"
       ]
     }
   ]
