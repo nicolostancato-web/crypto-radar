@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-23 14:52",
+  "updated_utc": "2026-06-23 14:30",
   "runner_pct": 50,
   "settled": 265,
   "runners": 52,
@@ -107,6 +107,13 @@
       "voliq": null
     },
     {
+      "ticker": "Miu the pfp ca",
+      "ret_max": 5.33,
+      "pass": false,
+      "vol_1h": 0,
+      "voliq": 1.2
+    },
+    {
       "ticker": "SCROLL",
       "ret_max": 4.41,
       "pass": false,
@@ -129,7 +136,7 @@
     },
     {
       "ticker": "Catch Pokémon ",
-      "ret_max": 2.64,
+      "ret_max": 2.65,
       "pass": true,
       "vol_1h": 213074,
       "voliq": 17.38
