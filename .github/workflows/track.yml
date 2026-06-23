@@ -47,7 +47,7 @@ jobs:
           git add data/track.jsonl data/learnings.json web/pipeline.json web/portfolio.json web/team.json web/kpi.json
           git commit -m "track $(date -u +%Y-%m-%dT%H:%MZ)" || { echo "niente di nuovo"; exit 0; }
           for i in 1 2 3 4 5; do
-            git pull --no-rebase --no-edit origin main || true
+            git pull --no-rebase --no-edit -X theirs origin main || true
             git push origin main && break
             sleep 5
           done
@@ -64,7 +64,7 @@ jobs:
           git add -A
           git commit -m "dashboard $(date -u +%Y-%m-%dT%H:%MZ)" || { echo "nessun cambiamento"; exit 0; }
           for i in 1 2 3; do
-            git pull --no-rebase --no-edit origin main || true
+            git pull --no-rebase --no-edit -X theirs origin main || true
             git push origin main && exit 0
             sleep 4
           done

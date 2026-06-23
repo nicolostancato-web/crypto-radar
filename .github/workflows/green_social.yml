@@ -37,8 +37,8 @@ jobs:
           git add data/green_social.jsonl
           git commit -m "green social $(date -u +%Y-%m-%dT%H:%MZ)" || { echo "niente di nuovo"; exit 0; }
           for i in 1 2 3 4 5; do
-            git pull --no-rebase --no-edit origin main || true
+            git pull --no-rebase --no-edit -X theirs origin main || true
             git push origin main && exit 0
             sleep 5
           done
-          echo "push fallito"; exit 1
+          echo "push non riuscito (corsa su file) — recupera al prossimo ciclo"; exit 0
