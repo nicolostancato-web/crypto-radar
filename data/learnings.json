@@ -1,19 +1,19 @@
 {
-  "updated_utc": "2026-06-24 17:30",
+  "updated_utc": "2026-06-24 19:12",
   "runner_pct": 50,
-  "settled": 499,
-  "runners": 98,
-  "deads": 401,
+  "settled": 526,
+  "runners": 100,
+  "deads": 426,
   "by_arena": {
     "memecoin": {
-      "trades": 470,
-      "runners": 92,
-      "runner_rate": 0.2
+      "trades": 496,
+      "runners": 94,
+      "runner_rate": 0.19
     },
     "ai_agent": {
-      "trades": 29,
+      "trades": 30,
       "runners": 6,
-      "runner_rate": 0.21
+      "runner_rate": 0.2
     }
   },
   "prelim_at": 8,
@@ -23,58 +23,58 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 10244.5,
-      "dead_median": 4192.0,
-      "ratio": 2.44
+      "runner_median": 9516.0,
+      "dead_median": 4881,
+      "ratio": 1.95
     },
     {
       "feature": "age_h",
       "label": "età (h)",
-      "runner_median": 5.3,
-      "dead_median": 2.95,
-      "ratio": 1.8
+      "runner_median": 5.0,
+      "dead_median": 2.8,
+      "ratio": 1.79
     },
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 10481.0,
-      "dead_median": 6382.0,
-      "ratio": 1.64
+      "runner_median": 10347.5,
+      "dead_median": 6424,
+      "ratio": 1.61
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 55142.5,
-      "dead_median": 43479.5,
-      "ratio": 1.27
+      "runner_median": 51786.0,
+      "dead_median": 43465,
+      "ratio": 1.19
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.52,
-      "dead_median": 0.611,
+      "runner_median": 0.522,
+      "dead_median": 0.617,
       "ratio": 0.85
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
       "runner_median": 1.325,
-      "dead_median": 1.15,
-      "ratio": 1.15
-    },
-    {
-      "feature": "grok_heat",
-      "label": "heat di Grok",
-      "runner_median": 4,
-      "dead_median": 3.5,
+      "dead_median": 1.16,
       "ratio": 1.14
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
       "runner_median": 5.91,
-      "dead_median": 5.99,
-      "ratio": 0.99
+      "dead_median": 5.89,
+      "ratio": 1.0
+    },
+    {
+      "feature": "grok_heat",
+      "label": "heat di Grok",
+      "runner_median": 4,
+      "dead_median": 4,
+      "ratio": 1.0
     }
   ],
   "best_runners": [
@@ -84,6 +84,13 @@
       "pass": false,
       "vol_1h": 69,
       "voliq": 0.94
+    },
+    {
+      "ticker": "World",
+      "ret_max": 9.08,
+      "pass": true,
+      "vol_1h": 139353,
+      "voliq": 10.64
     },
     {
       "ticker": "5UUH9RTD",
@@ -105,13 +112,6 @@
       "pass": false,
       "vol_1h": 7359,
       "voliq": 4.23
-    },
-    {
-      "ticker": "World",
-      "ret_max": 6.84,
-      "pass": true,
-      "vol_1h": 139353,
-      "voliq": 10.64
     },
     {
       "ticker": "ESCOLAND",
