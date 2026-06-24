@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-24 10:09",
-  "wallets_seen": 3382,
-  "qualified": 271,
+  "updated_utc": "2026-06-24 11:33",
+  "wallets_seen": 3385,
+  "qualified": 272,
   "min_plays": 2,
   "smart": [
     {
@@ -52,6 +52,16 @@
       "tickers": [
         "ESCOLAND",
         "GAME"
+      ]
+    },
+    {
+      "wallet": "13VK7ZrRrx1uZ4Frm2TjacNsbipun21qqifE8wibPVys",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "$AGI",
+        "BRAIN"
       ]
     },
     {
@@ -206,19 +216,6 @@
         "Lumumba DR Con",
         "Throw the chum",
         "Wildfrontier i"
-      ]
-    },
-    {
-      "wallet": "DZbgq3yE3r41EFszV3XastvyS8j8QnmNT37nsq7sxR66",
-      "plays": 6,
-      "hits": 3,
-      "winrate": 0.5,
-      "tickers": [
-        "Droolmao",
-        "GAME",
-        "SUMMER",
-        "TACTICS",
-        "zer0"
       ]
     }
   ]
