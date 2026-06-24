@@ -1,0 +1,149 @@
+"""
+paper_account.py — CONTO PAPER VIVO da 100 EUR (NON resetta mai).
+
+Differenza dal backtest (portfolio_sim): qui si parte da 100 EUR UNA volta sola, e ogni volta che un
+trade si CHIUDE il saldo va avanti coi soldi che ci sono. Niente ri-simulazione da capo. Questo e' il
+vero "stiamo crescendo o calando?" — onesto, cumulativo, irreversibile come un conto reale.
+
+Stato persistente in data/paper_account.json (saldo, trade gia' contati, storico). Ogni ciclo:
+prende i trade che si sono CHIUSI da quando ho guardato l'ultima volta, li registra una volta sola,
+applica il saldo. La strategia usata e' quella adottata dal meeting (data/trade_config.json).
+Onesto: slippage, uscita causale, niente look-ahead. Se la strategia perde, il conto scende. Punto.
+"""
+import os, json, statistics as st
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+STATE = os.path.join(HERE, "data", "paper_account.json")
+SLIP = 0.06
+START = 100.0
+FRAC = 0.10            # rischio 10% del saldo VIVO per trade
+
+
+def _candles():
+    out = {}
+    p = os.path.join(HERE, "data", "ohlcv.jsonl")
+    if os.path.exists(p):
+        for l in open(p):
+            try:
+                r = json.loads(l); c = r.get("candles") or []
+                if c:
+                    out[r["ca"]] = sorted([(int(x[0]), x[2], x[4]) for x in c], key=lambda t: t[0])
+            except Exception:
+                pass
+    return out
+
+
+def _trade(ca, candles, series, trail):
+    """ritorno realistico + timestamp di CHIUSURA (uscita), causale, con slippage."""
+    if ca in candles:
+        seq = candles[ca]
+    else:
+        seq = [(ts, pr, pr) for ts, pr in series]
+    if len(seq) < 2:
+        return None
+    med = st.median([c for _, _, c in seq])
+    seq = [(t, hi, cl) for t, hi, cl in seq if med / 15 <= cl <= med * 15 and hi <= med * 20]
+    if len(seq) < 2:
+        return None
+    entry = seq[0][2] * (1 + SLIP); peak = seq[0][1]
+    for t, hi, cl in seq[1:]:
+        peak = max(peak, hi)
+        if cl <= peak * (1 - trail):
+            return max(cl * (1 - SLIP) / entry - 1, -0.95), t
+    return max(min(seq[-1][2] * (1 - SLIP) / entry - 1, 10.0), -0.95), seq[-1][0]
+
+
+def run():
+    # stato (o nascita del conto)
+    if os.path.exists(STATE):
+        state = json.load(open(STATE))
+    else:
+        state = {"start": START, "balance": START, "processed": [], "trades": []}
+    processed = set(state["processed"])
+
+    # strategia adottata dal meeting
+    cfg = {}
+    cfgp = os.path.join(HERE, "data", "trade_config.json")
+    if os.path.exists(cfgp):
+        cfg = json.load(open(cfgp))
+    flt = cfg.get("filter", "bs>=2.0"); trail = cfg.get("trail", 0.30)
+    def keep(bs):
+        if flt == "bs>=1.5": return (bs or 0) >= 1.5
+        if flt == "bs>=2.0": return (bs or 0) >= 2.0
+        if flt == "bs>=3.0": return (bs or 0) >= 3.0
+        return True
+
+    # dataset: serie + bs
+    obs = {}
+    for l in open(os.path.join(HERE, "data", "track.jsonl")):
+        o = json.loads(l)
+        if o.get("price"):
+            obs.setdefault(o["ca"], []).append((o["obs_ts"], o["price"]))
+    bs = {}; tick = {}
+    for l in open(os.path.join(HERE, "data", "candidates.jsonl")):
+        c = json.loads(l); ca = c.get("ca")
+        if ca and ca not in bs:
+            bs[ca] = (c.get("metrics") or {}).get("bs_ratio_1h"); tick[ca] = c.get("ticker")
+    candles = _candles()
+
+    # trade NUOVI che si sono chiusi (token maturi, filtro ok, non gia' contati)
+    closing = []
+    for ca, s in obs.items():
+        if ca in processed or ca not in bs or not keep(bs.get(ca)):
+            continue
+        s = sorted(s)
+        if len(s) < 6:                      # non ancora maturo -> ancora "aperto", lo conto quando chiude
+            continue
+        r = _trade(ca, candles, s, trail)
+        if not r:
+            continue
+        ret, exit_ts = r
+        closing.append({"ca": ca, "ticker": tick.get(ca) or ca[:6], "bs": bs.get(ca),
+                        "ret": ret, "exit_ts": exit_ts})
+    closing.sort(key=lambda t: t["exit_ts"])   # in ordine di chiusura: il saldo avanza nel tempo
+
+    # applica al saldo VIVO
+    for t in closing:
+        bet = state["balance"] * FRAC
+        pnl = bet * t["ret"]
+        state["balance"] += pnl
+        state["trades"].append({"ticker": t["ticker"], "ca": t["ca"], "bs": t["bs"],
+                                "ret_pct": round(t["ret"] * 100, 1), "pnl_eur": round(pnl, 2),
+                                "balance": round(state["balance"], 2), "exit_ts": t["exit_ts"],
+                                "strategy": flt})
+        processed.add(t["ca"])
+    state["processed"] = list(processed)
+    json.dump(state, open(STATE, "w"))
+
+    # output per il dashboard (stesso formato del portfolio, ma VIVO)
+    trades = state["trades"]
+    wins = [t for t in trades if t["ret_pct"] > 0]
+    equity = [[t["exit_ts"], t["balance"]] for t in trades]
+    # FRAGILITA': quanto del risultato dipende dal singolo trade migliore? (onesta anti-illusione)
+    ordered = sorted(trades, key=lambda t: t["exit_ts"])
+    def _sim(ts):
+        b = START
+        for t in ts:
+            b += b * FRAC * (t["ret_pct"] / 100)
+        return b
+    top1 = max(trades, key=lambda t: t["ret_pct"]) if trades else None
+    without_top = _sim([t for t in ordered if t is not top1]) if top1 else state["balance"]
+    fragile = bool(top1 and (state["balance"] - START) > 0 and without_top < START)
+    out = {"start": START, "final": round(state["balance"], 2), "strategy": flt + " (conto VIVO, non resetta)",
+           "rules": f"parte da 100 EUR una volta, {int(FRAC*100)}%/trade, slippage {int(SLIP*100)}%, trailing {int(trail*100)}%",
+           "n_trades": len(trades), "win_rate": round(len(wins) / len(trades) * 100) if trades else 0,
+           "best": max((t["ret_pct"] for t in trades), default=0),
+           "worst": min((t["ret_pct"] for t in trades), default=0),
+           "n_5m": sum(1 for t in trades if t["ca"] in candles),
+           "new_this_run": len(closing), "live": True,
+           "without_top": round(without_top, 2), "top_trade": (round(top1["ret_pct"]) if top1 else 0),
+           "top_ticker": (top1["ticker"][:16] if top1 else ""), "fragile": fragile,
+           "equity": equity, "trades": sorted(trades, key=lambda t: t["exit_ts"], reverse=True)[:40]}
+    json.dump(out, open(os.path.join(HERE, "web", "portfolio.json"), "w"))
+    print(f"[conto] saldo VIVO: {state['balance']:.2f} EUR | {len(trades)} trade totali "
+          f"(+{len(closing)} chiusi stavolta) | win {out['win_rate']}% | strategia {flt}")
+    return out
+
+
+if __name__ == "__main__":
+    run()

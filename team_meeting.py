@@ -207,10 +207,10 @@ def run():
                                 "best_strategy": trade["best"]["filter"] if trade else None,
                                 "best_median_pnl": trade["best"]["median"] if trade else None}) + "\n")
 
-    # il portafoglio usa subito il config adottato oggi + aggiorna il pannello squadra (team.json)
+    # il conto VIVO (non resetta) avanza col config adottato oggi + aggiorna il pannello squadra
     try:
-        import portfolio_sim
-        port = portfolio_sim.run()
+        import paper_account
+        port = paper_account.run()
     except Exception:
         port = {"final": None, "n_trades": 0}
 

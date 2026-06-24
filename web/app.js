@@ -291,7 +291,11 @@ function renderPortfolio(p) {
        <span class="muted">strategia ${p.strategy}</span>
      </div>`;
   $("port-curve").innerHTML = sparkline(p.equity);
-  $("port-rules").textContent = "Regole: " + p.rules + " · candele 5-min su " + p.n_5m + "/" + p.n_trades + " trade (resto orario).";
+  let warn = "";
+  if (p.fragile) {
+    warn = `<div class="fragile-warn">⚠️ <b>Saldo fragile:</b> senza il trade migliore (${p.top_ticker} +${p.top_trade}%) il conto sarebbe <b>€${p.without_top}</b>. Quasi tutto il risultato dipende da UN colpo di fortuna — non è ancora un edge vero.</div>`;
+  }
+  $("port-rules").innerHTML = warn + "Regole: " + p.rules + " · candele 5-min su " + p.n_5m + "/" + p.n_trades + " trade (resto orario).";
   const tb = document.querySelector("#port-trades tbody");
   tb.innerHTML = (p.trades || []).slice(0, 40).map(t => {
     const w = t.ret_pct > 0;

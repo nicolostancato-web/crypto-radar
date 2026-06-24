@@ -206,3 +206,8 @@ footer .muted{margin-top:8px;font-size:.78rem}
 .goal-line { stroke:#34d399; stroke-width:1.5; stroke-dasharray:5 4; opacity:.7; }
 .goal-label { fill:#34d399; font-size:10px; text-anchor:end; opacity:.8; }
 .dot-up { fill:#34d399; } .dot-down { fill:#f87171; }
+
+/* --- avviso fragilità conto --- */
+.fragile-warn { background:#2a1a13; border-left:3px solid #f59e0b; border-radius:8px;
+  padding:10px 14px; margin:8px 0; font-size:13px; color:#e8c9a0; line-height:1.5; }
+.fragile-warn b { color:#fbbf24; }
