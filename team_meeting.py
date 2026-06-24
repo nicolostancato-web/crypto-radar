@@ -12,6 +12,7 @@ Flusso del meeting (board condivisa = canale di comunicazione):
 Onesto e senza look-ahead: deglitch, slippage, uscita causale, dichiara n e runner.
 """
 import os, json, time, statistics as st
+import exits
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SLIP = 0.06
@@ -85,28 +86,28 @@ def analista(mature):
     return {"base_win": round(base), "ranking": ranked, "recommends_to_trader": recs, "data_gaps": gaps}
 
 
-# ---------- sim realistica (condivisa) ----------
-def _ret(ca, candles, obs, trail):
+# ---------- sim realistica (condivisa, usa la libreria delle uscite a scaglioni) ----------
+def _seq(ca, candles, obs):
     if ca in candles:
         seq = candles[ca]
     else:
-        h = sorted(obs.get(ca, []))
-        seq = [(ts, pr, pr) for ts, pr in h]
+        seq = [(ts, pr, pr) for ts, pr in sorted(obs.get(ca, []))]
     if len(seq) < 2:
         return None
     med = st.median([c for _, _, c in seq])
     seq = [(t, hi, cl) for t, hi, cl in seq if med / 15 <= cl <= med * 15 and hi <= med * 20]
-    if len(seq) < 2:
+    return seq if len(seq) >= 2 else None
+
+
+def _ret(ca, candles, obs, spec):
+    seq = _seq(ca, candles, obs)
+    if not seq:
         return None
-    entry = seq[0][2] * (1 + SLIP); peak = seq[0][1]
-    for t, hi, cl in seq[1:]:
-        peak = max(peak, hi)
-        if cl <= peak * (1 - trail):
-            return max(cl * (1 - SLIP) / entry - 1, -0.95)
-    return max(min(seq[-1][2] * (1 - SLIP) / entry - 1, 10.0), -0.95)
+    r = exits.simulate(seq, spec, SLIP)
+    return r[0] if r else None
 
 
-# ---------- 2. TRADER: testa griglia + i suggerimenti del KPI ----------
+# ---------- 2. TRADER: testa filtri x TUTTE le scale di uscita + i suggerimenti del KPI ----------
 def trader(mature, candles, obs, kpi_recs):
     base_filters = ["buy_all", "bs>=2.0"]
     test_filters = list(dict.fromkeys(base_filters + kpi_recs))   # aggiunge cio' che il KPI raccomanda
@@ -114,27 +115,32 @@ def trader(mature, candles, obs, kpi_recs):
     for fname in test_filters:
         pred = (lambda r: True) if fname == "buy_all" else FILTERS.get(fname, lambda r: True)
         sel = [r["ca"] for r in mature if pred(r)]
-        for trail in (0.20, 0.30, 0.40):
-            rs = [_ret(ca, candles, obs, trail) for ca in sel]; rs = [x for x in rs if x is not None]
+        for sname, spec in exits.STRATEGIES.items():
+            rs = [_ret(ca, candles, obs, spec) for ca in sel]; rs = [x for x in rs if x is not None]
             if len(rs) < 12:
                 continue
-            results.append({"filter": fname, "trail": trail, "n": len(rs),
-                            "median": round(st.median(rs) * 100, 1), "mean": round(st.mean(rs) * 100, 1),
+            # MEDIA ROBUSTA: media dei ritorni TOGLIENDO i piu' fortunati (top ~5%). Misura "guadagni
+            # anche senza il colpo di fortuna?". Premia le uscite a scaglioni (robuste), non l'all-in fragile.
+            srt = sorted(rs); drop = max(1, len(rs) // 20)
+            rmean = st.mean(srt[:-drop]) if len(srt) > drop else st.mean(srt)
+            results.append({"filter": fname, "exit": sname, "n": len(rs),
+                            "rmean": round(rmean * 100, 1), "median": round(st.median(rs) * 100, 1),
+                            "mean": round(st.mean(rs) * 100, 1),
                             "win": round(sum(1 for x in rs if x > 0) / len(rs) * 100),
                             "n5m": sum(1 for ca in sel if ca in candles)})
     if not results:
         return None
-    results.sort(key=lambda g: (g["median"], g["mean"]), reverse=True)
+    # OBIETTIVO: massimizzare la MEDIA ROBUSTA (guadagno che resta togliendo i piu' fortunati). Cosi'
+    # il Trader sceglie la strategia che fa soldi DAVVERO, non quella che dipende da 1 colpo. Tie-break: media.
+    results.sort(key=lambda g: (g["rmean"], g["mean"]), reverse=True)
     best = results[0]
-    best["bet_frac"] = 0.10 if best["median"] < 0 else 0.15
-    best["profitable"] = best["median"] > 0
+    best["bet_frac"] = 0.10 if best["rmean"] < 0 else 0.12
+    best["profitable"] = best["rmean"] > 0
     # il Trader risponde al KPI: il tuo suggerimento ha battuto il buy_all?
     buyall = next((r for r in results if r["filter"] == "buy_all"), None)
     kpi_tried = [r for r in results if r["filter"] in kpi_recs]
     kpi_helped = bool(kpi_tried) and buyall and max(r["median"] for r in kpi_tried) > buyall["median"]
-    # cosa serve al Trader
     needs = []
-    cov = sum(best["n5m"] for r in [best]) / max(best["n"], 1)
     if best["n5m"] / max(best["n"], 1) < 0.7:
         needs.append("piu candele 5m (esecuzione piu precisa)")
     if best["n"] < 30:
@@ -164,7 +170,7 @@ def run():
     if trade:
         b = trade["best"]
         with open(os.path.join(HERE, "data", "trade_config.json"), "w") as f:
-            json.dump({"filter": b["filter"], "exit": "trail", "trail": b["trail"], "n": b["n"],
+            json.dump({"filter": b["filter"], "exit_strategy": b["exit"], "n": b["n"],
                        "median_pnl": b["median"], "win": b["win"], "bet_frac": b["bet_frac"],
                        "profitable": b["profitable"]}, f)
 
@@ -175,7 +181,7 @@ def run():
         decisioni.append(f"Segnale guida: {top['filter']} (win {top['win']}%, +{top['lift']}pt sulla base)")
     if trade:
         tag = "PROFITTEVOLE" if trade["best"]["profitable"] else "ancora in perdita"
-        decisioni.append(f"Strategia adottata: {trade['best']['filter']} + trailing {int(trade['best']['trail']*100)}% "
+        decisioni.append(f"Strategia adottata: {trade['best']['filter']} + uscita '{trade['best']['exit']}' "
                          f"(mediana {trade['best']['median']}%, {tag})")
         decisioni.append("Il suggerimento dell'Analista " + ("HA aiutato il Trader." if trade["kpi_suggestion_helped"]
                          else "non ha battuto il 'compra tutto' stavolta."))
@@ -225,7 +231,7 @@ def run():
                          "lift_pt": (top["lift"] if top else 0), "oos_win": (top["win"] if top else 0),
                          "n": len(mature), "verdict": (decisioni[0] if decisioni else ""),
                          "trend": _trend("top_lift"), "survives": bool(top and top["lift"] >= 8)},
-            "tab3_trading": {"strategy": (f"{trade['best']['filter']} + trail{int(trade['best']['trail']*100)}%" if trade else "—"),
+            "tab3_trading": {"strategy": (f"{trade['best']['filter']} + {trade['best']['exit']}" if trade else "—"),
                              "median_pnl": (trade["best"]["median"] if trade else 0),
                              "win": (trade["best"]["win"] if trade else 0),
                              "profitable": (trade["best"]["profitable"] if trade else False),
@@ -246,7 +252,7 @@ def run():
     print(f"Dataset allineato: {len(rows)} token ({len(mature)} maturi, {out['n_runners']} runner, {len(candles)} con candele 5m)")
     print(f"ANALISTA  -> guida: {top['filter'] if top else '—'} (+{top['lift'] if top else 0}pt) | raccomanda al Trader: {kpi['recommends_to_trader']}")
     if trade:
-        print(f"TRADER    -> adotta {trade['best']['filter']} trail{int(trade['best']['trail']*100)}% "
+        print(f"TRADER    -> adotta {trade['best']['filter']} + uscita '{trade['best']['exit']}' "
               f"(mediana {trade['best']['median']}%) | KPI ha aiutato: {trade['kpi_suggestion_helped']} | serve: {trade['needs']}")
     print(f"ACCUMULO  -> focus: {acc['focus_next']}")
     print(f"CTO       -> {cto}")

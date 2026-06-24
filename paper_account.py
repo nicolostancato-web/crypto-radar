@@ -11,6 +11,7 @@ applica il saldo. La strategia usata e' quella adottata dal meeting (data/trade_
 Onesto: slippage, uscita causale, niente look-ahead. Se la strategia perde, il conto scende. Punto.
 """
 import os, json, statistics as st
+import exits
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 STATE = os.path.join(HERE, "data", "paper_account.json")
@@ -33,8 +34,8 @@ def _candles():
     return out
 
 
-def _trade(ca, candles, series, trail):
-    """ritorno realistico + timestamp di CHIUSURA (uscita), causale, con slippage."""
+def _trade(ca, candles, series, spec):
+    """ritorno realistico + timestamp di CHIUSURA, causale, con la strategia di uscita a scaglioni."""
     if ca in candles:
         seq = candles[ca]
     else:
@@ -45,12 +46,7 @@ def _trade(ca, candles, series, trail):
     seq = [(t, hi, cl) for t, hi, cl in seq if med / 15 <= cl <= med * 15 and hi <= med * 20]
     if len(seq) < 2:
         return None
-    entry = seq[0][2] * (1 + SLIP); peak = seq[0][1]
-    for t, hi, cl in seq[1:]:
-        peak = max(peak, hi)
-        if cl <= peak * (1 - trail):
-            return max(cl * (1 - SLIP) / entry - 1, -0.95), t
-    return max(min(seq[-1][2] * (1 - SLIP) / entry - 1, 10.0), -0.95), seq[-1][0]
+    return exits.simulate(seq, spec, SLIP)
 
 
 def run():
@@ -66,7 +62,9 @@ def run():
     cfgp = os.path.join(HERE, "data", "trade_config.json")
     if os.path.exists(cfgp):
         cfg = json.load(open(cfgp))
-    flt = cfg.get("filter", "bs>=2.0"); trail = cfg.get("trail", 0.30)
+    flt = cfg.get("filter", "bs>=2.0")
+    exit_name = cfg.get("exit_strategy", "trail30")
+    spec = exits.STRATEGIES.get(exit_name, exits.STRATEGIES["trail30"])
     def keep(bs):
         if flt == "bs>=1.5": return (bs or 0) >= 1.5
         if flt == "bs>=2.0": return (bs or 0) >= 2.0
@@ -94,7 +92,7 @@ def run():
         s = sorted(s)
         if len(s) < 6:                      # non ancora maturo -> ancora "aperto", lo conto quando chiude
             continue
-        r = _trade(ca, candles, s, trail)
+        r = _trade(ca, candles, s, spec)
         if not r:
             continue
         ret, exit_ts = r
@@ -130,7 +128,7 @@ def run():
     without_top = _sim([t for t in ordered if t is not top1]) if top1 else state["balance"]
     fragile = bool(top1 and (state["balance"] - START) > 0 and without_top < START)
     out = {"start": START, "final": round(state["balance"], 2), "strategy": flt + " (conto VIVO, non resetta)",
-           "rules": f"parte da 100 EUR una volta, {int(FRAC*100)}%/trade, slippage {int(SLIP*100)}%, trailing {int(trail*100)}%",
+           "rules": f"parte da 100 EUR una volta, {int(FRAC*100)}%/trade, slippage {int(SLIP*100)}%, uscita '{exit_name}'",
            "n_trades": len(trades), "win_rate": round(len(wins) / len(trades) * 100) if trades else 0,
            "best": max((t["ret_pct"] for t in trades), default=0),
            "worst": min((t["ret_pct"] for t in trades), default=0),

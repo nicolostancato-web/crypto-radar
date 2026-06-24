@@ -1,1 +1,1 @@
-{"filter": "bs>=2.0", "exit": "trail", "trail": 0.3, "n": 57, "median_pnl": -12.2, "win": 30, "bet_frac": 0.1, "profitable": false}
+{"filter": "top10<0.30", "exit_strategy": "ladder_runner", "n": 64, "median_pnl": -13.8, "win": 41, "bet_frac": 0.1, "profitable": false}
