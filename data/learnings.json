@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-24 19:32",
+  "updated_utc": "2026-06-24 19:12",
   "runner_pct": 50,
   "settled": 526,
   "runners": 100,
@@ -87,7 +87,7 @@
     },
     {
       "ticker": "World",
-      "ret_max": 9.33,
+      "ret_max": 9.08,
       "pass": true,
       "vol_1h": 139353,
       "voliq": 10.64
