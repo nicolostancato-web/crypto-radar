@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-06-24 21:59",
+  "updated_utc": "2026-06-24 22:52",
   "runner_pct": 50,
-  "settled": 555,
-  "runners": 101,
-  "deads": 454,
+  "settled": 568,
+  "runners": 107,
+  "deads": 461,
   "by_arena": {
     "memecoin": {
-      "trades": 524,
-      "runners": 95,
-      "runner_rate": 0.18
+      "trades": 537,
+      "runners": 101,
+      "runner_rate": 0.19
     },
     "ai_agent": {
       "trades": 31,
@@ -21,53 +21,53 @@
   "status": "ready",
   "lessons": [
     {
-      "feature": "age_h",
-      "label": "età (h)",
-      "runner_median": 5.1,
-      "dead_median": 2.6,
-      "ratio": 1.96
-    },
-    {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 10093,
-      "dead_median": 5984,
-      "ratio": 1.69
+      "runner_median": 10013,
+      "dead_median": 6005.5,
+      "ratio": 1.67
     },
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 9044,
-      "dead_median": 6094,
-      "ratio": 1.48
+      "runner_median": 10501,
+      "dead_median": 6460.5,
+      "ratio": 1.63
+    },
+    {
+      "feature": "age_h",
+      "label": "età (h)",
+      "runner_median": 3.7,
+      "dead_median": 2.6,
+      "ratio": 1.42
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 50094,
-      "dead_median": 43494,
+      "runner_median": 49812,
+      "dead_median": 43479.5,
       "ratio": 1.15
+    },
+    {
+      "feature": "voliq",
+      "label": "volume/liquidità",
+      "runner_median": 5.12,
+      "dead_median": 5.98,
+      "ratio": 0.86
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.528,
-      "dead_median": 0.611,
+      "runner_median": 0.529,
+      "dead_median": 0.613,
       "ratio": 0.86
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
       "runner_median": 1.29,
-      "dead_median": 1.16,
-      "ratio": 1.11
-    },
-    {
-      "feature": "voliq",
-      "label": "volume/liquidità",
-      "runner_median": 5.74,
-      "dead_median": 5.98,
-      "ratio": 0.96
+      "dead_median": 1.17,
+      "ratio": 1.1
     },
     {
       "feature": "grok_heat",
@@ -80,7 +80,7 @@
   "best_runners": [
     {
       "ticker": "World",
-      "ret_max": 11.7,
+      "ret_max": 15.78,
       "pass": true,
       "vol_1h": 139353,
       "voliq": 10.64
