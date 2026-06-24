@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-24 02:30",
+  "updated_utc": "2026-06-24 04:55",
   "wallets_seen": 3276,
   "qualified": 251,
   "min_plays": 2,
@@ -179,6 +179,19 @@
       ]
     },
     {
+      "wallet": "DZbgq3yE3r41EFszV3XastvyS8j8QnmNT37nsq7sxR66",
+      "plays": 6,
+      "hits": 3,
+      "winrate": 0.5,
+      "tickers": [
+        "Droolmao",
+        "GAME",
+        "SUMMER",
+        "TACTICS",
+        "zer0"
+      ]
+    },
+    {
       "wallet": "Fk3LqCC65NEsk2CvrKBBN8KChbcnZ1bXc7aGYH5geK4m",
       "plays": 4,
       "hits": 2,
@@ -212,17 +225,6 @@
         "TOES",
         "Trenches",
         "USA250"
-      ]
-    },
-    {
-      "wallet": "56S29mZ3wqvw8hATuUUFqKhGcSGYFASRRFNT38W8q7G3",
-      "plays": 4,
-      "hits": 2,
-      "winrate": 0.5,
-      "tickers": [
-        ".",
-        "PUMPVERSE",
-        "SYZYGY"
       ]
     }
   ]
