@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-24 04:55",
-  "wallets_seen": 3276,
-  "qualified": 251,
+  "updated_utc": "2026-06-24 10:09",
+  "wallets_seen": 3382,
+  "qualified": 271,
   "min_plays": 2,
   "smart": [
     {
@@ -12,6 +12,26 @@
       "tickers": [
         "AN1Jkje",
         "Official Solan"
+      ]
+    },
+    {
+      "wallet": "4uR3i2EfzGBMDoNUKGnnzdCvKa3cn49UJQwBt4YaqHc9",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "It's White Cat",
+        "PVT"
+      ]
+    },
+    {
+      "wallet": "8kLKsGS5qfydG7pfFbJSRAdx8CBhaePSHTr1yFh44bZ9",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "It's White Cat",
+        "PVT"
       ]
     },
     {
@@ -42,6 +62,16 @@
       "tickers": [
         "Sakana AI",
         "The Envious Do"
+      ]
+    },
+    {
+      "wallet": "BmPEmMRc7WoPnwV64od42SUStY8Sfhxs1cxjyU6YQgTJ",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "$AGI",
+        "Strong CTO lea"
       ]
     },
     {
@@ -189,42 +219,6 @@
         "SUMMER",
         "TACTICS",
         "zer0"
-      ]
-    },
-    {
-      "wallet": "Fk3LqCC65NEsk2CvrKBBN8KChbcnZ1bXc7aGYH5geK4m",
-      "plays": 4,
-      "hits": 2,
-      "winrate": 0.5,
-      "tickers": [
-        "MANIFEST",
-        "SCROLL",
-        "TOES",
-        "USA250"
-      ]
-    },
-    {
-      "wallet": "8zkgFGVZrDLieViwqiXFCydSX6WL5hsxmUu55yBdsNsZ",
-      "plays": 4,
-      "hits": 2,
-      "winrate": 0.5,
-      "tickers": [
-        "AN1Jkje",
-        "BRAIN",
-        "CS",
-        "join the flock"
-      ]
-    },
-    {
-      "wallet": "HFX2dqzyQeRAdkjp41D4qThfsPPSyBDkVoruBr93zhY9",
-      "plays": 4,
-      "hits": 2,
-      "winrate": 0.5,
-      "tickers": [
-        "GAME",
-        "TOES",
-        "Trenches",
-        "USA250"
       ]
     }
   ]
