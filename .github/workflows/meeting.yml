@@ -12,7 +12,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: radar
+  group: radar-meeting
   cancel-in-progress: false
 
 jobs:
