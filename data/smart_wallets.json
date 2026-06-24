@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-24 11:33",
-  "wallets_seen": 3385,
-  "qualified": 272,
+  "updated_utc": "2026-06-24 15:20",
+  "wallets_seen": 3636,
+  "qualified": 296,
   "min_plays": 2,
   "smart": [
     {
@@ -42,16 +42,6 @@
       "tickers": [
         "GAME",
         "JOE"
-      ]
-    },
-    {
-      "wallet": "BnriGgFksuDAmFpz4vzxrxJchSGM1U73f3KZxBh6KbYJ",
-      "plays": 2,
-      "hits": 2,
-      "winrate": 1.0,
-      "tickers": [
-        "ESCOLAND",
-        "GAME"
       ]
     },
     {
@@ -161,6 +151,17 @@
       ]
     },
     {
+      "wallet": "BnriGgFksuDAmFpz4vzxrxJchSGM1U73f3KZxBh6KbYJ",
+      "plays": 3,
+      "hits": 2,
+      "winrate": 0.67,
+      "tickers": [
+        "ESCOLAND",
+        "GAME",
+        "fi half a fish"
+      ]
+    },
+    {
       "wallet": "EKGj79Vzs4dG8zVbLwrLhZYH4wtCyTtyPpGLTjNB6rUV",
       "plays": 3,
       "hits": 2,
@@ -169,17 +170,6 @@
         "$PROV is the p",
         "BULLIEVE",
         "CS"
-      ]
-    },
-    {
-      "wallet": "EL3Zjzj27bNQLGJk1jQKtBKrD7syFDxBY2VrQaQaiueQ",
-      "plays": 3,
-      "hits": 2,
-      "winrate": 0.67,
-      "tickers": [
-        "BRAIN",
-        "FomoTower, whe",
-        "zer0"
       ]
     },
     {
@@ -205,17 +195,27 @@
       ]
     },
     {
-      "wallet": "3gubYnreSffR5qRqmkoCTketmCXj3jMQu4UdiqRGy13t",
-      "plays": 10,
-      "hits": 5,
+      "wallet": "TeftEcGLpejE6aLU7YqMopbMqseYvQABNRwyFYTCxGq",
+      "plays": 3,
+      "hits": 2,
+      "winrate": 0.67,
+      "tickers": [
+        "Literally a ru",
+        "Sakana AI",
+        "join the flock"
+      ]
+    },
+    {
+      "wallet": "DZbgq3yE3r41EFszV3XastvyS8j8QnmNT37nsq7sxR66",
+      "plays": 6,
+      "hits": 3,
       "winrate": 0.5,
       "tickers": [
-        "A quantum unic",
-        "AN1Jkje",
-        "BILLY",
-        "Lumumba DR Con",
-        "Throw the chum",
-        "Wildfrontier i"
+        "Droolmao",
+        "GAME",
+        "SUMMER",
+        "TACTICS",
+        "zer0"
       ]
     }
   ]
