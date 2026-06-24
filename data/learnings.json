@@ -1,13 +1,13 @@
 {
-  "updated_utc": "2026-06-24 06:31",
+  "updated_utc": "2026-06-24 10:05",
   "runner_pct": 50,
-  "settled": 409,
-  "runners": 82,
-  "deads": 327,
+  "settled": 438,
+  "runners": 88,
+  "deads": 350,
   "by_arena": {
     "memecoin": {
-      "trades": 381,
-      "runners": 76,
+      "trades": 410,
+      "runners": 82,
       "runner_rate": 0.2
     },
     "ai_agent": {
@@ -23,44 +23,44 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 10244.5,
-      "dead_median": 3059.0,
-      "ratio": 3.35
-    },
-    {
-      "feature": "liq",
-      "label": "liquidità",
-      "runner_median": 10839.0,
-      "dead_median": 6709.0,
-      "ratio": 1.62
+      "runner_median": 9516.0,
+      "dead_median": 3508,
+      "ratio": 2.71
     },
     {
       "feature": "age_h",
       "label": "età (h)",
       "runner_median": 5.65,
-      "dead_median": 4.1,
-      "ratio": 1.38
+      "dead_median": 3.6,
+      "ratio": 1.57
     },
     {
-      "feature": "vol_24h",
-      "label": "volume 24h",
-      "runner_median": 53741.5,
-      "dead_median": 43479.5,
-      "ratio": 1.24
+      "feature": "liq",
+      "label": "liquidità",
+      "runner_median": 10347.5,
+      "dead_median": 6690,
+      "ratio": 1.55
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.52,
-      "dead_median": 0.621,
+      "runner_median": 0.526,
+      "dead_median": 0.627,
       "ratio": 0.84
+    },
+    {
+      "feature": "vol_24h",
+      "label": "volume 24h",
+      "runner_median": 50239.5,
+      "dead_median": 43915,
+      "ratio": 1.14
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
-      "runner_median": 1.31,
-      "dead_median": 1.13,
-      "ratio": 1.16
+      "runner_median": 1.305,
+      "dead_median": 1.14,
+      "ratio": 1.14
     },
     {
       "feature": "grok_heat",
@@ -72,25 +72,32 @@
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 5.91,
-      "dead_median": 5.77,
-      "ratio": 1.02
+      "runner_median": 5.74,
+      "dead_median": 6.0,
+      "ratio": 0.96
     }
   ],
   "best_runners": [
     {
       "ticker": null,
-      "ret_max": 33.68,
+      "ret_max": 54.2,
       "pass": false,
       "vol_1h": 155883,
       "voliq": 26.93
     },
     {
       "ticker": "Photo of an Ad",
-      "ret_max": 19.07,
+      "ret_max": 26.82,
       "pass": false,
       "vol_1h": 0,
       "voliq": 0.5
+    },
+    {
+      "ticker": "$GOLD is a mem",
+      "ret_max": 9.53,
+      "pass": false,
+      "vol_1h": 69,
+      "voliq": 0.94
     },
     {
       "ticker": "5UUH9RTD",
@@ -108,17 +115,10 @@
     },
     {
       "ticker": null,
-      "ret_max": 7.58,
+      "ret_max": 7.89,
       "pass": false,
       "vol_1h": 29996,
       "voliq": 25.09
-    },
-    {
-      "ticker": "$GOLD is a mem",
-      "ret_max": 7.22,
-      "pass": false,
-      "vol_1h": 69,
-      "voliq": 0.94
     },
     {
       "ticker": "ESCOLAND",
