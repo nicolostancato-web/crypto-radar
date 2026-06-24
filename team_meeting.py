@@ -235,6 +235,13 @@ def run():
     with open(os.path.join(HERE, "web", "team.json"), "w") as f:
         json.dump(team, f)
 
+    # storico del PROGRESSO (la mediana P&L che deve salire verso lo 0 = profittabilita)
+    prog = [json.loads(l) for l in open(hist)] if os.path.exists(hist) else []
+    out["progress"] = [{"ts": p["ts"], "median_pnl": p.get("best_median_pnl"),
+                        "lift": p.get("top_lift"), "n": p.get("n_tokens")} for p in prog][-30:]
+    with open(os.path.join(HERE, "web", "meeting.json"), "w") as f:   # riscrive col progresso incluso
+        json.dump(out, f)
+
     print("\n========== MEETING DI ALLENAMENTO ==========")
     print(f"Dataset allineato: {len(rows)} token ({len(mature)} maturi, {out['n_runners']} runner, {len(candles)} con candele 5m)")
     print(f"ANALISTA  -> guida: {top['filter'] if top else '—'} (+{top['lift'] if top else 0}pt) | raccomanda al Trader: {kpi['recommends_to_trader']}")

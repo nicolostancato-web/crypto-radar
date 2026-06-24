@@ -253,6 +253,30 @@ function renderMeeting(m) {
   $("meeting-decisions").innerHTML =
     `<div class="dec-h">Decisioni del CTO</div><ul>${(m.decisioni || []).map(d => `<li>${d}</li>`).join("")}</ul>` +
     `<div class="cto-note">🧠 ${m.cto_note || ""}</div>`;
+  renderProgress(m.progress || []);
+}
+
+function renderProgress(prog) {
+  const pts = prog.filter(p => p.median_pnl != null);
+  if (pts.length < 2) {
+    $("progress-chart").innerHTML = `<div class="muted" style="padding:8px 0">Si costruisce dal 2° meeting — oggi è il giorno 1. Domani il primo segmento.</div>`;
+    return;
+  }
+  const W = 600, H = 120, pad = 26;
+  const ys = pts.map(p => p.median_pnl);
+  const lo = Math.min(...ys, 0) - 5, hi = Math.max(...ys, 5) + 5, span = hi - lo;
+  const x = i => pad + i / (pts.length - 1) * (W - pad * 2);
+  const y = v => H - pad - (v - lo) / span * (H - pad * 2);
+  const dd = pts.map((p, i) => (i ? "L" : "M") + x(i).toFixed(1) + " " + y(p.median_pnl).toFixed(1)).join(" ");
+  const zeroY = y(0);
+  const last = pts[pts.length - 1].median_pnl, up = last >= 0;
+  $("progress-chart").innerHTML = `<svg viewBox="0 0 ${W} ${H}" class="progress-svg">
+    <line x1="${pad}" y1="${zeroY.toFixed(1)}" x2="${W - pad}" y2="${zeroY.toFixed(1)}" class="goal-line"/>
+    <text x="${W - pad}" y="${(zeroY - 4).toFixed(1)}" class="goal-label">profittabilità (0%)</text>
+    <path d="${dd}" class="${up ? 'spark-up' : 'spark-down'}"/>
+    ${pts.map((p, i) => `<circle cx="${x(i).toFixed(1)}" cy="${y(p.median_pnl).toFixed(1)}" r="3" class="${p.median_pnl >= 0 ? 'dot-up' : 'dot-down'}"/>`).join("")}
+  </svg>
+  <div class="muted" style="font-size:12px">Ultimo: <b class="${up ? 'pos' : 'neg'}">${last}%</b> · ${pts.length} meeting registrati</div>`;
 }
 
 function renderPortfolio(p) {

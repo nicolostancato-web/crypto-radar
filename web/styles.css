@@ -199,3 +199,10 @@ footer .muted{margin-top:8px;font-size:.78rem}
 .dec-h { font-weight:700; font-size:13px; color:#cdd6e2; margin-bottom:4px; }
 .meeting-decisions ul { margin:0 0 8px; padding-left:18px; }
 .meeting-decisions li { font-size:13px; color:#9aa4b2; margin:3px 0; }
+
+/* --- GRAFICO PROGRESSO --- */
+.progress-wrap { margin-top:14px; }
+.progress-svg { width:100%; height:120px; }
+.goal-line { stroke:#34d399; stroke-width:1.5; stroke-dasharray:5 4; opacity:.7; }
+.goal-label { fill:#34d399; font-size:10px; text-anchor:end; opacity:.8; }
+.dot-up { fill:#34d399; } .dot-down { fill:#f87171; }
