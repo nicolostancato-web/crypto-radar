@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-24 15:20",
-  "wallets_seen": 3636,
-  "qualified": 296,
+  "updated_utc": "2026-06-24 15:27",
+  "wallets_seen": 3670,
+  "qualified": 304,
   "min_plays": 2,
   "smart": [
     {
@@ -15,7 +15,7 @@
       ]
     },
     {
-      "wallet": "4uR3i2EfzGBMDoNUKGnnzdCvKa3cn49UJQwBt4YaqHc9",
+      "wallet": "8kLKsGS5qfydG7pfFbJSRAdx8CBhaePSHTr1yFh44bZ9",
       "plays": 2,
       "hits": 2,
       "winrate": 1.0,
@@ -25,7 +25,7 @@
       ]
     },
     {
-      "wallet": "8kLKsGS5qfydG7pfFbJSRAdx8CBhaePSHTr1yFh44bZ9",
+      "wallet": "4uR3i2EfzGBMDoNUKGnnzdCvKa3cn49UJQwBt4YaqHc9",
       "plays": 2,
       "hits": 2,
       "winrate": 1.0,
@@ -85,6 +85,16 @@
       ]
     },
     {
+      "wallet": "4YsH8kyuFPb7JnkgNuzeTx4YrZFSf9Pj17XNt1n9SueE",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "CTO for RO The",
+        "Welcome to r/W"
+      ]
+    },
+    {
       "wallet": "8FJ3DCvWMv5Aw14BD2GYFsf5Q9DPscSm8N2RQvFv6TFY",
       "plays": 2,
       "hits": 2,
@@ -92,6 +102,15 @@
       "tickers": [
         "A dog named Jo",
         "I hand drew an"
+      ]
+    },
+    {
+      "wallet": "GrNtJgnviiWDLjv9rCKzDywDvqDXifasriaoxKZGrW9V",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "WENDY mentione"
       ]
     },
     {
@@ -114,6 +133,17 @@
         "MESSI THE GOAT",
         "PXM is a digit",
         "The Envious Do"
+      ]
+    },
+    {
+      "wallet": "HvFdDWS3RqymRAVx1ZdoL2RjiC38r5dtt19Z8op5jqDK",
+      "plays": 3,
+      "hits": 2,
+      "winrate": 0.67,
+      "tickers": [
+        "DOG",
+        "SOCCER",
+        "Welcome to r/W"
       ]
     },
     {
@@ -181,41 +211,6 @@
         "MCAT",
         "Sakana AI",
         "The Envious Do"
-      ]
-    },
-    {
-      "wallet": "434qiWpapr9puryQRwJcfFoTvQPeSMexg88uQ2HeiGGC",
-      "plays": 3,
-      "hits": 2,
-      "winrate": 0.67,
-      "tickers": [
-        "$CHEEZYRL",
-        "Lolis doing fe",
-        "Throw the chum"
-      ]
-    },
-    {
-      "wallet": "TeftEcGLpejE6aLU7YqMopbMqseYvQABNRwyFYTCxGq",
-      "plays": 3,
-      "hits": 2,
-      "winrate": 0.67,
-      "tickers": [
-        "Literally a ru",
-        "Sakana AI",
-        "join the flock"
-      ]
-    },
-    {
-      "wallet": "DZbgq3yE3r41EFszV3XastvyS8j8QnmNT37nsq7sxR66",
-      "plays": 6,
-      "hits": 3,
-      "winrate": 0.5,
-      "tickers": [
-        "Droolmao",
-        "GAME",
-        "SUMMER",
-        "TACTICS",
-        "zer0"
       ]
     }
   ]
