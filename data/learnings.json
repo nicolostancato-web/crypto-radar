@@ -1,12 +1,12 @@
 {
-  "updated_utc": "2026-06-24 22:52",
+  "updated_utc": "2026-06-24 23:39",
   "runner_pct": 50,
-  "settled": 568,
+  "settled": 569,
   "runners": 107,
-  "deads": 461,
+  "deads": 462,
   "by_arena": {
     "memecoin": {
-      "trades": 537,
+      "trades": 538,
       "runners": 101,
       "runner_rate": 0.19
     },
@@ -21,18 +21,18 @@
   "status": "ready",
   "lessons": [
     {
-      "feature": "liq",
-      "label": "liquidità",
-      "runner_median": 10013,
-      "dead_median": 6005.5,
-      "ratio": 1.67
-    },
-    {
       "feature": "vol_1h",
       "label": "volume 1h",
       "runner_median": 10501,
-      "dead_median": 6460.5,
-      "ratio": 1.63
+      "dead_median": 6200,
+      "ratio": 1.69
+    },
+    {
+      "feature": "liq",
+      "label": "liquidità",
+      "runner_median": 10013,
+      "dead_median": 5984,
+      "ratio": 1.67
     },
     {
       "feature": "age_h",
@@ -45,7 +45,7 @@
       "feature": "vol_24h",
       "label": "volume 24h",
       "runner_median": 49812,
-      "dead_median": 43479.5,
+      "dead_median": 43465,
       "ratio": 1.15
     },
     {
@@ -59,8 +59,8 @@
       "feature": "top10_pct",
       "label": "top 10 wallet",
       "runner_median": 0.529,
-      "dead_median": 0.613,
-      "ratio": 0.86
+      "dead_median": 0.611,
+      "ratio": 0.87
     },
     {
       "feature": "bs_ratio_1h",
@@ -121,18 +121,18 @@
       "voliq": 21.24
     },
     {
+      "ticker": "Mithril has ar",
+      "ret_max": 6.52,
+      "pass": false,
+      "vol_1h": 6409,
+      "voliq": 0.65
+    },
+    {
       "ticker": "On-chain footb",
       "ret_max": 6.44,
       "pass": false,
       "vol_1h": 29558,
       "voliq": 6.75
-    },
-    {
-      "ticker": "Hedge",
-      "ret_max": 6.29,
-      "pass": false,
-      "vol_1h": 191,
-      "voliq": null
     }
   ]
 }
