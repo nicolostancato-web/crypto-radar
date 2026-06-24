@@ -1,19 +1,19 @@
 {
-  "updated_utc": "2026-06-23 14:30",
+  "updated_utc": "2026-06-24 06:31",
   "runner_pct": 50,
-  "settled": 265,
-  "runners": 52,
-  "deads": 213,
+  "settled": 409,
+  "runners": 82,
+  "deads": 327,
   "by_arena": {
     "memecoin": {
-      "trades": 239,
-      "runners": 46,
-      "runner_rate": 0.19
+      "trades": 381,
+      "runners": 76,
+      "runner_rate": 0.2
     },
     "ai_agent": {
-      "trades": 26,
+      "trades": 28,
       "runners": 6,
-      "runner_rate": 0.23
+      "runner_rate": 0.21
     }
   },
   "prelim_at": 8,
@@ -23,61 +23,75 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 7053.5,
-      "dead_median": 1506,
-      "ratio": 4.68
-    },
-    {
-      "feature": "age_h",
-      "label": "età (h)",
-      "runner_median": 18.15,
-      "dead_median": 7.8,
-      "ratio": 2.33
+      "runner_median": 10244.5,
+      "dead_median": 3059.0,
+      "ratio": 3.35
     },
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 14827.5,
-      "dead_median": 9084,
-      "ratio": 1.63
+      "runner_median": 10839.0,
+      "dead_median": 6709.0,
+      "ratio": 1.62
+    },
+    {
+      "feature": "age_h",
+      "label": "età (h)",
+      "runner_median": 5.65,
+      "dead_median": 4.1,
+      "ratio": 1.38
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 66716.0,
-      "dead_median": 43915,
-      "ratio": 1.52
-    },
-    {
-      "feature": "bs_ratio_1h",
-      "label": "buy/sell 1h",
-      "runner_median": 1.315,
-      "dead_median": 1.03,
-      "ratio": 1.28
+      "runner_median": 53741.5,
+      "dead_median": 43479.5,
+      "ratio": 1.24
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.512,
-      "dead_median": 0.607,
+      "runner_median": 0.52,
+      "dead_median": 0.621,
       "ratio": 0.84
     },
     {
-      "feature": "voliq",
-      "label": "volume/liquidità",
-      "runner_median": 6.28,
-      "dead_median": 5.455,
-      "ratio": 1.15
+      "feature": "bs_ratio_1h",
+      "label": "buy/sell 1h",
+      "runner_median": 1.31,
+      "dead_median": 1.13,
+      "ratio": 1.16
     },
     {
       "feature": "grok_heat",
       "label": "heat di Grok",
       "runner_median": 4,
-      "dead_median": 4,
-      "ratio": 1.0
+      "dead_median": 3.5,
+      "ratio": 1.14
+    },
+    {
+      "feature": "voliq",
+      "label": "volume/liquidità",
+      "runner_median": 5.91,
+      "dead_median": 5.77,
+      "ratio": 1.02
     }
   ],
   "best_runners": [
+    {
+      "ticker": null,
+      "ret_max": 33.68,
+      "pass": false,
+      "vol_1h": 155883,
+      "voliq": 26.93
+    },
+    {
+      "ticker": "Photo of an Ad",
+      "ret_max": 19.07,
+      "pass": false,
+      "vol_1h": 0,
+      "voliq": 0.5
+    },
     {
       "ticker": "5UUH9RTD",
       "ret_max": 8.95,
@@ -93,6 +107,20 @@
       "voliq": 4.23
     },
     {
+      "ticker": null,
+      "ret_max": 7.58,
+      "pass": false,
+      "vol_1h": 29996,
+      "voliq": 25.09
+    },
+    {
+      "ticker": "$GOLD is a mem",
+      "ret_max": 7.22,
+      "pass": false,
+      "vol_1h": 69,
+      "voliq": 0.94
+    },
+    {
       "ticker": "ESCOLAND",
       "ret_max": 6.75,
       "pass": false,
@@ -105,41 +133,6 @@
       "pass": false,
       "vol_1h": 191,
       "voliq": null
-    },
-    {
-      "ticker": "Miu the pfp ca",
-      "ret_max": 5.33,
-      "pass": false,
-      "vol_1h": 0,
-      "voliq": 1.2
-    },
-    {
-      "ticker": "SCROLL",
-      "ret_max": 4.41,
-      "pass": false,
-      "vol_1h": 19539,
-      "voliq": 1.21
-    },
-    {
-      "ticker": "Miu the pfp ca",
-      "ret_max": 4.15,
-      "pass": false,
-      "vol_1h": 0,
-      "voliq": 1.2
-    },
-    {
-      "ticker": "BRAIN",
-      "ret_max": 3.68,
-      "pass": false,
-      "vol_1h": 26989,
-      "voliq": 1.95
-    },
-    {
-      "ticker": "Catch Pokémon ",
-      "ret_max": 2.65,
-      "pass": true,
-      "vol_1h": 213074,
-      "voliq": 17.38
     }
   ]
 }
