@@ -1,13 +1,13 @@
 {
-  "updated_utc": "2026-06-24 12:20",
+  "updated_utc": "2026-06-24 12:52",
   "runner_pct": 50,
-  "settled": 468,
-  "runners": 93,
-  "deads": 375,
+  "settled": 467,
+  "runners": 94,
+  "deads": 373,
   "by_arena": {
     "memecoin": {
-      "trades": 440,
-      "runners": 87,
+      "trades": 439,
+      "runners": 88,
       "runner_rate": 0.2
     },
     "ai_agent": {
@@ -24,8 +24,15 @@
       "feature": "vol_1h",
       "label": "volume 1h",
       "runner_median": 10244.5,
-      "dead_median": 3512,
+      "dead_median": 3510.0,
       "ratio": 2.92
+    },
+    {
+      "feature": "liq",
+      "label": "liquidità",
+      "runner_median": 10481.0,
+      "dead_median": 6183.5,
+      "ratio": 1.69
     },
     {
       "feature": "age_h",
@@ -35,24 +42,10 @@
       "ratio": 1.68
     },
     {
-      "feature": "liq",
-      "label": "liquidità",
-      "runner_median": 10481.0,
-      "dead_median": 6340,
-      "ratio": 1.65
-    },
-    {
-      "feature": "grok_heat",
-      "label": "heat di Grok",
-      "runner_median": 4.0,
-      "dead_median": 3.0,
-      "ratio": 1.33
-    },
-    {
       "feature": "vol_24h",
       "label": "volume 24h",
       "runner_median": 51786.0,
-      "dead_median": 43190,
+      "dead_median": 43327.5,
       "ratio": 1.2
     },
     {
@@ -66,14 +59,21 @@
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
       "runner_median": 1.325,
-      "dead_median": 1.14,
-      "ratio": 1.16
+      "dead_median": 1.135,
+      "ratio": 1.17
+    },
+    {
+      "feature": "grok_heat",
+      "label": "heat di Grok",
+      "runner_median": 4,
+      "dead_median": 3.5,
+      "ratio": 1.14
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
       "runner_median": 5.74,
-      "dead_median": 5.99,
+      "dead_median": 5.995,
       "ratio": 0.96
     }
   ],
@@ -108,7 +108,7 @@
     },
     {
       "ticker": null,
-      "ret_max": 8.69,
+      "ret_max": 8.76,
       "pass": false,
       "vol_1h": 29996,
       "voliq": 25.09
