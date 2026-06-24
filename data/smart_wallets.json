@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-23 22:06",
-  "wallets_seen": 3170,
-  "qualified": 240,
+  "updated_utc": "2026-06-24 02:30",
+  "wallets_seen": 3276,
+  "qualified": 251,
   "min_plays": 2,
   "smart": [
     {
@@ -121,6 +121,17 @@
       ]
     },
     {
+      "wallet": "EKGj79Vzs4dG8zVbLwrLhZYH4wtCyTtyPpGLTjNB6rUV",
+      "plays": 3,
+      "hits": 2,
+      "winrate": 0.67,
+      "tickers": [
+        "$PROV is the p",
+        "BULLIEVE",
+        "CS"
+      ]
+    },
+    {
       "wallet": "EL3Zjzj27bNQLGJk1jQKtBKrD7syFDxBY2VrQaQaiueQ",
       "plays": 3,
       "hits": 2,
@@ -151,6 +162,20 @@
         "$CHEEZYRL",
         "Lolis doing fe",
         "Throw the chum"
+      ]
+    },
+    {
+      "wallet": "3gubYnreSffR5qRqmkoCTketmCXj3jMQu4UdiqRGy13t",
+      "plays": 10,
+      "hits": 5,
+      "winrate": 0.5,
+      "tickers": [
+        "A quantum unic",
+        "AN1Jkje",
+        "BILLY",
+        "Lumumba DR Con",
+        "Throw the chum",
+        "Wildfrontier i"
       ]
     },
     {
@@ -198,27 +223,6 @@
         ".",
         "PUMPVERSE",
         "SYZYGY"
-      ]
-    },
-    {
-      "wallet": "A89vGputSuAjbfcKEbVVAtLiSnA159YePyuKHGNMsscX",
-      "plays": 4,
-      "hits": 2,
-      "winrate": 0.5,
-      "tickers": [
-        "$SS",
-        "A mirror dashb",
-        "BRAIN",
-        "The Envious Do"
-      ]
-    },
-    {
-      "wallet": "GFynjwFTQ734vP745QdxcNn6z3qQL3uJWEpw3q1byNjv",
-      "plays": 2,
-      "hits": 1,
-      "winrate": 0.5,
-      "tickers": [
-        "SCROLL"
       ]
     }
   ]
