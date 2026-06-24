@@ -1,19 +1,19 @@
 {
-  "updated_utc": "2026-06-24 21:14",
+  "updated_utc": "2026-06-24 21:59",
   "runner_pct": 50,
-  "settled": 526,
-  "runners": 99,
-  "deads": 427,
+  "settled": 555,
+  "runners": 101,
+  "deads": 454,
   "by_arena": {
     "memecoin": {
-      "trades": 496,
-      "runners": 93,
-      "runner_rate": 0.19
+      "trades": 524,
+      "runners": 95,
+      "runner_rate": 0.18
     },
     "ai_agent": {
-      "trades": 30,
+      "trades": 31,
       "runners": 6,
-      "runner_rate": 0.2
+      "runner_rate": 0.19
     }
   },
   "prelim_at": 8,
@@ -23,51 +23,51 @@
     {
       "feature": "age_h",
       "label": "età (h)",
-      "runner_median": 5.5,
-      "dead_median": 2.8,
+      "runner_median": 5.1,
+      "dead_median": 2.6,
       "ratio": 1.96
     },
     {
       "feature": "liq",
       "label": "liquidità",
       "runner_median": 10093,
-      "dead_median": 6470.5,
-      "ratio": 1.56
+      "dead_median": 5984,
+      "ratio": 1.69
     },
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 7407,
-      "dead_median": 5219.5,
-      "ratio": 1.42
+      "runner_median": 9044,
+      "dead_median": 6094,
+      "ratio": 1.48
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
       "runner_median": 50094,
-      "dead_median": 43479.5,
+      "dead_median": 43494,
       "ratio": 1.15
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
       "runner_median": 0.528,
-      "dead_median": 0.615,
+      "dead_median": 0.611,
       "ratio": 0.86
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
-      "runner_median": 1.32,
+      "runner_median": 1.29,
       "dead_median": 1.16,
-      "ratio": 1.14
+      "ratio": 1.11
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 5.43,
+      "runner_median": 5.74,
       "dead_median": 5.98,
-      "ratio": 0.91
+      "ratio": 0.96
     },
     {
       "feature": "grok_heat",
@@ -79,18 +79,18 @@
   ],
   "best_runners": [
     {
+      "ticker": "World",
+      "ret_max": 11.7,
+      "pass": true,
+      "vol_1h": 139353,
+      "voliq": 10.64
+    },
+    {
       "ticker": "$GOLD is a mem",
       "ret_max": 9.71,
       "pass": false,
       "vol_1h": 69,
       "voliq": 0.94
-    },
-    {
-      "ticker": "World",
-      "ret_max": 9.33,
-      "pass": true,
-      "vol_1h": 139353,
-      "voliq": 10.64
     },
     {
       "ticker": "5UUH9RTD",
