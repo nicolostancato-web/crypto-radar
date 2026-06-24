@@ -1,12 +1,12 @@
 {
-  "updated_utc": "2026-06-24 16:48",
+  "updated_utc": "2026-06-24 17:30",
   "runner_pct": 50,
-  "settled": 497,
+  "settled": 499,
   "runners": 98,
-  "deads": 399,
+  "deads": 401,
   "by_arena": {
     "memecoin": {
-      "trades": 468,
+      "trades": 470,
       "runners": 92,
       "runner_rate": 0.2
     },
@@ -24,8 +24,8 @@
       "feature": "vol_1h",
       "label": "volume 1h",
       "runner_median": 10244.5,
-      "dead_median": 4137.5,
-      "ratio": 2.48
+      "dead_median": 4192.0,
+      "ratio": 2.44
     },
     {
       "feature": "age_h",
@@ -45,14 +45,14 @@
       "feature": "vol_24h",
       "label": "volume 24h",
       "runner_median": 55142.5,
-      "dead_median": 43327.5,
+      "dead_median": 43479.5,
       "ratio": 1.27
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
       "runner_median": 0.52,
-      "dead_median": 0.614,
+      "dead_median": 0.611,
       "ratio": 0.85
     },
     {
@@ -73,18 +73,11 @@
       "feature": "voliq",
       "label": "volume/liquidità",
       "runner_median": 5.91,
-      "dead_median": 5.98,
+      "dead_median": 5.99,
       "ratio": 0.99
     }
   ],
   "best_runners": [
-    {
-      "ticker": null,
-      "ret_max": 24.06,
-      "pass": false,
-      "vol_1h": 155883,
-      "voliq": 26.93
-    },
     {
       "ticker": "$GOLD is a mem",
       "ret_max": 9.71,
@@ -115,7 +108,7 @@
     },
     {
       "ticker": "World",
-      "ret_max": 6.83,
+      "ret_max": 6.84,
       "pass": true,
       "vol_1h": 139353,
       "voliq": 10.64
@@ -133,6 +126,13 @@
       "pass": false,
       "vol_1h": 191,
       "voliq": null
+    },
+    {
+      "ticker": null,
+      "ret_max": 6.15,
+      "pass": false,
+      "vol_1h": 155883,
+      "voliq": 26.93
     }
   ]
 }
