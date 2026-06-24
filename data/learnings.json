@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-06-23 23:54",
+  "updated_utc": "2026-06-24 02:29",
   "runner_pct": 50,
-  "settled": 370,
-  "runners": 71,
-  "deads": 299,
+  "settled": 408,
+  "runners": 81,
+  "deads": 327,
   "by_arena": {
     "memecoin": {
-      "trades": 342,
-      "runners": 65,
-      "runner_rate": 0.19
+      "trades": 380,
+      "runners": 75,
+      "runner_rate": 0.2
     },
     "ai_agent": {
       "trades": 28,
@@ -23,64 +23,64 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 9988,
-      "dead_median": 2765.0,
-      "ratio": 3.61
-    },
-    {
-      "feature": "age_h",
-      "label": "età (h)",
-      "runner_median": 11.5,
-      "dead_median": 4.3,
-      "ratio": 2.67
+      "runner_median": 12823,
+      "dead_median": 3031.5,
+      "ratio": 4.23
     },
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 12338,
-      "dead_median": 6934.5,
-      "ratio": 1.78
+      "runner_median": 12251,
+      "dead_median": 6640.0,
+      "ratio": 1.85
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 65652,
+      "runner_median": 64898,
       "dead_median": 42961.5,
-      "ratio": 1.53
+      "ratio": 1.51
+    },
+    {
+      "feature": "age_h",
+      "label": "età (h)",
+      "runner_median": 5.7,
+      "dead_median": 4.1,
+      "ratio": 1.39
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
-      "runner_median": 1.37,
-      "dead_median": 1.1,
-      "ratio": 1.25
+      "runner_median": 1.34,
+      "dead_median": 1.13,
+      "ratio": 1.19
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.513,
+      "runner_median": 0.516,
       "dead_median": 0.632,
-      "ratio": 0.81
+      "ratio": 0.82
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 6.02,
-      "dead_median": 5.97,
-      "ratio": 1.01
+      "runner_median": 5.965,
+      "dead_median": 5.65,
+      "ratio": 1.06
     },
     {
       "feature": "grok_heat",
       "label": "heat di Grok",
       "runner_median": 4.0,
-      "dead_median": 4.0,
+      "dead_median": 4,
       "ratio": 1.0
     }
   ],
   "best_runners": [
     {
       "ticker": "Photo of an Ad",
-      "ret_max": 13.3,
+      "ret_max": 19.07,
       "pass": false,
       "vol_1h": 0,
       "voliq": 0.5
@@ -107,6 +107,13 @@
       "voliq": 21.24
     },
     {
+      "ticker": null,
+      "ret_max": 6.72,
+      "pass": false,
+      "vol_1h": 155883,
+      "voliq": 26.93
+    },
+    {
       "ticker": "Hedge",
       "ret_max": 6.29,
       "pass": false,
@@ -115,24 +122,17 @@
     },
     {
       "ticker": "CatWifHat on U",
-      "ret_max": 4.53,
+      "ret_max": 4.65,
       "pass": false,
       "vol_1h": 41621,
       "voliq": 6.7
     },
     {
-      "ticker": "SCROLL",
-      "ret_max": 4.41,
+      "ticker": null,
+      "ret_max": 4.57,
       "pass": false,
-      "vol_1h": 19539,
-      "voliq": 1.21
-    },
-    {
-      "ticker": "Miu the pfp ca",
-      "ret_max": 4.15,
-      "pass": false,
-      "vol_1h": 0,
-      "voliq": 1.2
+      "vol_1h": 29996,
+      "voliq": 25.09
     }
   ]
 }
