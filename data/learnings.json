@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-24 10:08",
+  "updated_utc": "2026-06-24 10:05",
   "runner_pct": 50,
   "settled": 438,
   "runners": 88,
@@ -80,21 +80,21 @@
   "best_runners": [
     {
       "ticker": null,
-      "ret_max": 50.87,
+      "ret_max": 54.2,
       "pass": false,
       "vol_1h": 155883,
       "voliq": 26.93
     },
     {
       "ticker": "Photo of an Ad",
-      "ret_max": 24.64,
+      "ret_max": 26.82,
       "pass": false,
       "vol_1h": 0,
       "voliq": 0.5
     },
     {
       "ticker": "$GOLD is a mem",
-      "ret_max": 9.71,
+      "ret_max": 9.53,
       "pass": false,
       "vol_1h": 69,
       "voliq": 0.94
@@ -115,7 +115,7 @@
     },
     {
       "ticker": null,
-      "ret_max": 7.93,
+      "ret_max": 7.89,
       "pass": false,
       "vol_1h": 29996,
       "voliq": 25.09
