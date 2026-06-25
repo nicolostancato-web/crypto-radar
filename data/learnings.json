@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-06-25 07:41",
+  "updated_utc": "2026-06-25 09:59",
   "runner_pct": 50,
   "settled": 645,
-  "runners": 124,
-  "deads": 521,
+  "runners": 126,
+  "deads": 519,
   "by_arena": {
     "memecoin": {
       "trades": 614,
-      "runners": 118,
-      "runner_rate": 0.19
+      "runners": 120,
+      "runner_rate": 0.2
     },
     "ai_agent": {
       "trades": 31,
@@ -23,23 +23,23 @@
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 9727.5,
-      "dead_median": 4413.5,
-      "ratio": 2.2
-    },
-    {
-      "feature": "age_h",
-      "label": "età (h)",
-      "runner_median": 3.25,
-      "dead_median": 2.2,
-      "ratio": 1.48
+      "runner_median": 9828.5,
+      "dead_median": 4165.0,
+      "ratio": 2.36
     },
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 12584.5,
-      "dead_median": 9483.5,
-      "ratio": 1.33
+      "runner_median": 12790.5,
+      "dead_median": 9194.5,
+      "ratio": 1.39
+    },
+    {
+      "feature": "age_h",
+      "label": "età (h)",
+      "runner_median": 3.05,
+      "dead_median": 2.2,
+      "ratio": 1.39
     },
     {
       "feature": "grok_heat",
@@ -47,13 +47,6 @@
       "runner_median": 4.0,
       "dead_median": 3,
       "ratio": 1.33
-    },
-    {
-      "feature": "vol_1h",
-      "label": "volume 1h",
-      "runner_median": 12346,
-      "dead_median": 9621,
-      "ratio": 1.28
     },
     {
       "feature": "voliq",
@@ -65,9 +58,9 @@
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.549,
-      "dead_median": 0.633,
-      "ratio": 0.87
+      "runner_median": 0.546,
+      "dead_median": 0.634,
+      "ratio": 0.86
     },
     {
       "feature": "bs_ratio_1h",
@@ -122,10 +115,17 @@
     },
     {
       "ticker": "Wcat",
-      "ret_max": 9.08,
+      "ret_max": 9.63,
       "pass": false,
       "vol_1h": 32927,
       "voliq": null
+    },
+    {
+      "ticker": "royalCode ($rC",
+      "ret_max": 9.44,
+      "pass": false,
+      "vol_1h": 2329,
+      "voliq": 0.64
     },
     {
       "ticker": "5UUH9RTD",
@@ -133,13 +133,6 @@
       "pass": false,
       "vol_1h": 118925,
       "voliq": 0.49
-    },
-    {
-      "ticker": "royalCode ($rC",
-      "ret_max": 8.66,
-      "pass": false,
-      "vol_1h": 2329,
-      "voliq": 0.64
     }
   ]
 }
