@@ -282,13 +282,16 @@ function renderProgress(prog) {
 function renderPortfolio(p) {
   if (!p) { document.getElementById("portfolio-sec").style.display = "none"; return; }
   const up = p.final >= p.start, cls = up ? "pos" : "neg";
+  const seasonInfo = p.season != null
+    ? `<span>Stagione ${p.season} · ${p.season_trades || 0} trade</span><span class="${p.blowups > 0 ? 'neg' : 'pos'}">conti bruciati: ${p.blowups || 0}</span>`
+    : "";
   $("port-head").innerHTML =
     `<div class="port-big ${cls}">€${p.final.toFixed(2)}</div>
      <div class="port-meta">
-       <span>da €${p.start}</span>
+       <span>da €${p.start} (reset sotto €30)</span>
        <span class="${cls}">${up ? "+" : ""}${(p.final - p.start).toFixed(2)}€ (${((p.final / p.start - 1) * 100).toFixed(0)}%)</span>
-       <span>${p.n_trades} trade · ${p.win_rate}% vincenti</span>
-       <span class="muted">strategia ${p.strategy}</span>
+       ${seasonInfo}
+       <span class="muted">${p.strategy} · ${p.win_rate}% vincenti</span>
      </div>`;
   $("port-curve").innerHTML = sparkline(p.equity);
   let warn = "";

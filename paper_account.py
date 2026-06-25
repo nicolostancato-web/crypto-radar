@@ -18,6 +18,7 @@ STATE = os.path.join(HERE, "data", "paper_account.json")
 SLIP = 0.06
 START = 100.0
 FRAC = 0.10            # rischio 10% del saldo VIVO per trade
+FLOOR = 30.0          # sotto questa soglia il conto e' "bruciato" -> reset a 100 (una nuova STAGIONE)
 
 
 def _candles():
@@ -55,6 +56,8 @@ def run():
         state = json.load(open(STATE))
     else:
         state = {"start": START, "balance": START, "processed": [], "trades": []}
+    state.setdefault("season", 1)
+    state.setdefault("blowups", [])      # ogni volta che il conto e' sceso sotto FLOOR -> una stagione bruciata
     processed = set(state["processed"])
 
     # strategia adottata dal meeting
@@ -100,15 +103,22 @@ def run():
                         "ret": ret, "exit_ts": exit_ts})
     closing.sort(key=lambda t: t["exit_ts"])   # in ordine di chiusura: il saldo avanza nel tempo
 
-    # applica al saldo VIVO
+    # applica al saldo VIVO (con RESET a 100 quando bruci sotto FLOOR = nuova stagione)
     for t in closing:
         bet = state["balance"] * FRAC
         pnl = bet * t["ret"]
         state["balance"] += pnl
+        reset = False
+        if state["balance"] < FLOOR:
+            state["blowups"].append({"season": state["season"], "blown_at": round(state["balance"], 2),
+                                     "ts": t["exit_ts"]})
+            state["season"] += 1
+            state["balance"] = START      # nuova stagione, 100 EUR puliti per la strategia di oggi
+            reset = True
         state["trades"].append({"ticker": t["ticker"], "ca": t["ca"], "bs": t["bs"],
                                 "ret_pct": round(t["ret"] * 100, 1), "pnl_eur": round(pnl, 2),
                                 "balance": round(state["balance"], 2), "exit_ts": t["exit_ts"],
-                                "strategy": flt})
+                                "strategy": flt, "season": state["season"], "reset": reset})
         processed.add(t["ca"])
     state["processed"] = list(processed)
     json.dump(state, open(STATE, "w"))
@@ -127,8 +137,13 @@ def run():
     top1 = max(trades, key=lambda t: t["ret_pct"]) if trades else None
     without_top = _sim([t for t in ordered if t is not top1]) if top1 else state["balance"]
     fragile = bool(top1 and (state["balance"] - START) > 0 and without_top < START)
-    out = {"start": START, "final": round(state["balance"], 2), "strategy": flt + " (conto VIVO, non resetta)",
-           "rules": f"parte da 100 EUR una volta, {int(FRAC*100)}%/trade, slippage {int(SLIP*100)}%, uscita '{exit_name}'",
+    season = state["season"]; blown = len(state["blowups"])
+    # saldo della STAGIONE corrente (dall'ultimo reset): trade della stagione in corso
+    cur = [t for t in trades if t.get("season") == season]
+    out = {"start": START, "final": round(state["balance"], 2), "strategy": flt + f" — stagione {season}",
+           "rules": f"reset a 100 EUR ogni volta che scendi sotto {int(FLOOR)} EUR, {int(FRAC*100)}%/trade, slippage {int(SLIP*100)}%, uscita '{exit_name}'",
+           "season": season, "blowups": blown, "blowup_log": state["blowups"][-6:],
+           "season_trades": len(cur),
            "n_trades": len(trades), "win_rate": round(len(wins) / len(trades) * 100) if trades else 0,
            "best": max((t["ret_pct"] for t in trades), default=0),
            "worst": min((t["ret_pct"] for t in trades), default=0),
@@ -138,8 +153,8 @@ def run():
            "top_ticker": (top1["ticker"][:16] if top1 else ""), "fragile": fragile,
            "equity": equity, "trades": sorted(trades, key=lambda t: t["exit_ts"], reverse=True)[:40]}
     json.dump(out, open(os.path.join(HERE, "web", "portfolio.json"), "w"))
-    print(f"[conto] saldo VIVO: {state['balance']:.2f} EUR | {len(trades)} trade totali "
-          f"(+{len(closing)} chiusi stavolta) | win {out['win_rate']}% | strategia {flt}")
+    print(f"[conto] STAGIONE {season} | saldo {state['balance']:.2f} EUR | conti bruciati finora: {blown} "
+          f"| {len(trades)} trade totali (+{len(closing)} stavolta) | win {out['win_rate']}%")
     return out
 
 
