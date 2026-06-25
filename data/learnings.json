@@ -1,17 +1,17 @@
 {
-  "updated_utc": "2026-06-25 13:17",
+  "updated_utc": "2026-06-25 16:07",
   "runner_pct": 50,
-  "settled": 694,
-  "runners": 133,
-  "deads": 561,
+  "settled": 719,
+  "runners": 137,
+  "deads": 582,
   "by_arena": {
     "memecoin": {
-      "trades": 661,
-      "runners": 126,
+      "trades": 685,
+      "runners": 130,
       "runner_rate": 0.19
     },
     "ai_agent": {
-      "trades": 33,
+      "trades": 34,
       "runners": 7,
       "runner_rate": 0.21
     }
@@ -24,42 +24,42 @@
       "feature": "liq",
       "label": "liquidità",
       "runner_median": 9655,
-      "dead_median": 4082.5,
-      "ratio": 2.36
-    },
-    {
-      "feature": "age_h",
-      "label": "età (h)",
-      "runner_median": 3.2,
-      "dead_median": 2.2,
-      "ratio": 1.45
+      "dead_median": 4199,
+      "ratio": 2.3
     },
     {
       "feature": "grok_heat",
       "label": "heat di Grok",
       "runner_median": 4,
-      "dead_median": 3,
+      "dead_median": 3.0,
       "ratio": 1.33
     },
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 12758,
-      "dead_median": 9784.0,
-      "ratio": 1.3
+      "runner_median": 13041,
+      "dead_median": 10223,
+      "ratio": 1.28
+    },
+    {
+      "feature": "age_h",
+      "label": "età (h)",
+      "runner_median": 2.8,
+      "dead_median": 2.2,
+      "ratio": 1.27
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 5.095,
-      "dead_median": 6.78,
-      "ratio": 0.75
+      "runner_median": 5.74,
+      "dead_median": 6.865,
+      "ratio": 0.84
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.548,
-      "dead_median": 0.634,
+      "runner_median": 0.541,
+      "dead_median": 0.633,
       "ratio": 0.86
     },
     {
@@ -72,12 +72,19 @@
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 44241,
-      "dead_median": 43876.5,
+      "runner_median": 44745,
+      "dead_median": 44269,
       "ratio": 1.01
     }
   ],
   "best_runners": [
+    {
+      "ticker": null,
+      "ret_max": 24.06,
+      "pass": false,
+      "vol_1h": 155883,
+      "voliq": 26.93
+    },
     {
       "ticker": "World",
       "ret_max": 15.78,
@@ -126,13 +133,6 @@
       "pass": false,
       "vol_1h": 2329,
       "voliq": 0.64
-    },
-    {
-      "ticker": "5UUH9RTD",
-      "ret_max": 8.95,
-      "pass": false,
-      "vol_1h": 118925,
-      "voliq": 0.49
     }
   ]
 }
