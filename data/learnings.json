@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-25 16:07",
+  "updated_utc": "2026-06-25 16:52",
   "runner_pct": 50,
   "settled": 719,
   "runners": 137,
@@ -79,6 +79,13 @@
   ],
   "best_runners": [
     {
+      "ticker": "Photo of an Ad",
+      "ret_max": 26.82,
+      "pass": false,
+      "vol_1h": 0,
+      "voliq": 0.5
+    },
+    {
       "ticker": null,
       "ret_max": 24.06,
       "pass": false,
@@ -126,13 +133,6 @@
       "pass": false,
       "vol_1h": 69,
       "voliq": 0.94
-    },
-    {
-      "ticker": "royalCode ($rC",
-      "ret_max": 9.44,
-      "pass": false,
-      "vol_1h": 2329,
-      "voliq": 0.64
     }
   ]
 }
