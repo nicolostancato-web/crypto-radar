@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-25 15:34",
-  "wallets_seen": 4336,
-  "qualified": 396,
+  "updated_utc": "2026-06-25 18:58",
+  "wallets_seen": 4423,
+  "qualified": 407,
   "min_plays": 2,
   "smart": [
     {
@@ -31,6 +31,25 @@
       "tickers": [
         "GAME",
         "JOE"
+      ]
+    },
+    {
+      "wallet": "9xADmmJbJ4AfrnCy3RDW6c5on8GPvhjdL5SHiWA9Z1EF",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "$PUMPVERSE",
+        "Pip the Baby S"
+      ]
+    },
+    {
+      "wallet": "AYo5yYa5h2i2iCrsdLNFbtS8DAvwWtiAj3KPurx2DKch",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "GAME"
       ]
     },
     {
@@ -143,13 +162,14 @@
       ]
     },
     {
-      "wallet": "9ao8rEcjdatcnFrHRkhya9oR3gRpSmMHsTgWZLf3Jgpu",
-      "plays": 2,
-      "hits": 2,
-      "winrate": 1.0,
+      "wallet": "TeftEcGLpejE6aLU7YqMopbMqseYvQABNRwyFYTCxGq",
+      "plays": 4,
+      "hits": 3,
+      "winrate": 0.75,
       "tickers": [
-        "BRAIN",
-        "Try rex fun 🤝\n"
+        "Literally a ru",
+        "Sakana AI",
+        "join the flock"
       ]
     },
     {
@@ -177,16 +197,6 @@
       ]
     },
     {
-      "wallet": "8kLKsGS5qfydG7pfFbJSRAdx8CBhaePSHTr1yFh44bZ9",
-      "plays": 3,
-      "hits": 2,
-      "winrate": 0.67,
-      "tickers": [
-        "It's White Cat",
-        "PVT"
-      ]
-    },
-    {
       "wallet": "4uR3i2EfzGBMDoNUKGnnzdCvKa3cn49UJQwBt4YaqHc9",
       "plays": 3,
       "hits": 2,
@@ -194,17 +204,6 @@
       "tickers": [
         "It's White Cat",
         "PVT"
-      ]
-    },
-    {
-      "wallet": "BnriGgFksuDAmFpz4vzxrxJchSGM1U73f3KZxBh6KbYJ",
-      "plays": 3,
-      "hits": 2,
-      "winrate": 0.67,
-      "tickers": [
-        "ESCOLAND",
-        "GAME",
-        "fi half a fish"
       ]
     }
   ]
