@@ -269,5 +269,24 @@ def run():
     return out
 
 
+def _gia_fatto_oggi():
+    import datetime
+    now = datetime.datetime.utcnow()
+    marker = os.path.join(HERE, "data", "meeting_last_date.txt")
+    today = now.strftime("%Y-%m-%d")
+    done = os.path.exists(marker) and open(marker).read().strip() == today
+    return now.hour < 6, done, today, marker   # (troppo presto, gia_fatto, data, file)
+
+
 if __name__ == "__main__":
-    run()
+    import sys
+    if len(sys.argv) > 1 and sys.argv[1] == "daily":
+        # modalita' "sveglia interna": gira 1 volta al giorno dopo le 06:00 UTC, anche se il cron salta
+        presto, fatto, today, marker = _gia_fatto_oggi()
+        if presto or fatto:
+            print(f"[meeting] salto (presto={presto}, gia_fatto_oggi={fatto})")
+            sys.exit(0)
+        run()
+        open(marker, "w").write(today)   # segno che oggi il meeting e' fatto
+    else:
+        run()

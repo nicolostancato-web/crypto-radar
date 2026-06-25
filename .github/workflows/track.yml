@@ -35,6 +35,11 @@ jobs:
           python pipeline_export.py
           python paper_account.py
 
+      - name: Meeting di allenamento giornaliero (sveglia interna 1x al giorno dopo le 06 UTC)
+        env:
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python team_meeting.py daily
+
       - name: Sveglia gli scan in ritardo (cron-job.org interno)
         env:
           WORKFLOW_PAT: ${{ secrets.WORKFLOW_PAT }}
@@ -44,7 +49,7 @@ jobs:
         run: |
           git config user.name "crypto-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add data/track.jsonl data/learnings.json web/pipeline.json web/portfolio.json data/paper_account.json web/team.json web/kpi.json
+          git add data/track.jsonl data/learnings.json web/pipeline.json web/portfolio.json data/paper_account.json web/team.json web/kpi.json web/meeting.json data/meeting_history.jsonl data/meeting_last_date.txt data/trade_config.json
           git commit -m "track $(date -u +%Y-%m-%dT%H:%MZ)" || { echo "niente di nuovo"; exit 0; }
           for i in 1 2 3 4 5; do
             git pull --no-rebase --no-edit -X theirs origin main || true

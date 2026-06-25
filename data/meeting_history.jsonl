@@ -1,2 +1,3 @@
 {"ts": 1782228089, "n_tokens": 266, "base_win": 21, "top_signal": "top10<0.30", "top_lift": 8, "best_strategy": "bs>=2.0", "best_median_pnl": -16.0}
 {"ts": 1782286226, "n_tokens": 438, "base_win": 21, "top_signal": "bs>=1.5", "top_lift": 6, "best_strategy": "bs>=2.0", "best_median_pnl": -12.2}
+{"ts": 1782371405, "n_tokens": 619, "base_win": 20, "top_signal": "bs>=1.5", "top_lift": 3, "best_strategy": "bs>=2.0", "best_median_pnl": -12.8}

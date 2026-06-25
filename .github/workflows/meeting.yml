@@ -29,13 +29,13 @@ jobs:
       - name: Meeting di allenamento (3 agenti si allineano e si aggiustano) + email verbale
         env:
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
-        run: python team_meeting.py
+        run: python team_meeting.py daily
 
       - name: Salva verbale + config adottato
         run: |
           git config user.name "crypto-radar-bot"
           git config user.email "bot@users.noreply.github.com"
-          git add data/trade_config.json data/meeting_history.jsonl web/meeting.json web/team.json web/portfolio.json data/paper_account.json
+          git add data/trade_config.json data/meeting_history.jsonl data/meeting_last_date.txt web/meeting.json web/team.json web/portfolio.json data/paper_account.json
           git commit -m "meeting $(date -u +%Y-%m-%d)" || { echo "niente di nuovo"; exit 0; }
           for i in 1 2 3 4 5; do
             git pull --no-rebase --no-edit -X theirs origin main || true
