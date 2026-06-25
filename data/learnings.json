@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-25 20:44",
+  "updated_utc": "2026-06-25 20:38",
   "runner_pct": 50,
   "settled": 760,
   "runners": 147,
@@ -37,9 +37,9 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 13041,
-      "dead_median": 10660.0,
-      "ratio": 1.22
+      "runner_median": 13249,
+      "dead_median": 10550.0,
+      "ratio": 1.26
     },
     {
       "feature": "voliq",
@@ -72,8 +72,8 @@
     {
       "feature": "grok_heat",
       "label": "heat di Grok",
-      "runner_median": 3,
-      "dead_median": 3.0,
+      "runner_median": 3.0,
+      "dead_median": 3,
       "ratio": 1.0
     }
   ],
@@ -94,7 +94,7 @@
     },
     {
       "ticker": "World",
-      "ret_max": 17.3,
+      "ret_max": 18.27,
       "pass": true,
       "vol_1h": 139353,
       "voliq": 10.64
