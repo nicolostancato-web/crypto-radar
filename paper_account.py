@@ -58,6 +58,12 @@ def run():
         state = {"start": START, "balance": START, "processed": [], "trades": []}
     state.setdefault("season", 1)
     state.setdefault("blowups", [])      # ogni volta che il conto e' sceso sotto FLOOR -> una stagione bruciata
+    # AUTO-RIPARO: se il saldo e' gia' sotto la soglia (es. vecchio decadimento), reset subito a 100.
+    if state["balance"] < FLOOR:
+        import time as _t
+        state["blowups"].append({"season": state["season"], "blown_at": round(state["balance"], 2), "ts": int(_t.time())})
+        state["season"] += 1
+        state["balance"] = START
     processed = set(state["processed"])
 
     # strategia adottata dal meeting
