@@ -1,19 +1,19 @@
 {
-  "updated_utc": "2026-06-25 18:15",
+  "updated_utc": "2026-06-25 20:44",
   "runner_pct": 50,
-  "settled": 745,
-  "runners": 141,
-  "deads": 604,
+  "settled": 760,
+  "runners": 147,
+  "deads": 613,
   "by_arena": {
     "memecoin": {
-      "trades": 711,
-      "runners": 134,
+      "trades": 725,
+      "runners": 140,
       "runner_rate": 0.19
     },
     "ai_agent": {
-      "trades": 34,
+      "trades": 35,
       "runners": 7,
-      "runner_rate": 0.21
+      "runner_rate": 0.2
     }
   },
   "prelim_at": 8,
@@ -24,22 +24,22 @@
       "feature": "liq",
       "label": "liquidità",
       "runner_median": 9655,
-      "dead_median": 3601,
-      "ratio": 2.68
+      "dead_median": 3594.0,
+      "ratio": 2.69
     },
     {
       "feature": "age_h",
       "label": "età (h)",
-      "runner_median": 2.7,
+      "runner_median": 2.8,
       "dead_median": 2.1,
-      "ratio": 1.29
+      "ratio": 1.33
     },
     {
       "feature": "vol_1h",
       "label": "volume 1h",
       "runner_median": 13041,
-      "dead_median": 10356,
-      "ratio": 1.26
+      "dead_median": 10660.0,
+      "ratio": 1.22
     },
     {
       "feature": "voliq",
@@ -49,18 +49,11 @@
       "ratio": 0.82
     },
     {
-      "feature": "grok_heat",
-      "label": "heat di Grok",
-      "runner_median": 3.5,
-      "dead_median": 3,
-      "ratio": 1.17
-    },
-    {
       "feature": "top10_pct",
       "label": "top 10 wallet",
       "runner_median": 0.536,
-      "dead_median": 0.635,
-      "ratio": 0.84
+      "dead_median": 0.631,
+      "ratio": 0.85
     },
     {
       "feature": "bs_ratio_1h",
@@ -73,8 +66,15 @@
       "feature": "vol_24h",
       "label": "volume 24h",
       "runner_median": 44746,
-      "dead_median": 44269,
+      "dead_median": 44264.0,
       "ratio": 1.01
+    },
+    {
+      "feature": "grok_heat",
+      "label": "heat di Grok",
+      "runner_median": 3,
+      "dead_median": 3.0,
+      "ratio": 1.0
     }
   ],
   "best_runners": [
@@ -94,7 +94,7 @@
     },
     {
       "ticker": "World",
-      "ret_max": 16.21,
+      "ret_max": 17.3,
       "pass": true,
       "vol_1h": 139353,
       "voliq": 10.64
@@ -121,18 +121,18 @@
       "voliq": 25.09
     },
     {
+      "ticker": null,
+      "ret_max": 12.62,
+      "pass": false,
+      "vol_1h": 32620,
+      "voliq": null
+    },
+    {
       "ticker": "gib glue",
       "ret_max": 10.69,
       "pass": false,
       "vol_1h": 15513,
       "voliq": 1.88
-    },
-    {
-      "ticker": "$GOLD is a mem",
-      "ret_max": 9.71,
-      "pass": false,
-      "vol_1h": 69,
-      "voliq": 0.94
     }
   ]
 }
