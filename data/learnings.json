@@ -30,9 +30,16 @@
     {
       "feature": "age_h",
       "label": "età (h)",
-      "runner_median": 2.75,
+      "runner_median": 2.8,
       "dead_median": 2.1,
-      "ratio": 1.31
+      "ratio": 1.33
+    },
+    {
+      "feature": "vol_1h",
+      "label": "volume 1h",
+      "runner_median": 13249,
+      "dead_median": 10550.0,
+      "ratio": 1.26
     },
     {
       "feature": "voliq",
@@ -121,18 +128,18 @@
       "voliq": 25.09
     },
     {
+      "ticker": null,
+      "ret_max": 12.62,
+      "pass": false,
+      "vol_1h": 32620,
+      "voliq": null
+    },
+    {
       "ticker": "gib glue",
       "ret_max": 10.69,
       "pass": false,
       "vol_1h": 15513,
       "voliq": 1.88
-    },
-    {
-      "ticker": "$GOLD is a mem",
-      "ret_max": 9.71,
-      "pass": false,
-      "vol_1h": 69,
-      "voliq": 0.94
     }
   ]
 }
