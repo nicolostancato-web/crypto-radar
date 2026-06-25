@@ -1,17 +1,17 @@
 {
-  "updated_utc": "2026-06-25 09:59",
+  "updated_utc": "2026-06-25 10:40",
   "runner_pct": 50,
-  "settled": 645,
-  "runners": 126,
-  "deads": 519,
+  "settled": 674,
+  "runners": 128,
+  "deads": 546,
   "by_arena": {
     "memecoin": {
-      "trades": 614,
-      "runners": 120,
-      "runner_rate": 0.2
+      "trades": 642,
+      "runners": 122,
+      "runner_rate": 0.19
     },
     "ai_agent": {
-      "trades": 31,
+      "trades": 32,
       "runners": 6,
       "runner_rate": 0.19
     }
@@ -24,42 +24,42 @@
       "feature": "liq",
       "label": "liquidità",
       "runner_median": 9828.5,
-      "dead_median": 4165.0,
-      "ratio": 2.36
+      "dead_median": 4392,
+      "ratio": 2.24
     },
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 12790.5,
-      "dead_median": 9194.5,
-      "ratio": 1.39
-    },
-    {
-      "feature": "age_h",
-      "label": "età (h)",
-      "runner_median": 3.05,
-      "dead_median": 2.2,
-      "ratio": 1.39
+      "runner_median": 12932.0,
+      "dead_median": 9043,
+      "ratio": 1.43
     },
     {
       "feature": "grok_heat",
       "label": "heat di Grok",
-      "runner_median": 4.0,
+      "runner_median": 4,
       "dead_median": 3,
       "ratio": 1.33
     },
     {
+      "feature": "age_h",
+      "label": "età (h)",
+      "runner_median": 2.8,
+      "dead_median": 2.2,
+      "ratio": 1.27
+    },
+    {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 5.095,
+      "runner_median": 5.43,
       "dead_median": 6.78,
-      "ratio": 0.75
+      "ratio": 0.8
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
       "runner_median": 0.546,
-      "dead_median": 0.634,
+      "dead_median": 0.635,
       "ratio": 0.86
     },
     {
@@ -72,8 +72,8 @@
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 44503.0,
-      "dead_median": 43825.0,
+      "runner_median": 44755.0,
+      "dead_median": 43838,
       "ratio": 1.02
     }
   ],
