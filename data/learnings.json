@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-06-25 00:04",
+  "updated_utc": "2026-06-25 03:54",
   "runner_pct": 50,
-  "settled": 594,
-  "runners": 109,
-  "deads": 485,
+  "settled": 618,
+  "runners": 120,
+  "deads": 498,
   "by_arena": {
     "memecoin": {
-      "trades": 563,
-      "runners": 103,
-      "runner_rate": 0.18
+      "trades": 587,
+      "runners": 114,
+      "runner_rate": 0.19
     },
     "ai_agent": {
       "trades": 31,
@@ -21,60 +21,60 @@
   "status": "ready",
   "lessons": [
     {
-      "feature": "vol_1h",
-      "label": "volume 1h",
-      "runner_median": 12346,
-      "dead_median": 6881.5,
-      "ratio": 1.79
-    },
-    {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 9857,
-      "dead_median": 5500.5,
-      "ratio": 1.79
+      "runner_median": 9935.0,
+      "dead_median": 4894,
+      "ratio": 2.03
+    },
+    {
+      "feature": "vol_1h",
+      "label": "volume 1h",
+      "runner_median": 12932.0,
+      "dead_median": 7012,
+      "ratio": 1.84
     },
     {
       "feature": "age_h",
       "label": "età (h)",
-      "runner_median": 3.6,
-      "dead_median": 2.4,
-      "ratio": 1.5
-    },
-    {
-      "feature": "voliq",
-      "label": "volume/liquidità",
-      "runner_median": 5.43,
-      "dead_median": 6.52,
-      "ratio": 0.83
-    },
-    {
-      "feature": "vol_24h",
-      "label": "volume 24h",
-      "runner_median": 49812,
-      "dead_median": 43825.0,
-      "ratio": 1.14
+      "runner_median": 3.25,
+      "dead_median": 2.25,
+      "ratio": 1.44
     },
     {
       "feature": "grok_heat",
       "label": "heat di Grok",
       "runner_median": 4.0,
-      "dead_median": 3.5,
-      "ratio": 1.14
+      "dead_median": 3,
+      "ratio": 1.33
+    },
+    {
+      "feature": "voliq",
+      "label": "volume/liquidità",
+      "runner_median": 5.12,
+      "dead_median": 6.635,
+      "ratio": 0.77
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.532,
-      "dead_median": 0.615,
-      "ratio": 0.87
+      "runner_median": 0.536,
+      "dead_median": 0.623,
+      "ratio": 0.86
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
       "runner_median": 1.29,
-      "dead_median": 1.18,
-      "ratio": 1.09
+      "dead_median": 1.17,
+      "ratio": 1.1
+    },
+    {
+      "feature": "vol_24h",
+      "label": "volume 24h",
+      "runner_median": 44503.0,
+      "dead_median": 43812,
+      "ratio": 1.02
     }
   ],
   "best_runners": [
@@ -84,6 +84,13 @@
       "pass": true,
       "vol_1h": 139353,
       "voliq": 10.64
+    },
+    {
+      "ticker": "Police were ca",
+      "ret_max": 13.39,
+      "pass": false,
+      "vol_1h": 43259,
+      "voliq": null
     },
     {
       "ticker": null,
@@ -114,25 +121,18 @@
       "voliq": 4.23
     },
     {
+      "ticker": "gib glue",
+      "ret_max": 6.99,
+      "pass": false,
+      "vol_1h": 15513,
+      "voliq": 1.88
+    },
+    {
       "ticker": "ESCOLAND",
       "ret_max": 6.75,
       "pass": false,
       "vol_1h": 1340,
       "voliq": 21.24
-    },
-    {
-      "ticker": "Mithril has ar",
-      "ret_max": 6.52,
-      "pass": false,
-      "vol_1h": 6409,
-      "voliq": 0.65
-    },
-    {
-      "ticker": "On-chain footb",
-      "ret_max": 6.44,
-      "pass": false,
-      "vol_1h": 29558,
-      "voliq": 6.75
     }
   ]
 }
