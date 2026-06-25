@@ -1,9 +1,18 @@
 {
-  "updated_utc": "2026-06-25 03:55",
+  "updated_utc": "2026-06-25 04:54",
   "wallets_seen": 3974,
   "qualified": 343,
   "min_plays": 2,
   "smart": [
+    {
+      "wallet": "3iYhe58qkE1EojgJccSyfg8iEA5fLaAc1AxNxFPnuqM8",
+      "plays": 3,
+      "hits": 3,
+      "winrate": 1.0,
+      "tickers": [
+        "Police were ca"
+      ]
+    },
     {
       "wallet": "222mGpXPbjktz227sUJoc68cmADKAJEBoMhJysyZbPVC",
       "plays": 2,
@@ -32,6 +41,26 @@
       "tickers": [
         "$AGI",
         "BRAIN"
+      ]
+    },
+    {
+      "wallet": "7Q1oHdk41TDtvFGywQk4Y3NVr1JZQKhPrfLL3ZX5Qi3x",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "$CHEEZYRL",
+        "underdogs $How"
+      ]
+    },
+    {
+      "wallet": "5qt4R425hoLcDroC2YBE4ZrAALZ191ZAph9tf3J3xX7k",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "$CHEEZYRL",
+        "underdogs $How"
       ]
     },
     {
@@ -115,6 +144,16 @@
       ]
     },
     {
+      "wallet": "9ao8rEcjdatcnFrHRkhya9oR3gRpSmMHsTgWZLf3Jgpu",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "BRAIN",
+        "Try rex fun 🤝\n"
+      ]
+    },
+    {
       "wallet": "52oc72vjNbpUhF7jNE1pPAvc17JwBTyxybFp3u7PvetG",
       "plays": 4,
       "hits": 3,
@@ -150,16 +189,6 @@
       ]
     },
     {
-      "wallet": "8kLKsGS5qfydG7pfFbJSRAdx8CBhaePSHTr1yFh44bZ9",
-      "plays": 3,
-      "hits": 2,
-      "winrate": 0.67,
-      "tickers": [
-        "It's White Cat",
-        "PVT"
-      ]
-    },
-    {
       "wallet": "4uR3i2EfzGBMDoNUKGnnzdCvKa3cn49UJQwBt4YaqHc9",
       "plays": 3,
       "hits": 2,
@@ -170,47 +199,13 @@
       ]
     },
     {
-      "wallet": "DxPkmCEadZDBV59E8pAU1DAvzHJ8ad67zcXeVqGkQNjy",
+      "wallet": "8kLKsGS5qfydG7pfFbJSRAdx8CBhaePSHTr1yFh44bZ9",
       "plays": 3,
       "hits": 2,
       "winrate": 0.67,
       "tickers": [
-        "$PUMPVERSE",
-        "NOOT",
+        "It's White Cat",
         "PVT"
-      ]
-    },
-    {
-      "wallet": "BnriGgFksuDAmFpz4vzxrxJchSGM1U73f3KZxBh6KbYJ",
-      "plays": 3,
-      "hits": 2,
-      "winrate": 0.67,
-      "tickers": [
-        "ESCOLAND",
-        "GAME",
-        "fi half a fish"
-      ]
-    },
-    {
-      "wallet": "EKGj79Vzs4dG8zVbLwrLhZYH4wtCyTtyPpGLTjNB6rUV",
-      "plays": 3,
-      "hits": 2,
-      "winrate": 0.67,
-      "tickers": [
-        "$PROV is the p",
-        "BULLIEVE",
-        "CS"
-      ]
-    },
-    {
-      "wallet": "CkUZV387xnoGpF7wC2moMa6mPmAgCvTT4pWgzq4M9fCD",
-      "plays": 3,
-      "hits": 2,
-      "winrate": 0.67,
-      "tickers": [
-        "MCAT",
-        "Sakana AI",
-        "The Envious Do"
       ]
     }
   ]
