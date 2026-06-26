@@ -1,13 +1,13 @@
 {
-  "updated_utc": "2026-06-26 10:10",
+  "updated_utc": "2026-06-26 10:21",
   "runner_pct": 50,
   "settled": 868,
-  "runners": 167,
-  "deads": 701,
+  "runners": 168,
+  "deads": 700,
   "by_arena": {
     "memecoin": {
       "trades": 833,
-      "runners": 159,
+      "runners": 160,
       "runner_rate": 0.19
     },
     "ai_agent": {
@@ -23,37 +23,30 @@
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 8977,
-      "dead_median": 3821.5,
-      "ratio": 2.35
+      "runner_median": 8984.0,
+      "dead_median": 3807,
+      "ratio": 2.36
     },
     {
       "feature": "age_h",
       "label": "età (h)",
-      "runner_median": 2.75,
+      "runner_median": 2.8,
       "dead_median": 2.0,
-      "ratio": 1.38
+      "ratio": 1.4
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 5.095,
-      "dead_median": 7.64,
+      "runner_median": 5.12,
+      "dead_median": 7.6,
       "ratio": 0.67
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.549,
-      "dead_median": 0.626,
-      "ratio": 0.88
-    },
-    {
-      "feature": "vol_1h",
-      "label": "volume 1h",
-      "runner_median": 10501,
-      "dead_median": 11794.5,
-      "ratio": 0.89
+      "runner_median": 0.548,
+      "dead_median": 0.627,
+      "ratio": 0.87
     },
     {
       "feature": "bs_ratio_1h",
@@ -63,10 +56,17 @@
       "ratio": 1.08
     },
     {
+      "feature": "vol_1h",
+      "label": "volume 1h",
+      "runner_median": 10804.5,
+      "dead_median": 11726,
+      "ratio": 0.92
+    },
+    {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 43641,
-      "dead_median": 45482.0,
+      "runner_median": 43812.5,
+      "dead_median": 45415,
       "ratio": 0.96
     },
     {
@@ -84,6 +84,13 @@
       "pass": false,
       "vol_1h": 0,
       "voliq": 0.5
+    },
+    {
+      "ticker": null,
+      "ret_max": 24.51,
+      "pass": false,
+      "vol_1h": 21988,
+      "voliq": null
     },
     {
       "ticker": null,
@@ -111,13 +118,6 @@
       "ret_max": 14.56,
       "pass": false,
       "vol_1h": 32927,
-      "voliq": null
-    },
-    {
-      "ticker": null,
-      "ret_max": 14.43,
-      "pass": false,
-      "vol_1h": 21988,
       "voliq": null
     },
     {
