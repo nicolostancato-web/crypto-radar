@@ -1,13 +1,13 @@
 {
-  "updated_utc": "2026-06-26 00:09",
+  "updated_utc": "2026-06-26 00:03",
   "runner_pct": 50,
   "settled": 803,
-  "runners": 153,
-  "deads": 650,
+  "runners": 152,
+  "deads": 651,
   "by_arena": {
     "memecoin": {
       "trades": 768,
-      "runners": 146,
+      "runners": 145,
       "runner_rate": 0.19
     },
     "ai_agent": {
@@ -23,9 +23,9 @@
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 9655,
-      "dead_median": 3589,
-      "ratio": 2.69
+      "runner_median": 9727.5,
+      "dead_median": 3585.5,
+      "ratio": 2.71
     },
     {
       "feature": "age_h",
@@ -42,18 +42,18 @@
       "ratio": 0.77
     },
     {
+      "feature": "vol_1h",
+      "label": "volume 1h",
+      "runner_median": 13145.0,
+      "dead_median": 11243.5,
+      "ratio": 1.17
+    },
+    {
       "feature": "top10_pct",
       "label": "top 10 wallet",
       "runner_median": 0.536,
-      "dead_median": 0.634,
-      "ratio": 0.85
-    },
-    {
-      "feature": "vol_1h",
-      "label": "volume 1h",
-      "runner_median": 13041,
-      "dead_median": 11379,
-      "ratio": 1.15
+      "dead_median": 0.635,
+      "ratio": 0.84
     },
     {
       "feature": "bs_ratio_1h",
@@ -65,8 +65,8 @@
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 44746,
-      "dead_median": 44059,
+      "runner_median": 44755.5,
+      "dead_median": 44021.5,
       "ratio": 1.02
     },
     {
@@ -105,6 +105,13 @@
       "pass": true,
       "vol_1h": 139353,
       "voliq": 10.64
+    },
+    {
+      "ticker": "Florida man is",
+      "ret_max": 15.64,
+      "pass": false,
+      "vol_1h": 82982,
+      "voliq": null
     },
     {
       "ticker": "Wcat",
