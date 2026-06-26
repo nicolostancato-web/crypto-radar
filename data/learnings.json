@@ -93,6 +93,13 @@
       "voliq": 26.93
     },
     {
+      "ticker": "Florida man is",
+      "ret_max": 22.14,
+      "pass": false,
+      "vol_1h": 82982,
+      "voliq": null
+    },
+    {
       "ticker": "World",
       "ret_max": 18.4,
       "pass": true,
