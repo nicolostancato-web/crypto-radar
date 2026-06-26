@@ -211,7 +211,10 @@ def run():
             f.write(json.dumps({"ts": out["ts"], "n_tokens": len(rows), "base_win": kpi["base_win"],
                                 "top_signal": top["filter"] if top else None, "top_lift": top["lift"] if top else 0,
                                 "best_strategy": trade["best"]["filter"] if trade else None,
-                                "best_median_pnl": trade["best"]["median"] if trade else None}) + "\n")
+                                "best_exit": trade["best"]["exit"] if trade else None,
+                                "best_median_pnl": trade["best"]["median"] if trade else None,
+                                "n_runners": out["n_runners"], "n_candles": len(candles),
+                                "second_signal": (kpi["ranking"][1]["filter"] if len(kpi.get("ranking", [])) > 1 else None)}) + "\n")
 
     # il conto VIVO (non resetta) avanza col config adottato oggi + aggiorna il pannello squadra
     try:
@@ -246,30 +249,42 @@ def run():
     out["progress"] = [{"ts": p["ts"], "median_pnl": p.get("best_median_pnl"),
                         "lift": p.get("top_lift"), "n": p.get("n_tokens")} for p in prog][-30:]
 
-    # SCOPERTA DEL GIORNO: confronto oggi vs ieri -> cosa abbiamo imparato che non sapevamo (regola di Nicolo)
-    scoperte = []
+    # SCOPERTE DEL GIORNO su TUTTI E 3 I TAB + l'AZIONE presa (regola di Nicolo: ogni giorno si scopre E si agisce)
+    sc = {"dati": [], "kpi": [], "trading": []}
     if len(prog) >= 2:
         a, b = prog[-2], prog[-1]
-        scoperte.append(f"+{b['n_tokens'] - a['n_tokens']} token accumulati (ora {b['n_tokens']})")
+        # --- TAB 1: DATI / ACCUMULO ---
+        sc["dati"].append(f"📈 +{b['n_tokens'] - a['n_tokens']} token (ora {b['n_tokens']}) → AZIONE: continuo a spingere le 2 fonti")
+        if a.get("n_candles") is not None and b.get("n_candles") is not None:
+            dc = b["n_candles"] - a["n_candles"]
+            if dc: sc["dati"].append(f"🕯️ +{dc} candele 5m (ora {b['n_candles']}) → AZIONE: esecuzione simulata sempre più precisa")
+        if a.get("n_runners") is not None and b.get("n_runners") is not None:
+            sc["dati"].append(f"🏃 runner totali {a['n_runners']} → {b['n_runners']}")
+        # --- TAB 2: KPI / ANALISTA ---
         if a.get("top_signal") != b.get("top_signal"):
-            scoperte.append(f"il segnale guida e' CAMBIATO: {a.get('top_signal')} -> {b.get('top_signal')} (i dati che crescono spostano cosa conta)")
-        if a.get("best_strategy") != b.get("best_strategy"):
-            scoperte.append(f"il Trader ha cambiato strategia: {a.get('best_strategy')} -> {b.get('best_strategy')}")
+            sc["kpi"].append(f"🔬 il segnale GUIDA è cambiato: {a.get('top_signal')} → {b.get('top_signal')} (i dati che crescono spostano cosa conta) → AZIONE: l'ho raccomandato al Trader")
+        else:
+            sc["kpi"].append(f"🔬 segnale guida confermato: {b.get('top_signal')} (regge anche con più dati)")
+        dl = (b.get("top_lift") or 0) - (a.get("top_lift") or 0)
+        if abs(dl) >= 1:
+            sc["kpi"].append(f"📊 la forza del segnale (lift) è {'salita' if dl>0 else 'scesa'} di {abs(dl)}pt (ora +{b.get('top_lift')}pt sulla media)")
+        # --- TAB 3: TRADING ---
+        if a.get("best_strategy") != b.get("best_strategy") or a.get("best_exit") != b.get("best_exit"):
+            sc["trading"].append(f"💰 strategia AGGIUSTATA: {a.get('best_strategy')}/{a.get('best_exit')} → {b.get('best_strategy')}/{b.get('best_exit')} → AZIONE: il conto vivo la usa già")
         dm = (b.get("best_median_pnl") or 0) - (a.get("best_median_pnl") or 0)
-        if abs(dm) >= 0.3:
-            verso = "MIGLIORATA" if dm > 0 else "peggiorata"
-            scoperte.append(f"la mediana P&L e' {verso} di {abs(dm):.1f}pt (da {a.get('best_median_pnl')}% a {b.get('best_median_pnl')}%)")
+        if abs(dm) >= 0.2:
+            sc["trading"].append(f"📉 mediana P&L {'MIGLIORATA' if dm>0 else 'peggiorata'} di {abs(dm):.1f}pt (da {a.get('best_median_pnl')}% a {b.get('best_median_pnl')}%)")
     else:
-        scoperte.append("primo meeting registrato: da domani confronto giorno-su-giorno per scoprire cosa cambia")
-    out["scoperta_del_giorno"] = scoperte
-    # log permanente delle scoperte (cosi' restano nel tempo)
+        sc["dati"].append("primo meeting: da domani confronto giorno-su-giorno per scoprire cosa cambia")
+    out["scoperte"] = sc
     with open(os.path.join(HERE, "data", "scoperte.jsonl"), "a") as f:
-        f.write(json.dumps({"ts": out["ts"], "scoperte": scoperte}) + "\n")
+        f.write(json.dumps({"ts": out["ts"], "scoperte": sc}) + "\n")
 
     with open(os.path.join(HERE, "web", "meeting.json"), "w") as f:   # riscrive col progresso + scoperte
         json.dump(out, f)
-    if scoperte:
-        print("SCOPERTA  -> " + " | ".join(scoperte))
+    for tab, items in sc.items():
+        for it in items:
+            print(f"SCOPERTA[{tab}] -> {it}")
 
     print("\n========== MEETING DI ALLENAMENTO ==========")
     print(f"Dataset allineato: {len(rows)} token ({len(mature)} maturi, {out['n_runners']} runner, {len(candles)} con candele 5m)")
