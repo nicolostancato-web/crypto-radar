@@ -245,8 +245,31 @@ def run():
     prog = [json.loads(l) for l in open(hist)] if os.path.exists(hist) else []
     out["progress"] = [{"ts": p["ts"], "median_pnl": p.get("best_median_pnl"),
                         "lift": p.get("top_lift"), "n": p.get("n_tokens")} for p in prog][-30:]
-    with open(os.path.join(HERE, "web", "meeting.json"), "w") as f:   # riscrive col progresso incluso
+
+    # SCOPERTA DEL GIORNO: confronto oggi vs ieri -> cosa abbiamo imparato che non sapevamo (regola di Nicolo)
+    scoperte = []
+    if len(prog) >= 2:
+        a, b = prog[-2], prog[-1]
+        scoperte.append(f"+{b['n_tokens'] - a['n_tokens']} token accumulati (ora {b['n_tokens']})")
+        if a.get("top_signal") != b.get("top_signal"):
+            scoperte.append(f"il segnale guida e' CAMBIATO: {a.get('top_signal')} -> {b.get('top_signal')} (i dati che crescono spostano cosa conta)")
+        if a.get("best_strategy") != b.get("best_strategy"):
+            scoperte.append(f"il Trader ha cambiato strategia: {a.get('best_strategy')} -> {b.get('best_strategy')}")
+        dm = (b.get("best_median_pnl") or 0) - (a.get("best_median_pnl") or 0)
+        if abs(dm) >= 0.3:
+            verso = "MIGLIORATA" if dm > 0 else "peggiorata"
+            scoperte.append(f"la mediana P&L e' {verso} di {abs(dm):.1f}pt (da {a.get('best_median_pnl')}% a {b.get('best_median_pnl')}%)")
+    else:
+        scoperte.append("primo meeting registrato: da domani confronto giorno-su-giorno per scoprire cosa cambia")
+    out["scoperta_del_giorno"] = scoperte
+    # log permanente delle scoperte (cosi' restano nel tempo)
+    with open(os.path.join(HERE, "data", "scoperte.jsonl"), "a") as f:
+        f.write(json.dumps({"ts": out["ts"], "scoperte": scoperte}) + "\n")
+
+    with open(os.path.join(HERE, "web", "meeting.json"), "w") as f:   # riscrive col progresso + scoperte
         json.dump(out, f)
+    if scoperte:
+        print("SCOPERTA  -> " + " | ".join(scoperte))
 
     print("\n========== MEETING DI ALLENAMENTO ==========")
     print(f"Dataset allineato: {len(rows)} token ({len(mature)} maturi, {out['n_runners']} runner, {len(candles)} con candele 5m)")
