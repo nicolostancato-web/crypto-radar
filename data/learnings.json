@@ -1,12 +1,12 @@
 {
-  "updated_utc": "2026-06-26 16:49",
+  "updated_utc": "2026-06-26 17:19",
   "runner_pct": 50,
-  "settled": 920,
+  "settled": 922,
   "runners": 182,
-  "deads": 738,
+  "deads": 740,
   "by_arena": {
     "memecoin": {
-      "trades": 885,
+      "trades": 887,
       "runners": 173,
       "runner_rate": 0.2
     },
@@ -23,44 +23,37 @@
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 8984.0,
-      "dead_median": 3477,
-      "ratio": 2.58
+      "runner_median": 8964.5,
+      "dead_median": 3516,
+      "ratio": 2.55
     },
     {
       "feature": "age_h",
       "label": "età (h)",
-      "runner_median": 2.7,
-      "dead_median": 1.95,
-      "ratio": 1.38
+      "runner_median": 2.8,
+      "dead_median": 1.9,
+      "ratio": 1.47
+    },
+    {
+      "feature": "grok_heat",
+      "label": "heat di Grok",
+      "runner_median": 4,
+      "dead_median": 3.0,
+      "ratio": 1.33
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
       "runner_median": 5.465,
-      "dead_median": 7.96,
-      "ratio": 0.69
-    },
-    {
-      "feature": "grok_heat",
-      "label": "heat di Grok",
-      "runner_median": 3.5,
-      "dead_median": 3,
-      "ratio": 1.17
+      "dead_median": 8.12,
+      "ratio": 0.67
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.548,
-      "dead_median": 0.639,
-      "ratio": 0.86
-    },
-    {
-      "feature": "vol_1h",
-      "label": "volume 1h",
-      "runner_median": 12552.0,
-      "dead_median": 11434,
-      "ratio": 1.1
+      "runner_median": 0.552,
+      "dead_median": 0.637,
+      "ratio": 0.87
     },
     {
       "feature": "bs_ratio_1h",
@@ -70,11 +63,18 @@
       "ratio": 1.08
     },
     {
+      "feature": "vol_1h",
+      "label": "volume 1h",
+      "runner_median": 11727.0,
+      "dead_median": 11577,
+      "ratio": 1.01
+    },
+    {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 44755.5,
-      "dead_median": 44289,
-      "ratio": 1.01
+      "runner_median": 44745.5,
+      "dead_median": 44991,
+      "ratio": 0.99
     }
   ],
   "best_runners": [
