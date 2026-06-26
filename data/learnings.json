@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-06-26 15:21",
+  "updated_utc": "2026-06-26 16:49",
   "runner_pct": 50,
-  "settled": 922,
-  "runners": 178,
-  "deads": 744,
+  "settled": 920,
+  "runners": 182,
+  "deads": 738,
   "by_arena": {
     "memecoin": {
-      "trades": 887,
-      "runners": 169,
-      "runner_rate": 0.19
+      "trades": 885,
+      "runners": 173,
+      "runner_rate": 0.2
     },
     "ai_agent": {
       "trades": 35,
@@ -24,8 +24,8 @@
       "feature": "liq",
       "label": "liquidità",
       "runner_median": 8984.0,
-      "dead_median": 3575,
-      "ratio": 2.51
+      "dead_median": 3477,
+      "ratio": 2.58
     },
     {
       "feature": "age_h",
@@ -37,9 +37,9 @@
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 5.19,
-      "dead_median": 8.04,
-      "ratio": 0.65
+      "runner_median": 5.465,
+      "dead_median": 7.96,
+      "ratio": 0.69
     },
     {
       "feature": "grok_heat",
@@ -52,8 +52,15 @@
       "feature": "top10_pct",
       "label": "top 10 wallet",
       "runner_median": 0.548,
-      "dead_median": 0.637,
+      "dead_median": 0.639,
       "ratio": 0.86
+    },
+    {
+      "feature": "vol_1h",
+      "label": "volume 1h",
+      "runner_median": 12552.0,
+      "dead_median": 11434,
+      "ratio": 1.1
     },
     {
       "feature": "bs_ratio_1h",
@@ -63,18 +70,11 @@
       "ratio": 1.08
     },
     {
-      "feature": "vol_1h",
-      "label": "volume 1h",
-      "runner_median": 10819.0,
-      "dead_median": 11616,
-      "ratio": 0.93
-    },
-    {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 44745.5,
-      "dead_median": 44991,
-      "ratio": 0.99
+      "runner_median": 44755.5,
+      "dead_median": 44289,
+      "ratio": 1.01
     }
   ],
   "best_runners": [
@@ -93,6 +93,13 @@
       "voliq": 0.5
     },
     {
+      "ticker": "World",
+      "ret_max": 25.93,
+      "pass": true,
+      "vol_1h": 139353,
+      "voliq": 10.64
+    },
+    {
       "ticker": null,
       "ret_max": 24.51,
       "pass": false,
@@ -105,13 +112,6 @@
       "pass": false,
       "vol_1h": 82982,
       "voliq": null
-    },
-    {
-      "ticker": "World",
-      "ret_max": 22.12,
-      "pass": true,
-      "vol_1h": 139353,
-      "voliq": 10.64
     },
     {
       "ticker": "Wcat",
