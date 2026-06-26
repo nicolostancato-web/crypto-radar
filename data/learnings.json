@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-06-26 17:19",
+  "updated_utc": "2026-06-26 19:20",
   "runner_pct": 50,
-  "settled": 922,
-  "runners": 182,
-  "deads": 740,
+  "settled": 946,
+  "runners": 186,
+  "deads": 760,
   "by_arena": {
     "memecoin": {
-      "trades": 887,
-      "runners": 173,
-      "runner_rate": 0.2
+      "trades": 911,
+      "runners": 177,
+      "runner_rate": 0.19
     },
     "ai_agent": {
       "trades": 35,
@@ -23,23 +23,16 @@
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 8964.5,
-      "dead_median": 3516,
-      "ratio": 2.55
+      "runner_median": 9128.5,
+      "dead_median": 3351,
+      "ratio": 2.72
     },
     {
       "feature": "age_h",
       "label": "età (h)",
-      "runner_median": 2.8,
+      "runner_median": 2.7,
       "dead_median": 1.9,
-      "ratio": 1.47
-    },
-    {
-      "feature": "grok_heat",
-      "label": "heat di Grok",
-      "runner_median": 4,
-      "dead_median": 3.0,
-      "ratio": 1.33
+      "ratio": 1.42
     },
     {
       "feature": "voliq",
@@ -49,11 +42,18 @@
       "ratio": 0.67
     },
     {
+      "feature": "grok_heat",
+      "label": "heat di Grok",
+      "runner_median": 3.5,
+      "dead_median": 3,
+      "ratio": 1.17
+    },
+    {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.552,
-      "dead_median": 0.637,
-      "ratio": 0.87
+      "runner_median": 0.541,
+      "dead_median": 0.646,
+      "ratio": 0.84
     },
     {
       "feature": "bs_ratio_1h",
@@ -65,16 +65,16 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 11727.0,
-      "dead_median": 11577,
-      "ratio": 1.01
+      "runner_median": 12552.0,
+      "dead_median": 11726,
+      "ratio": 1.07
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 44745.5,
-      "dead_median": 44991,
-      "ratio": 0.99
+      "runner_median": 44755.5,
+      "dead_median": 44652,
+      "ratio": 1.0
     }
   ],
   "best_runners": [
