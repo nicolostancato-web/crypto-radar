@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-26 02:40",
-  "wallets_seen": 4547,
-  "qualified": 421,
+  "updated_utc": "2026-06-26 05:00",
+  "wallets_seen": 4609,
+  "qualified": 428,
   "min_plays": 2,
   "smart": [
     {
@@ -163,6 +163,16 @@
       ]
     },
     {
+      "wallet": "7pYT7KrPH7FCzH3YDWWf2ZCrDA5u3bpRojdjAKr2JNdM",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "One survivor",
+        "🐸 \n\n2.5% Suppl"
+      ]
+    },
+    {
       "wallet": "ANbzVsquXSZNfEfivmgRQD1iQdUS7iZNyifEohx95F5s",
       "plays": 2,
       "hits": 2,
@@ -190,18 +200,6 @@
         "Literally a ru",
         "Sakana AI",
         "join the flock"
-      ]
-    },
-    {
-      "wallet": "52oc72vjNbpUhF7jNE1pPAvc17JwBTyxybFp3u7PvetG",
-      "plays": 4,
-      "hits": 3,
-      "winrate": 0.75,
-      "tickers": [
-        "Every Nation. ",
-        "MESSI THE GOAT",
-        "PXM is a digit",
-        "The Envious Do"
       ]
     }
   ]
