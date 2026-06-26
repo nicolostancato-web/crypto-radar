@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-26 05:00",
-  "wallets_seen": 4609,
-  "qualified": 428,
+  "updated_utc": "2026-06-26 10:22",
+  "wallets_seen": 4716,
+  "qualified": 439,
   "min_plays": 2,
   "smart": [
     {
@@ -30,6 +30,16 @@
       "winrate": 1.0,
       "tickers": [
         "A mirror dashb",
+        "PUMPVERSE"
+      ]
+    },
+    {
+      "wallet": "AhcywRbUz31HGBdZCpHYLqKaQtE4s6DMSMJxYAJxBb9r",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "Decentralized ",
         "PUMPVERSE"
       ]
     },
@@ -182,24 +192,13 @@
       ]
     },
     {
-      "wallet": "4xHVLyhMdUT3CTFPsNbnyWJV2HBhsoNrJTRGLSWg6sn2",
+      "wallet": "7XyGPXAFg5FRADc3nZetBi5mxo9Rtwh4idBFmj9wk4M",
       "plays": 2,
       "hits": 2,
       "winrate": 1.0,
       "tickers": [
-        "Pokelana on So",
-        "Try rex fun 🤝\n"
-      ]
-    },
-    {
-      "wallet": "TeftEcGLpejE6aLU7YqMopbMqseYvQABNRwyFYTCxGq",
-      "plays": 4,
-      "hits": 3,
-      "winrate": 0.75,
-      "tickers": [
-        "Literally a ru",
-        "Sakana AI",
-        "join the flock"
+        "THE LAST HONES",
+        "The World is B"
       ]
     }
   ]
