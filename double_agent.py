@@ -44,12 +44,11 @@ def ask_deepseek(prompt, max_tokens=6000, timeout=300):
 
 
 def ask_gemini(prompt):
-    key = os.getenv("GEMINI_API_KEY")
-    if not key:
-        return None
-    r = _post(f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={key}",
-              {}, {"contents": [{"parts": [{"text": prompt}]}]})
-    return r["candidates"][0]["content"]["parts"][0]["text"]
+    # DISATTIVATO (regola CFO 2026-06-26): Gemini e' l'UNICO endpoint Google del progetto. Per azzerare
+    # ogni rischio di fattura post-pagata Google, non lo chiamiamo. Inoltre dava sempre 429 ed era inutile
+    # (abbiamo gia' Grok + DeepSeek + GLM). Cosi' crypto-radar e' 100% Google-free. Riattivare solo con
+    # una key AI Studio FREE verificata + OK di Nicolo.
+    return None
 
 
 def ask_grok(prompt, max_tokens=3000, timeout=240, live_x=True):
