@@ -1,13 +1,13 @@
 {
-  "updated_utc": "2026-06-26 13:14",
+  "updated_utc": "2026-06-26 15:21",
   "runner_pct": 50,
-  "settled": 894,
-  "runners": 175,
-  "deads": 719,
+  "settled": 922,
+  "runners": 178,
+  "deads": 744,
   "by_arena": {
     "memecoin": {
-      "trades": 859,
-      "runners": 166,
+      "trades": 887,
+      "runners": 169,
       "runner_rate": 0.19
     },
     "ai_agent": {
@@ -23,23 +23,23 @@
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 8991,
-      "dead_median": 3578.5,
+      "runner_median": 8984.0,
+      "dead_median": 3575,
       "ratio": 2.51
     },
     {
       "feature": "age_h",
       "label": "età (h)",
-      "runner_median": 2.8,
-      "dead_median": 2.0,
-      "ratio": 1.4
+      "runner_median": 2.7,
+      "dead_median": 1.95,
+      "ratio": 1.38
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
       "runner_median": 5.19,
-      "dead_median": 7.51,
-      "ratio": 0.69
+      "dead_median": 8.04,
+      "ratio": 0.65
     },
     {
       "feature": "grok_heat",
@@ -51,8 +51,8 @@
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.546,
-      "dead_median": 0.636,
+      "runner_median": 0.548,
+      "dead_median": 0.637,
       "ratio": 0.86
     },
     {
@@ -65,19 +65,26 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 10530,
-      "dead_median": 11433.5,
-      "ratio": 0.92
+      "runner_median": 10819.0,
+      "dead_median": 11616,
+      "ratio": 0.93
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 44745,
-      "dead_median": 43987.0,
-      "ratio": 1.02
+      "runner_median": 44745.5,
+      "dead_median": 44991,
+      "ratio": 0.99
     }
   ],
   "best_runners": [
+    {
+      "ticker": null,
+      "ret_max": 43.23,
+      "pass": false,
+      "vol_1h": 155883,
+      "voliq": 26.93
+    },
     {
       "ticker": "Photo of an Ad",
       "ret_max": 26.82,
@@ -91,13 +98,6 @@
       "pass": false,
       "vol_1h": 21988,
       "voliq": null
-    },
-    {
-      "ticker": null,
-      "ret_max": 24.06,
-      "pass": false,
-      "vol_1h": 155883,
-      "voliq": 26.93
     },
     {
       "ticker": "Florida man is",
