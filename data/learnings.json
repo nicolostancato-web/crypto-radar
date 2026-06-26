@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-06-25 22:08",
+  "updated_utc": "2026-06-26 00:09",
   "runner_pct": 50,
-  "settled": 762,
-  "runners": 150,
-  "deads": 612,
+  "settled": 803,
+  "runners": 153,
+  "deads": 650,
   "by_arena": {
     "memecoin": {
-      "trades": 727,
-      "runners": 143,
-      "runner_rate": 0.2
+      "trades": 768,
+      "runners": 146,
+      "runner_rate": 0.19
     },
     "ai_agent": {
       "trades": 35,
@@ -23,51 +23,51 @@
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 9828.5,
+      "runner_median": 9655,
       "dead_median": 3589,
-      "ratio": 2.74
+      "ratio": 2.69
     },
     {
       "feature": "age_h",
       "label": "età (h)",
-      "runner_median": 2.75,
+      "runner_median": 2.8,
       "dead_median": 2.1,
-      "ratio": 1.31
+      "ratio": 1.33
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
       "runner_median": 5.43,
-      "dead_median": 7.09,
+      "dead_median": 7.05,
       "ratio": 0.77
-    },
-    {
-      "feature": "vol_1h",
-      "label": "volume 1h",
-      "runner_median": 13145.0,
-      "dead_median": 10750,
-      "ratio": 1.22
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.534,
-      "dead_median": 0.632,
-      "ratio": 0.84
+      "runner_median": 0.536,
+      "dead_median": 0.634,
+      "ratio": 0.85
+    },
+    {
+      "feature": "vol_1h",
+      "label": "volume 1h",
+      "runner_median": 13041,
+      "dead_median": 11379,
+      "ratio": 1.15
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
-      "runner_median": 1.285,
+      "runner_median": 1.28,
       "dead_median": 1.18,
-      "ratio": 1.09
+      "ratio": 1.08
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 44894.0,
-      "dead_median": 44259,
-      "ratio": 1.01
+      "runner_median": 44746,
+      "dead_median": 44059,
+      "ratio": 1.02
     },
     {
       "feature": "grok_heat",
@@ -93,8 +93,15 @@
       "voliq": 26.93
     },
     {
+      "ticker": "Florida man is",
+      "ret_max": 22.14,
+      "pass": false,
+      "vol_1h": 82982,
+      "voliq": null
+    },
+    {
       "ticker": "World",
-      "ret_max": 18.27,
+      "ret_max": 18.4,
       "pass": true,
       "vol_1h": 139353,
       "voliq": 10.64
@@ -104,6 +111,13 @@
       "ret_max": 14.56,
       "pass": false,
       "vol_1h": 32927,
+      "voliq": null
+    },
+    {
+      "ticker": null,
+      "ret_max": 14.43,
+      "pass": false,
+      "vol_1h": 21988,
       "voliq": null
     },
     {
@@ -119,20 +133,6 @@
       "pass": false,
       "vol_1h": 29996,
       "voliq": 25.09
-    },
-    {
-      "ticker": null,
-      "ret_max": 12.62,
-      "pass": false,
-      "vol_1h": 32620,
-      "voliq": null
-    },
-    {
-      "ticker": "gib glue",
-      "ret_max": 10.69,
-      "pass": false,
-      "vol_1h": 15513,
-      "voliq": 1.88
     }
   ]
 }
