@@ -26821,8 +26821,8 @@
       "ret_24h": 0.782,
       "hit_2x": true,
       "rugged": false,
-      "n_obs": 47,
-      "hours_tracked": 67.4
+      "n_obs": 46,
+      "hours_tracked": 67.2
     },
     {
       "ca": "CcRnjeJAeGon58eGGD9aBv3PPWwPZuNmTPQSm5WQpump",
@@ -27947,7 +27947,7 @@
       "last_fdv": 4686,
       "sig_vol_1h": 841926,
       "sig_liq": 21961,
-      "ret_now": -0.947,
+      "ret_now": -0.948,
       "ret_max": 1.139,
       "dd_from_peak": -0.975,
       "ret_1h": 0.035,
@@ -28484,6 +28484,27 @@
       "hours_tracked": 47.0
     },
     {
+      "ca": "BzWkBj39idjMnWPqeF7Baw28JQnhBFZGAMNGpacdpump",
+      "ticker": "The tamper evi",
+      "pass": false,
+      "arena": "memecoin",
+      "chain": "solana",
+      "entry_fdv": 6732,
+      "last_fdv": 12820,
+      "sig_vol_1h": 15714,
+      "sig_liq": 5923,
+      "ret_now": 0.903,
+      "ret_max": 0.903,
+      "dd_from_peak": 0.0,
+      "ret_1h": -0.237,
+      "ret_6h": 0.585,
+      "ret_24h": null,
+      "hit_2x": false,
+      "rugged": false,
+      "n_obs": 8,
+      "hours_tracked": 19.1
+    },
+    {
       "ca": "3Cbm7njQWKCfJN9KK7pRw1NHtxAXi2Tj7fVBiAbUsato",
       "ticker": "SATO",
       "pass": false,
@@ -28661,9 +28682,9 @@
       "last_fdv": 11018,
       "sig_vol_1h": 3177,
       "sig_liq": 14121,
-      "ret_now": -0.358,
+      "ret_now": -0.356,
       "ret_max": 0.828,
-      "dd_from_peak": -0.649,
+      "dd_from_peak": -0.648,
       "ret_1h": 0.0,
       "ret_6h": -0.093,
       "ret_24h": -0.125,
@@ -28889,12 +28910,12 @@
       "arena": "memecoin",
       "chain": "solana",
       "entry_fdv": 2129,
-      "last_fdv": 3001,
+      "last_fdv": 2966,
       "sig_vol_1h": 268702,
       "sig_liq": 3452,
-      "ret_now": 0.41,
+      "ret_now": 0.394,
       "ret_max": 0.774,
-      "dd_from_peak": -0.205,
+      "dd_from_peak": -0.214,
       "ret_1h": 0.774,
       "ret_6h": null,
       "ret_24h": null,
@@ -29341,8 +29362,8 @@
       "ret_24h": null,
       "hit_2x": false,
       "rugged": false,
-      "n_obs": 6,
-      "hours_tracked": 16.9
+      "n_obs": 5,
+      "hours_tracked": 16.8
     },
     {
       "ca": "B6f27ETGcjgGNB1fqULJbXVmw9FnL8HgBp7R83hmpump",
@@ -36443,6 +36464,27 @@
       "hours_tracked": 47.0
     },
     {
+      "ca": "Eav7v75ydZ5k3ToyRsbovn4c2J38fNRmZV6oW4wmpump",
+      "ticker": "Welcome to r/W",
+      "pass": true,
+      "arena": "memecoin",
+      "chain": "solana",
+      "entry_fdv": 240494,
+      "last_fdv": 14892,
+      "sig_vol_1h": 139731,
+      "sig_liq": 35700,
+      "ret_now": -0.939,
+      "ret_max": 0.027,
+      "dd_from_peak": -0.94,
+      "ret_1h": 0.0,
+      "ret_6h": null,
+      "ret_24h": -0.851,
+      "hit_2x": false,
+      "rugged": true,
+      "n_obs": 43,
+      "hours_tracked": 76.2
+    },
+    {
       "ca": "TPBZ4LBaDZ4CRKCi6oFurrJeLqA8eRiG4DzNoKepump",
       "ticker": "tags for Solan",
       "pass": false,
@@ -40178,7 +40220,7 @@
       "hit_2x": false,
       "rugged": false,
       "n_obs": 67,
-      "hours_tracked": 93.9
+      "hours_tracked": 93.8
     },
     {
       "ca": "ATdHscW9aB3nYTVRzfsAumWHiTvKcFb4CiSSx3YLpump",
@@ -40598,7 +40640,7 @@
       "hit_2x": false,
       "rugged": true,
       "n_obs": 64,
-      "hours_tracked": 91.1
+      "hours_tracked": 91.0
     },
     {
       "ca": "6zaoZHbZXyAuB15wsq7VNUa73vWjTiZnrNu4FqGopump",
@@ -42068,7 +42110,7 @@
       "hit_2x": false,
       "rugged": false,
       "n_obs": 50,
-      "hours_tracked": 73.9
+      "hours_tracked": 73.8
     },
     {
       "ca": "2cmdUtcmWaGB4NUi92SHu1k9vUQB89RYNXh149ZDpump",
@@ -43358,7 +43400,7 @@
       "arena": "memecoin",
       "chain": "solana",
       "entry_fdv": 49389,
-      "last_fdv": 2550,
+      "last_fdv": 2520,
       "sig_vol_1h": 115381,
       "sig_liq": 15584,
       "ret_now": -0.948,
@@ -43874,7 +43916,7 @@
       "hit_2x": false,
       "rugged": false,
       "n_obs": 34,
-      "hours_tracked": 52.9
+      "hours_tracked": 52.8
     },
     {
       "ca": "6J7rZoUkxtdTARJZCCDMjQrGVtP2m48bvxFMLn7wpump",
@@ -44789,9 +44831,9 @@
       "last_fdv": 5573,
       "sig_vol_1h": 16433,
       "sig_liq": 16022,
-      "ret_now": -0.845,
+      "ret_now": -0.838,
       "ret_max": 0.0,
-      "dd_from_peak": -0.845,
+      "dd_from_peak": -0.838,
       "ret_1h": -0.114,
       "ret_6h": -0.507,
       "ret_24h": -0.826,
@@ -48455,10 +48497,10 @@
       {
         "name": "vol_fade30",
         "label": "🔊 Esci quando il volume cala −70%",
-        "median": -0.077,
-        "avg": -0.086,
-        "win_rate": 0.25,
-        "avg_hold_min": 390
+        "median": -0.078,
+        "avg": -0.087,
+        "win_rate": 0.24,
+        "avg_hold_min": 399
       },
       {
         "name": "time6h",
