@@ -1,13 +1,13 @@
 {
-  "updated_utc": "2026-06-27 23:05",
+  "updated_utc": "2026-06-27 23:36",
   "runner_pct": 50,
   "settled": 1163,
-  "runners": 222,
-  "deads": 941,
+  "runners": 223,
+  "deads": 940,
   "by_arena": {
     "memecoin": {
       "trades": 1124,
-      "runners": 213,
+      "runners": 214,
       "runner_rate": 0.19
     },
     "ai_agent": {
@@ -23,16 +23,16 @@
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 8503.0,
-      "dead_median": 3477,
-      "ratio": 2.45
+      "runner_median": 8341,
+      "dead_median": 3545.5,
+      "ratio": 2.35
     },
     {
       "feature": "age_h",
       "label": "età (h)",
-      "runner_median": 2.5,
+      "runner_median": 2.55,
       "dead_median": 1.8,
-      "ratio": 1.39
+      "ratio": 1.42
     },
     {
       "feature": "grok_heat",
@@ -44,37 +44,37 @@
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 6.02,
+      "runner_median": 5.965,
       "dead_median": 8.64,
-      "ratio": 0.7
+      "ratio": 0.69
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.571,
-      "dead_median": 0.637,
-      "ratio": 0.9
+      "runner_median": 0.568,
+      "dead_median": 0.639,
+      "ratio": 0.89
     },
     {
-      "feature": "vol_24h",
-      "label": "volume 24h",
-      "runner_median": 49054.0,
-      "dead_median": 45549,
+      "feature": "bs_ratio_1h",
+      "label": "buy/sell 1h",
+      "runner_median": 1.29,
+      "dead_median": 1.195,
       "ratio": 1.08
     },
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 13932.5,
-      "dead_median": 13037,
-      "ratio": 1.07
+      "runner_median": 13590,
+      "dead_median": 13045.5,
+      "ratio": 1.04
     },
     {
-      "feature": "bs_ratio_1h",
-      "label": "buy/sell 1h",
-      "runner_median": 1.285,
-      "dead_median": 1.2,
-      "ratio": 1.07
+      "feature": "vol_24h",
+      "label": "volume 24h",
+      "runner_median": 45972,
+      "dead_median": 45793.5,
+      "ratio": 1.0
     }
   ],
   "best_runners": [
@@ -93,6 +93,13 @@
       "voliq": 0.5
     },
     {
+      "ticker": "World",
+      "ret_max": 25.93,
+      "pass": true,
+      "vol_1h": 139353,
+      "voliq": 10.64
+    },
+    {
       "ticker": null,
       "ret_max": 24.51,
       "pass": false,
@@ -107,6 +114,13 @@
       "voliq": null
     },
     {
+      "ticker": "100% feed adde",
+      "ret_max": 15.8,
+      "pass": false,
+      "vol_1h": 479,
+      "voliq": 1.64
+    },
+    {
       "ticker": "Wcat",
       "ret_max": 14.56,
       "pass": false,
@@ -119,20 +133,6 @@
       "pass": false,
       "vol_1h": 3325,
       "voliq": 6.76
-    },
-    {
-      "ticker": "Police were ca",
-      "ret_max": 13.39,
-      "pass": false,
-      "vol_1h": 43259,
-      "voliq": null
-    },
-    {
-      "ticker": "100% feed adde",
-      "ret_max": 13.2,
-      "pass": false,
-      "vol_1h": 479,
-      "voliq": 1.64
     }
   ]
 }
