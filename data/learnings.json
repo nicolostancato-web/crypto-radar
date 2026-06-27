@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-06-26 23:39",
+  "updated_utc": "2026-06-27 13:12",
   "runner_pct": 50,
-  "settled": 990,
-  "runners": 198,
-  "deads": 792,
+  "settled": 1035,
+  "runners": 203,
+  "deads": 832,
   "by_arena": {
     "memecoin": {
-      "trades": 955,
-      "runners": 189,
-      "runner_rate": 0.2
+      "trades": 1000,
+      "runners": 194,
+      "runner_rate": 0.19
     },
     "ai_agent": {
       "trades": 35,
@@ -23,23 +23,23 @@
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 8984.0,
-      "dead_median": 3477,
-      "ratio": 2.58
+      "runner_median": 8952,
+      "dead_median": 3447,
+      "ratio": 2.6
     },
     {
       "feature": "age_h",
       "label": "età (h)",
       "runner_median": 2.6,
-      "dead_median": 1.9,
-      "ratio": 1.37
+      "dead_median": 1.8,
+      "ratio": 1.44
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 6.15,
-      "dead_median": 7.765,
-      "ratio": 0.79
+      "runner_median": 6.49,
+      "dead_median": 8.34,
+      "ratio": 0.78
     },
     {
       "feature": "grok_heat",
@@ -51,30 +51,30 @@
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.548,
+      "runner_median": 0.555,
       "dead_median": 0.637,
-      "ratio": 0.86
+      "ratio": 0.87
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 49054.0,
+      "runner_median": 49699,
       "dead_median": 45415,
-      "ratio": 1.08
+      "ratio": 1.09
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
-      "runner_median": 1.275,
+      "runner_median": 1.28,
       "dead_median": 1.19,
-      "ratio": 1.07
+      "ratio": 1.08
     },
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 13145.0,
-      "dead_median": 12555,
-      "ratio": 1.05
+      "runner_median": 13318,
+      "dead_median": 12906,
+      "ratio": 1.03
     }
   ],
   "best_runners": [
