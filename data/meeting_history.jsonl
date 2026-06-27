@@ -2,4 +2,4 @@
 {"ts": 1782286226, "n_tokens": 438, "base_win": 21, "top_signal": "bs>=1.5", "top_lift": 6, "best_strategy": "bs>=2.0", "best_median_pnl": -12.2}
 {"ts": 1782371405, "n_tokens": 619, "base_win": 20, "top_signal": "bs>=1.5", "top_lift": 3, "best_strategy": "bs>=2.0", "best_median_pnl": -12.8}
 {"ts": 1782456211, "n_tokens": 868, "base_win": 19, "top_signal": "bs>=1.5", "top_lift": 4, "best_strategy": "bs>=2.0", "best_median_pnl": -11.5}
-{"ts": 1782565957, "n_tokens": 1036, "base_win": 20, "top_signal": "ai_agent", "top_lift": 6, "best_strategy": "bs>=2.0", "best_exit": "ladder_moon", "best_median_pnl": -10.7, "n_runners": 204, "n_candles": 735, "second_signal": "bs>=1.5"}
+{"ts": 1782565609, "n_tokens": 1011, "base_win": 20, "top_signal": "ai_agent", "top_lift": 5, "best_strategy": "bs>=2.0", "best_exit": "ladder_moon", "best_median_pnl": -10.7, "n_runners": 200, "n_candles": 735, "second_signal": "bs>=1.5"}

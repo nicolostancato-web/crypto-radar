@@ -1,1 +1,1 @@
-{"filter": "bs>=2.0", "exit_strategy": "ladder_moon", "n": 116, "median_pnl": -10.7, "win": 38, "bet_frac": 0.12, "profitable": true}
+{"filter": "bs>=2.0", "exit_strategy": "ladder_moon", "n": 114, "median_pnl": -10.7, "win": 39, "bet_frac": 0.12, "profitable": true}
