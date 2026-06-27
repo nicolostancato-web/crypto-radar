@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-26 21:59",
+  "updated_utc": "2026-06-27 13:13",
   "wallets_seen": 5187,
   "qualified": 507,
   "min_plays": 2,
@@ -11,6 +11,16 @@
       "winrate": 1.0,
       "tickers": [
         "Police were ca"
+      ]
+    },
+    {
+      "wallet": "9ao8rEcjdatcnFrHRkhya9oR3gRpSmMHsTgWZLf3Jgpu",
+      "plays": 3,
+      "hits": 3,
+      "winrate": 1.0,
+      "tickers": [
+        "BRAIN",
+        "Try rex fun 🤝\n"
       ]
     },
     {
@@ -189,16 +199,6 @@
       "winrate": 1.0,
       "tickers": [
         "One shared bra"
-      ]
-    },
-    {
-      "wallet": "7XyGPXAFg5FRADc3nZetBi5mxo9Rtwh4idBFmj9wk4M",
-      "plays": 2,
-      "hits": 2,
-      "winrate": 1.0,
-      "tickers": [
-        "THE LAST HONES",
-        "The World is B"
       ]
     }
   ]
