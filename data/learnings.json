@@ -1,13 +1,13 @@
 {
-  "updated_utc": "2026-06-28 14:34",
+  "updated_utc": "2026-06-28 15:07",
   "runner_pct": 50,
   "settled": 1324,
-  "runners": 255,
-  "deads": 1069,
+  "runners": 254,
+  "deads": 1070,
   "by_arena": {
     "memecoin": {
       "trades": 1281,
-      "runners": 246,
+      "runners": 245,
       "runner_rate": 0.19
     },
     "ai_agent": {
@@ -23,37 +23,44 @@
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 8079,
-      "dead_median": 3619.0,
-      "ratio": 2.23
+      "runner_median": 8043.5,
+      "dead_median": 3637,
+      "ratio": 2.21
     },
     {
       "feature": "age_h",
       "label": "età (h)",
-      "runner_median": 2.4,
+      "runner_median": 2.45,
       "dead_median": 1.7,
-      "ratio": 1.41
+      "ratio": 1.44
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
       "runner_median": 6.02,
-      "dead_median": 8.615,
+      "dead_median": 8.6,
       "ratio": 0.7
+    },
+    {
+      "feature": "grok_heat",
+      "label": "heat di Grok",
+      "runner_median": 3.5,
+      "dead_median": 3,
+      "ratio": 1.17
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.578,
-      "dead_median": 0.654,
-      "ratio": 0.88
+      "runner_median": 0.579,
+      "dead_median": 0.653,
+      "ratio": 0.89
     },
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 14365,
-      "dead_median": 13234.0,
-      "ratio": 1.09
+      "runner_median": 14320.0,
+      "dead_median": 13316,
+      "ratio": 1.08
     },
     {
       "feature": "bs_ratio_1h",
@@ -65,16 +72,9 @@
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 48061,
-      "dead_median": 45959.5,
-      "ratio": 1.05
-    },
-    {
-      "feature": "grok_heat",
-      "label": "heat di Grok",
-      "runner_median": 3,
-      "dead_median": 3.0,
-      "ratio": 1.0
+      "runner_median": 47016.5,
+      "dead_median": 45999,
+      "ratio": 1.02
     }
   ],
   "best_runners": [
@@ -129,7 +129,7 @@
     },
     {
       "ticker": null,
-      "ret_max": 16.44,
+      "ret_max": 16.94,
       "pass": false,
       "vol_1h": 7511,
       "voliq": 2.28
