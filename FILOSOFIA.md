@@ -37,6 +37,19 @@ va a casa tranquillo: il team **costruisce**, non aspetta.
 - **Ogni ~5 giorni:** il **deep investor meeting** (`deep_meeting.py`) — super profondo, GLM + scan
   mercato, caccia alla svolta. Come siamo, qual è il goal, e si CAMBIA se non ci sono risultati.
 
+## ITERARE È IL METODO (non un fallimento)
+Le idee NON vengono subito, ed è GIUSTO così. Un mese fa la pressione era l'idea migliore: l'abbiamo
+testata sui dati, vista non ideale, e siamo passati all'accelerazione. **Idea → test sui dati → se non
+funziona, prossima idea.** Scartare un'idea testata è progresso, non sconfitta. SpaceX uguale: idee
+basate sui dati, scartate, raffinate, finché spunta la svolta.
+
+## IL GOAL AZIENDALE È L'ANCORA
+Le migliori aziende non hanno l'idea pronta — hanno il **goal chiaro e ossessivo**, e tutto ci torna
+sopra. L'idea arriva *perché* il goal tira. Ogni 5 giorni l'investitore non vuole "l'idea geniale già
+fatta": vuole vedere che **il team SA cosa sta facendo, come si sta muovendo, e DOVE SONO I PUNTI
+DEBOLI.** Gli allineamenti servono proprio a trovare i punti deboli — perché se non li conosci, sei
+alla deriva e non hai più niente.
+
 ## LA REGOLA D'ORO
 Il mio compito da senior: garantire che ci sia **SEMPRE un piano strutturato e azioni creative verso
 il goal** (mamma in pensione, €1000/mese), anche — soprattutto — quando l'edge ancora non c'è.

@@ -110,13 +110,14 @@ def run():
             "es. seguire/copiare in tempo reale i wallet che VINCONO (smart money), cambiare asset/mercato, "
             "vendere il sistema invece di tradare, un edge di VELOCITA' o di INFORMAZIONE, ecc. Per ognuno: "
             "perche' potrebbe funzionare, cosa servirebbe, e il primo esperimento da €0 per validarlo. Sii audace.",
-        "goal": base + "\n\n# IL TUO COMPITO (Sintesi - IL GOAL)\n"
+        "goal": base + "\n\n# IL TUO COMPITO (Sintesi - PUNTI DEBOLI + PIANO verso IL GOAL)\n"
             "RAGIONA COME UN SOCIO che vuole far smettere di lavorare la mamma di Nicolo. E' passato del tempo. "
-            "Dato TUTTO lo stato sopra: quanto siamo REALMENTE vicini o lontani da 1000 EUR/mese? "
-            "Qual e' il percorso piu' realistico e veloce - continuare su questo edge, o cambiare angolo? "
-            "Se l'edge sui dati pubblici non basta, qual e' l'alternativa onesta? "
-            "Dammi un PIANO prioritizzato per i prossimi 7 giorni: 3 cose da fare, brutali e concrete, "
-            "per spingere verso il goal. Sii onesto se la strada e' lunga, ma indica la direzione.",
+            "PRIMA: elenca i 3 PUNTI DEBOLI piu' gravi del sistema ORA (dove perdiamo, cosa non sappiamo, cosa "
+            "ci frena). Un team che non conosce i suoi punti deboli e' alla deriva. "
+            "POI: quanto siamo REALMENTE vicini o lontani da 1000 EUR/mese? Qual e' il percorso piu' realistico - "
+            "continuare a costruire questo edge, o cambiare angolo? Se i dati pubblici non bastano, l'alternativa onesta? "
+            "INFINE: un PIANO prioritizzato per i prossimi 5 giorni - 3 azioni brutali e concrete verso il goal. "
+            "Ricorda: l'edge non si trova, si COSTRUISCE iterando. Indica il prossimo esperimento da fare.",
     }
     for k, p in prompts.items():
         try:
