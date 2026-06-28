@@ -23,6 +23,9 @@ STRATEGIES = {
     "ladder_quick":   {"tps": [(1.3, 0.60)], "trail": 0.25},          # incassa presto: 60% a +30%
     "ladder_3step":   {"tps": [(1.5, 0.33), (2.0, 0.33), (3.0, 0.20)], "trail": 0.30},
     "ladder_moon":    {"tps": [(2.0, 0.50), (5.0, 0.30)], "trail": 0.45},  # tieni per il 5x
+    # --- HOUSE MONEY (i vincenti reali 2026): recupera il capitale presto, gioca col profitto ---
+    "house_money":    {"tps": [(2.0, 0.50)], "trail": 0.50},               # a 2x vendi 50% = capitale recuperato, il resto corre
+    "house_money_3x": {"tps": [(2.0, 0.40), (3.0, 0.30)], "trail": 0.50},  # recupera + scala a 3x, lascia un pezzo
 }
 
 

@@ -31,7 +31,7 @@ def aligned_dataset():
         if ca and ca not in sig:
             sig[ca] = {"bs": m.get("bs_ratio_1h"), "np1h": m.get("np_1h"), "age": m.get("age_h"),
                        "top10": m.get("top10_pct"), "voliq": m.get("voliq"), "vol1h": m.get("vol_1h"),
-                       "arena": c.get("arena")}
+                       "arena": c.get("arena"), "accel": m.get("bs_accel"), "fdv": m.get("fdv")}
     candles = {}
     p = os.path.join(HERE, "data", "ohlcv.jsonl")
     if os.path.exists(p):
@@ -67,6 +67,13 @@ FILTERS = {
     "voliq>2": lambda r: (r["voliq"] or 0) > 2,
     "vol1h>50k": lambda r: (r["vol1h"] or 0) > 50000,
     "ai_agent": lambda r: r["arena"] == "ai_agent",
+    # --- SCOPERTE deep meeting: ANTICIPARE (accelerazione) invece di arrivare tardi (bs alto) ---
+    "accel>1.2": lambda r: (r.get("accel") or 0) > 1.2,                 # pressione che SALE adesso
+    "accel>1.5": lambda r: (r.get("accel") or 0) > 1.5,
+    "accel>1.2 & age<6h": lambda r: (r.get("accel") or 0) > 1.2 and r["age"] is not None and r["age"] < 6,
+    "bs1.2-2 & accel>1.2": lambda r: 1.2 <= (r["bs"] or 0) < 2.0 and (r.get("accel") or 0) > 1.2,  # presto + in salita
+    # --- fascia market-cap asimmetrica $15k-50k (dai trader vincenti reali) ---
+    "mc_15_60k": lambda r: r.get("fdv") and 15000 <= r["fdv"] <= 60000,
 }
 
 
