@@ -165,4 +165,19 @@ def run():
 
 
 if __name__ == "__main__":
-    run()
+    import sys
+    if len(sys.argv) > 1 and sys.argv[1] == "reset":
+        # AZZERA a 100 EUR e marca i token ATTUALI come gia' visti -> da ora il conto traccia SOLO i trade
+        # NUOVI con la strategia di oggi (track record pulito del nuovo approccio, non il vecchio backtest).
+        cands = set()
+        for l in open(os.path.join(HERE, "data", "candidates.jsonl")):
+            try:
+                cands.add(json.loads(l)["ca"])
+            except Exception:
+                pass
+        json.dump({"start": START, "balance": START, "season": 1, "blowups": [], "trades": [],
+                   "processed": list(cands)}, open(STATE, "w"))
+        print(f"[conto] AZZERATO a {START:.0f} EUR. {len(cands)} token marcati come gia' visti -> conta solo i NUOVI da ora.")
+        run()   # rigenera web/portfolio.json (mostra 100 EUR, 0 trade finche' non chiude un token nuovo)
+    else:
+        run()
