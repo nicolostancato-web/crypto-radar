@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-27 13:13",
-  "wallets_seen": 5187,
-  "qualified": 507,
+  "updated_utc": "2026-06-28 05:09",
+  "wallets_seen": 5685,
+  "qualified": 572,
   "min_plays": 2,
   "smart": [
     {
@@ -144,6 +144,16 @@
       ]
     },
     {
+      "wallet": "A1tuCK9xuxTcedeBoibNa5Z6jeBkMVe7ddoxL2GbxcLq",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "Guxss",
+        "Lorenz is an a"
+      ]
+    },
+    {
       "wallet": "4YsH8kyuFPb7JnkgNuzeTx4YrZFSf9Pj17XNt1n9SueE",
       "plays": 2,
       "hits": 2,
@@ -190,15 +200,6 @@
       "tickers": [
         "One survivor",
         "🐸 \n\n2.5% Suppl"
-      ]
-    },
-    {
-      "wallet": "ANbzVsquXSZNfEfivmgRQD1iQdUS7iZNyifEohx95F5s",
-      "plays": 2,
-      "hits": 2,
-      "winrate": 1.0,
-      "tickers": [
-        "One shared bra"
       ]
     }
   ]
