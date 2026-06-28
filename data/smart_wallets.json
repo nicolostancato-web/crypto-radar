@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-28 14:36",
-  "wallets_seen": 6047,
-  "qualified": 622,
+  "updated_utc": "2026-06-28 17:56",
+  "wallets_seen": 6135,
+  "qualified": 635,
   "min_plays": 2,
   "smart": [
     {
@@ -82,6 +82,16 @@
       "tickers": [
         "$PUMPVERSE",
         "Pip the Baby S"
+      ]
+    },
+    {
+      "wallet": "FyBtVPYZ7TPzXVJrkjnGBU6ozFCXHfAxsMJjHoTZnzQG",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "$PUMPVERSE",
+        "ansemconzimp \n"
       ]
     },
     {
@@ -192,16 +202,6 @@
       "tickers": [
         "A dog named Jo",
         "I hand drew an"
-      ]
-    },
-    {
-      "wallet": "7pYT7KrPH7FCzH3YDWWf2ZCrDA5u3bpRojdjAKr2JNdM",
-      "plays": 2,
-      "hits": 2,
-      "winrate": 1.0,
-      "tickers": [
-        "One survivor",
-        "🐸 \n\n2.5% Suppl"
       ]
     }
   ]
