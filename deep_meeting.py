@@ -101,6 +101,15 @@ def run():
             "Come alziamo il win-rate (oggi ~25-30%)? Conviene piu' selettivi (meno trade, migliori) o piu' larghi? "
             "Position sizing: frazione fissa, Kelly, o cosa, dato che vinciamo poche volte ma grosso? "
             "Dammi la strategia di uscita+sizing precisa da testare la prossima settimana.",
+        "svolta": base + "\n\n# IL TUO COMPITO (LA SVOLTA - pensa come Elon Musk)\n"
+            "Dimentica l'ottimizzazione incrementale. SpaceX non ha raggiunto i suoi goal limando il vecchio "
+            "razzo: ha avuto IDEE-SVOLTA (riusare i booster, data center nello spazio) perche' conosceva il goal "
+            "in modo ossessivo. Il nostro goal: 1000 EUR/mese, ripetibile, gestibile da un solo, con poco tempo. "
+            "SFIDA L'INTERA PREMESSA. Forse 'retail lento che analizza dati pubblici di memecoin' e' la strada "
+            "SBAGLIATA. Dammi 3 ANGOLI-SVOLTA radicali, anche scomodi, che potrebbero davvero arrivare al goal: "
+            "es. seguire/copiare in tempo reale i wallet che VINCONO (smart money), cambiare asset/mercato, "
+            "vendere il sistema invece di tradare, un edge di VELOCITA' o di INFORMAZIONE, ecc. Per ognuno: "
+            "perche' potrebbe funzionare, cosa servirebbe, e il primo esperimento da €0 per validarlo. Sii audace.",
         "goal": base + "\n\n# IL TUO COMPITO (Sintesi - IL GOAL)\n"
             "RAGIONA COME UN SOCIO che vuole far smettere di lavorare la mamma di Nicolo. E' passato del tempo. "
             "Dato TUTTO lo stato sopra: quanto siamo REALMENTE vicini o lontani da 1000 EUR/mese? "
@@ -139,6 +148,11 @@ profittevoli, come alziamo la percentuale di successo, come arriviamo al goal.
 💰 TAB 3 — TRADING: come diventiamo profittevoli (analisi profonda)
 ================================================================
 {parti['trading']}
+
+================================================================
+🚀 LA SVOLTA — l'angolo geniale che cambia tutto (pensa come Musk)
+================================================================
+{parti['svolta']}
 
 ================================================================
 🧠 LA SINTESI — IL PIANO PER ARRIVARE AL GOAL
