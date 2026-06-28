@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-28 05:09",
-  "wallets_seen": 5685,
-  "qualified": 572,
+  "updated_utc": "2026-06-28 10:06",
+  "wallets_seen": 5804,
+  "qualified": 584,
   "min_plays": 2,
   "smart": [
     {
@@ -184,15 +184,6 @@
       ]
     },
     {
-      "wallet": "GrNtJgnviiWDLjv9rCKzDywDvqDXifasriaoxKZGrW9V",
-      "plays": 2,
-      "hits": 2,
-      "winrate": 1.0,
-      "tickers": [
-        "WENDY mentione"
-      ]
-    },
-    {
       "wallet": "7pYT7KrPH7FCzH3YDWWf2ZCrDA5u3bpRojdjAKr2JNdM",
       "plays": 2,
       "hits": 2,
@@ -200,6 +191,15 @@
       "tickers": [
         "One survivor",
         "🐸 \n\n2.5% Suppl"
+      ]
+    },
+    {
+      "wallet": "ANbzVsquXSZNfEfivmgRQD1iQdUS7iZNyifEohx95F5s",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "One shared bra"
       ]
     }
   ]
