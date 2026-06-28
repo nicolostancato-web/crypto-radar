@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-28 07:23",
+  "updated_utc": "2026-06-28 07:03",
   "runner_pct": 50,
   "settled": 1237,
   "runners": 239,
@@ -129,7 +129,7 @@
     },
     {
       "ticker": "Return to meme",
-      "ret_max": 15.48,
+      "ret_max": 15.06,
       "pass": false,
       "vol_1h": 39135,
       "voliq": 17.39
