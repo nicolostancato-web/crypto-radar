@@ -1,13 +1,13 @@
 {
-  "updated_utc": "2026-06-28 22:01",
+  "updated_utc": "2026-06-28 23:03",
   "runner_pct": 50,
   "settled": 1430,
-  "runners": 286,
-  "deads": 1144,
+  "runners": 288,
+  "deads": 1142,
   "by_arena": {
     "memecoin": {
       "trades": 1386,
-      "runners": 277,
+      "runners": 279,
       "runner_rate": 0.2
     },
     "ai_agent": {
@@ -45,7 +45,7 @@
       "feature": "voliq",
       "label": "volume/liquidità",
       "runner_median": 6.02,
-      "dead_median": 8.62,
+      "dead_median": 8.61,
       "ratio": 0.7
     },
     {
