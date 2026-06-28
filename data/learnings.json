@@ -1,13 +1,13 @@
 {
-  "updated_utc": "2026-06-28 09:54",
+  "updated_utc": "2026-06-28 12:10",
   "runner_pct": 50,
-  "settled": 1263,
-  "runners": 246,
-  "deads": 1017,
+  "settled": 1290,
+  "runners": 250,
+  "deads": 1040,
   "by_arena": {
     "memecoin": {
-      "trades": 1220,
-      "runners": 237,
+      "trades": 1247,
+      "runners": 241,
       "runner_rate": 0.19
     },
     "ai_agent": {
@@ -23,65 +23,58 @@
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 8314.5,
-      "dead_median": 3565,
-      "ratio": 2.33
+      "runner_median": 8043.5,
+      "dead_median": 3578.5,
+      "ratio": 2.25
     },
     {
       "feature": "age_h",
       "label": "età (h)",
-      "runner_median": 2.3,
+      "runner_median": 2.5,
       "dead_median": 1.7,
-      "ratio": 1.35
+      "ratio": 1.47
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
       "runner_median": 6.28,
-      "dead_median": 8.615,
-      "ratio": 0.73
-    },
-    {
-      "feature": "grok_heat",
-      "label": "heat di Grok",
-      "runner_median": 3.5,
-      "dead_median": 3,
-      "ratio": 1.17
+      "dead_median": 8.535,
+      "ratio": 0.74
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.575,
+      "runner_median": 0.577,
       "dead_median": 0.652,
       "ratio": 0.88
     },
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 14674.5,
-      "dead_median": 13316,
-      "ratio": 1.1
+      "runner_median": 14450.0,
+      "dead_median": 13045.5,
+      "ratio": 1.11
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
-      "runner_median": 1.29,
+      "runner_median": 1.285,
       "dead_median": 1.19,
       "ratio": 1.08
     },
     {
-      "feature": "vol_1h",
-      "label": "volume 1h",
-      "runner_median": 14275,
-      "dead_median": 13461.0,
-      "ratio": 1.06
-    },
-    {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 49054.0,
-      "dead_median": 45901,
-      "ratio": 1.07
+      "runner_median": 47344.5,
+      "dead_median": 45617.5,
+      "ratio": 1.04
+    },
+    {
+      "feature": "grok_heat",
+      "label": "heat di Grok",
+      "runner_median": 3,
+      "dead_median": 3.0,
+      "ratio": 1.0
     }
   ],
   "best_runners": [
@@ -94,10 +87,17 @@
     },
     {
       "ticker": "Try rex fun 🤝\n",
-      "ret_max": 28.64,
+      "ret_max": 29.02,
       "pass": false,
       "vol_1h": 3325,
       "voliq": 6.76
+    },
+    {
+      "ticker": null,
+      "ret_max": 27.23,
+      "pass": false,
+      "vol_1h": 14275,
+      "voliq": 3.65
     },
     {
       "ticker": "Photo of an Ad",
@@ -133,13 +133,6 @@
       "pass": false,
       "vol_1h": 7511,
       "voliq": 2.28
-    },
-    {
-      "ticker": "100% feed adde",
-      "ret_max": 15.8,
-      "pass": false,
-      "vol_1h": 479,
-      "voliq": 1.64
     }
   ]
 }
