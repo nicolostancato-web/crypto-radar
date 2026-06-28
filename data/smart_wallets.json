@@ -1,9 +1,20 @@
 {
-  "updated_utc": "2026-06-28 10:55",
-  "wallets_seen": 5804,
-  "qualified": 584,
+  "updated_utc": "2026-06-28 14:36",
+  "wallets_seen": 6047,
+  "qualified": 622,
   "min_plays": 2,
   "smart": [
+    {
+      "wallet": "2nGi5a8WA3A9dsZG88cxYnmQpmnEvf5wppFMNsCWQcaA",
+      "plays": 3,
+      "hits": 3,
+      "winrate": 1.0,
+      "tickers": [
+        "Dev abandoned ",
+        "Strong CTO lea",
+        "The Vibes Are "
+      ]
+    },
     {
       "wallet": "3iYhe58qkE1EojgJccSyfg8iEA5fLaAc1AxNxFPnuqM8",
       "plays": 3,
@@ -134,16 +145,6 @@
       ]
     },
     {
-      "wallet": "2nGi5a8WA3A9dsZG88cxYnmQpmnEvf5wppFMNsCWQcaA",
-      "plays": 2,
-      "hits": 2,
-      "winrate": 1.0,
-      "tickers": [
-        "Strong CTO lea",
-        "The Vibes Are "
-      ]
-    },
-    {
       "wallet": "A1tuCK9xuxTcedeBoibNa5Z6jeBkMVe7ddoxL2GbxcLq",
       "plays": 2,
       "hits": 2,
@@ -174,6 +175,16 @@
       ]
     },
     {
+      "wallet": "8757h6K6oPBetKpbufwA1HTn3gST2om3ih2grSXWdQXW",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "The Black Cow,",
+        "The Envious Do"
+      ]
+    },
+    {
       "wallet": "8FJ3DCvWMv5Aw14BD2GYFsf5Q9DPscSm8N2RQvFv6TFY",
       "plays": 2,
       "hits": 2,
@@ -191,15 +202,6 @@
       "tickers": [
         "One survivor",
         "🐸 \n\n2.5% Suppl"
-      ]
-    },
-    {
-      "wallet": "ANbzVsquXSZNfEfivmgRQD1iQdUS7iZNyifEohx95F5s",
-      "plays": 2,
-      "hits": 2,
-      "winrate": 1.0,
-      "tickers": [
-        "One shared bra"
       ]
     }
   ]
