@@ -1,13 +1,13 @@
 {
-  "updated_utc": "2026-06-28 05:07",
+  "updated_utc": "2026-06-28 07:03",
   "runner_pct": 50,
-  "settled": 1209,
-  "runners": 236,
-  "deads": 973,
+  "settled": 1237,
+  "runners": 239,
+  "deads": 998,
   "by_arena": {
     "memecoin": {
-      "trades": 1166,
-      "runners": 227,
+      "trades": 1194,
+      "runners": 230,
       "runner_rate": 0.19
     },
     "ai_agent": {
@@ -23,44 +23,44 @@
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 8314.5,
-      "dead_median": 3575,
-      "ratio": 2.33
+      "runner_median": 8477,
+      "dead_median": 3540.5,
+      "ratio": 2.39
     },
     {
       "feature": "age_h",
       "label": "età (h)",
-      "runner_median": 2.3,
-      "dead_median": 1.7,
-      "ratio": 1.35
-    },
-    {
-      "feature": "grok_heat",
-      "label": "heat di Grok",
-      "runner_median": 4,
-      "dead_median": 3,
-      "ratio": 1.33
+      "runner_median": 2.5,
+      "dead_median": 1.8,
+      "ratio": 1.39
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 6.02,
+      "runner_median": 6.15,
       "dead_median": 8.64,
-      "ratio": 0.7
+      "ratio": 0.71
+    },
+    {
+      "feature": "grok_heat",
+      "label": "heat di Grok",
+      "runner_median": 3.5,
+      "dead_median": 3.0,
+      "ratio": 1.17
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.575,
-      "dead_median": 0.637,
-      "ratio": 0.9
+      "runner_median": 0.568,
+      "dead_median": 0.649,
+      "ratio": 0.88
     },
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 14450.0,
-      "dead_median": 13402,
-      "ratio": 1.08
+      "runner_median": 14365,
+      "dead_median": 13103.0,
+      "ratio": 1.1
     },
     {
       "feature": "bs_ratio_1h",
@@ -72,9 +72,9 @@
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 45497.5,
-      "dead_median": 45686,
-      "ratio": 1.0
+      "runner_median": 48717,
+      "dead_median": 45910.5,
+      "ratio": 1.06
     }
   ],
   "best_runners": [
@@ -128,11 +128,11 @@
       "voliq": 1.64
     },
     {
-      "ticker": "Wcat",
-      "ret_max": 14.56,
+      "ticker": "Return to meme",
+      "ret_max": 15.06,
       "pass": false,
-      "vol_1h": 32927,
-      "voliq": null
+      "vol_1h": 39135,
+      "voliq": 17.39
     }
   ]
 }
