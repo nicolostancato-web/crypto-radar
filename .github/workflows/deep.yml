@@ -5,7 +5,8 @@ name: crypto-radar-deep
 # CFO: ~3-4 chiamate AI (~$0.35) una volta a settimana. Guard di 7 giorni anti-doppione.
 on:
   schedule:
-    - cron: "30 7 * * 1"     # ogni LUNEDI 07:30 UTC (inizio settimana)
+    - cron: "30 7 * * *"     # ogni giorno 07:30 UTC: ma il guard di 5 giorni nel codice fa girare il deep
+                             # solo ogni ~5 giorni (l'investitore torna ogni 5gg). Cron giornaliero = piu' affidabile.
   workflow_dispatch: {}
 
 permissions:

@@ -187,8 +187,8 @@ if __name__ == "__main__":
                 last = datetime.datetime.strptime(open(marker).read().strip(), "%Y-%m-%d")
             except Exception:
                 last = None
-        if last and (today - last).days < 7:
-            print(f"[deep] gia' fatto {(today-last).days}g fa, salto (settimanale)"); sys.exit(0)
+        if last and (today - last).days < 5:
+            print(f"[deep] gia' fatto {(today-last).days}g fa, salto (ogni ~5 giorni)"); sys.exit(0)
         run()
         open(marker, "w").write(today.strftime("%Y-%m-%d"))
     else:
