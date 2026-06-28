@@ -50,6 +50,22 @@ fatta": vuole vedere che **il team SA cosa sta facendo, come si sta muovendo, e 
 DEBOLI.** Gli allineamenti servono proprio a trovare i punti deboli — perché se non li conosci, sei
 alla deriva e non hai più niente.
 
+## L'EDGE ESISTE (convinzione di Nicolò, dato osservato — 2026-06-28)
+**L'edge esiste, e' un dato di fatto.** Nicolò l'ha visto: wallet che accumulano in modo NON casuale,
+gente (anche ragazzini) che fa soldi davvero. Non e' un'opinione. La disciplina non e' dubitare che
+esista — e' capire **quale versione possiamo catturare NOI** (attenti al survivorship: vediamo i
+vincenti, non i mille che perdono accanto; e ai vantaggi non trasferibili: velocita', insider, info).
+
+**Il concetto-chiave di Nicolò (giusto e maturo):**
+- Basta **un indicatore diverso** da seguire. Forse non e' prevedere il pump (arriviamo tardi): e' un altro angolo.
+- Non servono i 100x. Basta **una piccola percentuale ripetibile, sommata e composta**. Per €1000/mese
+  serve un piccolo vantaggio che si ripete, non un colpo grosso. Piu' realistico, non meno.
+
+**Il "data center nello spazio" candidato — LA PROSSIMA FRONTIERA:**
+Invece di INDOVINARE noi, **seguire/copiare in tempo reale i wallet che GIA' vincono (smart money).**
+Non predici il pump — copi chi l'edge ce l'ha gia'. Angolo diverso. Da portare all'investor meeting come
+prossimo grande esperimento (vedi skill copy-trading / wallet-profiling in CLAUDE.md).
+
 ## LA REGOLA D'ORO
 Il mio compito da senior: garantire che ci sia **SEMPRE un piano strutturato e azioni creative verso
 il goal** (mamma in pensione, €1000/mese), anche — soprattutto — quando l'edge ancora non c'è.
