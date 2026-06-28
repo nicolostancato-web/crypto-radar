@@ -1,13 +1,13 @@
 {
-  "updated_utc": "2026-06-28 11:49",
+  "updated_utc": "2026-06-28 12:30",
   "runner_pct": 50,
   "settled": 1290,
-  "runners": 251,
-  "deads": 1039,
+  "runners": 252,
+  "deads": 1038,
   "by_arena": {
     "memecoin": {
       "trades": 1247,
-      "runners": 242,
+      "runners": 243,
       "runner_rate": 0.19
     },
     "ai_agent": {
@@ -23,9 +23,9 @@
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 8008,
-      "dead_median": 3582,
-      "ratio": 2.24
+      "runner_median": 7763.0,
+      "dead_median": 3585.5,
+      "ratio": 2.17
     },
     {
       "feature": "age_h",
@@ -37,44 +37,44 @@
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 6.28,
-      "dead_median": 8.535,
-      "ratio": 0.74
+      "runner_median": 6.02,
+      "dead_median": 8.615,
+      "ratio": 0.7
     },
     {
-      "feature": "vol_1h",
-      "label": "volume 1h",
-      "runner_median": 14535,
-      "dead_median": 13037,
-      "ratio": 1.11
+      "feature": "grok_heat",
+      "label": "heat di Grok",
+      "runner_median": 3.5,
+      "dead_median": 3,
+      "ratio": 1.17
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.578,
+      "runner_median": 0.579,
       "dead_median": 0.651,
       "ratio": 0.89
     },
     {
+      "feature": "vol_1h",
+      "label": "volume 1h",
+      "runner_median": 14320.0,
+      "dead_median": 13103.0,
+      "ratio": 1.09
+    },
+    {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
-      "runner_median": 1.29,
+      "runner_median": 1.285,
       "dead_median": 1.19,
       "ratio": 1.08
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 48061,
-      "dead_median": 45549,
-      "ratio": 1.06
-    },
-    {
-      "feature": "grok_heat",
-      "label": "heat di Grok",
-      "runner_median": 3,
-      "dead_median": 3.0,
-      "ratio": 1.0
+      "runner_median": 47016.5,
+      "dead_median": 45617.5,
+      "ratio": 1.03
     }
   ],
   "best_runners": [
@@ -84,6 +84,13 @@
       "pass": false,
       "vol_1h": 155883,
       "voliq": 26.93
+    },
+    {
+      "ticker": null,
+      "ret_max": 31.22,
+      "pass": false,
+      "vol_1h": 14275,
+      "voliq": 3.65
     },
     {
       "ticker": "Try rex fun 🤝\n",
@@ -105,13 +112,6 @@
       "pass": true,
       "vol_1h": 139353,
       "voliq": 10.64
-    },
-    {
-      "ticker": null,
-      "ret_max": 24.73,
-      "pass": false,
-      "vol_1h": 14275,
-      "voliq": 3.65
     },
     {
       "ticker": null,
