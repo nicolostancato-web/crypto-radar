@@ -1,0 +1,46 @@
+name: crypto-radar-deep
+
+# IL MEETING PROFONDO SETTIMANALE (l'investor meeting): 1x a settimana i 3 tab vanno A FONDO con l'AI
+# cinese (GLM) + scan del mercato reale (Grok live su X), e producono una MAIL LUNGA focalizzata sul GOAL.
+# CFO: ~3-4 chiamate AI (~$0.35) una volta a settimana. Guard di 7 giorni anti-doppione.
+on:
+  schedule:
+    - cron: "30 7 * * 1"     # ogni LUNEDI 07:30 UTC (inizio settimana)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: radar-deep
+  cancel-in-progress: false
+
+jobs:
+  deep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+
+      - name: Investor meeting profondo (GLM deep + scan mercato Grok) + mail lunga
+        env:
+          XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
+          GLM_API_KEY: ${{ secrets.GLM_API_KEY }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: python deep_meeting.py weekly
+
+      - name: Salva il verbale profondo
+        run: |
+          git config user.name "crypto-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/deep_meeting_last.md data/deep_meeting_last_date.txt
+          git commit -m "deep meeting $(date -u +%Y-%m-%d)" || { echo "niente di nuovo"; exit 0; }
+          for i in 1 2 3 4 5; do
+            git pull --no-rebase --no-edit -X theirs origin main || true
+            git push origin main && break
+            sleep 5
+          done
