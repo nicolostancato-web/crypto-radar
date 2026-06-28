@@ -70,6 +70,13 @@
       "ratio": 1.08
     },
     {
+      "feature": "vol_1h",
+      "label": "volume 1h",
+      "runner_median": 14275,
+      "dead_median": 13461.0,
+      "ratio": 1.06
+    },
+    {
       "feature": "vol_24h",
       "label": "volume 24h",
       "runner_median": 49054.0,
