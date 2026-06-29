@@ -93,6 +93,13 @@
       "voliq": 3.65
     },
     {
+      "ticker": null,
+      "ret_max": 31.43,
+      "pass": false,
+      "vol_1h": 13051,
+      "voliq": 1.2
+    },
+    {
       "ticker": "Try rex fun 🤝\n",
       "ret_max": 29.02,
       "pass": false,
