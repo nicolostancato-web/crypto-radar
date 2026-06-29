@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-29 21:12",
+  "updated_utc": "2026-06-29 22:02",
   "runner_pct": 50,
   "settled": 1622,
   "runners": 311,
@@ -23,9 +23,9 @@
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 8477,
-      "dead_median": 3366.5,
-      "ratio": 2.52
+      "runner_median": 8500,
+      "dead_median": 3354.0,
+      "ratio": 2.53
     },
     {
       "feature": "age_h",
@@ -45,13 +45,13 @@
       "feature": "voliq",
       "label": "volume/liquidità",
       "runner_median": 6.3,
-      "dead_median": 8.935,
-      "ratio": 0.71
+      "dead_median": 8.99,
+      "ratio": 0.7
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.575,
+      "runner_median": 0.576,
       "dead_median": 0.68,
       "ratio": 0.85
     },
@@ -65,16 +65,16 @@
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 49918,
-      "dead_median": 46590.5,
+      "runner_median": 49938,
+      "dead_median": 46464.5,
       "ratio": 1.07
     },
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 15340,
-      "dead_median": 15802.0,
-      "ratio": 0.97
+      "runner_median": 15513,
+      "dead_median": 15745.0,
+      "ratio": 0.99
     }
   ],
   "best_runners": [
@@ -87,7 +87,7 @@
     },
     {
       "ticker": null,
-      "ret_max": 36.48,
+      "ret_max": 38.21,
       "pass": false,
       "vol_1h": 13051,
       "voliq": 1.2
