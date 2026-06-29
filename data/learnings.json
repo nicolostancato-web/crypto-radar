@@ -1,5 +1,5 @@
 {
-  "updated_utc": "2026-06-29 05:28",
+  "updated_utc": "2026-06-29 05:17",
   "runner_pct": 50,
   "settled": 1488,
   "runners": 295,
@@ -119,6 +119,13 @@
       "pass": true,
       "vol_1h": 139353,
       "voliq": 10.64
+    },
+    {
+      "ticker": null,
+      "ret_max": 24.83,
+      "pass": false,
+      "vol_1h": 13051,
+      "voliq": 1.2
     },
     {
       "ticker": null,
