@@ -1,13 +1,13 @@
 {
-  "updated_utc": "2026-06-29 00:09",
+  "updated_utc": "2026-06-29 05:28",
   "runner_pct": 50,
-  "settled": 1461,
-  "runners": 292,
-  "deads": 1169,
+  "settled": 1488,
+  "runners": 295,
+  "deads": 1193,
   "by_arena": {
     "memecoin": {
-      "trades": 1417,
-      "runners": 283,
+      "trades": 1444,
+      "runners": 286,
       "runner_rate": 0.2
     },
     "ai_agent": {
@@ -23,9 +23,9 @@
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 8409.0,
-      "dead_median": 3600.0,
-      "ratio": 2.34
+      "runner_median": 8341,
+      "dead_median": 3619.0,
+      "ratio": 2.3
     },
     {
       "feature": "age_h",
@@ -44,15 +44,15 @@
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 6.02,
-      "dead_median": 8.64,
-      "ratio": 0.7
+      "runner_median": 6.15,
+      "dead_median": 8.61,
+      "ratio": 0.71
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.571,
-      "dead_median": 0.663,
+      "runner_median": 0.573,
+      "dead_median": 0.665,
       "ratio": 0.86
     },
     {
@@ -63,18 +63,18 @@
       "ratio": 1.08
     },
     {
-      "feature": "vol_24h",
-      "label": "volume 24h",
-      "runner_median": 49545.0,
-      "dead_median": 46464.5,
-      "ratio": 1.07
-    },
-    {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 14674.5,
-      "dead_median": 15179.0,
-      "ratio": 0.97
+      "runner_median": 14814,
+      "dead_median": 15740.5,
+      "ratio": 0.94
+    },
+    {
+      "feature": "vol_24h",
+      "label": "volume 24h",
+      "runner_median": 49699,
+      "dead_median": 46735.5,
+      "ratio": 1.06
     }
   ],
   "best_runners": [
@@ -87,10 +87,17 @@
     },
     {
       "ticker": null,
-      "ret_max": 35.79,
+      "ret_max": 32.53,
       "pass": false,
       "vol_1h": 14275,
       "voliq": 3.65
+    },
+    {
+      "ticker": null,
+      "ret_max": 31.43,
+      "pass": false,
+      "vol_1h": 13051,
+      "voliq": 1.2
     },
     {
       "ticker": "Try rex fun 🤝\n",
@@ -126,13 +133,6 @@
       "pass": false,
       "vol_1h": 82982,
       "voliq": null
-    },
-    {
-      "ticker": null,
-      "ret_max": 21.16,
-      "pass": false,
-      "vol_1h": 13051,
-      "voliq": 1.2
     }
   ]
 }
