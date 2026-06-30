@@ -1,14 +1,14 @@
 {
-  "updated_utc": "2026-06-29 05:17",
+  "updated_utc": "2026-06-30 06:56",
   "runner_pct": 50,
-  "settled": 1488,
-  "runners": 295,
-  "deads": 1193,
+  "settled": 1720,
+  "runners": 328,
+  "deads": 1392,
   "by_arena": {
     "memecoin": {
-      "trades": 1444,
-      "runners": 286,
-      "runner_rate": 0.2
+      "trades": 1676,
+      "runners": 319,
+      "runner_rate": 0.19
     },
     "ai_agent": {
       "trades": 44,
@@ -23,37 +23,44 @@
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 8341,
-      "dead_median": 3619.0,
-      "ratio": 2.3
+      "runner_median": 8409.0,
+      "dead_median": 3351,
+      "ratio": 2.51
     },
     {
       "feature": "age_h",
       "label": "età (h)",
-      "runner_median": 2.2,
-      "dead_median": 1.6,
-      "ratio": 1.38
+      "runner_median": 2.1,
+      "dead_median": 1.5,
+      "ratio": 1.4
     },
     {
       "feature": "grok_heat",
       "label": "heat di Grok",
-      "runner_median": 4,
-      "dead_median": 3.0,
+      "runner_median": 4.0,
+      "dead_median": 3,
       "ratio": 1.33
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 6.15,
-      "dead_median": 8.61,
-      "ratio": 0.71
+      "runner_median": 6.75,
+      "dead_median": 8.795,
+      "ratio": 0.77
+    },
+    {
+      "feature": "vol_24h",
+      "label": "volume 24h",
+      "runner_median": 53347.0,
+      "dead_median": 46367,
+      "ratio": 1.15
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.573,
-      "dead_median": 0.665,
-      "ratio": 0.86
+      "runner_median": 0.586,
+      "dead_median": 0.675,
+      "ratio": 0.87
     },
     {
       "feature": "bs_ratio_1h",
@@ -65,16 +72,9 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 14814,
-      "dead_median": 15740.5,
-      "ratio": 0.94
-    },
-    {
-      "feature": "vol_24h",
-      "label": "volume 24h",
-      "runner_median": 49699,
-      "dead_median": 46735.5,
-      "ratio": 1.06
+      "runner_median": 15889.0,
+      "dead_median": 15847,
+      "ratio": 1.0
     }
   ],
   "best_runners": [
@@ -87,17 +87,24 @@
     },
     {
       "ticker": null,
-      "ret_max": 32.53,
+      "ret_max": 53.21,
       "pass": false,
-      "vol_1h": 14275,
-      "voliq": 3.65
+      "vol_1h": 12698,
+      "voliq": null
     },
     {
       "ticker": null,
-      "ret_max": 31.43,
+      "ret_max": 41.47,
       "pass": false,
       "vol_1h": 13051,
       "voliq": 1.2
+    },
+    {
+      "ticker": null,
+      "ret_max": 35.79,
+      "pass": false,
+      "vol_1h": 14275,
+      "voliq": 3.65
     },
     {
       "ticker": "Try rex fun 🤝\n",
@@ -122,23 +129,9 @@
     },
     {
       "ticker": null,
-      "ret_max": 24.83,
-      "pass": false,
-      "vol_1h": 13051,
-      "voliq": 1.2
-    },
-    {
-      "ticker": null,
       "ret_max": 24.51,
       "pass": false,
       "vol_1h": 21988,
-      "voliq": null
-    },
-    {
-      "ticker": "Florida man is",
-      "ret_max": 22.14,
-      "pass": false,
-      "vol_1h": 82982,
       "voliq": null
     }
   ]

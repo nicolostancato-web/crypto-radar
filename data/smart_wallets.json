@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-29 05:30",
-  "wallets_seen": 6226,
-  "qualified": 649,
+  "updated_utc": "2026-06-30 04:55",
+  "wallets_seen": 6854,
+  "qualified": 750,
   "min_plays": 2,
   "smart": [
     {
@@ -51,16 +51,6 @@
       "winrate": 1.0,
       "tickers": [
         "A mirror dashb",
-        "PUMPVERSE"
-      ]
-    },
-    {
-      "wallet": "AhcywRbUz31HGBdZCpHYLqKaQtE4s6DMSMJxYAJxBb9r",
-      "plays": 2,
-      "hits": 2,
-      "winrate": 1.0,
-      "tickers": [
-        "Decentralized ",
         "PUMPVERSE"
       ]
     },
@@ -192,6 +182,16 @@
       "tickers": [
         "The Black Cow,",
         "The Envious Do"
+      ]
+    },
+    {
+      "wallet": "GK8CEGUJJWzwZVimHZzDRo8CrvkJZLxrvoUoorQyfNLB",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "The Envious Do",
+        "ansem 2"
       ]
     },
     {
