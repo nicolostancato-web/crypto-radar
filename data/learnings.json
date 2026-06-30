@@ -1,13 +1,13 @@
 {
-  "updated_utc": "2026-06-30 00:03",
+  "updated_utc": "2026-06-30 02:37",
   "runner_pct": 50,
-  "settled": 1665,
-  "runners": 317,
-  "deads": 1348,
+  "settled": 1693,
+  "runners": 323,
+  "deads": 1370,
   "by_arena": {
     "memecoin": {
-      "trades": 1621,
-      "runners": 308,
+      "trades": 1649,
+      "runners": 314,
       "runner_rate": 0.19
     },
     "ai_agent": {
@@ -23,9 +23,9 @@
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 8529,
-      "dead_median": 3231,
-      "ratio": 2.64
+      "runner_median": 8500,
+      "dead_median": 3249,
+      "ratio": 2.62
     },
     {
       "feature": "age_h",
@@ -38,29 +38,29 @@
       "feature": "grok_heat",
       "label": "heat di Grok",
       "runner_median": 4.0,
-      "dead_median": 3,
+      "dead_median": 3.0,
       "ratio": 1.33
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 6.37,
-      "dead_median": 8.8,
-      "ratio": 0.72
+      "runner_median": 6.44,
+      "dead_median": 8.805,
+      "ratio": 0.73
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.578,
-      "dead_median": 0.681,
+      "runner_median": 0.579,
+      "dead_median": 0.678,
       "ratio": 0.85
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 50385,
-      "dead_median": 45901,
-      "ratio": 1.1
+      "runner_median": 50094,
+      "dead_median": 46367,
+      "ratio": 1.08
     },
     {
       "feature": "bs_ratio_1h",
@@ -72,9 +72,9 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 15665,
-      "dead_median": 15847,
-      "ratio": 0.99
+      "runner_median": 16186,
+      "dead_median": 15757,
+      "ratio": 1.03
     }
   ],
   "best_runners": [
@@ -87,7 +87,7 @@
     },
     {
       "ticker": null,
-      "ret_max": 38.21,
+      "ret_max": 41.47,
       "pass": false,
       "vol_1h": 13051,
       "voliq": 1.2
