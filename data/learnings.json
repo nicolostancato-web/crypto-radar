@@ -1,13 +1,13 @@
 {
-  "updated_utc": "2026-06-30 20:37",
+  "updated_utc": "2026-06-30 21:22",
   "runner_pct": 50,
   "settled": 1841,
-  "runners": 352,
-  "deads": 1489,
+  "runners": 353,
+  "deads": 1488,
   "by_arena": {
     "memecoin": {
       "trades": 1795,
-      "runners": 343,
+      "runners": 344,
       "runner_rate": 0.19
     },
     "ai_agent": {
@@ -23,9 +23,9 @@
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 8728.0,
-      "dead_median": 3282.0,
-      "ratio": 2.66
+      "runner_median": 8723,
+      "dead_median": 3308,
+      "ratio": 2.64
     },
     {
       "feature": "age_h",
@@ -44,21 +44,21 @@
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 6.845,
-      "dead_median": 8.81,
-      "ratio": 0.78
+      "runner_median": 6.83,
+      "dead_median": 8.84,
+      "ratio": 0.77
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 56271.0,
-      "dead_median": 46784.0,
-      "ratio": 1.2
+      "runner_median": 55494,
+      "dead_median": 46911,
+      "ratio": 1.18
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.596,
+      "runner_median": 0.597,
       "dead_median": 0.699,
       "ratio": 0.85
     },
@@ -72,9 +72,9 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 15749.5,
-      "dead_median": 16135.0,
-      "ratio": 0.98
+      "runner_median": 15665,
+      "dead_median": 16187,
+      "ratio": 0.97
     }
   ],
   "best_runners": [
@@ -94,17 +94,17 @@
     },
     {
       "ticker": null,
+      "ret_max": 40.0,
+      "pass": false,
+      "vol_1h": 13051,
+      "voliq": 1.2
+    },
+    {
+      "ticker": null,
       "ret_max": 35.79,
       "pass": false,
       "vol_1h": 14275,
       "voliq": 3.65
-    },
-    {
-      "ticker": null,
-      "ret_max": 33.18,
-      "pass": false,
-      "vol_1h": 13051,
-      "voliq": 1.2
     },
     {
       "ticker": "Try rex fun 🤝\n",
