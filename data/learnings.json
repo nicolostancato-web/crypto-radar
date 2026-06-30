@@ -1,13 +1,13 @@
 {
-  "updated_utc": "2026-06-30 04:52",
+  "updated_utc": "2026-06-30 06:56",
   "runner_pct": 50,
-  "settled": 1693,
-  "runners": 327,
-  "deads": 1366,
+  "settled": 1720,
+  "runners": 328,
+  "deads": 1392,
   "by_arena": {
     "memecoin": {
-      "trades": 1649,
-      "runners": 318,
+      "trades": 1676,
+      "runners": 319,
       "runner_rate": 0.19
     },
     "ai_agent": {
@@ -23,9 +23,9 @@
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 8477,
-      "dead_median": 3231,
-      "ratio": 2.62
+      "runner_median": 8409.0,
+      "dead_median": 3351,
+      "ratio": 2.51
     },
     {
       "feature": "age_h",
@@ -38,7 +38,7 @@
       "feature": "grok_heat",
       "label": "heat di Grok",
       "runner_median": 4.0,
-      "dead_median": 3.0,
+      "dead_median": 3,
       "ratio": 1.33
     },
     {
@@ -51,16 +51,16 @@
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 53187,
-      "dead_median": 45920,
-      "ratio": 1.16
+      "runner_median": 53347.0,
+      "dead_median": 46367,
+      "ratio": 1.15
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.58,
-      "dead_median": 0.677,
-      "ratio": 0.86
+      "runner_median": 0.586,
+      "dead_median": 0.675,
+      "ratio": 0.87
     },
     {
       "feature": "bs_ratio_1h",
@@ -72,7 +72,7 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 15834,
+      "runner_median": 15889.0,
       "dead_median": 15847,
       "ratio": 1.0
     }
@@ -87,6 +87,13 @@
     },
     {
       "ticker": null,
+      "ret_max": 53.21,
+      "pass": false,
+      "vol_1h": 12698,
+      "voliq": null
+    },
+    {
+      "ticker": null,
       "ret_max": 41.47,
       "pass": false,
       "vol_1h": 13051,
@@ -98,13 +105,6 @@
       "pass": false,
       "vol_1h": 14275,
       "voliq": 3.65
-    },
-    {
-      "ticker": null,
-      "ret_max": 29.56,
-      "pass": false,
-      "vol_1h": 12698,
-      "voliq": null
     },
     {
       "ticker": "Try rex fun 🤝\n",
