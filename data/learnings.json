@@ -1,13 +1,13 @@
 {
-  "updated_utc": "2026-06-30 15:18",
+  "updated_utc": "2026-06-30 16:52",
   "runner_pct": 50,
   "settled": 1814,
-  "runners": 351,
-  "deads": 1463,
+  "runners": 352,
+  "deads": 1462,
   "by_arena": {
     "memecoin": {
       "trades": 1768,
-      "runners": 342,
+      "runners": 343,
       "runner_rate": 0.19
     },
     "ai_agent": {
@@ -23,9 +23,9 @@
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 8744,
-      "dead_median": 3256.5,
-      "ratio": 2.69
+      "runner_median": 8738.5,
+      "dead_median": 3257,
+      "ratio": 2.68
     },
     {
       "feature": "age_h",
@@ -44,8 +44,8 @@
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 57048,
-      "dead_median": 46464.5,
+      "runner_median": 57073.0,
+      "dead_median": 46367,
       "ratio": 1.23
     },
     {
@@ -58,9 +58,9 @@
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.59,
+      "runner_median": 0.593,
       "dead_median": 0.691,
-      "ratio": 0.85
+      "ratio": 0.86
     },
     {
       "feature": "bs_ratio_1h",
@@ -72,8 +72,8 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 16186,
-      "dead_median": 15960.0,
+      "runner_median": 16065.0,
+      "dead_median": 15962,
       "ratio": 1.01
     }
   ],
@@ -94,17 +94,17 @@
     },
     {
       "ticker": null,
-      "ret_max": 53.08,
-      "pass": false,
-      "vol_1h": 13051,
-      "voliq": 1.2
-    },
-    {
-      "ticker": null,
       "ret_max": 35.79,
       "pass": false,
       "vol_1h": 14275,
       "voliq": 3.65
+    },
+    {
+      "ticker": null,
+      "ret_max": 32.65,
+      "pass": false,
+      "vol_1h": 13051,
+      "voliq": 1.2
     },
     {
       "ticker": "Try rex fun 🤝\n",
