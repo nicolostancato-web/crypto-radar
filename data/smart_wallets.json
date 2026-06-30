@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-29 22:04",
-  "wallets_seen": 6668,
-  "qualified": 723,
+  "updated_utc": "2026-06-30 02:39",
+  "wallets_seen": 6850,
+  "qualified": 750,
   "min_plays": 2,
   "smart": [
     {
@@ -175,6 +175,16 @@
       ]
     },
     {
+      "wallet": "GK8CEGUJJWzwZVimHZzDRo8CrvkJZLxrvoUoorQyfNLB",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "The Envious Do",
+        "ansem 2"
+      ]
+    },
+    {
       "wallet": "8757h6K6oPBetKpbufwA1HTn3gST2om3ih2grSXWdQXW",
       "plays": 2,
       "hits": 2,
@@ -192,16 +202,6 @@
       "tickers": [
         "A dog named Jo",
         "I hand drew an"
-      ]
-    },
-    {
-      "wallet": "7pYT7KrPH7FCzH3YDWWf2ZCrDA5u3bpRojdjAKr2JNdM",
-      "plays": 2,
-      "hits": 2,
-      "winrate": 1.0,
-      "tickers": [
-        "One survivor",
-        "🐸 \n\n2.5% Suppl"
       ]
     }
   ]
