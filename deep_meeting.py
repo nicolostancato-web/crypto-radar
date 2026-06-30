@@ -96,11 +96,15 @@ def run():
             "Quale segnale o COMBINAZIONE di segnali ha la miglior chance di alzare il win-rate sopra la base? "
             "Dove stiamo sprecando dati? Dammi 3-5 mosse concrete e testabili, in ordine di impatto.",
         "trading": base + "\n\n# IL TUO COMPITO (Tab 3: Trading)\n"
-            "Come passiamo da media robusta negativa a POSITIVA? Analizza a fondo le uscite a scaglioni: "
-            "quali livelli di take-profit e trailing massimizzano il guadagno robusto su questa coda lunga? "
-            "Come alziamo il win-rate (oggi ~25-30%)? Conviene piu' selettivi (meno trade, migliori) o piu' larghi? "
-            "Position sizing: frazione fissa, Kelly, o cosa, dato che vinciamo poche volte ma grosso? "
-            "Dammi la strategia di uscita+sizing precisa da testare la prossima settimana.",
+            "DOMANDA CHIAVE (osservazione di Nicolò): forse stiamo facendo SCALPING in un mercato che NON si "
+            "scalpa. Le memecoin fanno +200%/-80% in minuti: uno stop/trailing sul PREZZO ci scuote fuori prima "
+            "del pump (dato: sui token che fanno +10%, la nostra uscita cattura -30% del picco; il picco perfetto "
+            "renderebbe +141% robusto, noi prendiamo +4%). Ma anche tenere e basta perde (-20%). "
+            "ANALIZZA A FONDO: lo scalping e' sbagliato qui? Conviene aprire una POSIZIONE basata sull'INFORMAZIONE "
+            "(balene che accumulano/distribuiscono, smart money) ed uscire quando l'informazione cambia, invece che "
+            "sul prezzo? Quale gestione di posizione e' giusta per le memecoin Solana? "
+            "Poi: come alziamo il win-rate? piu' selettivi o piu' larghi? Position sizing (frazione fissa/Kelly)? "
+            "Dammi la strategia di entrata+gestione+uscita precisa da TESTARE, e perche' batterebbe lo scalping attuale.",
         "svolta": base + "\n\n# IL TUO COMPITO (LA SVOLTA - pensa come Elon Musk)\n"
             "Dimentica l'ottimizzazione incrementale. SpaceX non ha raggiunto i suoi goal limando il vecchio "
             "razzo: ha avuto IDEE-SVOLTA (riusare i booster, data center nello spazio) perche' conosceva il goal "
