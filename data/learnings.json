@@ -1,13 +1,13 @@
 {
-  "updated_utc": "2026-06-29 23:36",
+  "updated_utc": "2026-06-30 00:03",
   "runner_pct": 50,
-  "settled": 1647,
-  "runners": 315,
-  "deads": 1332,
+  "settled": 1665,
+  "runners": 317,
+  "deads": 1348,
   "by_arena": {
     "memecoin": {
-      "trades": 1603,
-      "runners": 306,
+      "trades": 1621,
+      "runners": 308,
       "runner_rate": 0.19
     },
     "ai_agent": {
@@ -23,9 +23,9 @@
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 8500,
-      "dead_median": 3326,
-      "ratio": 2.56
+      "runner_median": 8529,
+      "dead_median": 3231,
+      "ratio": 2.64
     },
     {
       "feature": "age_h",
@@ -37,29 +37,29 @@
     {
       "feature": "grok_heat",
       "label": "heat di Grok",
-      "runner_median": 4,
+      "runner_median": 4.0,
       "dead_median": 3,
       "ratio": 1.33
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 6.3,
-      "dead_median": 8.73,
+      "runner_median": 6.37,
+      "dead_median": 8.8,
       "ratio": 0.72
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.576,
-      "dead_median": 0.679,
+      "runner_median": 0.578,
+      "dead_median": 0.681,
       "ratio": 0.85
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 50094,
-      "dead_median": 45722,
+      "runner_median": 50385,
+      "dead_median": 45901,
       "ratio": 1.1
     },
     {
@@ -72,9 +72,9 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 15513,
-      "dead_median": 15757,
-      "ratio": 0.98
+      "runner_median": 15665,
+      "dead_median": 15847,
+      "ratio": 0.99
     }
   ],
   "best_runners": [
