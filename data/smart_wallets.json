@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-30 18:26",
-  "wallets_seen": 7302,
-  "qualified": 837,
+  "updated_utc": "2026-06-30 22:05",
+  "wallets_seen": 7384,
+  "qualified": 857,
   "min_plays": 2,
   "smart": [
     {
@@ -165,16 +165,6 @@
       ]
     },
     {
-      "wallet": "pumphdJgo4Q9D1rvkvBMNyrMTHUaArVokeSqa8qnrf1",
-      "plays": 2,
-      "hits": 2,
-      "winrate": 1.0,
-      "tickers": [
-        "Guxss",
-        "Just $Ape"
-      ]
-    },
-    {
       "wallet": "A1tuCK9xuxTcedeBoibNa5Z6jeBkMVe7ddoxL2GbxcLq",
       "plays": 2,
       "hits": 2,
@@ -182,6 +172,16 @@
       "tickers": [
         "Guxss",
         "Lorenz is an a"
+      ]
+    },
+    {
+      "wallet": "pumphdJgo4Q9D1rvkvBMNyrMTHUaArVokeSqa8qnrf1",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "Guxss",
+        "Just $Ape"
       ]
     },
     {
