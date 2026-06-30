@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-30 15:19",
-  "wallets_seen": 7148,
-  "qualified": 806,
+  "updated_utc": "2026-06-30 18:26",
+  "wallets_seen": 7302,
+  "qualified": 837,
   "min_plays": 2,
   "smart": [
     {
@@ -155,6 +155,26 @@
       ]
     },
     {
+      "wallet": "EPYQFXsZU7mASDVXpvJpNSCVGip5nQdkiXHGJiyZocXW",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "Just $Ape",
+        "Pip the Baby S"
+      ]
+    },
+    {
+      "wallet": "pumphdJgo4Q9D1rvkvBMNyrMTHUaArVokeSqa8qnrf1",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "Guxss",
+        "Just $Ape"
+      ]
+    },
+    {
       "wallet": "A1tuCK9xuxTcedeBoibNa5Z6jeBkMVe7ddoxL2GbxcLq",
       "plays": 2,
       "hits": 2,
@@ -182,26 +202,6 @@
       "tickers": [
         "PXM is a digit",
         "Wall street fo"
-      ]
-    },
-    {
-      "wallet": "GK8CEGUJJWzwZVimHZzDRo8CrvkJZLxrvoUoorQyfNLB",
-      "plays": 2,
-      "hits": 2,
-      "winrate": 1.0,
-      "tickers": [
-        "The Envious Do",
-        "ansem 2"
-      ]
-    },
-    {
-      "wallet": "8757h6K6oPBetKpbufwA1HTn3gST2om3ih2grSXWdQXW",
-      "plays": 2,
-      "hits": 2,
-      "winrate": 1.0,
-      "tickers": [
-        "The Black Cow,",
-        "The Envious Do"
       ]
     }
   ]
