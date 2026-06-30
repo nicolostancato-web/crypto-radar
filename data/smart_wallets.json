@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-06-30 15:21",
-  "wallets_seen": 7185,
-  "qualified": 822,
+  "updated_utc": "2026-06-30 15:19",
+  "wallets_seen": 7148,
+  "qualified": 806,
   "min_plays": 2,
   "smart": [
     {
@@ -185,16 +185,6 @@
       ]
     },
     {
-      "wallet": "8757h6K6oPBetKpbufwA1HTn3gST2om3ih2grSXWdQXW",
-      "plays": 2,
-      "hits": 2,
-      "winrate": 1.0,
-      "tickers": [
-        "The Black Cow,",
-        "The Envious Do"
-      ]
-    },
-    {
       "wallet": "GK8CEGUJJWzwZVimHZzDRo8CrvkJZLxrvoUoorQyfNLB",
       "plays": 2,
       "hits": 2,
@@ -202,6 +192,16 @@
       "tickers": [
         "The Envious Do",
         "ansem 2"
+      ]
+    },
+    {
+      "wallet": "8757h6K6oPBetKpbufwA1HTn3gST2om3ih2grSXWdQXW",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "The Black Cow,",
+        "The Envious Do"
       ]
     }
   ]
