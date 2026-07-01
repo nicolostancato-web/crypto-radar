@@ -1,9 +1,20 @@
 {
-  "updated_utc": "2026-07-01 11:47",
-  "wallets_seen": 7511,
-  "qualified": 888,
+  "updated_utc": "2026-07-01 15:31",
+  "wallets_seen": 7671,
+  "qualified": 928,
   "min_plays": 2,
   "smart": [
+    {
+      "wallet": "FyBtVPYZ7TPzXVJrkjnGBU6ozFCXHfAxsMJjHoTZnzQG",
+      "plays": 3,
+      "hits": 3,
+      "winrate": 1.0,
+      "tickers": [
+        "$PUMPVERSE",
+        "ansemconzimp \n",
+        "🥐🦆"
+      ]
+    },
     {
       "wallet": "2nGi5a8WA3A9dsZG88cxYnmQpmnEvf5wppFMNsCWQcaA",
       "plays": 3,
@@ -92,16 +103,6 @@
       "tickers": [
         "$PUMPVERSE",
         "Pip the Baby S"
-      ]
-    },
-    {
-      "wallet": "FyBtVPYZ7TPzXVJrkjnGBU6ozFCXHfAxsMJjHoTZnzQG",
-      "plays": 2,
-      "hits": 2,
-      "winrate": 1.0,
-      "tickers": [
-        "$PUMPVERSE",
-        "ansemconzimp \n"
       ]
     },
     {
@@ -194,13 +195,13 @@
       ]
     },
     {
-      "wallet": "pumphdJgo4Q9D1rvkvBMNyrMTHUaArVokeSqa8qnrf1",
+      "wallet": "A1tuCK9xuxTcedeBoibNa5Z6jeBkMVe7ddoxL2GbxcLq",
       "plays": 2,
       "hits": 2,
       "winrate": 1.0,
       "tickers": [
         "Guxss",
-        "Just $Ape"
+        "Lorenz is an a"
       ]
     }
   ]
