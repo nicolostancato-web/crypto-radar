@@ -1,13 +1,13 @@
 {
-  "updated_utc": "2026-07-01 00:11",
+  "updated_utc": "2026-07-01 04:03",
   "runner_pct": 50,
-  "settled": 1885,
-  "runners": 358,
-  "deads": 1527,
+  "settled": 1922,
+  "runners": 366,
+  "deads": 1556,
   "by_arena": {
     "memecoin": {
-      "trades": 1839,
-      "runners": 349,
+      "trades": 1876,
+      "runners": 357,
       "runner_rate": 0.19
     },
     "ai_agent": {
@@ -24,7 +24,7 @@
       "feature": "liq",
       "label": "liquidità",
       "runner_median": 8738.5,
-      "dead_median": 3346.5,
+      "dead_median": 3351,
       "ratio": 2.61
     },
     {
@@ -44,21 +44,21 @@
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 6.86,
-      "dead_median": 8.875,
-      "ratio": 0.77
+      "runner_median": 6.845,
+      "dead_median": 8.99,
+      "ratio": 0.76
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 56271.0,
-      "dead_median": 47281.0,
+      "runner_median": 57073.0,
+      "dead_median": 47785,
       "ratio": 1.19
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.599,
+      "runner_median": 0.598,
       "dead_median": 0.699,
       "ratio": 0.86
     },
@@ -72,9 +72,9 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 15889.0,
-      "dead_median": 16538.0,
-      "ratio": 0.96
+      "runner_median": 16065.0,
+      "dead_median": 16843,
+      "ratio": 0.95
     }
   ],
   "best_runners": [
@@ -91,13 +91,6 @@
       "pass": false,
       "vol_1h": 155883,
       "voliq": 26.93
-    },
-    {
-      "ticker": null,
-      "ret_max": 40.0,
-      "pass": false,
-      "vol_1h": 13051,
-      "voliq": 1.2
     },
     {
       "ticker": null,
@@ -126,6 +119,13 @@
       "pass": true,
       "vol_1h": 139353,
       "voliq": 10.64
+    },
+    {
+      "ticker": null,
+      "ret_max": 24.54,
+      "pass": false,
+      "vol_1h": 2,
+      "voliq": 0.22
     },
     {
       "ticker": null,
