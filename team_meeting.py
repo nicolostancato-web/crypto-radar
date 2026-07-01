@@ -42,6 +42,23 @@ def aligned_dataset():
                     candles[r["ca"]] = sorted([(int(x[0]), x[2], x[4]) for x in cc], key=lambda t: t[0])
             except Exception:
                 pass
+    # SMART MONEY: quanti wallet della watchlist vincente comprano ogni token (la SVOLTA)
+    smartset = set()
+    swp = os.path.join(HERE, "data", "smart_wallets.json")
+    if os.path.exists(swp):
+        smartset = {w["wallet"] for w in json.load(open(swp)).get("wallets", [])}
+    smart = {}
+    wf = os.path.join(HERE, "data", "whale_flow.jsonl")
+    if os.path.exists(wf) and smartset:
+        for l in open(wf):
+            try:
+                r = json.loads(l)
+                buyers = {s["w"] for s in (r.get("swaps") or []) if s["s"] == "b"}
+                smart[r["ca"]] = len(buyers & smartset)
+            except Exception:
+                pass
+    for ca in sig:
+        sig[ca]["smart"] = smart.get(ca, 0)
     rows = []
     for ca, s in obs.items():
         if ca not in sig:
@@ -74,6 +91,10 @@ FILTERS = {
     "bs1.2-2 & accel>1.2": lambda r: 1.2 <= (r["bs"] or 0) < 2.0 and (r.get("accel") or 0) > 1.2,  # presto + in salita
     # --- fascia market-cap asimmetrica $15k-50k (dai trader vincenti reali) ---
     "mc_15_60k": lambda r: r.get("fdv") and 15000 <= r["fdv"] <= 60000,
+    # --- LA SVOLTA: SMART MONEY — un wallet vincente (o piu') sta comprando ---
+    "smart>=1": lambda r: (r.get("smart") or 0) >= 1,
+    "smart>=2": lambda r: (r.get("smart") or 0) >= 2,
+    "smart>=3": lambda r: (r.get("smart") or 0) >= 3,
 }
 
 
