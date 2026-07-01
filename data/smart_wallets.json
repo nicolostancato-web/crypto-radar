@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-07-01 15:31",
-  "wallets_seen": 7671,
-  "qualified": 928,
+  "updated_utc": "2026-07-01 18:33",
+  "wallets_seen": 7709,
+  "qualified": 934,
   "min_plays": 2,
   "smart": [
     {
@@ -53,6 +53,16 @@
       "tickers": [
         "AN1Jkje",
         "Official Solan"
+      ]
+    },
+    {
+      "wallet": "Dwko8VL2sd5EHDJzArCtUUS6gmTnjd1zhoQMVpnPxBL",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "FRAG",
+        "Testibull"
       ]
     },
     {
@@ -192,16 +202,6 @@
       "tickers": [
         "Just $Ape",
         "Pip the Baby S"
-      ]
-    },
-    {
-      "wallet": "A1tuCK9xuxTcedeBoibNa5Z6jeBkMVe7ddoxL2GbxcLq",
-      "plays": 2,
-      "hits": 2,
-      "winrate": 1.0,
-      "tickers": [
-        "Guxss",
-        "Lorenz is an a"
       ]
     }
   ]
