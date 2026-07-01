@@ -1,13 +1,13 @@
 {
-  "updated_utc": "2026-07-01 05:12",
+  "updated_utc": "2026-07-01 08:33",
   "runner_pct": 50,
-  "settled": 1922,
-  "runners": 366,
-  "deads": 1556,
+  "settled": 1949,
+  "runners": 365,
+  "deads": 1584,
   "by_arena": {
     "memecoin": {
-      "trades": 1876,
-      "runners": 357,
+      "trades": 1903,
+      "runners": 356,
       "runner_rate": 0.19
     },
     "ai_agent": {
@@ -23,9 +23,9 @@
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 8738.5,
-      "dead_median": 3351,
-      "ratio": 2.61
+      "runner_median": 8733,
+      "dead_median": 3357,
+      "ratio": 2.6
     },
     {
       "feature": "age_h",
@@ -44,21 +44,21 @@
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 6.81,
-      "dead_median": 8.99,
+      "runner_median": 6.845,
+      "dead_median": 9.035,
       "ratio": 0.76
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 57152.0,
-      "dead_median": 47768,
-      "ratio": 1.2
+      "runner_median": 57098,
+      "dead_median": 48189,
+      "ratio": 1.18
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.598,
+      "runner_median": 0.599,
       "dead_median": 0.699,
       "ratio": 0.86
     },
@@ -72,19 +72,12 @@
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 16269.5,
-      "dead_median": 16756,
+      "runner_median": 16186,
+      "dead_median": 16678,
       "ratio": 0.97
     }
   ],
   "best_runners": [
-    {
-      "ticker": null,
-      "ret_max": 74.74,
-      "pass": false,
-      "vol_1h": 12698,
-      "voliq": null
-    },
     {
       "ticker": null,
       "ret_max": 54.2,
@@ -100,18 +93,18 @@
       "voliq": 3.65
     },
     {
-      "ticker": null,
-      "ret_max": 34.14,
-      "pass": false,
-      "vol_1h": 2,
-      "voliq": 0.22
-    },
-    {
       "ticker": "Try rex fun 🤝\n",
       "ret_max": 29.02,
       "pass": false,
       "vol_1h": 3325,
       "voliq": 6.76
+    },
+    {
+      "ticker": null,
+      "ret_max": 27.44,
+      "pass": false,
+      "vol_1h": 12698,
+      "voliq": null
     },
     {
       "ticker": "Photo of an Ad",
@@ -132,6 +125,13 @@
       "ret_max": 24.51,
       "pass": false,
       "vol_1h": 21988,
+      "voliq": null
+    },
+    {
+      "ticker": "Florida man is",
+      "ret_max": 22.14,
+      "pass": false,
+      "vol_1h": 82982,
       "voliq": null
     }
   ]
