@@ -66,6 +66,21 @@ Invece di INDOVINARE noi, **seguire/copiare in tempo reale i wallet che GIA' vin
 Non predici il pump — copi chi l'edge ce l'ha gia'. Angolo diverso. Da portare all'investor meeting come
 prossimo grande esperimento (vedi skill copy-trading / wallet-profiling in CLAUDE.md).
 
+## 🧪 CONTROLLO QUALITA' GIORNALIERO (no bug, no interruzioni)
+Regola di Nicolò (2026-07-02): **un agente ogni giorno deve girare e assicurarsi che TUTTO sia su —
+niente bug, niente interruzioni.** Perche': un bug in `team_meeting` (`r['filter']` su stringa) ha fatto
+fallire `track.yml` per 11h prima che ce ne accorgessimo. Mai piu'.
+
+`qa_agent.py` (workflow `qa.yml`, ogni giorno 05:00 UTC, prima del meeting):
+- **Smoke test vero**: importa e GIRA i pezzi critici (team_meeting dataset+analista+trader, paper_account,
+  kpi_daily, import di tutti i moduli) → se uno crasha, lo becca SUBITO (avrebbe preso il bug del 2/7).
+- **Integrita' dati**: ogni jsonl/json parseabile (niente file corrotti da merge).
+- **Freschezza**: scan/tracking non fermi.
+- Se qualcosa e' rotto → **email con l'errore esatto (traceback)** + job rosso (notifica GitHub).
+- Ogni check e' isolato: l'agente QA non crasha mai lui stesso.
+
+E' complementare al **watchdog** (che guarda solo la freschezza dei dati): il QA guarda i BUG nel codice.
+
 ## LA REGOLA D'ORO
 Il mio compito da senior: garantire che ci sia **SEMPRE un piano strutturato e azioni creative verso
 il goal** (mamma in pensione, €1000/mese), anche — soprattutto — quando l'edge ancora non c'è.

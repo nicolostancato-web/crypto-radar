@@ -1,2 +1,3 @@
 {"date_ts": 1782188411, "n_tokens": 241, "n_runners": 40, "base_win": 20, "bs15_n": 42, "bs15_win": 29, "lift_pt": 9, "oos_win": 22, "survives": true}
 {"date_ts": 1782208930, "n_tokens": 266, "n_runners": 52, "base_win": 21, "bs15_n": 66, "bs15_win": 27, "lift_pt": 6, "oos_win": 26, "survives": false}
+{"date_ts": 1782949326, "n_tokens": 2150, "n_runners": 393, "base_win": 18, "bs15_n": 470, "bs15_win": 23, "lift_pt": 5, "oos_win": 19, "survives": false}

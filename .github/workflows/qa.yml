@@ -1,0 +1,42 @@
+name: crypto-radar-qa
+
+# L'AGENTE QA GIORNALIERO: 1x al giorno fa uno SMOKE TEST vero della pipeline (importa e GIRA i pezzi
+# critici) + integrita' dati + freschezza. Se qualcosa e' rotto -> email con l'errore esatto + job rosso
+# (notifica GitHub). Esiste per beccare i bug in minuti, non in ore (vedi crash 2026-07-02).
+on:
+  schedule:
+    - cron: "0 5 * * *"      # ogni giorno 05:00 UTC (prima del meeting delle 06:30, cosi' becca i guai presto)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt
+
+      - name: QA smoke test (no bug, no interruzioni) + alert se rotto
+        env:
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: python qa_agent.py
+
+      - name: Salva esito QA
+        if: always()
+        run: |
+          git config user.name "crypto-radar-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add data/qa_last.json || true
+          git commit -m "qa $(date -u +%Y-%m-%d)" || { echo "niente"; exit 0; }
+          for i in 1 2 3; do
+            git pull --no-rebase --no-edit -X theirs origin main || true
+            git push origin main && break
+            sleep 4
+          done
