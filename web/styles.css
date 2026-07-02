@@ -211,3 +211,10 @@ footer .muted{margin-top:8px;font-size:.78rem}
 .fragile-warn { background:#2a1a13; border-left:3px solid #f59e0b; border-radius:8px;
   padding:10px 14px; margin:8px 0; font-size:13px; color:#e8c9a0; line-height:1.5; }
 .fragile-warn b { color:#fbbf24; }
+
+/* --- BALENE IN DIRETTA --- */
+#whalelive-sec .wl-head { display:flex; align-items:baseline; gap:12px; margin:8px 0; }
+.wl-big { font-size:40px; font-weight:800; color:#38bdf8; letter-spacing:-1px; }
+.wl-lbl { font-size:14px; color:#9aa4b2; }
+#whalelive-table a { color:#38bdf8; text-decoration:none; }
+#whalelive-table a:hover { text-decoration:underline; }

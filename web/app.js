@@ -309,10 +309,39 @@ function renderPortfolio(p) {
   }).join("");
 }
 
+const WHALE_API = "https://illustrious-mercy-production.up.railway.app";
+
+async function renderWhaleLive() {
+  const sec = document.getElementById("whalelive-sec");
+  try {
+    const r = await fetch(WHALE_API + "/events?t=" + Date.now(), { cache: "no-store" });
+    const d = await r.json();
+    const evs = d.events || [];
+    $("whalelive-status").textContent = "— server attivo · 20 balene sorvegliate";
+    $("whalelive-head").innerHTML =
+      `<div class="wl-big">${d.count || 0}</div><div class="wl-lbl">movimenti balene captati</div>`;
+    const tb = document.querySelector("#whalelive-table tbody");
+    if (!evs.length) {
+      tb.innerHTML = `<tr><td colspan="4" class="muted">Nessun movimento ancora — le balene non comprano di continuo. Appena una compra, appare qui al secondo. 🐋</td></tr>`;
+    } else {
+      tb.innerHTML = evs.map(e => {
+        const t = new Date(e.ts * 1000).toLocaleString("it-IT", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" });
+        return `<tr><td>${t}</td><td>${(e.wallet || "").slice(0, 6)}…</td><td>${(e.token || "").slice(0, 8)}…</td>
+          <td><a href="${e.dex}" target="_blank">token</a> · <a href="${e.solscan}" target="_blank">wallet</a></td></tr>`;
+      }).join("");
+    }
+  } catch (e) {
+    $("whalelive-status").textContent = "— server non raggiungibile";
+    $("whalelive-head").innerHTML = `<div class="muted">Il server balene non risponde (forse spento su Railway). Le balene sono comunque registrate.</div>`;
+  }
+}
+
 (async function () {
   const d = await load("pipeline.json");
   if (!d) { $("mission").textContent = "In avvio…"; return; }
   renderProject(d);
+  renderWhaleLive();
+  setInterval(renderWhaleLive, 30000);   // aggiorna ogni 30s
   renderTeam(await load("team.json"));
   renderMeeting(await load("meeting.json"));
   renderPortfolio(await load("portfolio.json"));
