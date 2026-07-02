@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-07-02 11:39",
-  "wallets_seen": 7966,
-  "qualified": 976,
+  "updated_utc": "2026-07-02 15:34",
+  "wallets_seen": 8077,
+  "qualified": 994,
   "min_plays": 2,
   "smart": [
     {
@@ -66,7 +66,7 @@
       ]
     },
     {
-      "wallet": "5mGLCZETWJESP8hU3FMMrcgZUddvp1MXHnkfokG5eTSE",
+      "wallet": "HMjMJZsQp6ykQyNSk8ZdmcJnNg5w9tRdU3q1DG3sW4ag",
       "plays": 2,
       "hits": 2,
       "winrate": 1.0,
@@ -76,7 +76,7 @@
       ]
     },
     {
-      "wallet": "HMjMJZsQp6ykQyNSk8ZdmcJnNg5w9tRdU3q1DG3sW4ag",
+      "wallet": "5mGLCZETWJESP8hU3FMMrcgZUddvp1MXHnkfokG5eTSE",
       "plays": 2,
       "hits": 2,
       "winrate": 1.0,
@@ -155,16 +155,6 @@
       ]
     },
     {
-      "wallet": "FRAmHq1Ak2Uh4ou3cSvUi99z9Xs4HYxfbKrLbZtb2h4P",
-      "plays": 2,
-      "hits": 2,
-      "winrate": 1.0,
-      "tickers": [
-        "A mirror dashb",
-        "Merlin The Wor"
-      ]
-    },
-    {
       "wallet": "2FGTD3g4XTDvX9wgLvjAnXxvjQai5kFn2eFtcyoU8Zg9",
       "plays": 2,
       "hits": 2,
@@ -186,15 +176,6 @@
       ]
     },
     {
-      "wallet": "4EH92iYK8wua8MyqNExVeiXy5VJUAweXqJPuTWqCvNB8",
-      "plays": 2,
-      "hits": 2,
-      "winrate": 1.0,
-      "tickers": [
-        "Official Solan"
-      ]
-    },
-    {
       "wallet": "EPYQFXsZU7mASDVXpvJpNSCVGip5nQdkiXHGJiyZocXW",
       "plays": 2,
       "hits": 2,
@@ -202,6 +183,26 @@
       "tickers": [
         "Just $Ape",
         "Pip the Baby S"
+      ]
+    },
+    {
+      "wallet": "pumphdJgo4Q9D1rvkvBMNyrMTHUaArVokeSqa8qnrf1",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "Guxss",
+        "Just $Ape"
+      ]
+    },
+    {
+      "wallet": "A1tuCK9xuxTcedeBoibNa5Z6jeBkMVe7ddoxL2GbxcLq",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "Guxss",
+        "Lorenz is an a"
       ]
     }
   ]
