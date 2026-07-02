@@ -9,7 +9,7 @@ E' il copy-trading in tempo reale: vedi le balene vincenti muoversi al secondo, 
 NON deployare finche' smart_wallets.json non ha wallet con winrate alto (vedi webhook/README.md).
 Dipendenze: fastapi, uvicorn. Email via Gmail (GMAIL_APP_PASSWORD), opzionale.
 """
-import os, json, smtplib
+import os, json, smtplib, threading
 from email.mime.text import MIMEText
 from fastapi import FastAPI, Request
 
@@ -60,5 +60,6 @@ async def helius(req: Request):
             short = fee[:6] + "…"
             msg = f"🐋 Balena {short} ha COMPRATO il token {bought[:8]}…\nSolscan: https://solscan.io/account/{fee}\nToken: https://dexscreener.com/solana/{bought}"
             print("[webhook] BUY:", short, "->", bought[:8])
-            _email(f"🐋 Balena {short} ha comprato {bought[:6]}", msg)
+            # email in BACKGROUND: rispondiamo subito a Helius (niente blocco/timeout)
+            threading.Thread(target=_email, args=(f"🐋 Balena {short} ha comprato {bought[:6]}", msg), daemon=True).start()
     return {"ok": True, "n": len(events)}
