@@ -34,6 +34,7 @@ jobs:
           python learner.py
           python pipeline_export.py
           python paper_account.py
+          python prune_data.py      # AUTO-PRUNE: tiene i file < 100MB -> GitHub non rifiuta mai i push
 
       - name: Meeting di allenamento giornaliero (sveglia interna 1x al giorno dopo le 06 UTC)
         continue-on-error: true      # se l'analisi crasha, NON deve bloccare il salvataggio dei dati

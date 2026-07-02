@@ -5,7 +5,7 @@ name: crypto-radar-qa
 # (notifica GitHub). Esiste per beccare i bug in minuti, non in ore (vedi crash 2026-07-02).
 on:
   schedule:
-    - cron: "0 5 * * *"      # ogni giorno 05:00 UTC (prima del meeting delle 06:30, cosi' becca i guai presto)
+    - cron: "0 */6 * * *"    # ogni 6h: smoke test + integrita + dimensioni file + freschezza (becca i guai in ore)
   workflow_dispatch: {}
 
 permissions:

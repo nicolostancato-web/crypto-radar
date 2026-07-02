@@ -85,3 +85,21 @@ E' complementare al **watchdog** (che guarda solo la freschezza dei dati): il QA
 Il mio compito da senior: garantire che ci sia **SEMPRE un piano strutturato e azioni creative verso
 il goal** (mamma in pensione, €1000/mese), anche — soprattutto — quando l'edge ancora non c'è.
 **Mai lasciare il sistema piatto. Mai confusione. Sempre il prossimo esperimento pronto.**
+
+## 🛡️ ROBUSTEZZA INFRA — questi bug NON possono accadere (2026-07-02)
+Regola di Nicolò: i fix devono essere AUTOMATICI, ci vuole un agente che ogni tot controlla TUTTO.
+Il 2/7 la raccolta dati si e' bloccata 14h per DUE bug infra: (a) `track.jsonl` ha superato 100MB e
+GitHub ha rifiutato i push; (b) il tracker era troppo lento (2000+ token) e andava in timeout. MAI PIU'.
+
+Difese messe in piedi (automatiche):
+- **`prune_data.py`** gira nella pipeline ad ogni ciclo → tiene track.jsonl e ohlcv.jsonl sotto i 100MB
+  (chiusi = prima/picco/ultima, attivi = tutto). Backup gzip locale prima di potare.
+- **tracker con tetto** (MAX_TRACK=350, i piu' freschi) + **Helius solo sui token <12h** → finisce sempre in tempo.
+- **workflow non-bloccanti** (`continue-on-error` sul meeting/wake, `|| echo` sugli script di coda) →
+  un bug nell'ANALISI non ferma mai la RACCOLTA. Le due cose sono scollegate.
+- **`qa_agent.py`** (ogni giorno 05:00) controlla: smoke test pipeline, integrita' dati, **dimensioni file
+  (<90MB, alert prima del limite)**, freschezza. Se qualcosa e' rotto → email con errore esatto.
+- **`watchdog.py`** (ogni 4h) controlla freschezza dati + auto-recovery.
+
+Principio: **raccolta dati sacra e indistruttibile.** L'analisi puo' rompersi (si becca e si aggiusta),
+ma i dati devono SEMPRE entrare e salvarsi. Ogni nuovo pezzo passa dallo smoke test del QA agent.

@@ -97,6 +97,22 @@ def _imports():
     return "tutti i moduli ok"
 
 
+# ---------- 2b. DIMENSIONI FILE: nessuno vicino al limite GitHub (100MB) ----------
+@check("dimensioni file dati (< 90MB, limite GitHub 100MB)")
+def _filesize():
+    big = []
+    dd = os.path.join(HERE, "data")
+    for f in os.listdir(dd):
+        mb = os.path.getsize(os.path.join(dd, f)) / 1e6
+        if mb >= 90 and not f.endswith(".gz"):
+            big.append(f"{f}={mb:.0f}MB")
+    if big:
+        raise MemoryError("file vicini/oltre il limite 100MB (push a rischio): " + ", ".join(big))
+    # segnala i piu' grossi (info)
+    tops = sorted(((os.path.getsize(os.path.join(dd, f)) / 1e6, f) for f in os.listdir(dd) if f.endswith(".jsonl")), reverse=True)[:2]
+    return "max: " + ", ".join(f"{f}={mb:.0f}MB" for mb, f in tops)
+
+
 # ---------- 3. FRESCHEZZA: niente interruzioni ----------
 @check("freschezza — scan/tracking non fermi")
 def _fresh():

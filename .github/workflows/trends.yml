@@ -41,6 +41,7 @@ jobs:
           python geckoterminal_ohlcv.py 40 || echo "geckoterminal ko, continuo"
           python learner.py || echo "learner ko, continuo"
           python pipeline_export.py || echo "pipeline_export ko, continuo"
+          python prune_data.py || echo "prune ko, continuo"      # tiene i file < 100MB
           python paper_account.py
 
       - name: Salva trend + candidate filtrate + dashboard json
