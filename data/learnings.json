@@ -44,7 +44,7 @@
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.578,
+      "runner_median": 0.579,
       "dead_median": 0.718,
       "ratio": 0.8
     },
