@@ -31,6 +31,8 @@ OUT = os.path.join(HERE, "data", "track.jsonl")
 # bastano poche ore per il confronto. E' qui che "popoliamo massivamente" solo le green.
 GREEN_WINDOW_H = 120   # perle: 5 giorni di tracking ricco
 RED_WINDOW_H = 96      # scartate: 4 giorni (non perdiamo i runner tardivi — "TUTTI i dati possibili")
+MAX_TRACK = 350        # TETTO: coi 2000+ token accumulati non si tracciano tutti ogni giro (timeout). I 350
+                       # piu' FRESCHI per primi (le memecoin fresche sono dove c'e' l'azione; le vecchie sono morte)
 
 
 def _dex(ca):
@@ -105,14 +107,16 @@ def run():
         return 0
     now = int(time.time())
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
+    # ATTIVI (dentro finestra), i piu' FRESCHI per primi, con TETTO -> il tracker finisce sempre in tempo
+    active = [(ca, meta) for ca, meta in first.items()
+              if (now - meta["signal_ts"]) / 60 <= (GREEN_WINDOW_H if meta.get("pass") else RED_WINDOW_H) * 60]
+    active.sort(key=lambda x: x[1]["signal_ts"], reverse=True)
+    skipped = len(first) - len(active)
+    active = active[:MAX_TRACK]
     f = open(OUT, "a")
-    n = skipped = 0
-    for ca, meta in first.items():
+    n = 0
+    for ca, meta in active:
         age_min = (now - meta["signal_ts"]) / 60
-        window = GREEN_WINDOW_H if meta.get("pass") else RED_WINDOW_H
-        if age_min > window * 60:
-            skipped += 1
-            continue
         d = _dex(ca)
         if not d:
             continue
@@ -139,8 +143,9 @@ def run():
                "pc_m5": d.get("pc_m5"), "pc_1h": d["pc_1h"], "pc_6h": d.get("pc_6h"), "pc_24h": d["pc_24h"],
                "pair_created_ms": d.get("pair_created_ms"),
                "has_socials": d.get("has_socials"), "has_website": d.get("has_website")}
-        # WHALE + sicurezza nel tempo (solo Solana, via Helius): chi tiene il token ORA + authority storicizzate.
-        if chain == "solana" and onchain.available():
+        # WHALE + sicurezza via Helius (LENTO): solo sui token FRESCHI (<12h). Per i vecchi il prezzo basta
+        # (DexScreener, veloce) -> il tracker finisce in tempo anche con 2000+ token accumulati.
+        if chain == "solana" and age_min < 12 * 60 and onchain.available():
             s = onchain.token_safety(ca) or {}
             row["top10_pct"] = s.get("top10_pct")
             row["top1_pct"] = s.get("top1_pct")

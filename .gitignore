@@ -16,3 +16,4 @@ radar.db-shm
 .DS_Store
 /tmp/
 *.log
+data/track_full_archive.jsonl.gz
