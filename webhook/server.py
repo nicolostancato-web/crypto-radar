@@ -1,65 +1,73 @@
 """
-webhook/server.py — RICEVITORE REAL-TIME (mossa #2, il 100%). PRONTO MA SPENTO.
+webhook/server.py — RICEVITORE REAL-TIME delle balene + FEED per il dashboard.
 
-Quando lo accendi (deploy su Railway, ~$5/mese), Helius gli manda un POST OGNI VOLTA che un wallet
-monitorato (le balene vincenti trovate da smart_money) fa una transazione. Il server riconosce se ha
-COMPRATO un token e ti manda un alert email IMMEDIATO: "🐋 La balena X ha appena comprato Y".
-E' il copy-trading in tempo reale: vedi le balene vincenti muoversi al secondo, non ogni 4h.
+Helius manda un POST ogni volta che una balena vincente fa uno swap. Il server riconosce gli ACQUISTI,
+li salva in memoria (ultimi 100) e li espone su GET /events -> il dashboard li mostra in diretta
+("🐋 movimenti balene"). Cosi' apri il sito e vedi cosa hanno comprato le balene, senza email.
+(L'email resta opzionale in background se GMAIL_APP_PASSWORD e' impostata.)
 
-NON deployare finche' smart_wallets.json non ha wallet con winrate alto (vedi webhook/README.md).
-Dipendenze: fastapi, uvicorn. Email via Gmail (GMAIL_APP_PASSWORD), opzionale.
+Dipendenze: fastapi, uvicorn.
 """
-import os, json, smtplib, threading
+import os, json, time, smtplib, threading
 from email.mime.text import MIMEText
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 ALERT_TO = os.getenv("ALERT_EMAIL", "nicolostancato@gmail.com")
+
+EVENTS = []          # ultimi movimenti balene (in memoria)
+MAX_EVENTS = 100
 
 
 def _email(subject, body):
-    user = os.getenv("GMAIL_USER", "nicolostancato@gmail.com")
     pw = os.getenv("GMAIL_APP_PASSWORD")
     if not pw:
-        print("[webhook] no GMAIL_APP_PASSWORD — alert solo nei log:", subject)
         return
     try:
+        user = os.getenv("GMAIL_USER", "nicolostancato@gmail.com")
         m = MIMEText(body); m["Subject"] = subject; m["From"] = user; m["To"] = ALERT_TO
         s = smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=15)
         s.login(user, pw.replace(" ", "")); s.sendmail(user, [ALERT_TO], m.as_string()); s.quit()
-        print("[webhook] alert email inviato")
     except Exception as e:
         print("[webhook] errore email:", str(e)[:120])
 
 
 @app.get("/")
 def health():
-    return {"ok": True, "service": "crypto-radar whale webhook"}
+    return {"ok": True, "service": "crypto-radar whale webhook", "events_seen": len(EVENTS)}
+
+
+@app.get("/events")
+def events():
+    """Il dashboard legge da qui: i movimenti recenti delle balene (piu' nuovi in cima)."""
+    return {"count": len(EVENTS), "events": list(reversed(EVENTS))[:50]}
 
 
 @app.post("/helius")
 async def helius(req: Request):
-    """Riceve gli eventi Helius. Per ogni tx, se un wallet monitorato ha COMPRATO un token → alert."""
+    """Riceve gli eventi Helius. Per ogni tx, se una balena ha COMPRATO un token -> salva + (email)."""
     try:
-        events = await req.json()
+        data = await req.json()
     except Exception:
         return {"ok": False}
-    if not isinstance(events, list):
-        events = [events]
+    events = data if isinstance(data, list) else [data]
     for tx in events:
         fee = tx.get("feePayer")
         if not fee:
             continue
-        # capisce quale token ha ricevuto (= comprato) il wallet che ha pagato la fee
         bought = None
         for tt in (tx.get("tokenTransfers") or []):
             if tt.get("toUserAccount") == fee and tt.get("mint"):
-                bought = tt.get("mint")
-                break
+                bought = tt.get("mint"); break
         if bought:
-            short = fee[:6] + "…"
-            msg = f"🐋 Balena {short} ha COMPRATO il token {bought[:8]}…\nSolscan: https://solscan.io/account/{fee}\nToken: https://dexscreener.com/solana/{bought}"
-            print("[webhook] BUY:", short, "->", bought[:8])
-            # email in BACKGROUND: rispondiamo subito a Helius (niente blocco/timeout)
-            threading.Thread(target=_email, args=(f"🐋 Balena {short} ha comprato {bought[:6]}", msg), daemon=True).start()
+            ev = {"ts": int(time.time()), "wallet": fee, "token": bought,
+                  "solscan": f"https://solscan.io/account/{fee}",
+                  "dex": f"https://dexscreener.com/solana/{bought}"}
+            EVENTS.append(ev)
+            del EVENTS[:-MAX_EVENTS]
+            print("[webhook] BUY:", fee[:6], "->", bought[:8])
+            msg = f"🐋 Balena {fee[:6]}… ha comprato {bought[:8]}…\n{ev['dex']}"
+            threading.Thread(target=_email, args=(f"🐋 Balena ha comprato {bought[:6]}", msg), daemon=True).start()
     return {"ok": True, "n": len(events)}
