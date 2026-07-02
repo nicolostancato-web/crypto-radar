@@ -18,6 +18,20 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SLIP = 0.06
 
 
+def _smart_wallets():
+    """Set degli indirizzi dei wallet vincenti (da smart_money.py). Robusto: mai crash su file assente/malformato.
+    Supporta il formato esistente {'smart':[{wallet,...}]} e il mio {'wallets':[{wallet,...}]}."""
+    p = os.path.join(HERE, "data", "smart_wallets.json")
+    if not os.path.exists(p):
+        return set()
+    try:
+        d = json.load(open(p))
+        lst = d.get("smart") or d.get("wallets") or []
+        return {w["wallet"] for w in lst if isinstance(w, dict) and w.get("wallet")}
+    except Exception:
+        return set()
+
+
 # ---------- 0. DATASET ALLINEATO (la base comune) ----------
 def aligned_dataset():
     obs = {}
@@ -42,18 +56,15 @@ def aligned_dataset():
                     candles[r["ca"]] = sorted([(int(x[0]), x[2], x[4]) for x in cc], key=lambda t: t[0])
             except Exception:
                 pass
-    # SMART MONEY: quanti wallet della watchlist vincente comprano ogni token (la SVOLTA)
-    smartset = set()
-    swp = os.path.join(HERE, "data", "smart_wallets.json")
-    if os.path.exists(swp):
-        smartset = {w["wallet"] for w in json.load(open(swp)).get("wallets", [])}
+    # SMART MONEY: quanti wallet vincenti (dalla watchlist di smart_money.py) comprano ogni token (la SVOLTA)
+    smartset = _smart_wallets()
     smart = {}
     wf = os.path.join(HERE, "data", "whale_flow.jsonl")
     if os.path.exists(wf) and smartset:
         for l in open(wf):
             try:
                 r = json.loads(l)
-                buyers = {s["w"] for s in (r.get("swaps") or []) if s["s"] == "b"}
+                buyers = {s["w"] for s in (r.get("swaps") or []) if isinstance(s, dict) and s.get("s") == "b"}
                 smart[r["ca"]] = len(buyers & smartset)
             except Exception:
                 pass
@@ -110,7 +121,7 @@ def analista(mature):
         ranked.append({"filter": name, "n": len(sel), "win": round(win), "lift": round(win - base)})
     ranked.sort(key=lambda x: x["lift"], reverse=True)
     recs = [r["filter"] for r in ranked[:2] if r["lift"] >= 5]   # raccomanda al Trader i top con lift reale
-    gaps = [r["filter"] for r in FILTERS if sum(1 for x in mature if FILTERS[r](x)) < 15]
+    gaps = [r for r in FILTERS if sum(1 for x in mature if FILTERS[r](x)) < 15]   # r E' GIA' il nome del filtro
     return {"base_win": round(base), "ranking": ranked, "recommends_to_trader": recs, "data_gaps": gaps}
 
 

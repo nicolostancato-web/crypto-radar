@@ -94,18 +94,23 @@ def run():
         c = json.loads(l); ca = c.get("ca")
         if ca and ca not in bs:
             bs[ca] = (c.get("metrics") or {}).get("bs_ratio_1h"); tick[ca] = c.get("ticker")
-    # SMART MONEY: quanti wallet vincenti comprano ogni token (per il filtro smart>=N)
+    # SMART MONEY: quanti wallet vincenti comprano ogni token (per il filtro smart>=N). Robusto.
     smartset = set()
     swp = os.path.join(HERE, "data", "smart_wallets.json")
     if os.path.exists(swp):
-        smartset = {w["wallet"] for w in json.load(open(swp)).get("wallets", [])}
+        try:
+            d = json.load(open(swp))
+            lst = d.get("smart") or d.get("wallets") or []
+            smartset = {w["wallet"] for w in lst if isinstance(w, dict) and w.get("wallet")}
+        except Exception:
+            smartset = set()
     smart = {}
     wf = os.path.join(HERE, "data", "whale_flow.jsonl")
     if os.path.exists(wf) and smartset:
         for l in open(wf):
             try:
                 r = json.loads(l)
-                buyers = {s["w"] for s in (r.get("swaps") or []) if s["s"] == "b"}
+                buyers = {s["w"] for s in (r.get("swaps") or []) if isinstance(s, dict) and s.get("s") == "b"}
                 smart[r["ca"]] = len(buyers & smartset)
             except Exception:
                 pass

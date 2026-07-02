@@ -1,1 +1,1 @@
-{"filter": "smart>=2", "exit_strategy": "ladder_3step", "n": 246, "median_pnl": null, "mean_pnl": -0.3, "win": 38, "bet_frac": 0.1, "profitable": false}
+{"filter": "smart>=1", "exit_strategy": "house_money_3x", "n": 65, "median_pnl": -24.3, "win": 43, "bet_frac": 0.12, "profitable": true}
