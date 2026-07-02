@@ -1,7 +1,7 @@
 {
-  "updated_utc": "2026-07-02 15:34",
-  "wallets_seen": 8077,
-  "qualified": 994,
+  "updated_utc": "2026-07-02 18:21",
+  "wallets_seen": 8166,
+  "qualified": 1007,
   "min_plays": 2,
   "smart": [
     {
@@ -66,7 +66,7 @@
       ]
     },
     {
-      "wallet": "HMjMJZsQp6ykQyNSk8ZdmcJnNg5w9tRdU3q1DG3sW4ag",
+      "wallet": "5mGLCZETWJESP8hU3FMMrcgZUddvp1MXHnkfokG5eTSE",
       "plays": 2,
       "hits": 2,
       "winrate": 1.0,
@@ -76,7 +76,7 @@
       ]
     },
     {
-      "wallet": "5mGLCZETWJESP8hU3FMMrcgZUddvp1MXHnkfokG5eTSE",
+      "wallet": "HMjMJZsQp6ykQyNSk8ZdmcJnNg5w9tRdU3q1DG3sW4ag",
       "plays": 2,
       "hits": 2,
       "winrate": 1.0,
@@ -186,16 +186,6 @@
       ]
     },
     {
-      "wallet": "pumphdJgo4Q9D1rvkvBMNyrMTHUaArVokeSqa8qnrf1",
-      "plays": 2,
-      "hits": 2,
-      "winrate": 1.0,
-      "tickers": [
-        "Guxss",
-        "Just $Ape"
-      ]
-    },
-    {
       "wallet": "A1tuCK9xuxTcedeBoibNa5Z6jeBkMVe7ddoxL2GbxcLq",
       "plays": 2,
       "hits": 2,
@@ -203,6 +193,16 @@
       "tickers": [
         "Guxss",
         "Lorenz is an a"
+      ]
+    },
+    {
+      "wallet": "pumphdJgo4Q9D1rvkvBMNyrMTHUaArVokeSqa8qnrf1",
+      "plays": 2,
+      "hits": 2,
+      "winrate": 1.0,
+      "tickers": [
+        "Guxss",
+        "Just $Ape"
       ]
     }
   ]
