@@ -74,11 +74,14 @@ def run():
     flt = cfg.get("filter", "bs>=2.0")
     exit_name = cfg.get("exit_strategy", "trail30")
     spec = exits.STRATEGIES.get(exit_name, exits.STRATEGIES["trail30"])
-    def keep(bs):
-        if flt == "bs>=1.5": return (bs or 0) >= 1.5
-        if flt == "bs>=2.0": return (bs or 0) >= 2.0
-        if flt == "bs>=3.0": return (bs or 0) >= 3.0
-        return True
+    def keep(ca):
+        if flt.startswith("smart>="):
+            return smart.get(ca, 0) >= int(flt.split(">=")[1])
+        if flt.startswith("bs>="):
+            return (bs.get(ca) or 0) >= float(flt.split(">=")[1])
+        if flt == "buy_all":
+            return True
+        return False   # filtro sconosciuto -> NON comprare (mai piu' "compra tutto" per sbaglio)
 
     # dataset: serie + bs
     obs = {}
@@ -91,12 +94,27 @@ def run():
         c = json.loads(l); ca = c.get("ca")
         if ca and ca not in bs:
             bs[ca] = (c.get("metrics") or {}).get("bs_ratio_1h"); tick[ca] = c.get("ticker")
+    # SMART MONEY: quanti wallet vincenti comprano ogni token (per il filtro smart>=N)
+    smartset = set()
+    swp = os.path.join(HERE, "data", "smart_wallets.json")
+    if os.path.exists(swp):
+        smartset = {w["wallet"] for w in json.load(open(swp)).get("wallets", [])}
+    smart = {}
+    wf = os.path.join(HERE, "data", "whale_flow.jsonl")
+    if os.path.exists(wf) and smartset:
+        for l in open(wf):
+            try:
+                r = json.loads(l)
+                buyers = {s["w"] for s in (r.get("swaps") or []) if s["s"] == "b"}
+                smart[r["ca"]] = len(buyers & smartset)
+            except Exception:
+                pass
     candles = _candles()
 
     # trade NUOVI che si sono chiusi (token maturi, filtro ok, non gia' contati)
     closing = []
     for ca, s in obs.items():
-        if ca in processed or ca not in bs or not keep(bs.get(ca)):
+        if ca in processed or ca not in bs or not keep(ca):
             continue
         s = sorted(s)
         if len(s) < 6:                      # non ancora maturo -> ancora "aperto", lo conto quando chiude
