@@ -1,13 +1,13 @@
 {
-  "updated_utc": "2026-07-02 20:22",
+  "updated_utc": "2026-07-02 21:08",
   "runner_pct": 50,
-  "settled": 2154,
-  "runners": 423,
-  "deads": 1731,
+  "settled": 2155,
+  "runners": 422,
+  "deads": 1733,
   "by_arena": {
     "memecoin": {
-      "trades": 2106,
-      "runners": 413,
+      "trades": 2107,
+      "runners": 412,
       "runner_rate": 0.2
     },
     "ai_agent": {
@@ -23,9 +23,9 @@
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 8977,
-      "dead_median": 3166.0,
-      "ratio": 2.84
+      "runner_median": 8964.5,
+      "dead_median": 3182.0,
+      "ratio": 2.82
     },
     {
       "feature": "age_h",
@@ -37,37 +37,37 @@
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 67799,
-      "dead_median": 47473.0,
-      "ratio": 1.43
+      "runner_median": 67789.5,
+      "dead_median": 47634.5,
+      "ratio": 1.42
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
       "runner_median": 0.579,
       "dead_median": 0.718,
-      "ratio": 0.8
+      "ratio": 0.81
     },
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 19140,
-      "dead_median": 16212.5,
-      "ratio": 1.18
+      "runner_median": 19034.0,
+      "dead_median": 16249.5,
+      "ratio": 1.17
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
-      "runner_median": 1.28,
+      "runner_median": 1.275,
       "dead_median": 1.19,
-      "ratio": 1.08
+      "ratio": 1.07
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 8.23,
+      "runner_median": 8.245,
       "dead_median": 8.81,
-      "ratio": 0.93
+      "ratio": 0.94
     },
     {
       "feature": "grok_heat",
