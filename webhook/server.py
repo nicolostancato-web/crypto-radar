@@ -57,9 +57,10 @@ async def helius(req: Request):
         fee = tx.get("feePayer")
         if not fee:
             continue
+        WSOL = "So11111111111111111111111111111111111111112"   # ricevere WSOL = ha VENDUTO, non comprato
         bought = None
         for tt in (tx.get("tokenTransfers") or []):
-            if tt.get("toUserAccount") == fee and tt.get("mint"):
+            if tt.get("toUserAccount") == fee and tt.get("mint") and tt.get("mint") != WSOL:
                 bought = tt.get("mint"); break
         if bought:
             ev = {"ts": int(time.time()), "wallet": fee, "token": bought,
