@@ -36,11 +36,13 @@ jobs:
           python paper_account.py
 
       - name: Meeting di allenamento giornaliero (sveglia interna 1x al giorno dopo le 06 UTC)
+        continue-on-error: true      # se l'analisi crasha, NON deve bloccare il salvataggio dei dati
         env:
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
         run: python team_meeting.py daily
 
       - name: Sveglia gli scan in ritardo (cron-job.org interno)
+        continue-on-error: true      # non critico: non deve mai bloccare la raccolta
         env:
           WORKFLOW_PAT: ${{ secrets.WORKFLOW_PAT }}
         run: python wake.py

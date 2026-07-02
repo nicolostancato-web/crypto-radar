@@ -32,13 +32,15 @@ jobs:
           XAI_API_KEY: ${{ secrets.XAI_API_KEY }}
           HELIUS_API_KEY: ${{ secrets.HELIUS_API_KEY }}
         run: |
+          # CRITICI (la raccolta): se falliscono deve saltare tutto
           python trend_agent.py
           python discovery_dex.py
           python filter_tokens.py 3
           python tracker.py
-          python geckoterminal_ohlcv.py 40
-          python learner.py
-          python pipeline_export.py
+          # NON critici (arricchimento/analisi): un crash qui NON deve bloccare il salvataggio dei dati raccolti
+          python geckoterminal_ohlcv.py 40 || echo "geckoterminal ko, continuo"
+          python learner.py || echo "learner ko, continuo"
+          python pipeline_export.py || echo "pipeline_export ko, continuo"
           python paper_account.py
 
       - name: Salva trend + candidate filtrate + dashboard json
