@@ -1,13 +1,13 @@
 {
-  "updated_utc": "2026-07-02 00:05",
+  "updated_utc": "2026-07-02 00:34",
   "runner_pct": 50,
-  "settled": 2097,
-  "runners": 386,
-  "deads": 1711,
+  "settled": 2123,
+  "runners": 393,
+  "deads": 1730,
   "by_arena": {
     "memecoin": {
-      "trades": 2049,
-      "runners": 376,
+      "trades": 2075,
+      "runners": 383,
       "runner_rate": 0.18
     },
     "ai_agent": {
@@ -23,56 +23,56 @@
     {
       "feature": "liq",
       "label": "liquidità",
-      "runner_median": 8568.0,
-      "dead_median": 3331.5,
-      "ratio": 2.57
+      "runner_median": 8645,
+      "dead_median": 3326,
+      "ratio": 2.6
     },
     {
       "feature": "age_h",
       "label": "età (h)",
-      "runner_median": 2.1,
+      "runner_median": 2.0,
       "dead_median": 1.4,
-      "ratio": 1.5
+      "ratio": 1.43
     },
     {
       "feature": "voliq",
       "label": "volume/liquidità",
-      "runner_median": 6.86,
-      "dead_median": 8.87,
+      "runner_median": 6.925,
+      "dead_median": 8.99,
       "ratio": 0.77
     },
     {
       "feature": "vol_24h",
       "label": "volume 24h",
-      "runner_median": 57152.0,
-      "dead_median": 48184.0,
+      "runner_median": 57206,
+      "dead_median": 48205,
       "ratio": 1.19
     },
     {
       "feature": "top10_pct",
       "label": "top 10 wallet",
-      "runner_median": 0.596,
+      "runner_median": 0.597,
       "dead_median": 0.701,
       "ratio": 0.85
     },
     {
       "feature": "bs_ratio_1h",
       "label": "buy/sell 1h",
-      "runner_median": 1.27,
+      "runner_median": 1.26,
       "dead_median": 1.2,
-      "ratio": 1.06
+      "ratio": 1.05
     },
     {
       "feature": "vol_1h",
       "label": "volume 1h",
-      "runner_median": 16673.0,
-      "dead_median": 16964.5,
-      "ratio": 0.98
+      "runner_median": 16771,
+      "dead_median": 17324,
+      "ratio": 0.97
     },
     {
       "feature": "grok_heat",
       "label": "heat di Grok",
-      "runner_median": 3.0,
+      "runner_median": 3,
       "dead_median": 3.0,
       "ratio": 1.0
     }
