@@ -23,7 +23,7 @@ def main():
     if not os.path.exists(SMART):
         print("smart_wallets.json assente — gira prima smart_money.py (servono balene identificate)."); sys.exit(1)
     smart = json.load(open(SMART)).get("smart", [])
-    wallets = [w["wallet"] for w in smart if w.get("winrate", 0) >= MIN_WINRATE][:MAX_WALLETS]
+    wallets = [w["wallet"].strip() for w in smart if w.get("wallet") and w.get("winrate", 0) >= MIN_WINRATE][:MAX_WALLETS]
     if not wallets:
         print(f"Nessuna balena con winrate >= {MIN_WINRATE} ancora. Accumula altri dati prima di accendere il webhook.")
         sys.exit(0)
